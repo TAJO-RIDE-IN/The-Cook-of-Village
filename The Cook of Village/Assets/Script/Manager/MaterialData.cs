@@ -9,17 +9,17 @@ public class MaterialInfos
     public int ID;
     public string Name;
     public int Price;
-    public int Possession; //player가 소지중인 개수
-    public Sprite Image3D; //3d Image
+    public int Amount; //player가 소지중인 개수
+    public GameObject PrefabMaterial;
     public Image ImageUI; //UIImage
 
-    public MaterialInfos(int type, int id, string name, int price, int possession, Sprite image3D, Image imageUI)
+    public MaterialInfos(int id, string name, int price, int amount, GameObject prefab, Image imageUI)
     {
         ID = id;
         Name = name;
         Price = price;
-        Possession = possession;
-        Image3D = image3D;
+        Amount = amount;
+        PrefabMaterial = prefab;
         ImageUI = imageUI;
     }
 }
