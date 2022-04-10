@@ -2016,9 +2016,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1775440823908822243}
         m_TargetAssemblyTypeName: MaterialData, Assembly-CSharp
-        m_MethodName: SaveNoteData
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4092,64 +4092,78 @@ MonoBehaviour:
   - type: 0
     materialInfos:
     - ID: 0
+      Name: Flour
+      Price: 0
+      Amount: 0
+      PrefabMaterial: {fileID: 0}
+      ImageUI: {fileID: 0}
+    - ID: 1
+      Name: Sugar
+      Price: 0
+      Amount: 0
+      PrefabMaterial: {fileID: 0}
+      ImageUI: {fileID: 0}
+  - type: 1
+    materialInfos:
+    - ID: 10
       Name: Orange
       Price: 0
       Amount: 2
       PrefabMaterial: {fileID: 0}
       ImageUI: {fileID: 0}
-    - ID: 1
+    - ID: 11
       Name: Lemon
       Price: 0
       Amount: 2
       PrefabMaterial: {fileID: 0}
       ImageUI: {fileID: 0}
-    - ID: 2
+    - ID: 12
       Name: Watermelon
       Price: 0
       Amount: 2
       PrefabMaterial: {fileID: 0}
       ImageUI: {fileID: 0}
-  - type: 1
+  - type: 2
     materialInfos:
-    - ID: 0
+    - ID: 20
       Name: Tomato
       Price: 0
       Amount: 2
       PrefabMaterial: {fileID: 0}
       ImageUI: {fileID: 0}
-    - ID: 0
+    - ID: 21
       Name: Potato
       Price: 0
       Amount: 2
       PrefabMaterial: {fileID: 0}
       ImageUI: {fileID: 0}
-    - ID: 0
+    - ID: 22
       Name: 
       Price: 0
       Amount: 0
       PrefabMaterial: {fileID: 0}
       ImageUI: {fileID: 0}
-  - type: 2
+  - type: 3
     materialInfos:
-    - ID: 0
+    - ID: 30
       Name: Beef
       Price: 0
       Amount: 1
       PrefabMaterial: {fileID: 0}
       ImageUI: {fileID: 0}
-    - ID: 0
+    - ID: 31
       Name: Chicken
       Price: 0
       Amount: 2
       PrefabMaterial: {fileID: 0}
       ImageUI: {fileID: 0}
-    - ID: 0
+    - ID: 32
       Name: Egg
       Price: 0
       Amount: 3
       PrefabMaterial: {fileID: 0}
       ImageUI: {fileID: 0}
-    - ID: 0
+    - ID: 33
       Name: Bacon
       Price: 0
       Amount: 4
@@ -4181,8 +4195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fcf2dd93dfdf644f9ba60128352b01d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyText: {fileID: 0}
-  timeDayText: {fileID: 0}
+  moneyText: {fileID: 1233625206269600217}
+  timeDayText: {fileID: 1233625205759474580}
   timeOfDay: 0
   day: 1
 --- !u!1 &1775440823908822243
@@ -4196,13 +4210,129 @@ GameObject:
   - component: {fileID: 1775440823908822241}
   - component: {fileID: 1775440823908822242}
   - component: {fileID: 1775440823908822240}
+  - component: {fileID: 1775440823908822244}
   m_Layer: 0
   m_Name: Manager
-  m_TagString: GameController
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1775440823908822244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775440823908822243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4efefdf112620a642973a249ace6e8d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  food:
+  - type: 0
+    foodInfos:
+    - ID: 0
+      Name: OrangeJuice
+      MakeTime: 2.7
+      Price: 27
+      OrderProbability: 10
+      Recipe: 00000000
+      PrefabFood: {fileID: 0}
+      ImageUI: {fileID: 0}
+    - ID: 1
+      Name: LemonJuice
+      MakeTime: 1.7
+      Price: 17
+      OrderProbability: 10
+      Recipe: 01000000
+      PrefabFood: {fileID: 0}
+      ImageUI: {fileID: 0}
+    - ID: 2
+      Name: WatermelonJjuice
+      MakeTime: 3.7
+      Price: 37
+      OrderProbability: 10
+      Recipe: 02000000
+      PrefabFood: {fileID: 0}
+      ImageUI: {fileID: 0}
+  - type: 1
+    foodInfos:
+    - ID: 0
+      Name: Tomatosoup
+      MakeTime: 4.4
+      Price: 44
+      OrderProbability: 40
+      Recipe: 0a00000000000000
+      PrefabFood: {fileID: 0}
+      ImageUI: {fileID: 0}
+    - ID: 0
+      Name: ChickenStew
+      MakeTime: 13.6
+      Price: 136
+      OrderProbability: 20
+      Recipe: 0000000000000000
+      PrefabFood: {fileID: 0}
+      ImageUI: {fileID: 0}
+  - type: 2
+    foodInfos:
+    - ID: 0
+      Name: FrenchFries
+      MakeTime: 5.4
+      Price: 54
+      OrderProbability: 40
+      Recipe: 
+      PrefabFood: {fileID: 0}
+      ImageUI: {fileID: 0}
+    - ID: 0
+      Name: Pancake
+      MakeTime: 6.4
+      Price: 64
+      OrderProbability: 40
+      Recipe: 
+      PrefabFood: {fileID: 0}
+      ImageUI: {fileID: 0}
+    - ID: 0
+      Name: HamEggSandwich
+      MakeTime: 7.1
+      Price: 71
+      OrderProbability: 20
+      Recipe: 000000000000000000000000
+      PrefabFood: {fileID: 0}
+      ImageUI: {fileID: 0}
+    - ID: 0
+      Name: GrilledChicken
+      MakeTime: 8.1
+      Price: 81
+      OrderProbability: 20
+      Recipe: 
+      PrefabFood: {fileID: 0}
+      ImageUI: {fileID: 0}
+    - ID: 0
+      Name: Steak
+      MakeTime: 9.1
+      Price: 91
+      OrderProbability: 20
+      Recipe: 
+      PrefabFood: {fileID: 0}
+      ImageUI: {fileID: 0}
+    - ID: 0
+      Name: Pizza
+      MakeTime: 13.6
+      Price: 136
+      OrderProbability: 20
+      Recipe: 
+      PrefabFood: {fileID: 0}
+      ImageUI: {fileID: 0}
+    - ID: 0
+      Name: Meatpie
+      MakeTime: 13.6
+      Price: 136
+      OrderProbability: 20
+      Recipe: 
+      PrefabFood: {fileID: 0}
+      ImageUI: {fileID: 0}
 --- !u!1001 &2767636052264339208
 PrefabInstance:
   m_ObjectHideFlags: 0

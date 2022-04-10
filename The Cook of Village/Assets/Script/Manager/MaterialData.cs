@@ -2,6 +2,7 @@
 /// 학번 : 91914200
 /// 이름 : JungNaEun 정나은
 ////////////////////////////////////
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -31,7 +32,7 @@ public class MaterialInfos
 [System.Serializable]
 public class Material
 {
-    public enum Type { Fruit, Vegetable, Meat }
+    public enum Type { Base, Fruit, Vegetable, Meat }
     [SerializeField]
     public Type type;
     public List<MaterialInfos> materialInfos = new List<MaterialInfos>();
@@ -47,20 +48,21 @@ public class MaterialData : MonoBehaviour
     [SerializeField]
     public Material[] material;
     [ContextMenu("To Json Data")]
-    public void SaveNoteData()
+    public void SaveData()
     {
         string toJson = JsonHelper.arrayToJson(material, prettyPrint: true);
         File.WriteAllText(Application.dataPath + "/Resources/Data/MaterialData.json", toJson);
     }
-    public void LoadNoteData()
+    public void LoadData()
     {
         string path = "Data/MaterialData";
         TextAsset jsonData = Resources.Load(path) as TextAsset;
         material = JsonHelper.getJsonArray<Material>(jsonData.ToString());
     }
 
-    public void ChangeAmount(int type, int order, int amount)
+    public void ChangeAmount(int type, int id, int amount)
     {
-        material[type].materialInfos[order].Amount = amount;
+        int dataIndex = material[type].materialInfos.FindIndex(m => m.ID == id);
+        material[type].materialInfos[dataIndex].Amount = amount;
     }
 }

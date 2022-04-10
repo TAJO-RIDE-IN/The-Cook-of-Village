@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class SlotRefrigerator : MonoBehaviour
 {
     public int Type;
-    public int Order;
+    public int ID;
     public Text CountText;
     [SerializeField]
     private int slotCount;
@@ -22,13 +22,16 @@ public class SlotRefrigerator : MonoBehaviour
             slotCount = value;
             ModifyText();
             SlotState();
-            Data.ChangeAmount(Type, Order, slotCount);
+            if(Data != null)
+            { 
+                Data.ChangeAmount(Type, ID, slotCount);
+            }
         }
     }
     private MaterialData Data;
     private void Awake()
     {
-        Data = GameObject.FindGameObjectWithTag("GameController").GetComponent<MaterialData>();
+        Data = GameObject.FindGameObjectWithTag("GameManager").GetComponent<MaterialData>();
     }
     private void OnEnable()
     {
