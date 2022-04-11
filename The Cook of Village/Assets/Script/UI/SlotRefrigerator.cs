@@ -7,31 +7,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SlotRefrigerator : MonoBehaviour
+public class SlotRefrigerator : Slot
 {
-    public int Type;
-    public int ID;
-    public Text CountText;
-    [SerializeField]
-    private int slotCount;
     public int SlotCount
     {
         get { return slotCount; }
         set
         {
             slotCount = value;
-            ModifyText();
+            ModifySlot();
             SlotState();
             if(Data != null)
             { 
                 Data.ChangeAmount(Type, ID, slotCount);
             }
         }
-    }
-    private MaterialData Data;
-    private void Awake()
-    {
-        Data = GameObject.FindGameObjectWithTag("GameManager").GetComponent<MaterialData>();
     }
     private void OnEnable()
     {
@@ -43,11 +33,11 @@ public class SlotRefrigerator : MonoBehaviour
         state = (slotCount > 0) ? true : false;
         this.gameObject.SetActive(state);
     }
-    private void ModifyText()
+    public override void ModifySlot()
     {
         CountText.text = "X" + SlotCount;
     }
-    public void ClickSlot()
+    public override void SelectSlot()
     {
         if (slotCount > 0)
         {

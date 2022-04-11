@@ -45,6 +45,7 @@ public class Material
 
 public class MaterialData : MonoBehaviour
 {
+    public int MaxMaterialCount = 100;
     [SerializeField]
     public Material[] material;
     [ContextMenu("To Json Data")]
