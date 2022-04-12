@@ -9,6 +9,9 @@ using UnityEngine.UI;
 
 public class SlotRefrigerator : Slot
 {
+    public GameObject SlotObject;
+    public GameObject RefrigeratorUI;
+    private Transform Player;
     public int SlotCount
     {
         get { return slotCount; }
@@ -22,6 +25,10 @@ public class SlotRefrigerator : Slot
                 Data.ChangeAmount(Type, ID, slotCount);
             }
         }
+    }
+    private void Start()
+    {
+        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
     private void OnEnable()
     {
@@ -42,6 +49,9 @@ public class SlotRefrigerator : Slot
         if (slotCount > 0)
         {
             SlotCount--;
+            RefrigeratorUI.SetActive(false);
+            Vector3 position = Player.position;
+            Instantiate(SlotObject, position, Quaternion.identity);
         }
     }
 }

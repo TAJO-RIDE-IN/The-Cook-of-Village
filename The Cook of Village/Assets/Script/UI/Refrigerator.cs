@@ -41,7 +41,9 @@ public class Refrigerator : MonoBehaviour
                 int amount = data.material[type].materialInfos[slotIndex].Amount;
                 slot.Type = type;
                 slot.ID = data.material[type].materialInfos[slotIndex].ID;
+                slot.SlotObject = data.material[type].materialInfos[slotIndex].PrefabMaterial;
                 slot.SlotCount = amount;
+                slot.RefrigeratorUI = this.gameObject;
             }
         }
     }
