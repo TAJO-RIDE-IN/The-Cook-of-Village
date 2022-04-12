@@ -14,7 +14,7 @@ public class SlotShop : Slot
     public Text SlotText;
     public Text PriceText;
     public Image SlotImage;
-    public Image SlotImageData;
+    public Sprite SlotImageData;
     public ShopSelect SelectSlotObject;
     public int SlotCount
     {
@@ -36,14 +36,14 @@ public class SlotShop : Slot
         SelectSlotObject.gameObject.SetActive(true);
         SelectSlotObject.slot = this;
         SelectSlotObject.CurrentCount = slotCount;
-        SelectSlotObject.ModifySlot(Name, SlotImage);
+        SelectSlotObject.ModifySlot(Name, SlotImageData);
     }
 
     public override void ModifySlot()
     {
         CountText.text = slotCount.ToString();
         PriceText.text = Price.ToString();
-        //SlotImage = SlotImageData;
+        SlotImage.sprite = SlotImageData;
         SlotText.text = Name;
     }
 }
