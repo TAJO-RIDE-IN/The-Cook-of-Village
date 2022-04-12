@@ -32,7 +32,7 @@ public class ShopUI : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
-
+    
     private void OnEnable()
     {
         SlotDataLoad();
@@ -46,12 +46,18 @@ public class ShopUI : MonoBehaviour
         {
             if(order < data.material[type].materialInfos.Count)
             {
+                slot.gameObject.SetActive(true);
                 slot.Type = type;
                 slot.ID = data.material[type].materialInfos[order].ID;
+                slot.Name = data.material[type].materialInfos[order].Name;
                 slot.SlotImageData = data.material[type].materialInfos[order].ImageUI;
                 slot.SlotCount = data.material[type].materialInfos[order].Amount;
                 slot.Price = data.material[type].materialInfos[order].Price;
                 order++;
+            }
+            else
+            {
+                slot.gameObject.SetActive(false);
             }
         }
     }

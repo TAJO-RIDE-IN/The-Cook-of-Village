@@ -45,7 +45,7 @@ public class Material
 
 public class MaterialData : MonoBehaviour
 {
-    public int MaxMaterialCount = 100;
+    public int MaxMaterialCount = 99;
     [SerializeField]
     public Material[] material;
     [ContextMenu("To Json Data")]
@@ -66,4 +66,5 @@ public class MaterialData : MonoBehaviour
         int dataIndex = material[type].materialInfos.FindIndex(m => m.ID == id);
         material[type].materialInfos[dataIndex].Amount = amount;
     }
+
 }

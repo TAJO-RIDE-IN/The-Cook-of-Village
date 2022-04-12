@@ -12,27 +12,22 @@ using UnityEngine.UI;
 public class ShopButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public Slider CountSlider;
-    private bool isClick = false;
-    private bool IsClick
+    private bool IsClick = false;
+    private bool changeValue = false;
+    private bool ChangeValue
     {
-        get { return isClick; }
-        set 
+        get { return changeValue; }
+        set
         {
-            Debug.Log("set");
-            isClick = value;
-            float speed = 0.5f;
-            if(isClick == true)
+            changeValue = value;
+            float speed = 0.2f;
+
+            if (changeValue)
             {
-                Debug.Log("true");
-                if (SpeedUPTime)
-                {
-                    speed = 0.1f;
-                }
-                LongClickValueChange(speed);  
+                StartCoroutine(LongClickValueChange(speed));
             }
         }
     }
-    private bool SpeedUPTime = false;
     private bool plus = false;
 
     Dictionary<bool, int> SliderValue = new Dictionary<bool, int>();
@@ -53,14 +48,24 @@ public class ShopButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData) //클릭감지
     {
-        StartCoroutine(IsClick.CheckDelay<bool>(true, 1f, (value) => IsClick = value));
-        StartCoroutine(SpeedUPTime.CheckDelay<bool>(true, 2f, (value) => SpeedUPTime = value));
+        IsClick = true;
+        StartCoroutine(DelayCheck(ChangeValue, 1f, (value) => ChangeValue = value));
     }
     public void OnPointerUp(PointerEventData eventData)
     {
         IsClick = false;
-        SpeedUPTime = false;
+        ChangeValue = false;
     }
+
+    public IEnumerator DelayCheck(bool CurreuntBool, float delay, Action<bool> makeResult)
+    { 
+        yield return new WaitForSeconds(delay);
+        if (IsClick)
+        {
+            makeResult(true);
+        }
+    }
+
     public void ValueButtonClick()
     {
         string currentButton = EventSystem.current.currentSelectedGameObject.name;

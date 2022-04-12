@@ -15,7 +15,7 @@ public class SlotShop : Slot
     public Text PriceText;
     public Image SlotImage;
     public Image SlotImageData;
-    public GameObject SelectSlotObject;
+    public ShopSelect SelectSlotObject;
     public int SlotCount
     {
         get { return slotCount; }
@@ -26,12 +26,17 @@ public class SlotShop : Slot
     {
         ModifySlot();
     }
-
+    private void OnDisable()
+    {
+        Type = 0;
+        ID = 0;
+    }
     public override void SelectSlot()
     {
-        SelectSlotObject.SetActive(true);
-        SelectSlotObject.transform.GetComponent<ShopSelect>().Price = Price;
-        SelectSlotObject.transform.GetComponent<ShopSelect>().CountSlider.value = 0;
+        SelectSlotObject.gameObject.SetActive(true);
+        SelectSlotObject.slot = this;
+        SelectSlotObject.CurrentCount = slotCount;
+        SelectSlotObject.ModifySlot(Name, SlotImage);
     }
 
     public override void ModifySlot()
@@ -39,6 +44,6 @@ public class SlotShop : Slot
         CountText.text = slotCount.ToString();
         PriceText.text = Price.ToString();
         //SlotImage = SlotImageData;
-        //SlotText.text = Name;
+        SlotText.text = Name;
     }
 }

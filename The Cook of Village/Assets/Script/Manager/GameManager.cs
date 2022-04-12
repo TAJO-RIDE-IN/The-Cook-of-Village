@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
             timeDayText.ChangeDay(value);
         }
     }
+    [SerializeField]
     private int money;
     public int Money
     {
