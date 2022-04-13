@@ -39,17 +39,15 @@ public class Refrigerator : MonoBehaviour
             if (data.material[type].materialInfos.Count > slotIndex) //slot이 더 많을 경우 오류나지 않기 위해
             {
                 int amount = data.material[type].materialInfos[slotIndex].Amount;
-                slot.Type = type;
-                slot.ID = data.material[type].materialInfos[slotIndex].ID;
-                slot.SlotObject = data.material[type].materialInfos[slotIndex].PrefabMaterial;
+                slot.materialInfos = data.material[type].materialInfos[slotIndex];
                 slot.SlotCount = amount;
-                slot.RefrigeratorUI = this.gameObject;
+                slot.RefrigeratorUI = refrigeratorUI;
             }
         }
     }
     private void InputDataSlot(int type,int id, int amount)
     {
-        int slotFIndex = SlotDictionary[type].FindIndex(a => a.ID == id);
+        int slotFIndex = SlotDictionary[type].FindIndex(a => a.materialInfos.ID == id);
         SlotDictionary[type][slotFIndex].SlotCount = amount;
     }
     private void OnEnable() //테스트용

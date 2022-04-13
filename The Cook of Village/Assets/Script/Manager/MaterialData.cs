@@ -11,6 +11,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class MaterialInfos
 {
+    public int Type;
     public int ID;
     public string Name;
     public int Price;
@@ -18,8 +19,9 @@ public class MaterialInfos
     public GameObject PrefabMaterial;
     public Sprite ImageUI; //UIImage
 
-    public MaterialInfos(int id, string name, int price, int amount, GameObject prefab, Sprite imageUI)
+    public MaterialInfos(int type,int id, string name, int price, int amount, GameObject prefab, Sprite imageUI)
     {
+        Type = type;
         ID = id;
         Name = name;
         Price = price;
