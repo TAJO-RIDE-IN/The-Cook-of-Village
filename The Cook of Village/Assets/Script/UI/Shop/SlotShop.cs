@@ -9,17 +9,14 @@ using UnityEngine.UI;
 
 public class SlotShop : Slot
 {
-    public int Price;
-    public string Name;
     public Text SlotText;
     public Text PriceText;
     public Image SlotImage;
-    public Image SlotImageData;
     public ShopSelect SelectSlotObject;
     public int SlotCount
     {
-        get { return slotCount; }
-        set { slotCount = value; }
+        get { return materialInfos.Amount; }
+        set { materialInfos.Amount = value; }
     }
 
     private void OnEnable()
@@ -28,22 +25,22 @@ public class SlotShop : Slot
     }
     private void OnDisable()
     {
-        Type = 0;
-        ID = 0;
+        materialInfos.Type = 0;
+        materialInfos.ID = 0;
     }
     public override void SelectSlot()
     {
         SelectSlotObject.gameObject.SetActive(true);
         SelectSlotObject.slot = this;
-        SelectSlotObject.CurrentCount = slotCount;
-        SelectSlotObject.ModifySlot(Name, SlotImage);
+        SelectSlotObject.CurrentCount = materialInfos.Amount;
+        SelectSlotObject.ModifySlot(materialInfos.Name, materialInfos.ImageUI);
     }
 
     public override void ModifySlot()
     {
-        CountText.text = slotCount.ToString();
-        PriceText.text = Price.ToString();
-        //SlotImage = SlotImageData;
-        SlotText.text = Name;
+        //CountText.text = materialInfos.Amount.ToString();
+        PriceText.text = materialInfos.Price.ToString();
+        SlotImage.sprite = materialInfos.ImageUI;
+        SlotText.text = materialInfos.Name;
     }
 }

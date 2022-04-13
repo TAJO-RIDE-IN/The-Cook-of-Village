@@ -9,20 +9,20 @@ using UnityEngine.UI;
 
 public class SlotRefrigerator : Slot
 {
-    public GameObject SlotObject;
     public GameObject RefrigeratorUI;
+    public Text CountText;
     private Transform Player;
     public int SlotCount
     {
-        get { return slotCount; }
+        get { return materialInfos.Amount; }
         set
         {
-            slotCount = value;
+            materialInfos.Amount = value;
             ModifySlot();
             SlotState();
             if(Data != null)
             { 
-                Data.ChangeAmount(Type, ID, slotCount);
+                Data.ChangeAmount(materialInfos.Type, materialInfos.ID, materialInfos.Amount);
             }
         }
     }
@@ -37,7 +37,7 @@ public class SlotRefrigerator : Slot
     private void SlotState()
     {
         bool state;
-        state = (slotCount > 0) ? true : false;
+        state = (materialInfos.Amount > 0) ? true : false;
         this.gameObject.SetActive(state);
     }
     public override void ModifySlot()
@@ -46,12 +46,12 @@ public class SlotRefrigerator : Slot
     }
     public override void SelectSlot()
     {
-        if (slotCount > 0)
+        if (materialInfos.Amount > 0)
         {
             SlotCount--;
             RefrigeratorUI.SetActive(false);
             Vector3 position = Player.position;
-            Instantiate(SlotObject, position, Quaternion.identity);
+            Instantiate(materialInfos.PrefabMaterial, position, Quaternion.identity);
         }
     }
 }

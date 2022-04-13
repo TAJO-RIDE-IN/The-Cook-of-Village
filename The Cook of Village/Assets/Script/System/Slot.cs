@@ -9,11 +9,7 @@ using UnityEngine.UI;
 
 public abstract class Slot : MonoBehaviour
 {
-    public int Type;
-    public int ID;
-    [SerializeField]
-    protected int slotCount;
-    public Text CountText;
+    public MaterialInfos materialInfos;
     protected MaterialData Data;
     private void Awake()
     {

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[ExecuteAlways]
 public class LightingManager : MonoBehaviour
 {
     [SerializeField] private Light DirectionalLight;
@@ -9,28 +8,28 @@ public class LightingManager : MonoBehaviour
     [SerializeField] private GameManager gameManager;
     public float orbitSpeed = 1.0f;
 
-
     private void Update()
     {
         if (Preset == null)
             return;
 
-        if (Application.isPlaying)
-        {
             TimeOfDay += Time.deltaTime * orbitSpeed;
-            TimeOfDay %= 24;
-            gameManager.TimeOfDay = TimeOfDay;
-            UpdateLighting(TimeOfDay / 24f);
-        }
-        else
+            //TimeOfDay %= 24;
+
+        if(TimeOfDay > 24)
         {
-            UpdateLighting(TimeOfDay / 24f);
+            TimeOfDay = 0;
+            gameManager.Day++;
         }
+        gameManager.TimeOfDay = TimeOfDay;
+        UpdateLighting();
+        
     }
 
 
-    private void UpdateLighting(float timePercent)
+    private void UpdateLighting()
     {
+        float timePercent = TimeOfDay / 24f;
         RenderSettings.ambientLight = Preset.AmbientColor.Evaluate(timePercent);
         RenderSettings.fogColor = Preset.FogColor.Evaluate(timePercent);
 
@@ -45,6 +44,7 @@ public class LightingManager : MonoBehaviour
 
     private void OnValidate()
     {
+        UpdateLighting();
         if (DirectionalLight != null)
             return;
 

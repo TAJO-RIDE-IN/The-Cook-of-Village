@@ -11,15 +11,17 @@ using UnityEngine.UI;
 [System.Serializable]
 public class MaterialInfos
 {
+    public int Type;
     public int ID;
     public string Name;
     public int Price;
     public int Amount; //player가 소지중인 개수
     public GameObject PrefabMaterial;
-    public Image ImageUI; //UIImage
+    public Sprite ImageUI; //UIImage
 
-    public MaterialInfos(int id, string name, int price, int amount, GameObject prefab, Image imageUI)
+    public MaterialInfos(int type,int id, string name, int price, int amount, GameObject prefab, Sprite imageUI)
     {
+        Type = type;
         ID = id;
         Name = name;
         Price = price;

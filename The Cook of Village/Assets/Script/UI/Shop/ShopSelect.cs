@@ -29,7 +29,7 @@ public class ShopSelect : MonoBehaviour
             CountSlider.value = 0;
             CountSlider.maxValue = Materialdata.MaxMaterialCount;
             BuyMaxCount = Materialdata.MaxMaterialCount - currentCount;
-            MoneyMaxCount = GameData.Money / slot.Price;
+            MoneyMaxCount = GameData.Money / slot.materialInfos.Price;
         }
     }
     private int BuyMaxCount;
@@ -53,15 +53,15 @@ public class ShopSelect : MonoBehaviour
         amount = CurrentCount + Int32.Parse(CountText.text); ;
         return amount;
     }
-    public void ModifySlot(string name, Image slotImage)
+    public void ModifySlot(string name, Sprite slotImage)
     {
         NameText.text = name;
-        //SelectImage = slotImage;
+        SelectImage.sprite = slotImage;
     }
     public void ChangeSelctText()
     {
         CountText.text = CountSlider.value.ToString();
-        TotalPrice.text = CalculatePrice((int)CountSlider.value, slot.Price).ToString();
+        TotalPrice.text = CalculatePrice((int)CountSlider.value, slot.materialInfos.Price).ToString();
         if (CountSlider.value > BuyMaxCount)
         {
             CountSlider.value = BuyMaxCount;
@@ -73,7 +73,7 @@ public class ShopSelect : MonoBehaviour
     }
     public void BuyMaterial()
     {
-        Materialdata.ChangeAmount(slot.Type, slot.ID, CurrentAmount());
+        Materialdata.ChangeAmount(slot.materialInfos.Type, slot.materialInfos.ID, CurrentAmount());
         GameData.Money -= Int32.Parse(TotalPrice.text);
         CurrentCount = CurrentAmount();
         slot.SlotCount = CurrentCount;
