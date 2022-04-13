@@ -15,12 +15,12 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.7079007, g: 0.8298245, b: 0.9103441, a: 1}
+  m_FogColor: {r: 0.64105433, g: 0.5830866, b: 0.38959754, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
   m_LinearFogStart: 20
   m_LinearFogEnd: 40
-  m_AmbientSkyColor: {r: 0.8840518, g: 0.8840518, b: 0.8840518, a: 1}
+  m_AmbientSkyColor: {r: 0.8180074, g: 0.7909423, b: 0.7468313, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1787222247}
-  m_IndirectSpecularColor: {r: 0.43882507, g: 0.4870035, b: 0.5672684, a: 1}
+  m_IndirectSpecularColor: {r: 0.45095187, g: 0.49932033, b: 0.56633985, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1558,7 +1558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DirectionalLight: {fileID: 1787222247}
   Preset: {fileID: 11400000, guid: 90c3c66ae35e3b840be125e2619555e4, type: 2}
-  TimeOfDay: 13.1
+  TimeOfDay: 7.6
   gameManager: {fileID: 1775440823908822242}
   orbitSpeed: 0.025
 --- !u!4 &1012600061
@@ -3041,7 +3041,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2000
+  m_Text: 5000
 --- !u!222 &1593133399
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3166,7 +3166,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.93023545, g: 0.93023545, b: 0.93023545, a: 1}
+  m_Color: {r: 0.6187647, g: 0.6187647, b: 0.6187647, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -3224,7 +3224,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1787222246}
-  m_LocalRotation: {x: 0.06983393, y: 0.5960478, z: -0.79820484, w: 0.052147463}
+  m_LocalRotation: {x: 0.018120708, y: 0.9744255, z: -0.20712051, w: 0.08525124}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4113,7 +4113,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f17662cdd8a9354cb82695d98ebf14c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  refrigeratorUI: {fileID: 331828841707469108}
   data: {fileID: 1775440823908822240}
   FruitContent: {fileID: 8422001136018328333}
   VegetableContent: {fileID: 6202177591912477124}
@@ -4742,7 +4741,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '11 : 20'
+  m_Text: '0 : 6'
 --- !u!224 &1233625205834206151
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5728,21 +5727,21 @@ MonoBehaviour:
     - Type: 1
       ID: 10
       Name: Orange
-      Price: 2000
+      Price: 200
       Amount: 2
       PrefabMaterial: {fileID: -927199367670048503, guid: d88f4dc7d2164fc4aa4251e648f060c2, type: 3}
       ImageUI: {fileID: 21300000, guid: b7289c0c084c56840aac163b44464588, type: 3}
     - Type: 1
       ID: 11
       Name: Lemon
-      Price: 1000
+      Price: 100
       Amount: 2
       PrefabMaterial: {fileID: -927199367670048503, guid: 0b6795b7f395ff8449fcef2ee0966ce1, type: 3}
       ImageUI: {fileID: 21300000, guid: ddd4a27746d7e32468061201e743b0cc, type: 3}
     - Type: 1
       ID: 12
       Name: Watermelon
-      Price: 3000
+      Price: 300
       Amount: 2
       PrefabMaterial: {fileID: -927199367670048503, guid: 7e79de16814ded545a311b11622dd9b2, type: 3}
       ImageUI: {fileID: 21300000, guid: 5a61193c793372543a34a9ec7d392124, type: 3}
@@ -5751,14 +5750,14 @@ MonoBehaviour:
     - Type: 2
       ID: 20
       Name: Tomato
-      Price: 0
+      Price: 100
       Amount: 2
       PrefabMaterial: {fileID: -927199367670048503, guid: c0e2319084512b64b8cb850d4bb5c0cf, type: 3}
       ImageUI: {fileID: 21300000, guid: 77a6e314363cc5f409cfd0a67ea37765, type: 3}
     - Type: 2
       ID: 21
       Name: Potato
-      Price: 0
+      Price: 100
       Amount: 2
       PrefabMaterial: {fileID: -927199367670048503, guid: aabc0072ecd6a3345b74744eb7bce061, type: 3}
       ImageUI: {fileID: 21300000, guid: 47758e14a5a27fc4a8c0ca644b71e400, type: 3}
@@ -5767,28 +5766,28 @@ MonoBehaviour:
     - Type: 3
       ID: 30
       Name: Beef
-      Price: 0
+      Price: 500
       Amount: 1
       PrefabMaterial: {fileID: -927199367670048503, guid: 15f1cf728da66d346a950ceb25e4d4ed, type: 3}
       ImageUI: {fileID: 21300000, guid: 1fb63ab6eae82c844a11ec4614d4ce94, type: 3}
     - Type: 3
       ID: 31
       Name: Chicken
-      Price: 0
+      Price: 300
       Amount: 2
       PrefabMaterial: {fileID: -927199367670048503, guid: 3d124e8144bf3274b8aca97fa9a7c3b1, type: 3}
       ImageUI: {fileID: 21300000, guid: a895cfc9b774a1244a173bcceadd0a43, type: 3}
     - Type: 3
       ID: 32
       Name: Egg
-      Price: 0
+      Price: 100
       Amount: 3
       PrefabMaterial: {fileID: -927199367670048503, guid: 6d69d5e3378d7ad44bdcd7633a8e5e7b, type: 3}
       ImageUI: {fileID: 21300000, guid: ceb4a17b8bf64c44597189268f6191c2, type: 3}
     - Type: 3
       ID: 33
       Name: Bacon
-      Price: 0
+      Price: 200
       Amount: 4
       PrefabMaterial: {fileID: -927199367670048503, guid: 6f8aad615109c4642b8e0e968051c88d, type: 3}
       ImageUI: {fileID: 21300000, guid: 0db93fe817a3f8744aff17f8a459f28d, type: 3}
@@ -5820,9 +5819,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moneyText: {fileID: 1593133400}
   timeDayText: {fileID: 1233625205759474580}
-  timeOfDay: 0
-  day: 1
-  money: 1000000
+  timeOfDay: 0.105852894
+  day: 0
+  money: 5000
 --- !u!1 &1775440823908822243
 GameObject:
   m_ObjectHideFlags: 0
@@ -5862,7 +5861,7 @@ MonoBehaviour:
       MakeTime: 2.7
       Price: 27
       OrderProbability: 10
-      Recipe: 00000000
+      Recipe: 0a000000
       PrefabFood: {fileID: 0}
       ImageUI: {fileID: 0}
     - ID: 1
@@ -5870,7 +5869,7 @@ MonoBehaviour:
       MakeTime: 1.7
       Price: 17
       OrderProbability: 10
-      Recipe: 01000000
+      Recipe: 0b000000
       PrefabFood: {fileID: 0}
       ImageUI: {fileID: 0}
     - ID: 2
@@ -5878,83 +5877,83 @@ MonoBehaviour:
       MakeTime: 3.7
       Price: 37
       OrderProbability: 10
-      Recipe: 02000000
+      Recipe: 0c000000
       PrefabFood: {fileID: 0}
       ImageUI: {fileID: 0}
   - type: 1
     foodInfos:
-    - ID: 0
+    - ID: 3
       Name: Tomatosoup
       MakeTime: 4.4
       Price: 44
       OrderProbability: 40
-      Recipe: 0a00000000000000
+      Recipe: 1400000000000000
       PrefabFood: {fileID: 0}
       ImageUI: {fileID: 0}
-    - ID: 0
+    - ID: 4
       Name: ChickenStew
       MakeTime: 13.6
       Price: 136
       OrderProbability: 20
-      Recipe: 0000000000000000
+      Recipe: 150000001f000000
       PrefabFood: {fileID: 0}
       ImageUI: {fileID: 0}
   - type: 2
     foodInfos:
-    - ID: 0
+    - ID: 5
       Name: FrenchFries
       MakeTime: 5.4
       Price: 54
       OrderProbability: 40
-      Recipe: 
+      Recipe: 1500000000000000
       PrefabFood: {fileID: 0}
       ImageUI: {fileID: 0}
-    - ID: 0
+    - ID: 6
       Name: Pancake
       MakeTime: 6.4
       Price: 64
       OrderProbability: 40
-      Recipe: 
+      Recipe: 000000000100000020000000
       PrefabFood: {fileID: 0}
       ImageUI: {fileID: 0}
-    - ID: 0
+    - ID: 7
       Name: HamEggSandwich
       MakeTime: 7.1
       Price: 71
       OrderProbability: 20
-      Recipe: 000000000000000000000000
+      Recipe: 000000002000000021000000
       PrefabFood: {fileID: 0}
       ImageUI: {fileID: 0}
-    - ID: 0
+    - ID: 8
       Name: GrilledChicken
       MakeTime: 8.1
       Price: 81
       OrderProbability: 20
-      Recipe: 
+      Recipe: 1f000000
       PrefabFood: {fileID: 0}
       ImageUI: {fileID: 0}
-    - ID: 0
+    - ID: 9
       Name: Steak
       MakeTime: 9.1
       Price: 91
       OrderProbability: 20
-      Recipe: 
+      Recipe: 1e000000
       PrefabFood: {fileID: 0}
       ImageUI: {fileID: 0}
-    - ID: 0
+    - ID: 10
       Name: Pizza
       MakeTime: 13.6
       Price: 136
       OrderProbability: 20
-      Recipe: 
+      Recipe: 000000001400000021000000
       PrefabFood: {fileID: 0}
       ImageUI: {fileID: 0}
-    - ID: 0
+    - ID: 11
       Name: Meatpie
       MakeTime: 13.6
       Price: 136
       OrderProbability: 20
-      Recipe: 
+      Recipe: 000000001e00000020000000
       PrefabFood: {fileID: 0}
       ImageUI: {fileID: 0}
 --- !u!224 &2767636050452997233 stripped

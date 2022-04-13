@@ -11,7 +11,6 @@ using UnityEngine.UI;
 
 public class Refrigerator : MonoBehaviour
 {
-    public GameObject refrigeratorUI;
     public MaterialData data;
     public GameObject FruitContent;
     public GameObject VegetableContent;
@@ -41,7 +40,7 @@ public class Refrigerator : MonoBehaviour
                 int amount = data.material[type].materialInfos[slotIndex].Amount;
                 slot.materialInfos = data.material[type].materialInfos[slotIndex];
                 slot.SlotCount = amount;
-                slot.RefrigeratorUI = refrigeratorUI;
+                slot.RefrigeratorUI = this.gameObject;
             }
         }
     }
@@ -63,14 +62,14 @@ public class Refrigerator : MonoBehaviour
     }
     public void OpenRefrigerator()
     {
-        refrigeratorUI.SetActive(true);
+        this.gameObject.SetActive(true);
         InputAllDataSlot(1, FruitSlot);
         InputAllDataSlot(2, VegetableSlot);
         InputAllDataSlot(3, MeetSlot);
     }
     public void CloseRefrigerator()
     {
-        refrigeratorUI.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 
 }
