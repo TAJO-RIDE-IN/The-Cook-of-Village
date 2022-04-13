@@ -49,7 +49,7 @@ public class Food
 public class FoodData : MonoBehaviour
 {
     [SerializeField]
-    private Food[] food;
+    public Food[] food;
     [ContextMenu("To Json Data")]
     public void SaveData()
     {
