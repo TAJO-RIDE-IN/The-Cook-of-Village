@@ -71,5 +71,4 @@ public class Refrigerator : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
-
 }
