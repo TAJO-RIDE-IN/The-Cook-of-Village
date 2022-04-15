@@ -63,7 +63,92 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxMaterialCount: 99
-  materialType: []
+  materialType:
+  - type: 0
+    materialInfos:
+    - Type: 0
+      ID: 0
+      Name: Flour
+      Price: 0
+      Amount: 0
+      PrefabMaterial: {fileID: 4591677314406918250, guid: 3d8131ed4665dfb43a06bded22d39109, type: 3}
+      ImageUI: {fileID: 21300000, guid: b0b759aada12d294e885e378d5defd6e, type: 3}
+    - Type: 0
+      ID: 1
+      Name: Sugar
+      Price: 0
+      Amount: 0
+      PrefabMaterial: {fileID: 4591677314406918250, guid: 3d8131ed4665dfb43a06bded22d39109, type: 3}
+      ImageUI: {fileID: 21300000, guid: 21fb8c82ee4d9c14d96f79a8d723957a, type: 3}
+  - type: 1
+    materialInfos:
+    - Type: 1
+      ID: 10
+      Name: Orange
+      Price: 100
+      Amount: 50
+      PrefabMaterial: {fileID: -927199367670048503, guid: d88f4dc7d2164fc4aa4251e648f060c2, type: 3}
+      ImageUI: {fileID: 21300000, guid: b7289c0c084c56840aac163b44464588, type: 3}
+    - Type: 1
+      ID: 11
+      Name: Lemon
+      Price: 200
+      Amount: 10
+      PrefabMaterial: {fileID: -927199367670048503, guid: 0b6795b7f395ff8449fcef2ee0966ce1, type: 3}
+      ImageUI: {fileID: 21300000, guid: ddd4a27746d7e32468061201e743b0cc, type: 3}
+    - Type: 1
+      ID: 12
+      Name: Watermelon
+      Price: 500
+      Amount: 2
+      PrefabMaterial: {fileID: -927199367670048503, guid: 7e79de16814ded545a311b11622dd9b2, type: 3}
+      ImageUI: {fileID: 21300000, guid: 5a61193c793372543a34a9ec7d392124, type: 3}
+  - type: 2
+    materialInfos:
+    - Type: 2
+      ID: 20
+      Name: Tomato
+      Price: 100
+      Amount: 5
+      PrefabMaterial: {fileID: -927199367670048503, guid: 7e79de16814ded545a311b11622dd9b2, type: 3}
+      ImageUI: {fileID: 21300000, guid: 77a6e314363cc5f409cfd0a67ea37765, type: 3}
+    - Type: 2
+      ID: 21
+      Name: Potato
+      Price: 100
+      Amount: 10
+      PrefabMaterial: {fileID: -927199367670048503, guid: aabc0072ecd6a3345b74744eb7bce061, type: 3}
+      ImageUI: {fileID: 21300000, guid: 47758e14a5a27fc4a8c0ca644b71e400, type: 3}
+  - type: 3
+    materialInfos:
+    - Type: 3
+      ID: 30
+      Name: Beef
+      Price: 200
+      Amount: 5
+      PrefabMaterial: {fileID: -927199367670048503, guid: 15f1cf728da66d346a950ceb25e4d4ed, type: 3}
+      ImageUI: {fileID: 21300000, guid: 1fb63ab6eae82c844a11ec4614d4ce94, type: 3}
+    - Type: 3
+      ID: 31
+      Name: Chicken
+      Price: 200
+      Amount: 10
+      PrefabMaterial: {fileID: -927199367670048503, guid: 3d124e8144bf3274b8aca97fa9a7c3b1, type: 3}
+      ImageUI: {fileID: 21300000, guid: a895cfc9b774a1244a173bcceadd0a43, type: 3}
+    - Type: 3
+      ID: 32
+      Name: Egg
+      Price: 100
+      Amount: 20
+      PrefabMaterial: {fileID: -927199367670048503, guid: 6d69d5e3378d7ad44bdcd7633a8e5e7b, type: 3}
+      ImageUI: {fileID: 21300000, guid: ceb4a17b8bf64c44597189268f6191c2, type: 3}
+    - Type: 3
+      ID: 33
+      Name: Bacon
+      Price: 500
+      Amount: 10
+      PrefabMaterial: {fileID: -927199367670048503, guid: 6f8aad615109c4642b8e0e968051c88d, type: 3}
+      ImageUI: {fileID: 21300000, guid: 0db93fe817a3f8744aff17f8a459f28d, type: 3}
 --- !u!114 &2753781223019779922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,4 +161,109 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4efefdf112620a642973a249ace6e8d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodTool: []
+  foodTool:
+  - type: 0
+    foodInfos:
+    - Type: 0
+      ID: 0
+      Name: OrangeJuice
+      MakeTime: 2.7
+      Price: 27
+      OrderProbability: 10
+      Recipe: 0a000000
+      PrefabFood: {fileID: 173640, guid: 58ebda16b382c684db903d128c94604b, type: 3}
+      ImageUI: {fileID: 0}
+    - Type: 0
+      ID: 1
+      Name: LemonJuice
+      MakeTime: 1.7
+      Price: 17
+      OrderProbability: 10
+      Recipe: 0b000000
+      PrefabFood: {fileID: 189742, guid: 5db192e9231ec704f9d0425db47ea8ff, type: 3}
+      ImageUI: {fileID: 0}
+    - Type: 0
+      ID: 2
+      Name: WatermelonJuice
+      MakeTime: 3.7
+      Price: 37
+      OrderProbability: 10
+      Recipe: 0c000000
+      PrefabFood: {fileID: 150884, guid: eb6221c713885534ca1d35c17a219d4e, type: 3}
+      ImageUI: {fileID: 21300000, guid: f47bc8289c161c440a48e8344c6c8ed9, type: 3}
+  - type: 1
+    foodInfos:
+    - Type: 1
+      ID: 3
+      Name: TomatoSoup
+      MakeTime: 4.4
+      Price: 44
+      OrderProbability: 10
+      Recipe: 1400000000000000
+      PrefabFood: {fileID: 112086, guid: 32a97063d1906984ba032bf2f471436c, type: 3}
+      ImageUI: {fileID: 21300000, guid: 51496c6e606128c46853576877bc61d2, type: 3}
+    - Type: 1
+      ID: 4
+      Name: ChickenStew
+      MakeTime: 13.6
+      Price: 136
+      OrderProbability: 20
+      Recipe: 150000001f000000
+      PrefabFood: {fileID: 919132149155446097, guid: a7a36ea42abbe61409919e8a8903edbe, type: 3}
+      ImageUI: {fileID: 0}
+  - type: 2
+    foodInfos:
+    - Type: 2
+      ID: 5
+      Name: FrenchFries
+      MakeTime: 5.4
+      Price: 54
+      OrderProbability: 40
+      Recipe: 0000000015000000
+      PrefabFood: {fileID: 150492, guid: e2bfaac6e975f904f80e1b4636bff658, type: 3}
+      ImageUI: {fileID: 21300000, guid: 63b6b16ccb62c5e4f8d3f1651bc8091a, type: 3}
+    - Type: 2
+      ID: 6
+      Name: Pancake
+      MakeTime: 6.4
+      Price: 64
+      OrderProbability: 40
+      Recipe: 000000000100000020000000
+      PrefabFood: {fileID: 195974, guid: 01996856f6a923a489c5f9165fcc6c2e, type: 3}
+      ImageUI: {fileID: 21300000, guid: e22d7e133e177ed41acce1c25efc23b3, type: 3}
+    - Type: 2
+      ID: 7
+      Name: HanEggSandwich
+      MakeTime: 7.1
+      Price: 71
+      OrderProbability: 20
+      Recipe: 000000002000000021000000
+      PrefabFood: {fileID: 180836, guid: 1881167c502fc5046bcb592d7ee22189, type: 3}
+      ImageUI: {fileID: 21300000, guid: 02b8d517864445c4da974a46cf4aa6ed, type: 3}
+    - Type: 2
+      ID: 8
+      Name: GrilledChicken
+      MakeTime: 8.1
+      Price: 81
+      OrderProbability: 20
+      Recipe: 1f000000
+      PrefabFood: {fileID: 3434024259022915620, guid: eea6f872d71325342b3089c5dfa650bb, type: 3}
+      ImageUI: {fileID: 0}
+    - Type: 2
+      ID: 9
+      Name: Steak
+      MakeTime: 9.1
+      Price: 91
+      OrderProbability: 20
+      Recipe: 1e000000
+      PrefabFood: {fileID: 138356, guid: 85325518c798a0d44b45f7b523c54a36, type: 3}
+      ImageUI: {fileID: 0}
+    - Type: 2
+      ID: 10
+      Name: Pizza
+      MakeTime: 13.6
+      Price: 136
+      OrderProbability: 20
+      Recipe: 000000001400000021000000
+      PrefabFood: {fileID: 195122, guid: e8749865a1cdbd24997e1c2f4abc9d53, type: 3}
+      ImageUI: {fileID: 0}
