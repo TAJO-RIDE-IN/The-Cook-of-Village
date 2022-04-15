@@ -1,6 +1,6 @@
 /////////////////////////////////////
-/// ÇĞ¹ø : 91914200
-/// ÀÌ¸§ : JungNaEun Á¤³ªÀº
+/// í•™ë²ˆ : 91914200
+/// ì´ë¦„ : JungNaEun ì •ë‚˜ì€
 ////////////////////////////////////
 using System;
 using System.Collections;
@@ -15,7 +15,7 @@ public class MaterialInfos
     public int ID;
     public string Name;
     public int Price;
-    public int Amount; //player°¡ ¼ÒÁöÁßÀÎ °³¼ö
+    public int Amount; //playerê°€ ì†Œì§€ì¤‘ì¸ ê°œìˆ˜
     public GameObject PrefabMaterial;
     public Sprite ImageUI; //UIImage
 
