@@ -34,10 +34,10 @@ public class Refrigerator : MonoBehaviour
         foreach (SlotRefrigerator slot in slotArea)
         {
             int slotIndex = slotArea.FindIndex(s => s == slot);
-            if (MaterialData.Instance.material[type].materialInfos.Count > slotIndex) //slot이 더 많을 경우 오류나지 않기 위해
+            if (MaterialData.Instance.materialType[type].materialInfos.Count > slotIndex) //slot이 더 많을 경우 오류나지 않기 위해
             {
-                int amount = MaterialData.Instance.material[type].materialInfos[slotIndex].Amount;
-                slot.materialInfos = MaterialData.Instance.material[type].materialInfos[slotIndex];
+                int amount = MaterialData.Instance.materialType[type].materialInfos[slotIndex].Amount;
+                slot.materialInfos = MaterialData.Instance.materialType[type].materialInfos[slotIndex];
                 slot.SlotCount = amount;
                 slot.RefrigeratorUI = this.gameObject;
             }

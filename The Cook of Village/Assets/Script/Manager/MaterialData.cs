@@ -32,13 +32,13 @@ public class MaterialInfos
 }
 
 [System.Serializable]
-public class Material
+public class MaterialType
 {
     public enum Type { Base, Fruit, Vegetable, Meat }
     [SerializeField]
     public Type type;
     public List<MaterialInfos> materialInfos = new List<MaterialInfos>();
-    public Material(Type _type, List<MaterialInfos> _materialInfos)
+    public MaterialType(Type _type, List<MaterialInfos> _materialInfos)
     {
         type = _type;
         materialInfos = _materialInfos;
@@ -76,17 +76,17 @@ public class MaterialData : DataManager
     #endregion
     public int MaxMaterialCount = 99;
     [SerializeField]
-    public Material[] material;
+    public MaterialType[] materialType;
     [ContextMenu("To Json Data")]
     public override void SaveDataTime()
     {
-        SaveData<Material>(ref material, "MaterialData");
+        SaveData<MaterialType>(ref materialType, "MaterialData");
     }
 
     public void ChangeAmount(int type, int id, int amount)
     {
-        int dataIndex = material[type].materialInfos.FindIndex(m => m.ID == id);
-        material[type].materialInfos[dataIndex].Amount = amount;
+        int dataIndex = materialType[type].materialInfos.FindIndex(m => m.ID == id);
+        materialType[type].materialInfos[dataIndex].Amount = amount;
     }
 
 }
