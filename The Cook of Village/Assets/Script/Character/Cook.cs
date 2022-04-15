@@ -3,13 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class EnterIn : MonoBehaviour
+public class Cook : MonoBehaviour
 {
-    public GameObject Inven;
+    public GameObject fridgeInven;
+    public GameObject potInven;
+    public GameObject panInven;
+    public GameObject blenderInven;
     public bool isUI = false;
     public Animator frigdeAnimator;
 
+    public Sprite Lemon;
+
+    
     private void OnTriggerEnter(Collider other)
     {
         //Inven.SetActive(true);
@@ -21,9 +28,8 @@ public class EnterIn : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E))
             {
-                Debug.Log("완성");
                 frigdeAnimator.SetBool("isOpen",true);
-                Inven.SetActive(true);
+                fridgeInven.SetActive(true);
                 isUI = true;
                 if (!isUI)
                 {
@@ -38,6 +44,16 @@ public class EnterIn : MonoBehaviour
                 }
             }
         }
+
+        if (other.tag == "Pot")
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                potInven.SetActive(true);
+                Image image = potInven.transform.GetChild(0).GetComponent<Image>();
+                image.sprite = Lemon;
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -46,7 +62,7 @@ public class EnterIn : MonoBehaviour
         {
             frigdeAnimator.SetBool("isOpen",false);
             Debug.Log("꺼짐");
-            Inven.SetActive(false);
+            fridgeInven.SetActive(false);
         }
     }
 }
