@@ -8,7 +8,6 @@ using UnityEngine;
 
 public class ShopUI : MonoBehaviour
 {
-    public MaterialData data;
     public GameObject SlotContent;
     public SlotShop[] slot;
     public enum Shop {FruitShop, VegetableShop, MeatShop}
@@ -44,10 +43,10 @@ public class ShopUI : MonoBehaviour
         int type = ShopDictionary[shop];
         foreach (SlotShop slot in slot)
         {
-            if(order < data.material[type].materialInfos.Count)
+            if(order < MaterialData.Instance.material[type].materialInfos.Count)
             {
                 slot.gameObject.SetActive(true);
-                slot.materialInfos = data.material[type].materialInfos[order];
+                slot.materialInfos = MaterialData.Instance.material[type].materialInfos[order];
                 order++;
             }
             else

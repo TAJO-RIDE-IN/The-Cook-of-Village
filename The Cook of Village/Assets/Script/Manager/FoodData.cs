@@ -46,20 +46,41 @@ public class Food
     }
 }
 
-public class FoodData : MonoBehaviour
+public class FoodData : DataManager
 {
+    #region Singleton, LoadData
+    private static FoodData instance = null;
+    private void Awake() //씬 시작될때 인스턴스 초기화
+    {
+        if (null == instance)
+        {
+            instance = this;
+            LoadData<Food>(ref food, "FoodData");
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+    public static FoodData Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+    #endregion
     [SerializeField]
     public Food[] food;
     [ContextMenu("To Json Data")]
-    public void SaveData()
+
+    public override void SaveDataTime()
     {
-        string toJson = JsonHelper.arrayToJson(food, prettyPrint: true);
-        File.WriteAllText(Application.dataPath + "/Resources/Data/FoodData.json", toJson);
-    }
-    public void LoadData()
-    {
-        string path = "Data/FoodData";
-        TextAsset jsonData = Resources.Load(path) as TextAsset;
-        food = JsonHelper.getJsonArray<Food>(jsonData.ToString());
+        SaveData<Food>(ref food, "FoodData");
     }
 }
