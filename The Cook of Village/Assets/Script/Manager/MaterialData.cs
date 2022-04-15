@@ -54,7 +54,7 @@ public class MaterialData : DataManager
         if (null == instance)
         {
             instance = this;
-            LoadData<Material>(ref material, "MaterialData");
+            //LoadData<Material>(ref material, "MaterialData"); //data 완성 되었을때 다시 활성화
             DontDestroyOnLoad(this.gameObject);
         }
         else

@@ -55,7 +55,7 @@ public class FoodData : DataManager
         if (null == instance)
         {
             instance = this;
-            LoadData<Food>(ref food, "FoodData");
+            //LoadData<Food>(ref food, "FoodData"); //data 완성 되었을때 다시 활성화
             DontDestroyOnLoad(this.gameObject);
         }
         else
