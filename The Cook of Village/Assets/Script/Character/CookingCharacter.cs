@@ -5,7 +5,7 @@ using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Cook : MonoBehaviour
+public class CookingCharacter : MonoBehaviour
 {
     public GameObject fridgeInven;
     public GameObject potInven;
@@ -15,8 +15,13 @@ public class Cook : MonoBehaviour
     public Animator frigdeAnimator;
 
     public Sprite Lemon;
+    public MaterialInfos currentHand;
 
-    
+    private void Start()
+    {
+        
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         //Inven.SetActive(true);
@@ -26,7 +31,7 @@ public class Cook : MonoBehaviour
     {
         if (other.tag == "Fridge")
         {
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetKey(KeyCode.Space))
             {
                 frigdeAnimator.SetBool("isOpen",true);
                 fridgeInven.SetActive(true);
