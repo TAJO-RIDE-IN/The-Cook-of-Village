@@ -33,13 +33,13 @@ public class FoodInfos
 }
 
 [System.Serializable]
-public class Food
+public class FoodTool
 {
     public enum Type { Blender, Pot, Frypan }
     [SerializeField]
     public Type type;
     public List<FoodInfos> foodInfos = new List<FoodInfos>();
-    public Food(Type _type, List<FoodInfos> _foodInfos)
+    public FoodTool(Type _type, List<FoodInfos> _foodInfos)
     {
         type = _type;
         foodInfos = _foodInfos;
@@ -55,7 +55,7 @@ public class FoodData : DataManager
         if (null == instance)
         {
             instance = this;
-            LoadData<Food>(ref food, "FoodData");
+            //LoadData<Food>(ref food, "FoodData"); //data 완성 되었을때 다시 활성화
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -76,11 +76,11 @@ public class FoodData : DataManager
     }
     #endregion
     [SerializeField]
-    public Food[] food;
+    public FoodTool[] foodTool;
     [ContextMenu("To Json Data")]
 
     public override void SaveDataTime()
     {
-        SaveData<Food>(ref food, "FoodData");
+        SaveData<FoodTool>(ref foodTool, "FoodData");
     }
 }
