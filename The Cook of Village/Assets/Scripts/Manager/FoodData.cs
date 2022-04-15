@@ -11,6 +11,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class FoodInfos
 {
+    public int Type;
     public int ID;
     public string Name;
     public float MakeTime;
@@ -18,9 +19,10 @@ public class FoodInfos
     public int OrderProbability;
     public List<int> Recipe = new List<int>();
     public GameObject PrefabFood;
-    public Image ImageUI; //UIImage
-    public FoodInfos(int id, string name, float makeTime, int price, int orderProbability, List<int> recipe, GameObject prefab, Image imageUI)
+    public Sprite ImageUI; //UIImage
+    public FoodInfos(int type, int id, string name, float makeTime, int price, int orderProbability, List<int> recipe, GameObject prefab, Sprite imageUI)
     {
+        Type = type;
         ID = id;
         Name = name;
         MakeTime = makeTime;
