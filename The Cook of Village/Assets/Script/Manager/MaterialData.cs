@@ -45,22 +45,42 @@ public class Material
     }
 }
 
-public class MaterialData : MonoBehaviour
+public class MaterialData : DataManager
 {
+    #region Singleton, LoadData
+    private static MaterialData instance = null;
+    private void Awake() //씬 시작될때 인스턴스 초기화
+    {
+        if (null == instance)
+        {
+            instance = this;
+            LoadData<Material>(ref material, "MaterialData");
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+    public static MaterialData Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+    #endregion
     public int MaxMaterialCount = 99;
     [SerializeField]
     public Material[] material;
     [ContextMenu("To Json Data")]
-    public void SaveData()
+    public override void SaveDataTime()
     {
-        string toJson = JsonHelper.arrayToJson(material, prettyPrint: true);
-        File.WriteAllText(Application.dataPath + "/Resources/Data/MaterialData.json", toJson);
-    }
-    public void LoadData()
-    {
-        string path = "Data/MaterialData";
-        TextAsset jsonData = Resources.Load(path) as TextAsset;
-        material = JsonHelper.getJsonArray<Material>(jsonData.ToString());
+        SaveData<Material>(ref material, "MaterialData");
     }
 
     public void ChangeAmount(int type, int id, int amount)

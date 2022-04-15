@@ -5,7 +5,6 @@ public class LightingManager : MonoBehaviour
     [SerializeField] private Light DirectionalLight;
     [SerializeField] private LightingPreset Preset;
     [SerializeField, Range(0, 24)] private float TimeOfDay;
-    [SerializeField] private GameManager gameManager;
     public float orbitSpeed = 1.0f;
 
     private void Update()
@@ -19,9 +18,9 @@ public class LightingManager : MonoBehaviour
         if(TimeOfDay > 24)
         {
             TimeOfDay = 0;
-            gameManager.Day++;
+            GameManager.Instance.Day++;
         }
-        gameManager.TimeOfDay = TimeOfDay;
+        GameManager.Instance.TimeOfDay = TimeOfDay;
         UpdateLighting();
         
     }

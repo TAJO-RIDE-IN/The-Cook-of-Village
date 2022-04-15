@@ -20,10 +20,7 @@ public class SlotRefrigerator : Slot
             materialInfos.Amount = value;
             ModifySlot();
             SlotState();
-            if(Data != null)
-            { 
-                Data.ChangeAmount(materialInfos.Type, materialInfos.ID, materialInfos.Amount);
-            }
+            MaterialData.Instance.ChangeAmount(materialInfos.Type, materialInfos.ID, materialInfos.Amount);
         }
     }
     private void Start()

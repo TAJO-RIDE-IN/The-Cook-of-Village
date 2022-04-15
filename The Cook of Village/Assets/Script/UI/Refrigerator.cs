@@ -11,7 +11,6 @@ using UnityEngine.UI;
 
 public class Refrigerator : MonoBehaviour
 {
-    public MaterialData data;
     public GameObject FruitContent;
     public GameObject VegetableContent;
     public GameObject MeetContent;
@@ -35,10 +34,10 @@ public class Refrigerator : MonoBehaviour
         foreach (SlotRefrigerator slot in slotArea)
         {
             int slotIndex = slotArea.FindIndex(s => s == slot);
-            if (data.material[type].materialInfos.Count > slotIndex) //slot이 더 많을 경우 오류나지 않기 위해
+            if (MaterialData.Instance.material[type].materialInfos.Count > slotIndex) //slot이 더 많을 경우 오류나지 않기 위해
             {
-                int amount = data.material[type].materialInfos[slotIndex].Amount;
-                slot.materialInfos = data.material[type].materialInfos[slotIndex];
+                int amount = MaterialData.Instance.material[type].materialInfos[slotIndex].Amount;
+                slot.materialInfos = MaterialData.Instance.material[type].materialInfos[slotIndex];
                 slot.SlotCount = amount;
                 slot.RefrigeratorUI = this.gameObject;
             }
@@ -57,7 +56,7 @@ public class Refrigerator : MonoBehaviour
     }
     public void InputRefrigerator(int type, int id, int amount)
     {
-        data.ChangeAmount(type, id, amount++);
+        MaterialData.Instance.ChangeAmount(type, id, amount++);
         InputDataSlot(type, id, amount++);
     }
     public void OpenRefrigerator()
@@ -71,5 +70,4 @@ public class Refrigerator : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
-
 }

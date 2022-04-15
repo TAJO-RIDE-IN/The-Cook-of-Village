@@ -38,7 +38,6 @@ public class SlotShop : Slot
 
     public override void ModifySlot()
     {
-        //CountText.text = materialInfos.Amount.ToString();
         PriceText.text = materialInfos.Price.ToString();
         SlotImage.sprite = materialInfos.ImageUI;
         SlotText.text = materialInfos.Name;
