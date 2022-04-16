@@ -5,10 +5,12 @@ using UnityEngine;
 public class FoodOrder : MonoBehaviour
 {
     Probability<FoodInfos> FoodProbability = new Probability<FoodInfos>();
+    public FoodInfos foodInfos;
 
     private void Start()
     {
         AddProbability();
+        Invoke("Order", 5.0f);
     }
 
     private void AddProbability()
@@ -22,5 +24,8 @@ public class FoodOrder : MonoBehaviour
         }
     }
 
-
+    private void Order()
+    {
+        foodInfos = FoodProbability.Get();
+    }
 }
