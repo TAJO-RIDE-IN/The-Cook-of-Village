@@ -77,7 +77,8 @@ public class FoodData : DataManager
         }
     }
     #endregion
-    [SerializeField]
+    public float OrderTime = 5f;
+    public float WaitingTime = 20f;
     public FoodTool[] foodTool;
     [ContextMenu("To Json Data")]
 
