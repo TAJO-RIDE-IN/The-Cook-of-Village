@@ -40,10 +40,12 @@ public class FoodTool
     public enum Type { Blender, Pot, Frypan }
     [SerializeField]
     public Type type;
+    public Sprite ToolImage;
     public List<FoodInfos> foodInfos = new List<FoodInfos>();
-    public FoodTool(Type _type, List<FoodInfos> _foodInfos)
+    public FoodTool(Type _type,Sprite tool, List<FoodInfos> _foodInfos)
     {
         type = _type;
+        ToolImage = tool;
         foodInfos = _foodInfos;
     }
 }
@@ -57,7 +59,7 @@ public class FoodData : DataManager
         if (null == instance)
         {
             instance = this;
-            //LoadData<Food>(ref food, "FoodData"); //data 완성 되었을때 다시 활성화
+            //LoadData<FoodTool>(ref food, "FoodData"); //data 완성 되었을때 다시 활성화
             DontDestroyOnLoad(this.gameObject);
         }
         else

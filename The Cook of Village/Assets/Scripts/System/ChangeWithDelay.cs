@@ -9,10 +9,10 @@ using UnityEngine;
 
 public static class ChangeWithDelay
 {
-    //delay 이후 true로 바꿔줌
-    public static IEnumerator CheckDelay<T>(this T origin, T changeValue, float delay, Action<T> makeResult)
+    //delay 이후 함수 실행
+    public static IEnumerator CheckDelay(float delay, Action makeResult)
     {
         yield return new WaitForSeconds(delay);
-        makeResult(changeValue);
+        makeResult();
     }
 }
