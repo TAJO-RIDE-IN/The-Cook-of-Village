@@ -1,6 +1,6 @@
 /////////////////////////////////////
-/// ÇÐ¹ø : 91914200
-/// ÀÌ¸§ : JungNaEun Á¤³ªÀº
+/// ï¿½Ð¹ï¿½ : 91914200
+/// ï¿½Ì¸ï¿½ : JungNaEun ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -49,6 +49,7 @@ public class SlotRefrigerator : Slot
             RefrigeratorUI.SetActive(false);
             Vector3 position = Player.position;
             Instantiate(materialInfos.PrefabMaterial, position, Quaternion.identity);
+            Player.transform.GetComponent<CookingCharacter>().currentMaterial = materialInfos;
         }
     }
 }
