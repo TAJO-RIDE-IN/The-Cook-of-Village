@@ -16,9 +16,10 @@ public class OrderUI : MonoBehaviour
         set
         {
             food = value;
+            this.gameObject.transform.SetParent(Order);
+            OrderContainer.gameObject.GetComponent<OrderControl>().OrderCount++;
             ChangeImage(food.ImageUI, FoodData.Instance.foodTool[food.Type].ToolImage);
             MateiralState();
-            StartCoroutine(WaitingOrder());
         }
     }
 
@@ -30,9 +31,12 @@ public class OrderUI : MonoBehaviour
     public List<GameObject> MaterialObject = new List<GameObject>();
     public List<Image> MaterialImage = new List<Image>();
 
+    public Transform Order;
+    public Transform OrderContainer;
+
     private void OnDisable()
     {
-        foreach(GameObject i in MaterialObject)
+        foreach (GameObject i in MaterialObject)
         {
             i.SetActive(false);
         }
@@ -50,22 +54,10 @@ public class OrderUI : MonoBehaviour
         FoodImage.sprite = food;
         ToolImgae.sprite = tool;
     }
-    private IEnumerator WaitingOrder()
+    public void EndOrder()
     {
-        float time = FoodData.Instance.WaitingTime;
-        while (time > 0)
-        {
-            time -= Time.deltaTime;
-            TimeBar.fillAmount = time / FoodData.Instance.WaitingTime;
-            yield return null;
-            if (time <= 0)
-            {
-                EndOrder();
-            }
-        }
-    }
-    private void EndOrder()
-    {
+        this.gameObject.transform.SetParent(OrderContainer);
+        OrderContainer.gameObject.GetComponent<OrderControl>().OrderCount--;
         ObjectPooling<OrderUI>.ReturnObject(this);
     }
 }
