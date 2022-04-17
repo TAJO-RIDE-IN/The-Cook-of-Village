@@ -81,6 +81,7 @@ public class FoodData : DataManager
     #endregion
     public float OrderTime = 5f;
     public float WaitingTime = 20f;
+    public float EatTime = 10f;
     public FoodTool[] foodTool;
     [ContextMenu("To Json Data")]
 

@@ -13,23 +13,24 @@ public class FoodOrder : MonoBehaviour
     Probability<FoodInfos> FoodProbability = new Probability<FoodInfos>();
     [SerializeField]
     private FoodInfos foodInfos;
-    [SerializeField]
-    private Camera camera;
     public GameObject NPCUI;
+    public RestaurantNPC restaurantNPC;
+    public Transform FoodPosition;
     public Image RemainingTimeImage;
     public Image OrderFoodImage;
 
-    private bool isOrder = false;
-
+    private bool CanReceive = false;
+    private OrderUI currentOrderUI;
+    private Transform camera;
     private void Start()
     {
-        camera = Camera.main;
+        camera = Camera.main.transform;
         AddProbability();
         StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.OrderTime, () => Order()));
     }
     private void Update()
     {
-        //NPCUI.transform.rotation = Quaternion.LookRotation(transform.position - camera.transform.position);
+        NPCUI.transform.LookAt(NPCUI.transform.position + camera.rotation * Vector3.forward, camera.rotation * Vector3.up);
     }
     private void AddProbability()
     {
@@ -44,30 +45,62 @@ public class FoodOrder : MonoBehaviour
     private IEnumerator WaitingOrder()
     {
         float time = FoodData.Instance.WaitingTime;
-        while(time > 0 && isOrder)
+        while(time > 0)
         {
             time -= Time.deltaTime;
-            RemainingTimeImage.fillAmount = time / FoodData.Instance.WaitingTime;
+            float ratio = time / FoodData.Instance.WaitingTime;
+            RemainingTimeImage.fillAmount = ratio;
+            currentOrderUI.TimeBar.fillAmount = ratio;
             yield return null;
             if(time <= 0)
             {
                 EndOrder();
+                Debug.Log("TimeOver");
             }
         }
     }
     private void EndOrder()
     {
+        StopCoroutine(WaitingOrder());
         NPCUI.SetActive(false);
+        currentOrderUI.EndOrder();
+        restaurantNPC.EatFood(foodInfos.Price);
+    }
+    public void ReceiveFood(int ReceiveFood)
+    {
+        if (ReceiveFood == foodInfos.ID && CanReceive)
+        {
+            Instantiate(foodInfos.PrefabFood, FoodPosition);
+            EndOrder();
+        }
+    }
+    public void ReciveButton() //테스트 버튼
+    {
+        ReceiveFood(foodInfos.ID);
     }
     private void Order()
     {
-        isOrder = true;
         NPCUI.SetActive(true);
         foodInfos = FoodProbability.Get();
         OrderFoodImage.sprite = foodInfos.ImageUI;
-        var orderUI = ObjectPooling<OrderUI>.GetObject();
-        orderUI.foodInfos = foodInfos;
-        orderUI.gameObject.SetActive(true);
+        currentOrderUI = ObjectPooling<OrderUI>.GetObject();
+        currentOrderUI.foodInfos = foodInfos;
+        currentOrderUI.gameObject.SetActive(true);
         StartCoroutine(WaitingOrder());
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            CanReceive = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            CanReceive = false;
+        }
     }
 }
