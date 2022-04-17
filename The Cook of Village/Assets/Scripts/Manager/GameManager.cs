@@ -1,6 +1,6 @@
 /////////////////////////////////////
-/// ÇĞ¹ø : 91914200
-/// ÀÌ¸§ : JungNaEun Á¤³ªÀº
+/// í•™ë²ˆ : 91914200
+/// ì´ë¦„ : JungNaEun ì •ë‚˜ì€
 ////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance = null;
-    private void Awake() //¾À ½ÃÀÛµÉ¶§ ÀÎ½ºÅÏ½º ÃÊ±âÈ­
+    private void Awake() //ì”¬ ì‹œì‘ë ë•Œ ì¸ìŠ¤í„´ìŠ¤ ì´ˆê¸°í™”
     {
         if(null == instance)
         {

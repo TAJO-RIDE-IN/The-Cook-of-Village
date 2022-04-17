@@ -8,28 +8,13 @@ using UnityEngine.UI;
 public class CookingCharacter : MonoBehaviour
 {
     public GameObject fridgeInven;
-    public GameObject potInven;
-    public GameObject panInven;
-    public GameObject blenderInven;
-    public bool isUI = false;
     public Animator frigdeAnimator;
-
-    public Sprite Lemon;
-    public MaterialInfos currentHand;
-
-    private void Start()
-    {
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        //Inven.SetActive(true);
-    }
-
+    public MaterialInfos currentMaterial;
+    
+    public bool isUI = false;
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Fridge")
+        if (other.CompareTag("Fridge"))
         {
             if (Input.GetKey(KeyCode.Space))
             {
@@ -43,20 +28,47 @@ public class CookingCharacter : MonoBehaviour
                 else
                 {
                     Debug.Log("꺼짐");
-                    
-                    //Inven.SetActive(false);
-                    //isUI = false;
                 }
             }
         }
-
-        if (other.tag == "Pot")
+        if (other.CompareTag("Pot"))
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                potInven.SetActive(true);
-                Image image = potInven.transform.GetChild(0).GetComponent<Image>();
-                image.sprite = Lemon;
+                CookingTool cookingTool = other.transform.GetComponent<CookingTool>(); 
+                cookingTool.currentMaterialInTool = currentMaterial; //현재 들고있는 재료 정보를 넘겨줌, 세부적인건 저기서 수행
+                if (currentMaterial != null)
+                {
+                    cookingTool.PutIngredient();
+                }
+                
+                currentMaterial = null;
+            }
+        }
+        if (other.CompareTag("FryPan"))
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                CookingTool cookingTool = other.transform.GetComponent<CookingTool>(); 
+                cookingTool.currentMaterialInTool = currentMaterial; //현재 들고있는 재료 정보를 넘겨줌, 세부적인건 저기서 수행
+                if (currentMaterial != null)
+                {
+                    cookingTool.PutIngredient();
+                }
+                currentMaterial = null;
+            }
+        }
+        if (other.CompareTag("Blender"))
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                CookingTool cookingTool = other.transform.GetComponent<CookingTool>(); 
+                cookingTool.currentMaterialInTool = currentMaterial; //현재 들고있는 재료 정보를 넘겨줌, 세부적인건 저기서 수행
+                if (currentMaterial != null)
+                {
+                    cookingTool.PutIngredient();
+                }
+                currentMaterial = null;
             }
         }
     }
