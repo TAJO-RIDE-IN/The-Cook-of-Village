@@ -10,8 +10,16 @@ public class CookingCharacter : MonoBehaviour
     public GameObject fridgeInven;
     public Animator frigdeAnimator;
     public MaterialInfos currentMaterial;
+
+    public bool isMoved;
     
     public bool isUI = false;
+
+    private void Start()
+    {
+        currentMaterial = null;
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Fridge"))
@@ -31,45 +39,33 @@ public class CookingCharacter : MonoBehaviour
                 }
             }
         }
+        
         if (other.CompareTag("Pot"))
         {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                CookingTool cookingTool = other.transform.GetComponent<CookingTool>(); 
-                cookingTool.currentMaterialInTool = currentMaterial; //현재 들고있는 재료 정보를 넘겨줌, 세부적인건 저기서 수행
-                if (currentMaterial != null)
-                {
-                    cookingTool.PutIngredient();
-                }
-                
-                currentMaterial = null;
-            }
+            MoveInfosToTool(other);
         }
         if (other.CompareTag("FryPan"))
         {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                CookingTool cookingTool = other.transform.GetComponent<CookingTool>(); 
-                cookingTool.currentMaterialInTool = currentMaterial; //현재 들고있는 재료 정보를 넘겨줌, 세부적인건 저기서 수행
-                if (currentMaterial != null)
-                {
-                    cookingTool.PutIngredient();
-                }
-                currentMaterial = null;
-            }
+            MoveInfosToTool(other);
         }
         if (other.CompareTag("Blender"))
         {
-            if (Input.GetKey(KeyCode.Space))
+            MoveInfosToTool(other);
+        }
+    }
+
+    private void MoveInfosToTool(Collider other)
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            CookingTool cookingTool = other.transform.GetComponent<CookingTool>(); 
+                
+            if (currentMaterial != null)
             {
-                CookingTool cookingTool = other.transform.GetComponent<CookingTool>(); 
-                cookingTool.currentMaterialInTool = currentMaterial; //현재 들고있는 재료 정보를 넘겨줌, 세부적인건 저기서 수행
-                if (currentMaterial != null)
-                {
-                    cookingTool.PutIngredient();
-                }
-                currentMaterial = null;
+                cookingTool.currentMaterialInTool = currentMaterial; //현재 들고있는 재료 정보를 넘겨줌, 세부적인건 저기서 수행(UI 바꾸기, 레시피리스트에 ID 추가)
+                cookingTool.PutIngredient();
             }
+            currentMaterial = null;
         }
     }
 

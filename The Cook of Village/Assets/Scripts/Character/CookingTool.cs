@@ -31,7 +31,7 @@ public class CookingTool : MonoBehaviour
             {
                 ingredientList.Add(currentMaterialInTool.ID);
                 Inven.SetActive(true);
-                Inven.transform.GetChild(0).transform.GetComponent<Image>().sprite = currentMaterialInTool.ImageUI;
+                Inven.transform.GetChild(1).transform.GetComponent<Image>().sprite = currentMaterialInTool.ImageUI;
             }
         }
         else if(ingredientList.Count == 2)
@@ -40,9 +40,10 @@ public class CookingTool : MonoBehaviour
             {
                 ingredientList.Add(currentMaterialInTool.ID);
                 Inven.SetActive(true);
-                Inven.transform.GetChild(0).transform.GetComponent<Image>().sprite = currentMaterialInTool.ImageUI;
+                Inven.transform.GetChild(2).transform.GetComponent<Image>().sprite = currentMaterialInTool.ImageUI;
             }
         }
+
     }
 
 }
