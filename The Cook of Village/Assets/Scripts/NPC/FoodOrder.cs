@@ -1,3 +1,7 @@
+/////////////////////////////////////
+/// 학번 : 91914200
+/// 이름 : JungNaEun 정나은
+////////////////////////////////////
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,21 +20,12 @@ public class FoodOrder : MonoBehaviour
     public Image OrderFoodImage;
 
     private bool isOrder = false;
-    private bool IsOrder
-    {
-        get { return isOrder; }
-        set
-        {
-            isOrder = value;
-            Order();
-        }
-    }
 
     private void Start()
     {
         camera = Camera.main;
         AddProbability();
-        StartCoroutine(IsOrder.CheckDelay<bool>(true, FoodData.Instance.OrderTime, value => IsOrder = value));
+        StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.OrderTime, () => Order()));
     }
     private void Update()
     {
@@ -38,11 +33,11 @@ public class FoodOrder : MonoBehaviour
     }
     private void AddProbability()
     {
-        for (int i = 0; i < FoodData.Instance.foodTool.Length; i++)
+        foreach(FoodTool i in FoodData.Instance.foodTool)
         {
-            for (int j = 0; j < FoodData.Instance.foodTool[i].foodInfos.Count; j++)
+            foreach (FoodInfos j in i.foodInfos)
             {
-                FoodProbability.Add(FoodData.Instance.foodTool[i].foodInfos[j], FoodData.Instance.foodTool[i].foodInfos[j].OrderProbability);
+                FoodProbability.Add(j, j.OrderProbability);
             }
         }
     }
@@ -66,9 +61,13 @@ public class FoodOrder : MonoBehaviour
     }
     private void Order()
     {
+        isOrder = true;
         NPCUI.SetActive(true);
         foodInfos = FoodProbability.Get();
         OrderFoodImage.sprite = foodInfos.ImageUI;
+        var orderUI = ObjectPooling<OrderUI>.GetObject();
+        orderUI.foodInfos = foodInfos;
+        orderUI.gameObject.SetActive(true);
         StartCoroutine(WaitingOrder());
     }
 }

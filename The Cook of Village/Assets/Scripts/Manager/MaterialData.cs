@@ -1,6 +1,6 @@
 /////////////////////////////////////
-/// 학번 : 91914200
-/// 이름 : JungNaEun 정나은
+/// ?�번 : 91914200
+/// ?�름 : JungNaEun ?�나?�
 ////////////////////////////////////
 using System;
 using System.Collections;
@@ -15,7 +15,7 @@ public class MaterialInfos
     public int ID;
     public string Name;
     public int Price;
-    public int Amount; //player가 소지중인 개수
+    public int Amount; //player가 ?��?중인 개수
     public GameObject PrefabMaterial;
     public Sprite ImageUI; //UIImage
 
@@ -83,10 +83,19 @@ public class MaterialData : DataManager
         SaveData<MaterialType>(ref materialType, "MaterialData");
     }
 
+    public MaterialInfos materialInfos(int id)
+    {
+        int dataIndex;
+        dataIndex = materialType[MaterialType(id)].materialInfos.FindIndex(m => m.ID == id);
+        return materialType[MaterialType(id)].materialInfos[dataIndex];
+    }
+    private int MaterialType(int id)
+    {
+        return id / 10;
+    }
     public void ChangeAmount(int type, int id, int amount)
     {
-        int dataIndex = materialType[type].materialInfos.FindIndex(m => m.ID == id);
-        materialType[type].materialInfos[dataIndex].Amount = amount;
+        materialInfos(id).Amount = amount;
     }
 
 }
