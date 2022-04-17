@@ -1,6 +1,6 @@
 /////////////////////////////////////
-/// í•™ë²ˆ : 91914200
-/// ì´ë¦„ : JungNaEun ì •ë‚˜ì€
+/// ÇĞ¹ø : 91914200
+/// ÀÌ¸§ : JungNaEun Á¤³ªÀº
 ////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -40,10 +40,12 @@ public class FoodTool
     public enum Type { Blender, Pot, Frypan }
     [SerializeField]
     public Type type;
+    public Sprite ToolImage;
     public List<FoodInfos> foodInfos = new List<FoodInfos>();
-    public FoodTool(Type _type, List<FoodInfos> _foodInfos)
+    public FoodTool(Type _type,Sprite tool, List<FoodInfos> _foodInfos)
     {
         type = _type;
+        ToolImage = tool;
         foodInfos = _foodInfos;
     }
 }
@@ -52,12 +54,12 @@ public class FoodData : DataManager
 {
     #region Singleton, LoadData
     private static FoodData instance = null;
-    private void Awake() //ì”¬ ì‹œì‘ë ë•Œ ì¸ìŠ¤í„´ìŠ¤ ì´ˆê¸°í™”
+    private void Awake() //¾À ½ÃÀÛµÉ¶§ ÀÎ½ºÅÏ½º ÃÊ±âÈ­
     {
         if (null == instance)
         {
             instance = this;
-            //LoadData<Food>(ref food, "FoodData"); //data ì™„ì„± ë˜ì—ˆì„ë•Œ ë‹¤ì‹œ í™œì„±í™”
+            //LoadData<FoodTool>(ref food, "FoodData"); //data ¿Ï¼º µÇ¾úÀ»¶§ ´Ù½Ã È°¼ºÈ­
             DontDestroyOnLoad(this.gameObject);
         }
         else
