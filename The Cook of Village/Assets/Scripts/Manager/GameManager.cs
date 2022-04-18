@@ -5,6 +5,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,6 +36,16 @@ public class GameManager : MonoBehaviour
 
     public MoneyText moneyText;
     public TimeDayText timeDayText;
+    private void Start()
+    {
+        SceneManager.sceneLoaded += LoadedsceneEvent;
+    }
+    private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
+    {
+        timeDayText = GameObject.Find("TimeDay").GetComponent<TimeDayText>();
+        moneyText = GameObject.Find("Money").GetComponent<MoneyText>();
+    }
+
     [SerializeField]
     private float timeOfDay;
     public float TimeOfDay

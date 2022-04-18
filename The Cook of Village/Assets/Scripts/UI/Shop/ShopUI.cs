@@ -24,6 +24,7 @@ public class ShopUI : MonoBehaviour
     }
     public void OpenShop()
     {
+        Debug.Log("Key");
         this.gameObject.SetActive(true);
         SlotDataLoad();
     }
