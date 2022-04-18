@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3637440575944271666}
   m_Layer: 0
   m_Name: Player_Restaurant
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
   controller: {fileID: 466699733000371447}
-  speed: 6
+  speed: 3
   turnSmoothTime: 0.1
 --- !u!143 &466699733000371447
 CharacterController:
@@ -81,12 +81,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fridgeInven: {fileID: 0}
-  potInven: {fileID: 0}
-  panInven: {fileID: 0}
-  blenderInven: {fileID: 0}
-  isUI: 0
   frigdeAnimator: {fileID: 0}
-  Lemon: {fileID: 0}
+  currentMaterial:
+    Type: 0
+    ID: 0
+    Name: 
+    Price: 0
+    Amount: 0
+    PrefabMaterial: {fileID: 0}
+    ImageUI: {fileID: 0}
+  isMoved: 0
+  isUI: 0
+  isToolCollider: 0
 --- !u!1001 &466699733293769938
 PrefabInstance:
   m_ObjectHideFlags: 0

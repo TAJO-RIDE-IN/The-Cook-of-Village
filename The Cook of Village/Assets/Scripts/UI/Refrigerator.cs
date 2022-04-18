@@ -1,6 +1,6 @@
 /////////////////////////////////////
-/// ÇÐ¹ø : 91914200
-/// ÀÌ¸§ : JungNaEun Á¤³ªÀº
+/// í•™ë²ˆ : 91914200
+/// ì´ë¦„ : JungNaEun ì •ë‚˜ì€
 ////////////////////////////////////
 using System;
 using System.Collections;
@@ -34,7 +34,7 @@ public class Refrigerator : MonoBehaviour
         foreach (SlotRefrigerator slot in slotArea)
         {
             int slotIndex = slotArea.FindIndex(s => s == slot);
-            if (MaterialData.Instance.materialType[type].materialInfos.Count > slotIndex) //slotÀÌ ´õ ¸¹À» °æ¿ì ¿À·ù³ªÁö ¾Ê±â À§ÇØ
+            if (MaterialData.Instance.materialType[type].materialInfos.Count > slotIndex) //slotì´ ë” ë§Žì„ ê²½ìš° ì˜¤ë¥˜ë‚˜ì§€ ì•Šê¸° ìœ„í•´
             {
                 int amount = MaterialData.Instance.materialType[type].materialInfos[slotIndex].Amount;
                 slot.materialInfos = MaterialData.Instance.materialType[type].materialInfos[slotIndex];
@@ -48,7 +48,7 @@ public class Refrigerator : MonoBehaviour
         int slotFIndex = SlotDictionary[type].FindIndex(a => a.materialInfos.ID == id);
         SlotDictionary[type][slotFIndex].SlotCount = amount;
     }
-    private void OnEnable() //Å×½ºÆ®¿ë
+    private void OnEnable() //í…ŒìŠ¤íŠ¸ìš©
     {
         InputAllDataSlot(1, FruitSlot);
         InputAllDataSlot(2, VegetableSlot);

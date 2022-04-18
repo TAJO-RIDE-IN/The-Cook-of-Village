@@ -14,11 +14,23 @@ public class CookingCharacter : MonoBehaviour
     public bool isMoved;
     
     public bool isUI = false;
+    public bool isToolCollider;
+
+    private CookingTool _cookingTool;
 
     private void Start()
     {
         currentMaterial = null;
     }
+
+    private void Update()
+    {
+        if (isToolCollider)
+        {
+            MoveInfosToTool();
+        }
+    }
+
 
     private void OnTriggerStay(Collider other)
     {
@@ -40,32 +52,38 @@ public class CookingCharacter : MonoBehaviour
             }
         }
         
-        if (other.CompareTag("Pot"))
+        else if (other.CompareTag("Pot"))
         {
-            MoveInfosToTool(other);
+            isToolCollider = true;
+            _cookingTool = other.transform.GetComponent<CookingTool>(); 
         }
-        if (other.CompareTag("FryPan"))
+        else if (other.CompareTag("FryPan"))
         {
-            MoveInfosToTool(other);
+            isToolCollider = true;
+            _cookingTool = other.transform.GetComponent<CookingTool>(); 
         }
-        if (other.CompareTag("Blender"))
+        else if (other.CompareTag("Blender"))
         {
-            MoveInfosToTool(other);
+            isToolCollider = true;
+            _cookingTool = other.transform.GetComponent<CookingTool>(); 
         }
     }
 
-    private void MoveInfosToTool(Collider other)
+    private void MoveInfosToTool()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            CookingTool cookingTool = other.transform.GetComponent<CookingTool>(); 
-                
-            if (currentMaterial != null)
+            Debug.Log("스페이스바눌림");
+            if (currentMaterial != null)//현재 들고있는 재료 정보가 null이 아닐때 넘겨줌, 세부적인건 저기서 수행(UI 바꾸기, 레시피리스트에 ID 추가)
             {
-                cookingTool.currentMaterialInTool = currentMaterial; //현재 들고있는 재료 정보를 넘겨줌, 세부적인건 저기서 수행(UI 바꾸기, 레시피리스트에 ID 추가)
-                cookingTool.PutIngredient();
+                _cookingTool.currentMaterialInTool = currentMaterial; 
+                _cookingTool.PutIngredient();
             }
             currentMaterial = null;
+        }
+        else if(Input.GetKeyDown(KeyCode.E))
+        {
+            _cookingTool.Cook();
         }
     }
 
@@ -73,9 +91,14 @@ public class CookingCharacter : MonoBehaviour
     {
         if (other.tag == "Fridge")
         {
-            frigdeAnimator.SetBool("isOpen",false);
-            Debug.Log("꺼짐");
+            CloseFridge();
             fridgeInven.SetActive(false);
         }
+        isToolCollider = false;
+    }
+
+    public void CloseFridge()
+    {
+        frigdeAnimator.SetBool("isOpen",false);
     }
 }
