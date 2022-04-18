@@ -13,6 +13,13 @@ public class ThirdPersonMovement : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     private float turnSmoothVelocity;
 
+    private Animator animator;
+
+    private void Start()
+    {
+        animator = transform.GetChild(0).GetComponent<Animator>();
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -22,13 +29,19 @@ public class ThirdPersonMovement : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
-
+            
+            animator.SetBool("isWalk",true);
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
                 turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(moveDir.normalized * speed * Time.deltaTime);
+            
+            controller.SimpleMove(moveDir.normalized * speed * Time.deltaTime);
+        }
+        else
+        {
+            animator.SetBool("isWalk",false);
         }
     }
 
