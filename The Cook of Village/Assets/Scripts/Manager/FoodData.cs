@@ -5,6 +5,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,7 +38,7 @@ public class FoodInfos
 [System.Serializable]
 public class FoodTool
 {
-    public enum Type { Blender, Pot, Frypan }
+    public enum Type { Blender, Pot, Frypan, Failure}
     [SerializeField]
     public Type type;
     public Sprite ToolImage;
@@ -83,17 +84,17 @@ public class FoodData : DataManager
     public float WaitingTime = 20f;
     public float EatTime = 10f;
     public FoodTool[] foodTool;
-    public Dictionary<List<int>, FoodInfos> Recipe = new Dictionary<List<int>, FoodInfos>();
-
-    private void Start()
+    public FoodInfos RecipeFood(int type, List<int> recipe)
     {
-        foreach(FoodTool i in foodTool)
+        foreach(FoodInfos i in foodTool[type].foodInfos)
         {
-            foreach(FoodInfos j in i.foodInfos)
+            if(recipe.SequenceEqual(i.Recipe))
             {
-                Recipe.Add(j.Recipe, j);
+                Debug.Log(i.Name);
+                return i;
             }
         }
+        return foodTool[3].foodInfos[0];
     }
     public override void SaveDataTime()
     {
