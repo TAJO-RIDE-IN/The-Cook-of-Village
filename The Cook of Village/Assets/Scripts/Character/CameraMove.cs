@@ -16,7 +16,7 @@ public class CameraMove : MonoBehaviour
     
     private void Start()
     {
-        Debug.Log(Input.GetAxis("Mouse ScrollWheel"));
+        //Debug.Log(Input.GetAxis("Mouse ScrollWheel"));
     }
     private void Update()
     {

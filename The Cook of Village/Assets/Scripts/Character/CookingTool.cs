@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CookingTool : MonoBehaviour
 {
-    public enum Type { Blender, Pot, Frypan }
+    public enum Type { Blender = 0, Pot = 1, Frypan = 2}
     public Type type;
     
     public GameObject Inven;
@@ -35,7 +35,8 @@ public class CookingTool : MonoBehaviour
 
     public void Cook()
     {
-        foodInfos = FoodData.Instance.Recipe[ingredientList];
+        foodInfos = FoodData.Instance.RecipeFood((int)type, ingredientList);
+        
         Debug.Log(foodInfos.Name);
     }
 
