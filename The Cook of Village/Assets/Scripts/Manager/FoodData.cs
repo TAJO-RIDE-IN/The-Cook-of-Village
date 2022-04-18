@@ -83,8 +83,18 @@ public class FoodData : DataManager
     public float WaitingTime = 20f;
     public float EatTime = 10f;
     public FoodTool[] foodTool;
-    [ContextMenu("To Json Data")]
+    public Dictionary<List<int>, FoodInfos> Recipe = new Dictionary<List<int>, FoodInfos>();
 
+    private void Start()
+    {
+        foreach(FoodTool i in foodTool)
+        {
+            foreach(FoodInfos j in i.foodInfos)
+            {
+                Recipe.Add(j.Recipe, j);
+            }
+        }
+    }
     public override void SaveDataTime()
     {
         SaveData<FoodTool>(ref foodTool, "FoodData");
