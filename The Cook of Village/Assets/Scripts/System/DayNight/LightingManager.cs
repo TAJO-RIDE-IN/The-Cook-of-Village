@@ -13,8 +13,6 @@ public class LightingManager : MonoBehaviour
             return;
 
             TimeOfDay += Time.deltaTime * orbitSpeed;
-            //TimeOfDay %= 24;
-
         if(TimeOfDay > 24)
         {
             TimeOfDay = 0;
@@ -25,20 +23,18 @@ public class LightingManager : MonoBehaviour
         
     }
 
-
     private void UpdateLighting()
     {
         float timePercent = TimeOfDay / 24f;
-        RenderSettings.ambientLight = Preset.AmbientColor.Evaluate(timePercent);
-        RenderSettings.fogColor = Preset.FogColor.Evaluate(timePercent);
+        RenderSettings.ambientLight = Preset.AmbientColor.Evaluate(timePercent); // 씬의 주변 조명의 색상 변경
+        RenderSettings.fogColor = Preset.FogColor.Evaluate(timePercent); // 안개 색상 변경
 
         if (DirectionalLight != null)
         {
-            DirectionalLight.color = Preset.DirectionalColor.Evaluate(timePercent);
-
+            DirectionalLight.color = Preset.DirectionalColor.Evaluate(timePercent); // 빛 색상 변경
             DirectionalLight.transform.localRotation = Quaternion.Euler(new Vector3((timePercent * 360f) - 90f, 170f, 0));
+            // DirectionalLight 회전시켜 태양의 움직임 변화
         }
-
     }
 
     private void OnValidate()

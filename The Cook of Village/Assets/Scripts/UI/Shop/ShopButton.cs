@@ -12,22 +12,9 @@ using UnityEngine.UI;
 public class ShopButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public Slider CountSlider;
+    public float ClickSpeed = 0.2f;
     private bool IsClick = false;
-    private bool changeValue = false;
-    private bool ChangeValue
-    {
-        get { return changeValue; }
-        set
-        {
-            changeValue = value;
-            float speed = 0.2f;
 
-            if (changeValue)
-            {
-                StartCoroutine(LongClickValueChange(speed));
-            }
-        }
-    }
     private bool plus = false;
 
     Dictionary<bool, int> SliderValue = new Dictionary<bool, int>();
@@ -46,25 +33,16 @@ public class ShopButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
     }
 
-    public void OnPointerDown(PointerEventData eventData) //클릭감지
+    public void OnPointerDown(PointerEventData eventData) // 클릭을 하는 순간 실행
     {
         IsClick = true;
-        StartCoroutine(DelayCheck(ChangeValue, 1f, (value) => ChangeValue = value));
+        StartCoroutine(ChangeWithDelay.CheckDelay(1f, () => StartCoroutine(LongClickValueChange(ClickSpeed))));
     }
-    public void OnPointerUp(PointerEventData eventData)
+    public void OnPointerUp(PointerEventData eventData) // 클릭을 떼는 순간 실행
     {
         IsClick = false;
-        ChangeValue = false;
     }
 
-    public IEnumerator DelayCheck(bool CurreuntBool, float delay, Action<bool> makeResult)
-    { 
-        yield return new WaitForSeconds(delay);
-        if (IsClick)
-        {
-            makeResult(true);
-        }
-    }
 
     public void ValueButtonClick()
     {

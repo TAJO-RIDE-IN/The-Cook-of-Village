@@ -24,14 +24,14 @@ public class ShopUI : MonoBehaviour
     }
     public void OpenShop()
     {
-        SlotDataLoad();
         this.gameObject.SetActive(true);
+        SlotDataLoad();
     }
     public void CloseShop()
     {
         this.gameObject.SetActive(false);
     }
-    
+
     private void OnEnable()
     {
         SlotDataLoad();
@@ -43,15 +43,11 @@ public class ShopUI : MonoBehaviour
         int type = ShopDictionary[shop];
         foreach (SlotShop slot in slot)
         {
-            if(order < MaterialData.Instance.materialType[type].materialInfos.Count)
+            if(order < MaterialData.Instance.materialType[type].materialInfos.Count) // Slot이 재료보다 많을 경우 대비
             {
                 slot.materialInfos = MaterialData.Instance.materialType[type].materialInfos[order];
                 slot.gameObject.SetActive(true);
                 order++;
-            }
-            else
-            {
-                slot.gameObject.SetActive(false);
             }
         }
     }

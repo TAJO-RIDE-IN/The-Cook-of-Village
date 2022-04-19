@@ -13,11 +13,6 @@ public class SlotShop : Slot
     public Text PriceText;
     public Image SlotImage;
     public ShopSelect SelectSlotObject;
-    public int SlotCount
-    {
-        get { return materialInfos.Amount; }
-        set { materialInfos.Amount = value; }
-    }
 
     private void OnEnable()
     {
@@ -25,6 +20,7 @@ public class SlotShop : Slot
     }
     private void OnDisable()
     {
+        this.gameObject.SetActive(false);
         materialInfos = null;
     }
     public override void SelectSlot()

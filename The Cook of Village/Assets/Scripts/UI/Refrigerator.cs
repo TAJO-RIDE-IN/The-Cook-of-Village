@@ -37,9 +37,9 @@ public class Refrigerator : MonoBehaviour
             if (MaterialData.Instance.materialType[type].materialInfos.Count > slotIndex) //slot이 더 많을 경우 오류나지 않기 위해
             {
                 int amount = MaterialData.Instance.materialType[type].materialInfos[slotIndex].Amount;
-                slot.materialInfos = MaterialData.Instance.materialType[type].materialInfos[slotIndex];
+                slot.materialInfos = MaterialData.Instance.materialType[type].materialInfos[slotIndex]; //slot 정보 입력
                 slot.SlotCount = amount;
-                slot.RefrigeratorUI = this.gameObject;
+                slot.RefrigeratorUI = this.gameObject; //slot 활성화
             }
         }
     }

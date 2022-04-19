@@ -12,6 +12,8 @@ public class ShopNPC : MonoBehaviour
     {
         if(other.tag == "Player")
         {
+            currentShop();
+            shopUI.OpenShop();
             isShop = true;
         }
     }

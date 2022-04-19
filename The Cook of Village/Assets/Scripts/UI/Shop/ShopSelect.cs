@@ -74,6 +74,5 @@ public class ShopSelect : MonoBehaviour
         MaterialData.Instance.ChangeAmount(slot.materialInfos.Type, slot.materialInfos.ID, CurrentAmount());
         GameManager.Instance.Money -= Int32.Parse(TotalPrice.text);
         CurrentCount = CurrentAmount();
-        slot.SlotCount = CurrentCount;
     }
 }

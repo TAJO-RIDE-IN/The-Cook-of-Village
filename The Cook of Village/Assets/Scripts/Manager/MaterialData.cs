@@ -1,6 +1,6 @@
 /////////////////////////////////////
-/// ?™ë²ˆ : 91914200
-/// ?´ë¦„ : JungNaEun ?•ë‚˜?€
+/// ÇĞ¹ø : 91914200
+/// ÀÌ¸§ : JungNaEun Á¤³ªÀº€
 ////////////////////////////////////
 using System;
 using System.Collections;
@@ -15,7 +15,7 @@ public class MaterialInfos
     public int ID;
     public string Name;
     public int Price;
-    public int Amount; //playerê°€ ?Œì?ì¤‘ì¸ ê°œìˆ˜
+    public int Amount;
     public GameObject PrefabMaterial;
     public Sprite ImageUI; //UIImage
 
@@ -54,7 +54,7 @@ public class MaterialData : DataManager
         if (null == instance)
         {
             instance = this;
-            //LoadData<Material>(ref material, "MaterialData"); //data ¿Ï¼º µÇ¾úÀ»¶§ ´Ù½Ã È°¼ºÈ­
+            //LoadData<MaterialType>(ref materialType, "MaterialData"); //data ¿Ï¼º µÇ¾úÀ»¶§ ´Ù½Ã È°¼ºÈ­
             DontDestroyOnLoad(this.gameObject);
         }
         else
