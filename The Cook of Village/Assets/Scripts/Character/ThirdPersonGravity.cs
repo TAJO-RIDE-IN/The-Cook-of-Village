@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class ThirdPersonGravity : MonoBehaviour
@@ -20,12 +21,14 @@ public class ThirdPersonGravity : MonoBehaviour
 
     float turnSmoothVelocity;
     public float turnSmoothTime = 0.1f;
-    
+
     private Animator animator;
+    public CinemachineFreeLook cinemachine;
 
     private void Start()
     {
         animator = transform.GetChild(0).GetComponent<Animator>();
+        //cinemachine.GetComponent<CinemachineFreeLook>();
     }
 
     // Update is called once per frame
