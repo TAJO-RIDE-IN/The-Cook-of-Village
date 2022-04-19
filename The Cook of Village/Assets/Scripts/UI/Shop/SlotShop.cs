@@ -25,8 +25,7 @@ public class SlotShop : Slot
     }
     private void OnDisable()
     {
-        materialInfos.Type = 0;
-        materialInfos.ID = 0;
+        materialInfos = null;
     }
     public override void SelectSlot()
     {

@@ -243,10 +243,9 @@ GameObject:
   - component: {fileID: 7449887925226655665}
   - component: {fileID: 7449887925226655664}
   - component: {fileID: 7449887925226655671}
-  - component: {fileID: 7449887925226655670}
   m_Layer: 5
   m_Name: MoneyText
-  m_TagString: Untagged
+  m_TagString: Display
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -326,19 +325,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
---- !u!114 &7449887925226655670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7449887925226655668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be8607dddc24bd54eb11caebbc609014, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Money: {fileID: 7449887925226655664}
 --- !u!1 &7449887925384722251
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7449887925384722244}
   - component: {fileID: 7449887925384722245}
+  - component: {fileID: 4535496050298802445}
   m_Layer: 5
   m_Name: Money
   m_TagString: Untagged
@@ -384,6 +371,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7449887925384722251}
   m_CullTransparentMesh: 1
+--- !u!114 &4535496050298802445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7449887925384722251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be8607dddc24bd54eb11caebbc609014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Money: {fileID: 7449887925226655664}
 --- !u!1 &7449887925437504413
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +396,7 @@ GameObject:
   - component: {fileID: 7449887925437504415}
   m_Layer: 5
   m_Name: TimeDay
-  m_TagString: Untagged
+  m_TagString: Display
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

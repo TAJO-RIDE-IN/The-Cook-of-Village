@@ -24,9 +24,8 @@ public class ShopUI : MonoBehaviour
     }
     public void OpenShop()
     {
-        Debug.Log("Key");
-        this.gameObject.SetActive(true);
         SlotDataLoad();
+        this.gameObject.SetActive(true);
     }
     public void CloseShop()
     {
@@ -46,8 +45,8 @@ public class ShopUI : MonoBehaviour
         {
             if(order < MaterialData.Instance.materialType[type].materialInfos.Count)
             {
-                slot.gameObject.SetActive(true);
                 slot.materialInfos = MaterialData.Instance.materialType[type].materialInfos[order];
+                slot.gameObject.SetActive(true);
                 order++;
             }
             else

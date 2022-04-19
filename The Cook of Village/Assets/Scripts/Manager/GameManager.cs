@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SceneManager.sceneLoaded += LoadedsceneEvent;
+        timeDayText = GameObject.Find("TimeDay").GetComponent<TimeDayText>();
+        moneyText = GameObject.Find("Money").GetComponent<MoneyText>();
     }
     private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
     {
