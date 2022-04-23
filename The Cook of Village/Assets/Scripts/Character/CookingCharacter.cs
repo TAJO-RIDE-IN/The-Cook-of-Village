@@ -41,14 +41,6 @@ public class CookingCharacter : MonoBehaviour
                 frigdeAnimator.SetBool("isOpen",true);
                 fridgeInven.SetActive(true);
                 isUI = true;
-                if (!isUI)
-                {
-                    
-                }
-                else
-                {
-                    Debug.Log("꺼짐");
-                }
             }
         }
         

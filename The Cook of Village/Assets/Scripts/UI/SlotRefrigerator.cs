@@ -11,7 +11,8 @@ public class SlotRefrigerator : Slot
 {
     public GameObject RefrigeratorUI;
     public Text CountText;
-    private Transform Player;
+    private Transform HandPosition;
+    private Transform player;
     public int SlotCount
     {
         get { return materialInfos.Amount; }
@@ -25,7 +26,8 @@ public class SlotRefrigerator : Slot
     }
     private void Start()
     {
-        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        HandPosition = GameObject.FindGameObjectWithTag("HandPosition").GetComponent<Transform>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
     private void OnEnable()
     {
@@ -47,9 +49,9 @@ public class SlotRefrigerator : Slot
         {
             SlotCount--;
             RefrigeratorUI.SetActive(false);
-            Vector3 position = Player.position;
-            Instantiate(materialInfos.PrefabMaterial, position, Quaternion.identity);
-            Player.transform.GetComponent<CookingCharacter>().currentMaterial = materialInfos;
+            Vector3 position = HandPosition.position;
+            Instantiate(materialInfos.PrefabMaterial, position, Quaternion.identity, HandPosition.transform);
+            player.transform.GetComponent<CookingCharacter>().currentMaterial = materialInfos;
         }
     }
 }
