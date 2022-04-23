@@ -24,11 +24,13 @@ public class ShopUI : MonoBehaviour
     }
     public void OpenShop()
     {
+        GameManager.Instance.IsUI = true;
         this.gameObject.SetActive(true);
         SlotDataLoad();
     }
     public void CloseShop()
     {
+        GameManager.Instance.IsUI = false;
         this.gameObject.SetActive(false);
     }
 

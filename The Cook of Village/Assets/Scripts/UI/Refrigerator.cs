@@ -61,6 +61,7 @@ public class Refrigerator : MonoBehaviour
     }
     public void OpenRefrigerator()
     {
+        GameManager.Instance.IsUI = true;
         this.gameObject.SetActive(true);
         InputAllDataSlot(1, FruitSlot);
         InputAllDataSlot(2, VegetableSlot);
@@ -68,6 +69,7 @@ public class Refrigerator : MonoBehaviour
     }
     public void CloseRefrigerator()
     {
+        GameManager.Instance.IsUI = false;
         this.gameObject.SetActive(false);
     }
 }
