@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ChairCheck : MonoBehaviour
+public class AIPosition : MonoBehaviour
 {
     public List<GameObject> Chair = new List<GameObject>();
 
