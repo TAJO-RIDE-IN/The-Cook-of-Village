@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class CookingCharacter : MonoBehaviour
 {
-    public GameObject fridgeInven;
     public Animator frigdeAnimator;
     public MaterialInfos currentMaterial;
 
@@ -36,10 +35,11 @@ public class CookingCharacter : MonoBehaviour
     {
         if (other.CompareTag("Fridge"))
         {
+            
             if (Input.GetKey(KeyCode.Space))
             {
+                other.transform.GetComponent<Refrigerator>().OpenRefrigerator();
                 frigdeAnimator.SetBool("isOpen",true);
-                fridgeInven.SetActive(true);
                 isUI = true;
             }
         }
@@ -84,7 +84,7 @@ public class CookingCharacter : MonoBehaviour
         if (other.tag == "Fridge")
         {
             CloseFridge();
-            fridgeInven.SetActive(false);
+            other.transform.GetComponent<Refrigerator>().CloseRefrigerator();
         }
         isToolCollider = false;
     }
