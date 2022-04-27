@@ -6,29 +6,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopUI : MonoBehaviour
+public class ShopUI : SlotParent
 {
     public GameObject SlotContent;
     public SlotShop[] slot;
-    public enum Shop {FruitShop, VegetableShop, MeatShop}
+    public enum Shop {Fruit, Vegetable, Meat}
     [SerializeField]
     public Shop shop;
 
-    Dictionary<Shop, int> ShopDictionary = new Dictionary<Shop, int>();
     private void Awake()
     {
         slot = SlotContent.transform.GetComponentsInChildren<SlotShop>(true);
-        ShopDictionary.Add(Shop.FruitShop, 1);
-        ShopDictionary.Add(Shop.VegetableShop, 2);
-        ShopDictionary.Add(Shop.MeatShop, 3);
     }
-    public void OpenShop()
+    public override void OpenUI()
     {
         GameManager.Instance.IsUI = true;
         this.gameObject.SetActive(true);
-        SlotDataLoad();
+        LoadSlotData();
     }
-    public void CloseShop()
+    public override void CloseUI()
     {
         GameManager.Instance.IsUI = false;
         this.gameObject.SetActive(false);
@@ -36,21 +32,19 @@ public class ShopUI : MonoBehaviour
 
     private void OnEnable()
     {
-        SlotDataLoad();
+        LoadSlotData();
     }
 
-    private void SlotDataLoad()
+    public override void LoadSlotData()
     {
         int order = 0;
-        int type = ShopDictionary[shop];
-        foreach (SlotShop slot in slot)
+        int type = SlotDictionary[shop.ToString()];
+
+        foreach(MaterialInfos materialInfos in MaterialData.Instance.materialType[type].materialInfos)
         {
-            if(order < MaterialData.Instance.materialType[type].materialInfos.Count) // Slot이 재료보다 많을 경우 대비
-            {
-                slot.materialInfos = MaterialData.Instance.materialType[type].materialInfos[order];
-                slot.gameObject.SetActive(true);
-                order++;
-            }
+            slot[order].materialInfos = materialInfos;
+            slot[order].gameObject.SetActive(true);
+            order++;
         }
     }
 }

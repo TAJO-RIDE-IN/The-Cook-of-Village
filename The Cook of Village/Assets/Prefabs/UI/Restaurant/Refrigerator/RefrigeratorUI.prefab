@@ -271,7 +271,6 @@ GameObject:
   - component: {fileID: 6048457414034661588}
   - component: {fileID: 6048457414034661590}
   - component: {fileID: 6048457414034661589}
-  - component: {fileID: 6048457414034661591}
   m_Layer: 5
   m_Name: RefrigeratorUI
   m_TagString: Untagged
@@ -339,21 +338,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6048457414034661591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6048457414034661595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f17662cdd8a9354cb82695d98ebf14c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FruitContent: {fileID: 2560997890619200226}
-  VegetableContent: {fileID: 105839826162051115}
-  MeetContent: {fileID: 105839824792907765}
 --- !u!1 &6048457414473133490
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +458,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6048457414034661591}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Refrigerator, Assembly-CSharp
         m_MethodName: CloseRefrigerator
         m_Mode: 1
@@ -540,6 +524,10 @@ PrefabInstance:
     - target: {fileID: 3678501084501843328, guid: 9fd8975fbdfcbe041ac528db3e01eb1f, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3678501084501843331, guid: 9fd8975fbdfcbe041ac528db3e01eb1f, type: 3}
+      propertyPath: m_Name
+      value: Fruit
       objectReference: {fileID: 0}
     - target: {fileID: 3678501085208495883, guid: 9fd8975fbdfcbe041ac528db3e01eb1f, type: 3}
       propertyPath: m_AnchorMax.x
@@ -672,11 +660,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4861276003749283894, guid: 9fd8975fbdfcbe041ac528db3e01eb1f, type: 3}
   m_PrefabInstance: {fileID: 1190875805987557217}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2560997890619200226 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3678501084501843331, guid: 9fd8975fbdfcbe041ac528db3e01eb1f, type: 3}
-  m_PrefabInstance: {fileID: 1190875805987557217}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4099974908798576132
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -739,6 +722,10 @@ PrefabInstance:
     - target: {fileID: 4151770982002463609, guid: a740b8d2947c7d744a732e0169a53ba1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4151770983917341169, guid: a740b8d2947c7d744a732e0169a53ba1, type: 3}
+      propertyPath: m_Name
+      value: Meat
       objectReference: {fileID: 0}
     - target: {fileID: 4151770983917341170, guid: a740b8d2947c7d744a732e0169a53ba1, type: 3}
       propertyPath: m_SizeDelta.x
@@ -853,11 +840,6 @@ PrefabInstance:
 --- !u!224 &8143094411985336896 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5324411779653999684, guid: a740b8d2947c7d744a732e0169a53ba1, type: 3}
-  m_PrefabInstance: {fileID: 4099974908798576132}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &105839824792907765 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4151770983917341169, guid: a740b8d2947c7d744a732e0169a53ba1, type: 3}
   m_PrefabInstance: {fileID: 4099974908798576132}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6980597477144827542
@@ -979,6 +961,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7032393535971065533, guid: eba58c63ff6c8f54fa411d126adae470, type: 3}
+      propertyPath: m_Name
+      value: Vegetable
+      objectReference: {fileID: 0}
     - target: {fileID: 7032393535971065534, guid: eba58c63ff6c8f54fa411d126adae470, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -1004,10 +990,5 @@ PrefabInstance:
 --- !u!224 &8143094411207523742 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1288598295967083272, guid: eba58c63ff6c8f54fa411d126adae470, type: 3}
-  m_PrefabInstance: {fileID: 6980597477144827542}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &105839826162051115 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7032393535971065533, guid: eba58c63ff6c8f54fa411d126adae470, type: 3}
   m_PrefabInstance: {fileID: 6980597477144827542}
   m_PrefabAsset: {fileID: 0}
