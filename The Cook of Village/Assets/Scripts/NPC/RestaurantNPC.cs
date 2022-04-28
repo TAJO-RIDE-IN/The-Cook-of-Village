@@ -5,10 +5,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RestaurantNPC : MonoBehaviour
 {
-    public enum State {Idle, Walk, Sit, Eat}
+    public enum State { Idle, Walk, Sit, Eat }
     public State CurrentState = State.Idle;
     [SerializeField]
     private GameObject[] Models;
@@ -25,7 +26,6 @@ public class RestaurantNPC : MonoBehaviour
         int model = Random.Range(0, Models.Length);
         CurrentModel = Models[model];
         CurrentModel.SetActive(true);
-
     }
 
     private void OnDisable()
@@ -36,5 +36,10 @@ public class RestaurantNPC : MonoBehaviour
     public void PayFood(int Price)
     {
         GameManager.Instance.Money += Price;
+    }
+
+    private void NPCMove()
+    {
+        this.GetComponent<NavMeshAgent>().SetDestination(new Vector3(0f, 0f, 0f)); //vectorv potition으로 이동
     }
 }
