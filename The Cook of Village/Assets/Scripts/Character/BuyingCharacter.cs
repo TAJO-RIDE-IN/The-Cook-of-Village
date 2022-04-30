@@ -38,7 +38,7 @@ public class BuyingCharacter : MonoBehaviour
     {
         if (other.tag == "Shop")
         {
-            _shopNpc.shopUI.CloseShop();
+            _shopNpc.shopUI.CloseUI();
             cinemachine.m_XAxis.m_MaxSpeed = 300;
             cinemachine.m_YAxis.m_MaxSpeed = 2;
         }
@@ -49,7 +49,7 @@ public class BuyingCharacter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _shopNpc.shopUI.OpenShop();
+            _shopNpc.shopUI.OpenUI();
             cinemachine.m_XAxis.m_MaxSpeed = 0;
             cinemachine.m_YAxis.m_MaxSpeed = 0;
         }

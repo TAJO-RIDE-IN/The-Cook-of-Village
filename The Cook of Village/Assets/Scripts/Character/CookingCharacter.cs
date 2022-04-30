@@ -38,7 +38,7 @@ public class CookingCharacter : MonoBehaviour
             
             if (Input.GetKey(KeyCode.Space))
             {
-                other.transform.GetComponent<Refrigerator>().OpenRefrigerator();
+                other.transform.GetComponent<Refrigerator>().OpenUI();
                 frigdeAnimator.SetBool("isOpen",true);
                 isUI = true;
             }
@@ -84,7 +84,7 @@ public class CookingCharacter : MonoBehaviour
         if (other.tag == "Fridge")
         {
             CloseFridge();
-            other.transform.GetComponent<Refrigerator>().CloseRefrigerator();
+            other.transform.GetComponent<Refrigerator>().CloseUI();
         }
         isToolCollider = false;
     }

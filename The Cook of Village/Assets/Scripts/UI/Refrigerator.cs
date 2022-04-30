@@ -38,10 +38,6 @@ public class Refrigerator : SlotParent
         }
     }
 
-    private void OnEnable()
-    {
-        OpenUI();
-    }
     public void InputRefrigerator(int type, int id, int amount)
     {
         MaterialData.Instance.ChangeAmount(type, id, amount++);
