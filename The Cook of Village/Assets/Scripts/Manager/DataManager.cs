@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class DataManager : MonoBehaviour
 {
-    public abstract void SaveDataTime(); //ÇÏ·ç°¡ Áö³¯ ¶§¸¶´Ù ÀúÀå
+    public abstract void SaveDataTime(); //í•˜ë£¨ê°€ ì§€ë‚  ë•Œë§ˆë‹¤ ì €ìž¥
 
     [ContextMenu("To Json Data")]
     protected void SaveData<T>(ref T[] source, string FileName)

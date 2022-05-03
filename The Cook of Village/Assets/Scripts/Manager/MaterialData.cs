@@ -1,6 +1,6 @@
 /////////////////////////////////////
-/// ÇĞ¹ø : 91914200
-/// ÀÌ¸§ : JungNaEun Á¤³ªÀº€
+/// í•™ë²ˆ : 91914200
+/// ì´ë¦„ : JungNaEun ì •ë‚˜ì€Â€
 ////////////////////////////////////
 using System;
 using System.Collections;
@@ -49,12 +49,12 @@ public class MaterialData : DataManager
 {
     #region Singleton, LoadData
     private static MaterialData instance = null;
-    private void Awake() //¾À ½ÃÀÛµÉ¶§ ÀÎ½ºÅÏ½º ÃÊ±âÈ­
+    private void Awake() //ì”¬ ì‹œì‘ë ë•Œ ì¸ìŠ¤í„´ìŠ¤ ì´ˆê¸°í™”
     {
         if (null == instance)
         {
             instance = this;
-            //LoadData<MaterialType>(ref materialType, "MaterialData"); //data ¿Ï¼º µÇ¾úÀ»¶§ ´Ù½Ã È°¼ºÈ­
+            //LoadData<MaterialType>(ref materialType, "MaterialData"); //data ì™„ì„± ë˜ì—ˆì„ë•Œ ë‹¤ì‹œ í™œì„±í™”
             DontDestroyOnLoad(this.gameObject);
         }
         else
