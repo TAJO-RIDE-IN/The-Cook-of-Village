@@ -8,18 +8,24 @@ using UnityEngine.UI;
 public class CookingCharacter : MonoBehaviour
 {
     public Animator frigdeAnimator;
-    public MaterialInfos currentMaterial;
-
-    public bool isMoved;
+    public Animator charAnimator;
+    public GameObject HandPosition;
     
-    public bool isUI = false;
-    public bool isToolCollider;
-
+    public MaterialInfos currentMaterial;
+    
     private CookingTool _cookingTool;
-
-    private void Start()
+    private AnimatorOverrideController animatorOverrideController;
+    public AnimationClip[] Idle;
+    public AnimationClip[] Walk;
+    
+    private bool isToolCollider;
+    public bool isHand;
+    
+    void Start()
     {
         currentMaterial = null;
+        animatorOverrideController = new AnimatorOverrideController(charAnimator.runtimeAnimatorController);
+        charAnimator.runtimeAnimatorController = animatorOverrideController;
     }
 
     private void Update()
@@ -27,6 +33,22 @@ public class CookingCharacter : MonoBehaviour
         if (isToolCollider)
         {
             MoveInfosToTool();
+        }
+        
+        
+    }
+
+    private void FixedUpdate()
+    {
+        if (!isHand)//null일땐 0 고정, 즉 기본값
+        {
+            animatorOverrideController["Idle"] = Idle[0];
+            animatorOverrideController["Walk"] = Walk[0];
+        }
+        if(isHand)//어떤 값이라도 들어오면
+        {
+            animatorOverrideController["Idle"] = Idle[1];
+            animatorOverrideController["Walk"] = Walk[1];
         }
     }
 
@@ -40,7 +62,6 @@ public class CookingCharacter : MonoBehaviour
             {
                 other.transform.GetComponent<Refrigerator>().OpenUI();
                 frigdeAnimator.SetBool("isOpen",true);
-                isUI = true;
             }
         }
         
@@ -66,11 +87,16 @@ public class CookingCharacter : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("스페이스바눌림");
-            if (currentMaterial != null)//현재 들고있는 재료 정보가 null이 아닐때 넘겨줌, 세부적인건 저기서 수행(UI 바꾸기, 레시피리스트에 ID 추가)
+            if (isHand)//현재 들고있는 재료 정보가 null이 아닐때 넘겨줌, 세부적인건 저기서 수행(UI 바꾸기, 레시피리스트에 ID 추가)
             {
                 _cookingTool.currentMaterialInTool = currentMaterial; 
                 _cookingTool.PutIngredient();
+                for (int i = 0; i < HandPosition.transform.childCount; i++)
+                {
+                    Destroy(HandPosition.transform.GetChild(i).gameObject);
+                }
             }
+            isHand = false;
             currentMaterial = null;
         }
         else if(Input.GetKeyDown(KeyCode.E))

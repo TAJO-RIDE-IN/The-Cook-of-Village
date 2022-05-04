@@ -6,19 +6,12 @@ using UnityEngine;
 public class ThirdPersonMovement : MonoBehaviour
 {
 
-
+    public Animator charAnimator;
     public Transform camera;
     public CharacterController controller;
     public float speed = 6f;
     public float turnSmoothTime = 0.1f;
     private float turnSmoothVelocity;
-
-    private Animator animator;
-
-    private void Start()
-    {
-        animator = transform.GetChild(0).GetComponent<Animator>();
-    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -30,7 +23,7 @@ public class ThirdPersonMovement : MonoBehaviour
         if (direction.magnitude >= 0.1f)
         {
             
-            animator.SetBool("isWalk",true);
+            charAnimator.SetBool("isWalk",true);
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
                 turnSmoothTime);
@@ -41,7 +34,7 @@ public class ThirdPersonMovement : MonoBehaviour
         }
         else
         {
-            animator.SetBool("isWalk",false);
+            charAnimator.SetBool("isWalk",false);
         }
     }
 
