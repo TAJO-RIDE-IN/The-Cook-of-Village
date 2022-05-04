@@ -7,6 +7,12 @@ public class LightingManager : MonoBehaviour
     [SerializeField, Range(0, 24)] private float TimeOfDay;
     public float orbitSpeed = 1.0f;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
+
     private void Update()
     {
         if (Preset == null)

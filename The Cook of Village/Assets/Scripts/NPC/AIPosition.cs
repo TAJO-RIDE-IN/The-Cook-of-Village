@@ -7,11 +7,12 @@ using UnityEngine.AI;
 public class AIPosition : MonoBehaviour
 {
     public List<GameObject> Chair = new List<GameObject>();
+    public GameObject Counter;
+    public GameObject Door;
 
     private void Awake()
     {
         Chair = GameObject.FindGameObjectsWithTag("Chair").ToList();
-
     }
 
     private int ChairNum()

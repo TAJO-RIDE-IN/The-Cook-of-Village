@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShopNPC : MonoBehaviour
 {
     public ShopUI shopUI;
-    public enum Type { FruitShop, VegetableShop, MeatShop }
+    public enum Type { Fruit, Vegetable, Meat }
     public Type type;
     public bool isShop = false;
     public void OnTriggerEnter(Collider other)
@@ -28,14 +28,14 @@ public class ShopNPC : MonoBehaviour
     {
         switch(type)
         {
-            case Type.FruitShop:
-                shopUI.shop = ShopUI.Shop.FruitShop;
+            case Type.Fruit:
+                shopUI.shop = ShopUI.Shop.Fruit;
                 break;
-            case Type.VegetableShop:
-                shopUI.shop = ShopUI.Shop.VegetableShop;
+            case Type.Vegetable:
+                shopUI.shop = ShopUI.Shop.Vegetable;
                 break;
-            case Type.MeatShop:
-                shopUI.shop = ShopUI.Shop.MeatShop;
+            case Type.Meat:
+                shopUI.shop = ShopUI.Shop.Meat;
                 break;
         }
     }

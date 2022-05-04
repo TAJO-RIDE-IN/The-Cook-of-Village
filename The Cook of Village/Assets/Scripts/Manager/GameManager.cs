@@ -44,13 +44,14 @@ public class GameManager : MonoBehaviour
     }
     private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
     {
+        moneyText.ChangeMoney(money);
         timeDayText = GameObject.Find("TimeDay").GetComponent<TimeDayText>();
         moneyText = GameObject.Find("Money").GetComponent<MoneyText>();
     }
 
     public bool IsUI = false;
 
-    [SerializeField]
+    [SerializeField, Range(0, 24)]
     private float timeOfDay;
     public float TimeOfDay
     {

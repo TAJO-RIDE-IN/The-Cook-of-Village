@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NPCPooling : ObjectPooling<RestaurantNPC>
 {
-    public bool isCall = true;
+    private bool isCall = true;
     [SerializeField]
     private float CallTime = 10f;
     private void Start()

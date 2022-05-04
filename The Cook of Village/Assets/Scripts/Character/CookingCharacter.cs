@@ -14,7 +14,6 @@ public class CookingCharacter : MonoBehaviour
     
     public bool isUI = false;
     public bool isToolCollider;
-    public GameObject fridge;
 
     private CookingTool _cookingTool;
 
@@ -36,12 +35,12 @@ public class CookingCharacter : MonoBehaviour
     {
         if (other.CompareTag("Fridge"))
         {
+            
             if (Input.GetKey(KeyCode.Space))
             {
-                //other.transform.GetComponent<Refrigerator>().OpenRefrigerator();
+                other.transform.GetComponent<Refrigerator>().OpenUI();
                 frigdeAnimator.SetBool("isOpen",true);
                 isUI = true;
-                fridge.SetActive(true);
             }
         }
         
@@ -85,8 +84,7 @@ public class CookingCharacter : MonoBehaviour
         if (other.tag == "Fridge")
         {
             CloseFridge();
-            fridge.SetActive(false);
-            //other.transform.GetComponent<Refrigerator>().CloseRefrigerator();
+            other.transform.GetComponent<Refrigerator>().CloseUI();
         }
         isToolCollider = false;
     }
