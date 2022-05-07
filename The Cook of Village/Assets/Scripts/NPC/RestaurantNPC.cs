@@ -31,15 +31,14 @@ public class RestaurantNPC : MonoBehaviour
     {
         agent = this.gameObject.GetComponent<NavMeshAgent>();
 
-
     }
 
-    private void Start()
+/*    private void Start()
     {
         var aiPosition = new AIPosition(new chairP());
         NPCMove(aiPosition.ChairPosition());
     }
-
+*/
     public void EatFood(int Price)
     {
         CurrentState = State.Eat;
