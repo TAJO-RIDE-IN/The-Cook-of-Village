@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RestaurantNPC : MonoBehaviour
+public class RestaurantNPC : AIPosition
 {
     public enum State {Idle, Walk, Eat, Sit, StandUP}
     private State currentState;
@@ -24,21 +24,19 @@ public class RestaurantNPC : MonoBehaviour
     private GameObject[] Models;
     private GameObject CurrentModel;
     private NavMeshAgent agent;
+    private GameObject DestinationChiar;
     private bool isArrive = false;
-    AIPosition aiPosition;
 
     private void Awake()
     {
         agent = this.gameObject.GetComponent<NavMeshAgent>();
-
     }
 
-/*    private void Start()
+    private void Start()
     {
-        var aiPosition = new AIPosition(new chairP());
-        NPCMove(aiPosition.ChairPosition());
+        StartCoroutine(NPCMove(ChairPosition()));
     }
-*/
+
     public void EatFood(int Price)
     {
         CurrentState = State.Eat;
@@ -61,23 +59,6 @@ public class RestaurantNPC : MonoBehaviour
         GameManager.Instance.Money += Price;
     }
 
-    private void NPCState()
-    {
-        switch(CurrentState)
-        {
-            case State.Idle:
-                break;
-            case State.Walk:
-                break;
-            case State.Eat:
-                break;
-            case State.Sit:
-                break;
-            case State.StandUP:
-                break;
-        }
-    }
-
     private IEnumerator NPCMove(Vector3 destination)
     {
         while(!isArrive)
@@ -89,6 +70,22 @@ public class RestaurantNPC : MonoBehaviour
                 isArrive = true;
             }
             yield return null;
+        }
+    }
+    private void NPCState()
+    {
+        switch (CurrentState)
+        {
+            case State.Idle:
+                break;
+            case State.Walk:
+                break;
+            case State.Eat:
+                break;
+            case State.Sit:
+                break;
+            case State.StandUP:
+                break;
         }
     }
 }

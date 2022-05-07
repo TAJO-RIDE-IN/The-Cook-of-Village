@@ -109,7 +109,7 @@ NavMeshSettings:
     agentRadius: 0.2
     agentHeight: 2
     agentSlope: 45
-    agentClimb: 0.4
+    agentClimb: 0.2
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -117,7 +117,7 @@ NavMeshSettings:
     cellSize: 0.06666667
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    accuratePlacement: 1
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -13298,6 +13298,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cdb5051a18c70640b2db139516dbb36, type: 3}
+--- !u!195 &1235834490 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 5623439424447811863, guid: e87072f8a72ca7745862c0fcc2f957e9, type: 3}
+  m_PrefabInstance: {fileID: 1790819939029496110}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1236899622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23286,6 +23291,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5623439424447811863, guid: e87072f8a72ca7745862c0fcc2f957e9, type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6840840219820880109, guid: e87072f8a72ca7745862c0fcc2f957e9, type: 3}
+      propertyPath: aiPosition
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6840840219820880111, guid: e87072f8a72ca7745862c0fcc2f957e9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e87072f8a72ca7745862c0fcc2f957e9, type: 3}
 --- !u!1001 &2472748037887186340
@@ -23932,6 +23949,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: npc
+      value: 
+      objectReference: {fileID: 1235834490}
     - target: {fileID: 7293264631711250404, guid: 5ca6268ccff04c64981cf18e6cf71cc7, type: 3}
       propertyPath: m_Name
       value: ChairContainer
