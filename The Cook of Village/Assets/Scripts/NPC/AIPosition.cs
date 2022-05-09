@@ -14,8 +14,9 @@ public class AIPosition : MonoBehaviour
         WaitChair = GameObject.FindGameObjectsWithTag("Chair").ToList();
     }
 
-    public Vector3 ChairPosition()
+    protected Vector3 ChairPosition()
     {
+
         int chairNum = Random.Range(0, WaitChair.Count);
         Vector3 destination = WaitChair[chairNum].transform.position;
         WaitChair.RemoveAt(chairNum);

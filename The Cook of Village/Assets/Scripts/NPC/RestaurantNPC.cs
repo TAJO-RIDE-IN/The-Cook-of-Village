@@ -27,13 +27,9 @@ public class RestaurantNPC : AIPosition
     private GameObject DestinationChiar;
     private bool isArrive = false;
 
-    private void Awake()
-    {
-        agent = this.gameObject.GetComponent<NavMeshAgent>();
-    }
-
     private void Start()
     {
+        agent = this.gameObject.GetComponent<NavMeshAgent>();
         StartCoroutine(NPCMove(ChairPosition()));
     }
 
