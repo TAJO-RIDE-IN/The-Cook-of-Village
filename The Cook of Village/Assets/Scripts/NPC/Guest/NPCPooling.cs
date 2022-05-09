@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class NPCPooling : ObjectPooling<RestaurantNPC>
+public class NPCPooling : ObjectPooling<GuestNPC>
 {
-    private bool isCall = true;
     [SerializeField]
     private float CallTime = 10f;
+    private bool isCall = true;
+    public List<GameObject> WaitChair = new List<GameObject>();
+
     private void Start()
     {
+        WaitChair = GameObject.FindGameObjectsWithTag("Chair").ToList();
         StartCoroutine(CallNPC());
     }
 
@@ -16,7 +20,10 @@ public class NPCPooling : ObjectPooling<RestaurantNPC>
     {
         while(isCall)
         {
-            GetObject();
+            if(WaitChair.Count != 0)
+            {
+                GetObject();
+            }
             yield return new WaitForSeconds(Random.Range(CallTime-4, CallTime+4));
         }
     }

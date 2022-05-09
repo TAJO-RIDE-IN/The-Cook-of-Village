@@ -8,13 +8,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FoodOrder : MonoBehaviour
+public class FoodOrder : GuestNPC
 {
     Probability<FoodInfos> FoodProbability = new Probability<FoodInfos>();
     [SerializeField]
     private FoodInfos foodInfos;
     public GameObject NPCUI;
-    public RestaurantNPC restaurantNPC;
     public Transform FoodPosition;
     public Image RemainingTimeImage;
     public Image OrderFoodImage;
@@ -55,7 +54,6 @@ public class FoodOrder : MonoBehaviour
             if(time <= 0)
             {
                 EndOrder();
-                Debug.Log("TimeOver");
             }
         }
     }
@@ -64,19 +62,16 @@ public class FoodOrder : MonoBehaviour
         StopCoroutine(WaitingOrder());
         NPCUI.SetActive(false);
         currentOrderUI.EndOrder();
-        restaurantNPC.EatFood(foodInfos.Price);
     }
     public void ReceiveFood(int ReceiveFood)
     {
         if (ReceiveFood == foodInfos.ID && CanReceive)
         {
             Instantiate(foodInfos.PrefabFood, FoodPosition);
+            CurrentState = State.Eat;
+            StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => PayFood(foodInfos.Price)));
             EndOrder();
         }
-    }
-    public void ReciveButton() //테스트 버튼
-    {
-        ReceiveFood(foodInfos.ID);
     }
     private void Order()
     {
