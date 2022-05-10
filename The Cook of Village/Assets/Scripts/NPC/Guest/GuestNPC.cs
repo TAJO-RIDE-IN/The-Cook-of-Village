@@ -7,7 +7,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public interface IGuest
+public interface IGuestDI
+{
+    void State(GuestNPC.State state);
+}
+
+public class Guest : IGuestDI
+{
+    public void State(GuestNPC.State state){ }
+}
+
+public interface IGuestOb
 {
     void AddObserver(IObserver o);
     void RemoveObserver(IObserver o);
@@ -18,9 +28,16 @@ public interface IObserver
     void Change(GuestNPC obj);
 }
 
-public class GuestNPC : MonoBehaviour, IGuest
+public class GuestNPC : MonoBehaviour, IGuestOb
 {
+    IGuestDI guest;
     private List<IObserver> _observers = new List<IObserver>();
+
+    public GuestNPC(IGuestDI guest_)
+    {
+        guest = guest_;
+    }
+
     public enum State {Idle, Walk, Eat, Sit, StandUP}
     [SerializeField]
     private State currentState;
@@ -32,12 +49,35 @@ public class GuestNPC : MonoBehaviour, IGuest
             currentState = value;
         }
     }
+    [SerializeField]
+    private GameObject[] Models;
+    private GameObject CurrentModel;
 
     private void Start()
     {
-        this.gameObject.GetComponent<GuestMove>().AddObserver(this);
+        this.gameObject.AddComponent<GuestMove>().AddObserver();
+    }
+    #region Model º¯°æ
+    private void OnEnable()
+    {
+        SetNPCModel(true);
     }
 
+    private void OnDisable()
+    {
+        CurrentModel.SetActive(false);
+    }
+
+    private void SetNPCModel(bool state)
+    {
+        if (true)
+        {
+            int model = Random.Range(0, Models.Length);
+            CurrentModel = Models[model];
+        }
+        CurrentModel.SetActive(state);
+    }
+    #endregion
     public void NPCState()
     {
         switch (CurrentState)
@@ -57,24 +97,26 @@ public class GuestNPC : MonoBehaviour, IGuest
 
     public void ChangeState(State state)
     {
+        guest.State(state);
         CurrentState = state;
         NotifyObserver();
         NPCState();
     }
-
+    #region Observer
     public void AddObserver(IObserver o)
     {
-        this._observers.Add(o);
+        _observers.Add(o);
     }
     public void RemoveObserver(IObserver o)
     {
-        this._observers.Remove(o);
+        _observers.Remove(o);
     }
     public void NotifyObserver()
     {
-        foreach(var observer in this._observers)
+        foreach(var observer in _observers)
         {
             observer.Change(this);
         }
     }
+    #endregion
 }

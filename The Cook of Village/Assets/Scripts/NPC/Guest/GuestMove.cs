@@ -11,13 +11,13 @@ public class GuestMove : MonoBehaviour, IObserver
     private GameObject UseChair;
     private NPCPooling chairContainer;
     private NavMeshAgent agent;
-    private GuestNPC npc;
+    GuestNPC guest;
     private bool isArrive = false;
     private void Awake()
     {
         chairContainer = this.gameObject.transform.parent.GetComponent<NPCPooling>();
         agent = this.gameObject.GetComponent<NavMeshAgent>();
-        npc = this.gameObject.GetComponent<GuestNPC>();
+        guest = new GuestNPC(new Guest());
     }
     private void OnEnable()
     {
@@ -40,21 +40,22 @@ public class GuestMove : MonoBehaviour, IObserver
 
     private IEnumerator NPCMove(Vector3 destination)
     {
-        npc.ChangeState(GuestNPC.State.Walk);
+        guest.ChangeState(GuestNPC.State.Walk);
         while (!isArrive)
         {
             agent.SetDestination(destination);
             if (agent.velocity.sqrMagnitude >= 0.2f && agent.remainingDistance <= 0.5f)
             {
-                npc.ChangeState(GuestNPC.State.Sit);
+                //guest.ChangeState(GuestNPC.State.Sit);
                 isArrive = true;
             }
             yield return null;
         }
     }
-    public void AddObserver(GuestNPC obj) //MonoBehaviour 때문에 new 사용불가
+
+    public void AddObserver() //MonoBehaviour 때문에 new 사용불가
     {
-        obj.AddObserver(this);
+        guest.AddObserver(this);
     }
 
     public void Change(GuestNPC obj)
