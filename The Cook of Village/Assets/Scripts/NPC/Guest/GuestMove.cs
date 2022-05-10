@@ -4,18 +4,20 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GuestMove : GuestNPC, IObserver
+public class GuestMove : MonoBehaviour, IObserver
 {
-    public GameObject Counter;
-    public GameObject Door;
+    public Transform Counter;
+    public Transform Door;
     private GameObject UseChair;
     private NPCPooling chairContainer;
     private NavMeshAgent agent;
+    private GuestNPC npc;
     private bool isArrive = false;
     private void Awake()
     {
         chairContainer = this.gameObject.transform.parent.GetComponent<NPCPooling>();
         agent = this.gameObject.GetComponent<NavMeshAgent>();
+        npc = this.gameObject.GetComponent<GuestNPC>();
     }
     private void OnEnable()
     {
@@ -38,29 +40,33 @@ public class GuestMove : GuestNPC, IObserver
 
     private IEnumerator NPCMove(Vector3 destination)
     {
+        npc.ChangeState(GuestNPC.State.Walk);
         while (!isArrive)
         {
             agent.SetDestination(destination);
             if (agent.velocity.sqrMagnitude >= 0.2f && agent.remainingDistance <= 0.5f)
             {
-                CurrentState = State.Sit;
+                npc.ChangeState(GuestNPC.State.Sit);
                 isArrive = true;
             }
             yield return null;
         }
     }
-
-
-    public GuestMove(GuestNPC guestNPC)
+    public void AddObserver(GuestNPC obj) //MonoBehaviour 때문에 new 사용불가
     {
-        guestNPC.AddObsever(this);
+        obj.AddObserver(this);
     }
-    public void Change(Object obj)
+
+    public void Change(GuestNPC obj)
     {
         if(obj is GuestNPC)
         {
-            var guestNPC = obj as GuestNPC;
-            Debug.Log("observer");
+            var guestNPC = obj;
+            if(obj.CurrentState == GuestNPC.State.StandUP)
+            {
+                ChangeChairState();
+                StartCoroutine(NPCMove(Door.position));
+            }
         }
     }
 }

@@ -9,38 +9,36 @@ using UnityEngine.AI;
 
 public interface IGuest
 {
-    void AddObsever(IObserver o);
+    void AddObserver(IObserver o);
     void RemoveObserver(IObserver o);
     void NotifyObserver();
 }
 public interface IObserver
 {
-    void Change(Object obj);
+    void Change(GuestNPC obj);
 }
 
 public class GuestNPC : MonoBehaviour, IGuest
 {
     private List<IObserver> _observers = new List<IObserver>();
-    protected enum State {Idle, Walk, Eat, Sit, StandUP}
+    public enum State {Idle, Walk, Eat, Sit, StandUP}
     [SerializeField]
     private State currentState;
-    protected State CurrentState
+    public State CurrentState
     {
         get{ return currentState; }
         set
         {
             currentState = value;
-            NPCState();
         }
     }
 
-    public void PayFood(int Price)
+    private void Start()
     {
-        CurrentState = State.StandUP;
-        GameManager.Instance.Money += Price;
+        this.gameObject.GetComponent<GuestMove>().AddObserver(this);
     }
 
-    private void NPCState()
+    public void NPCState()
     {
         switch (CurrentState)
         {
@@ -56,17 +54,25 @@ public class GuestNPC : MonoBehaviour, IGuest
                 break;
         }
     }
-    public void AddObsever(IObserver o)
+
+    public void ChangeState(State state)
     {
-        _observers.Add(o);
+        CurrentState = state;
+        NotifyObserver();
+        NPCState();
+    }
+
+    public void AddObserver(IObserver o)
+    {
+        this._observers.Add(o);
     }
     public void RemoveObserver(IObserver o)
     {
-        _observers.Remove(o);
+        this._observers.Remove(o);
     }
     public void NotifyObserver()
     {
-        foreach(var observer in _observers)
+        foreach(var observer in this._observers)
         {
             observer.Change(this);
         }

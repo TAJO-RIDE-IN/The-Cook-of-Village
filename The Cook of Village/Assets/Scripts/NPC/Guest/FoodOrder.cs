@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FoodOrder : GuestNPC
+public class FoodOrder : MonoBehaviour, IObserver
 {
     Probability<FoodInfos> FoodProbability = new Probability<FoodInfos>();
     [SerializeField]
@@ -20,10 +20,12 @@ public class FoodOrder : GuestNPC
 
     private bool CanReceive = false;
     private OrderUI currentOrderUI;
+    private GuestNPC npc;
     private Transform camera;
     private void Start()
     {
         camera = Camera.main.transform;
+        npc = this.gameObject.GetComponent<GuestNPC>();
         AddProbability();
         StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.OrderTime, () => Order()));
     }
@@ -63,13 +65,13 @@ public class FoodOrder : GuestNPC
         NPCUI.SetActive(false);
         currentOrderUI.EndOrder();
     }
-    public void ReceiveFood(int ReceiveFood)
+    public void ReceiveFood(int ReceiveFood) //npc에게 음식 전달
     {
         if (ReceiveFood == foodInfos.ID && CanReceive)
         {
             Instantiate(foodInfos.PrefabFood, FoodPosition);
-            CurrentState = State.Eat;
-            StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => PayFood(foodInfos.Price)));
+            npc.ChangeState(GuestNPC.State.Eat);
+            StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => npc.ChangeState(GuestNPC.State.StandUP)));
             EndOrder();
         }
     }
@@ -83,7 +85,28 @@ public class FoodOrder : GuestNPC
         currentOrderUI.gameObject.SetActive(true);
         StartCoroutine(WaitingOrder());
     }
+    public void PayFood(int Price)
+    {
+        npc.ChangeState(GuestNPC.State.StandUP);
+        GameManager.Instance.Money += Price;
+    }
 
+    public void AddObserver(GuestNPC obj) //MonoBehaviour 때문에 new 사용불가
+    {
+        obj.AddObserver(this);
+    }
+
+    public void Change(GuestNPC obj)
+    {
+        if (obj is GuestNPC)
+        {
+            var guestNPC = obj;
+            if (obj.CurrentState == GuestNPC.State.StandUP)
+            {
+            }
+            Debug.Log("observer");
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
