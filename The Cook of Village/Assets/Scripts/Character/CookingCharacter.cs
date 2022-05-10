@@ -12,6 +12,7 @@ public class CookingCharacter : MonoBehaviour
     public GameObject HandPosition;
     
     public MaterialInfos currentMaterial;
+    public FoodInfos foodInfos;
     
     private CookingTool _cookingTool;
     private AnimatorOverrideController animatorOverrideController;
@@ -86,6 +87,20 @@ public class CookingCharacter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (isHand)
+            {
+                
+            }
+            else
+            {
+                if (_cookingTool.foodInfos != null)
+                {
+                    foodInfos = _cookingTool.foodInfos;
+                    Instantiate(foodInfos.PrefabFood,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
+                }
+            }
+            
+            
             Debug.Log("스페이스바눌림");
             if (isHand)//현재 들고있는 재료 정보가 null이 아닐때 넘겨줌, 세부적인건 저기서 수행(UI 바꾸기, 레시피리스트에 ID 추가)
             {
@@ -99,6 +114,7 @@ public class CookingCharacter : MonoBehaviour
             isHand = false;
             currentMaterial = null;
         }
+        
         else if(Input.GetKeyDown(KeyCode.E))
         {
             _cookingTool.Cook();

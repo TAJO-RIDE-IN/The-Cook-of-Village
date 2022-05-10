@@ -18,9 +18,18 @@ public class BuyingCharacter : MonoBehaviour
 
     private void Update()
     {
-        if (isShopCollider)
+        if (isShopCollider)//상점말고 esc메뉴 눌렀을때도 화면 움직이면 안되니깐 isUI 넣기로함
         {
             InTheShop();
+        }
+
+        if (GameManager.Instance.IsUI)
+        {
+            StopMovingXYAxis();
+        }
+        else
+        {
+            MovingXYAxis();
         }
     }
 
@@ -39,8 +48,6 @@ public class BuyingCharacter : MonoBehaviour
         if (other.tag == "Shop")
         {
             _shopNpc.shopUI.CloseUI();
-            cinemachine.m_XAxis.m_MaxSpeed = 300;
-            cinemachine.m_YAxis.m_MaxSpeed = 2;
         }
         isShopCollider = false;
     }
@@ -50,8 +57,17 @@ public class BuyingCharacter : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _shopNpc.shopUI.OpenUI();
-            cinemachine.m_XAxis.m_MaxSpeed = 0;
-            cinemachine.m_YAxis.m_MaxSpeed = 0;
         }
+    }
+
+    public void StopMovingXYAxis()
+    {
+        cinemachine.m_XAxis.m_MaxSpeed = 0;
+        cinemachine.m_YAxis.m_MaxSpeed = 0;
+    }
+    public void MovingXYAxis()
+    {
+        cinemachine.m_XAxis.m_MaxSpeed = 300;
+        cinemachine.m_YAxis.m_MaxSpeed = 2;
     }
 }
