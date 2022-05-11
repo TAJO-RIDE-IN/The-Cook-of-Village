@@ -11,13 +11,14 @@ public class GuestMove : MonoBehaviour, IObserver
     private GameObject UseChair;
     private NPCPooling chairContainer;
     private NavMeshAgent agent;
-    GuestNPC guest;
+    private GuestNPC guest;
     private bool isArrive = false;
     private void Awake()
     {
         chairContainer = this.gameObject.transform.parent.GetComponent<NPCPooling>();
         agent = this.gameObject.GetComponent<NavMeshAgent>();
-        guest = new GuestNPC(new Guest());
+        guest = this.gameObject.GetComponent<GuestNPC>();
+        guest.AddGuestNPC(new Guest());
     }
     private void OnEnable()
     {
@@ -40,13 +41,15 @@ public class GuestMove : MonoBehaviour, IObserver
 
     private IEnumerator NPCMove(Vector3 destination)
     {
-        guest.ChangeState(GuestNPC.State.Walk);
+        if(guest.CurrentState != GuestNPC.State.Walk)
+        {
+            guest.ChangeState(GuestNPC.State.Walk);
+        }
         while (!isArrive)
         {
             agent.SetDestination(destination);
             if (agent.velocity.sqrMagnitude >= 0.2f && agent.remainingDistance <= 0.5f)
             {
-                //guest.ChangeState(GuestNPC.State.Sit);
                 isArrive = true;
             }
             yield return null;
@@ -63,7 +66,7 @@ public class GuestMove : MonoBehaviour, IObserver
         if(obj is GuestNPC)
         {
             var guestNPC = obj;
-            if(obj.CurrentState == GuestNPC.State.StandUP)
+            if(guestNPC.CurrentState == GuestNPC.State.StandUP)
             {
                 ChangeChairState();
                 StartCoroutine(NPCMove(Door.position));

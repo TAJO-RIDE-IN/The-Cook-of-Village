@@ -20,12 +20,13 @@ public class FoodOrder : MonoBehaviour, IObserver
 
     private bool CanReceive = false;
     private OrderUI currentOrderUI;
-    private GuestNPC npc;
+    private GuestNPC guest;
     private Transform camera;
     private void Start()
     {
         camera = Camera.main.transform;
-        npc = this.gameObject.GetComponent<GuestNPC>();
+        guest = this.gameObject.GetComponent<GuestNPC>();
+        guest.AddGuestNPC(new Guest());
         AddProbability();
         StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.OrderTime, () => Order()));
     }
@@ -55,11 +56,11 @@ public class FoodOrder : MonoBehaviour, IObserver
             yield return null;
             if(time <= 0)
             {
-                EndOrder();
+                EndOrder(false);
             }
         }
     }
-    private void EndOrder()
+    private void EndOrder(bool receive)
     {
         StopCoroutine(WaitingOrder());
         NPCUI.SetActive(false);
@@ -70,9 +71,9 @@ public class FoodOrder : MonoBehaviour, IObserver
         if (ReceiveFood == foodInfos.ID && CanReceive)
         {
             Instantiate(foodInfos.PrefabFood, FoodPosition);
-            npc.ChangeState(GuestNPC.State.Eat);
-            StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => npc.ChangeState(GuestNPC.State.StandUP)));
-            EndOrder();
+            guest.ChangeState(GuestNPC.State.Eat);
+            StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => guest.ChangeState(GuestNPC.State.StandUP)));
+            EndOrder(true);
         }
     }
     private void Order()

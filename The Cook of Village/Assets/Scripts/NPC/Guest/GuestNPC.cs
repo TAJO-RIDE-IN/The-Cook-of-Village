@@ -32,12 +32,6 @@ public class GuestNPC : MonoBehaviour, IGuestOb
 {
     IGuestDI guest;
     private List<IObserver> _observers = new List<IObserver>();
-
-    public GuestNPC(IGuestDI guest_)
-    {
-        guest = guest_;
-    }
-
     public enum State {Idle, Walk, Eat, Sit, StandUP}
     [SerializeField]
     private State currentState;
@@ -55,7 +49,12 @@ public class GuestNPC : MonoBehaviour, IGuestOb
 
     private void Start()
     {
-        this.gameObject.AddComponent<GuestMove>().AddObserver();
+        this.gameObject.GetComponent<GuestMove>().AddObserver();
+    }
+    private void Init()
+    {
+        CurrentState = State.Idle;
+
     }
     #region Model 변경
     private void OnEnable()
@@ -94,7 +93,10 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 break;
         }
     }
-
+    public void AddGuestNPC(IGuestDI guest_) //MonoBehaviour 때문에 new 사용불가
+    {
+        guest = guest_;
+    }
     public void ChangeState(State state)
     {
         guest.State(state);
@@ -111,7 +113,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     {
         _observers.Remove(o);
     }
-    public void NotifyObserver()
+    public void NotifyObserver() //observer에 값 전달
     {
         foreach(var observer in _observers)
         {

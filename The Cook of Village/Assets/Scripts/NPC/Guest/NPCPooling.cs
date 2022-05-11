@@ -20,10 +20,11 @@ public class NPCPooling : ObjectPooling<GuestNPC>
     {
         while(isCall)
         {
-            if(WaitChair.Count != 0)
+/*            if(WaitChair.Count != 0)
             {
                 GetObject();
-            }
+            }*/
+            GetObject();
             yield return new WaitForSeconds(Random.Range(CallTime-4, CallTime+4));
         }
     }
