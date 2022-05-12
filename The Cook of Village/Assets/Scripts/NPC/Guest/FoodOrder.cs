@@ -22,19 +22,18 @@ public class FoodOrder : MonoBehaviour, IObserver
     private OrderUI currentOrderUI;
     private GuestNPC guest;
     private Transform camera;
-    private void Start()
+    private void Awake()
     {
         camera = Camera.main.transform;
         guest = this.gameObject.GetComponent<GuestNPC>();
         guest.AddGuestNPC(new Guest());
         AddProbability();
-        StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.OrderTime, () => Order()));
     }
     private void Update()
     {
         NPCUI.transform.LookAt(NPCUI.transform.position + camera.rotation * Vector3.forward, camera.rotation * Vector3.up);
     }
-    private void AddProbability()
+    private void AddProbability() //확률 가중치 부여
     {
         foreach(FoodTool i in FoodData.Instance.foodTool)
         {
@@ -56,24 +55,25 @@ public class FoodOrder : MonoBehaviour, IObserver
             yield return null;
             if(time <= 0)
             {
-                EndOrder(false);
+                EndOrder();
             }
         }
     }
-    private void EndOrder(bool receive)
+    private void EndOrder()
     {
+        guest.ChangeState(GuestNPC.State.StandUP);
         StopCoroutine(WaitingOrder());
         NPCUI.SetActive(false);
-        currentOrderUI.EndOrder();
+        currentOrderUI.EndOrder(); //주문서
     }
     public void ReceiveFood(int ReceiveFood) //npc에게 음식 전달
     {
-        if (ReceiveFood == foodInfos.ID && CanReceive)
+        if (ReceiveFood == foodInfos.ID && CanReceive) 
         {
             Instantiate(foodInfos.PrefabFood, FoodPosition);
             guest.ChangeState(GuestNPC.State.Eat);
             StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => guest.ChangeState(GuestNPC.State.StandUP)));
-            EndOrder(true);
+            EndOrder();
         }
     }
     private void Order()
@@ -91,9 +91,9 @@ public class FoodOrder : MonoBehaviour, IObserver
         GameManager.Instance.Money += Price;
     }
 
-    public void AddObserver(GuestNPC obj) //MonoBehaviour 때문에 new 사용불가
+    public void AddObserver() //MonoBehaviour 때문에 new 사용불가
     {
-        obj.AddObserver(this);
+        guest.AddObserver(this);
     }
 
     public void Change(GuestNPC obj)
@@ -101,10 +101,10 @@ public class FoodOrder : MonoBehaviour, IObserver
         if (obj is GuestNPC)
         {
             var guestNPC = obj;
-            if (obj.CurrentState == GuestNPC.State.StandUP)
+            if (guestNPC.CurrentState == GuestNPC.State.Sit)
             {
+                StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.OrderTime, () => Order()));
             }
-            Debug.Log("observer");
         }
     }
     private void OnTriggerEnter(Collider other)

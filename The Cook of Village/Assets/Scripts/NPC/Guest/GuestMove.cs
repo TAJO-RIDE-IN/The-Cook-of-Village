@@ -12,6 +12,8 @@ public class GuestMove : MonoBehaviour, IObserver
     private NPCPooling chairContainer;
     private NavMeshAgent agent;
     private GuestNPC guest;
+    private GuestNPC.State BeforeState;
+    [SerializeField]
     private bool isArrive = false;
     private void Awake()
     {
@@ -22,7 +24,7 @@ public class GuestMove : MonoBehaviour, IObserver
     }
     private void OnEnable()
     {
-        StartCoroutine(NPCMove(ChairPosition()));
+        StartCoroutine(NPCMove(ChairPosition(), "Chair"));
     }
     private void ChangeChairState()
     {
@@ -39,7 +41,7 @@ public class GuestMove : MonoBehaviour, IObserver
         return (destination);
     }
 
-    private IEnumerator NPCMove(Vector3 destination)
+    private IEnumerator NPCMove(Vector3 destination, string destination_name) //NPC이동
     {
         if(guest.CurrentState != GuestNPC.State.Walk)
         {
@@ -48,11 +50,48 @@ public class GuestMove : MonoBehaviour, IObserver
         while (!isArrive)
         {
             agent.SetDestination(destination);
-            if (agent.velocity.sqrMagnitude >= 0.2f && agent.remainingDistance <= 0.5f)
+            if (agent.velocity.sqrMagnitude >= 0.2f && agent.remainingDistance <= 0.5f) //NPC 목적지 도착
             {
+                agent.isStopped = true;
+                NPCState(destination_name);
                 isArrive = true;
             }
             yield return null;
+        }
+    }
+
+    private void NPCState(string destination_name) //도착지에 따른 NPC상태 변화
+    {
+        switch (destination_name)
+        {
+            case "Chair":
+                guest.ChangeState(GuestNPC.State.Sit);
+                break;
+            case "Door":
+                guest.ChangeState(GuestNPC.State.GoOut);
+                break;
+            case "Counter":
+                guest.ChangeState(GuestNPC.State.Idle);
+                break;
+        }
+    }
+
+    private void GoDestination(GuestNPC.State state) //NPC 상태에 따른 이동
+    {
+        isArrive = false;
+        agent.isStopped = false;
+        switch (state)
+        {
+            case GuestNPC.State.StandUP:
+                ChangeChairState();
+                Transform Destination = (BeforeState == GuestNPC.State.Eat) ? Counter : Door;
+                StartCoroutine(NPCMove(Destination.position, Destination.name));
+                break;
+            case GuestNPC.State.Pay:
+                StartCoroutine(NPCMove(Door.position, Door.ToString()));
+                break;
+            default:
+                break;
         }
     }
 
@@ -61,16 +100,13 @@ public class GuestMove : MonoBehaviour, IObserver
         guest.AddObserver(this);
     }
 
-    public void Change(GuestNPC obj)
+    public void Change(GuestNPC obj) //observer 바뀐 값 받음
     {
         if(obj is GuestNPC)
         {
             var guestNPC = obj;
-            if(guestNPC.CurrentState == GuestNPC.State.StandUP)
-            {
-                ChangeChairState();
-                StartCoroutine(NPCMove(Door.position));
-            }
+            GoDestination(guestNPC.CurrentState);
+            BeforeState = guestNPC.CurrentState;
         }
     }
 }

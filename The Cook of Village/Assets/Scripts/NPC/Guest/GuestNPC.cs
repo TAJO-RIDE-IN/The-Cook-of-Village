@@ -32,7 +32,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
 {
     IGuestDI guest;
     private List<IObserver> _observers = new List<IObserver>();
-    public enum State {Idle, Walk, Eat, Sit, StandUP}
+    public enum State {Idle, Walk, Eat, Sit, StandUP, ChaseUP, Pay, GoOut }
     [SerializeField]
     private State currentState;
     public State CurrentState
@@ -46,10 +46,12 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     [SerializeField]
     private GameObject[] Models;
     private GameObject CurrentModel;
-
+    private Animator ModelsAni;
+    public bool ReceiveFood;
     private void Start()
     {
         this.gameObject.GetComponent<GuestMove>().AddObserver();
+        this.gameObject.GetComponent<FoodOrder>().AddObserver();
     }
     private void Init()
     {
@@ -77,7 +79,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
         CurrentModel.SetActive(state);
     }
     #endregion
-    public void NPCState()
+    public void NPCAction()
     {
         switch (CurrentState)
         {
@@ -91,6 +93,13 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 break;
             case State.StandUP:
                 break;
+            case State.ChaseUP:
+                break;
+            case State.Pay:
+                break;
+            case State.GoOut:
+                ObjectPooling<GuestNPC>.ReturnObject(this);
+                break;
         }
     }
     public void AddGuestNPC(IGuestDI guest_) //MonoBehaviour 때문에 new 사용불가
@@ -101,8 +110,8 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     {
         guest.State(state);
         CurrentState = state;
-        NotifyObserver();
-        NPCState();
+        NotifyObserver(); //observer 전달
+        NPCAction();
     }
     #region Observer
     public void AddObserver(IObserver o)
