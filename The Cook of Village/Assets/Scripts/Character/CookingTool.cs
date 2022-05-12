@@ -6,15 +6,15 @@ using UnityEngine.UI;
 
 public class CookingTool : MonoBehaviour
 {
-    public enum Type { Blender = 0, Pot = 1, Frypan = 2}
+    public enum Type { Blender = 0, Pot = 1, FryPan = 2}
     public Type type;
-    
-    public GameObject Inven;
+
+    public GameObject ToolInven;
+    public Animation animation;
     
     public List<int> ingredientList = new List<int>();
-    public MaterialInfos currentMaterialInTool; //이걸로 리스트를 아예 만들어서 3개Infos를 다 저장해놓을지 ID만 3개 저장해놓을지 추후 수정
-
-    public FoodInfos foodInfos;
+    public FoodInfos FoodInfos { get; set;}//foodInfos가 바뀌면 해줄 일,즉 UI코루틴 끝났을때 할 일 set에 적자
+    
 
     /*[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void FirstLoad(){
@@ -22,32 +22,51 @@ public class CookingTool : MonoBehaviour
     }*/
     private void Start()
     {
-        foodInfos = null;//음식을 넣었다가 레스토랑 밖으로 나갔다올때 초기화되는건 아니겠지
+        animation = transform.GetComponent<Animation>();
     }
 
-    public void PutIngredient() //이걸 현재 들고있는게 null이 아닐때만 실행시켜주면 되는데 혹시몰라서 한번 더 조건문 넣음
-    {
 
+    public bool PutIngredient(int id, Sprite sprite) //이걸 현재 들고있는게 null이 아닐때만 실행시켜주면 되는데 혹시몰라서 한번 더 조건문 넣음
+    {
         for (int i = 0; i < 3; i++) //일단 레시피에 들어가는 최대 재료 개수가 3개라고 했을 때
         {
             if (ingredientList.Count == i)
             {
-                if (currentMaterialInTool != null)
-                {
-                    ingredientList.Add(currentMaterialInTool.ID);
-                    Inven.SetActive(true);
-                    Inven.transform.GetChild(i).transform.GetComponent<Image>().sprite = currentMaterialInTool.ImageUI;
-                }
-                break;
+                animation.Play(type.ToString());
+                Debug.Log("애니메이션실행!");
+                ingredientList.Add(id);
+                ToolInven.SetActive(true);
+                ToolInven.transform.GetChild(i).transform.GetComponent<Image>().sprite = sprite;
+                return true;
             }
-        }
+            else
+            {
+                //도구에 재료 꽉찼는데 넣으려고할때 행동
+            }
+            
+        } return false;
     }
 
     public void Cook()
     {
-        foodInfos = FoodData.Instance.RecipeFood((int)type, ingredientList);
-        
-        Debug.Log(foodInfos.Name);
+        FoodInfos = FoodData.Instance.RecipeFood((int)type, ingredientList);
+        Debug.Log(FoodInfos.Name);
+    }
+
+    private void PutByGroup()//애니메이션 실행하려고 만들었는데 필요없어짐
+    {
+        if (type == Type.Blender)
+        {
+            
+        }
+        else if (type == Type.Pot)
+        {
+            
+        }
+        else if(type == Type.FryPan)
+        {
+            
+        }
     }
 
 }
