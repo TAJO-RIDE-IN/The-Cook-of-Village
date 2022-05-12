@@ -20,7 +20,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>
     {
         while(isCall)
         {
-            if(WaitChair.Count != 0)
+            if (WaitChair.Count != 0)
             {
                 GetObject();
             }

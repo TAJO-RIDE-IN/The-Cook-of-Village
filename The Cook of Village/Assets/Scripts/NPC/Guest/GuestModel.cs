@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GuestModel : GuestNPC
+public class GuestModel : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] Models;

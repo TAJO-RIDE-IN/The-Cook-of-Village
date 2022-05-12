@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FoodOrder : GuestNPC
+public class FoodOrder : MonoBehaviour, IObserver
 {
     Probability<FoodInfos> FoodProbability = new Probability<FoodInfos>();
     [SerializeField]
@@ -20,18 +20,20 @@ public class FoodOrder : GuestNPC
 
     private bool CanReceive = false;
     private OrderUI currentOrderUI;
+    private GuestNPC guest;
     private Transform camera;
-    private void Start()
+    private void Awake()
     {
         camera = Camera.main.transform;
+        guest = this.gameObject.GetComponent<GuestNPC>();
+        guest.AddGuestNPC(new Guest());
         AddProbability();
-        StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.OrderTime, () => Order()));
     }
     private void Update()
     {
         NPCUI.transform.LookAt(NPCUI.transform.position + camera.rotation * Vector3.forward, camera.rotation * Vector3.up);
     }
-    private void AddProbability()
+    private void AddProbability() //확률 가중치 부여
     {
         foreach(FoodTool i in FoodData.Instance.foodTool)
         {
@@ -59,17 +61,18 @@ public class FoodOrder : GuestNPC
     }
     private void EndOrder()
     {
+        guest.ChangeState(GuestNPC.State.StandUP);
         StopCoroutine(WaitingOrder());
         NPCUI.SetActive(false);
-        currentOrderUI.EndOrder();
+        currentOrderUI.EndOrder(); //주문서
     }
-    public void ReceiveFood(int ReceiveFood)
+    public void ReceiveFood(int ReceiveFood) //npc에게 음식 전달
     {
-        if (ReceiveFood == foodInfos.ID && CanReceive)
+        if (ReceiveFood == foodInfos.ID && CanReceive) 
         {
             Instantiate(foodInfos.PrefabFood, FoodPosition);
-            CurrentState = State.Eat;
-            StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => PayFood(foodInfos.Price)));
+            guest.ChangeState(GuestNPC.State.Eat);
+            StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => guest.ChangeState(GuestNPC.State.StandUP)));
             EndOrder();
         }
     }
@@ -83,7 +86,27 @@ public class FoodOrder : GuestNPC
         currentOrderUI.gameObject.SetActive(true);
         StartCoroutine(WaitingOrder());
     }
+    public void PayFood(int Price)
+    {
+        GameManager.Instance.Money += Price;
+    }
 
+    public void AddObserver() //MonoBehaviour 때문에 new 사용불가
+    {
+        guest.AddObserver(this);
+    }
+
+    public void Change(GuestNPC obj)
+    {
+        if (obj is GuestNPC)
+        {
+            var guestNPC = obj;
+            if (guestNPC.CurrentState == GuestNPC.State.Sit)
+            {
+                StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.OrderTime, () => Order()));
+            }
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
