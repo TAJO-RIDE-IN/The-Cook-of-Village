@@ -47,16 +47,15 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     private GameObject[] Models;
     private GameObject CurrentModel;
     private Animator ModelsAni;
-    public bool ReceiveFood;
     private void Start()
     {
         this.gameObject.GetComponent<GuestMove>().AddObserver();
         this.gameObject.GetComponent<FoodOrder>().AddObserver();
+        Init();
     }
     private void Init()
     {
         CurrentState = State.Idle;
-
     }
     #region Model º¯°æ
     private void OnEnable()
@@ -77,6 +76,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
             CurrentModel = Models[model];
         }
         CurrentModel.SetActive(state);
+        ModelsAni = CurrentModel.GetComponent<Animator>();
     }
     #endregion
     public void NPCAction()
@@ -90,6 +90,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
             case State.Eat:
                 break;
             case State.Sit:
+                ModelsAni.SetTrigger("Sit");
                 break;
             case State.StandUP:
                 break;
