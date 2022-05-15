@@ -45,10 +45,7 @@ public class GuestMove : MonoBehaviour, IObserver
     {
         isArrive = false;
         agent.enabled = true;
-        if (guest.CurrentState != GuestNPC.State.Walk)
-        {
-            guest.ChangeState(GuestNPC.State.Walk);
-        }
+        guest.ChangeState(GuestNPC.State.Walk);
         while (!isArrive)
         {
             agent.SetDestination(destination);

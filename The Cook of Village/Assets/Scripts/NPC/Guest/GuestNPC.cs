@@ -51,11 +51,6 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     {
         this.gameObject.GetComponent<GuestMove>().AddObserver();
         this.gameObject.GetComponent<FoodOrder>().AddObserver();
-        Init();
-    }
-    private void Init()
-    {
-        CurrentState = State.Idle;
     }
     #region Model º¯°æ
     private void OnEnable()
@@ -84,15 +79,22 @@ public class GuestNPC : MonoBehaviour, IGuestOb
         switch (CurrentState)
         {
             case State.Idle:
+                //Debug.Log("Idle");
+                //ModelsAni.SetBool("isWalk", false);
                 break;
             case State.Walk:
+                ModelsAni.SetBool("isWalk", true);
                 break;
             case State.Eat:
+                ModelsAni.SetBool("isEat", true);
                 break;
             case State.Sit:
+                ModelsAni.SetBool("isWalk", false);
                 ModelsAni.SetTrigger("Sit");
+                ModelsAni.SetTrigger("SitIdle");
                 break;
             case State.StandUP:
+                ModelsAni.SetTrigger("StandUP");
                 break;
             case State.ChaseUP:
                 break;
