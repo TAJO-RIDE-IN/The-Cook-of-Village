@@ -79,7 +79,6 @@ public class GuestNPC : MonoBehaviour, IGuestOb
         switch (CurrentState)
         {
             case State.Idle:
-                //Debug.Log("Idle");
                 //ModelsAni.SetBool("isWalk", false);
                 break;
             case State.Walk:
@@ -94,7 +93,8 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 ModelsAni.SetTrigger("SitIdle");
                 break;
             case State.StandUP:
-                ModelsAni.SetTrigger("StandUP");
+                ModelsAni.SetTrigger("StandUp");
+                ModelsAni.SetBool("isEat", false);              
                 break;
             case State.ChaseUP:
                 break;
