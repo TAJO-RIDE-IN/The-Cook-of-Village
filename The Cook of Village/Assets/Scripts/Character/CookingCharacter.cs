@@ -29,17 +29,31 @@ public class CookingCharacter : MonoBehaviour
     void Start()
     {
         currentMaterial = null;
+        foodInfos = null;
         animatorOverrideController = new AnimatorOverrideController(charAnimator.runtimeAnimatorController);
         charAnimator.runtimeAnimatorController = animatorOverrideController;
     }
 
     private void Update()
     {
-        if (isToolCollider)
+        if (isToolCollider || isGuestCollider)
         {
             WhenKeyDown();
         }
-        
+
+        if (isGuestCollider == true)
+        {
+            Debug.Log("게스트콜라이더");
+        }
+
+        if (currentMaterial != null || foodInfos != null)
+        {
+            isHand = true;
+        }
+        else
+        {
+            isHand = false;
+        }
         
     }
 
@@ -66,6 +80,7 @@ public class CookingCharacter : MonoBehaviour
         }
         if (other.CompareTag("Guest"))
         {
+            isGuestCollider = true;
             _foodOrder = other.GetComponent<FoodOrder>();
         }
     }
@@ -100,6 +115,7 @@ public class CookingCharacter : MonoBehaviour
 
                 if (isGuestCollider)
                 {
+                    Debug.Log("콜라이더 정상");
                     if (foodInfos != null)
                     {
                         Debug.Log("음식 배달완료");
@@ -114,6 +130,7 @@ public class CookingCharacter : MonoBehaviour
                     if (_cookingTool.FoodInfos != null)
                     {
                         foodInfos = _cookingTool.FoodInfos;
+                        isHand = true;
                         Instantiate(foodInfos.PrefabFood,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
                     }
                 }
