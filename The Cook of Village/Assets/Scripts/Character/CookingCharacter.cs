@@ -15,6 +15,7 @@ public class CookingCharacter : MonoBehaviour
     public FoodInfos foodInfos;
     
     private CookingTool _cookingTool;
+    private FoodOrder _foodOrder;
     private AnimatorOverrideController animatorOverrideController;
     public AnimationClip[] Idle;
     public AnimationClip[] Walk;
@@ -63,6 +64,10 @@ public class CookingCharacter : MonoBehaviour
             isToolCollider = true;
             _cookingTool = other.transform.GetComponent<CookingTool>(); 
         }
+        if (other.CompareTag("Guest"))
+        {
+            _foodOrder = other.GetComponent<FoodOrder>();
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -86,13 +91,20 @@ public class CookingCharacter : MonoBehaviour
             {
                 if (isToolCollider)//요리도구에 들어갔을때만 재료넣는거 실행
                 {
-                    PutIngredient();
-                    return;
+                    if (currentMaterial != null)
+                    {
+                        PutIngredient();
+                        return; //return 잘 썼는지 항상 확인하기
+                    }
                 }
 
                 if (isGuestCollider)
                 {
-                    
+                    if (foodInfos != null)
+                    {
+                        Debug.Log("음식 배달완료");
+                        _foodOrder.ReceiveFood(foodInfos.ID);
+                    }
                 }
             }
             else//안들고 있을때 들수 있는거 (냉장고의 재료들은 제외) => 접시, 음식, 밀가루와설탕
@@ -140,6 +152,11 @@ public class CookingCharacter : MonoBehaviour
         {
             CloseFridge();
             other.transform.GetComponent<Refrigerator>().CloseUI();
+            isToolCollider = false;
+        }
+
+        if (other.tag == "CookingTools")
+        {
             isToolCollider = false;
         }
         

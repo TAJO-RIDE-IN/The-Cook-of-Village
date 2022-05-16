@@ -1,6 +1,6 @@
 /////////////////////////////////////
-/// ÇĞ¹ø : 91914200
-/// ÀÌ¸§ : JungNaEun Á¤³ªÀº
+/// í•™ë²ˆ : 91914200
+/// ì´ë¦„ : JungNaEun ì •ë‚˜ì€
 ////////////////////////////////////
 using System;
 using System.Collections;
@@ -33,7 +33,7 @@ public class FoodOrder : MonoBehaviour, IObserver
     {
         NPCUI.transform.LookAt(NPCUI.transform.position + camera.rotation * Vector3.forward, camera.rotation * Vector3.up);
     }
-    private void AddProbability() //È®·ü °¡ÁßÄ¡ ºÎ¿©
+    private void AddProbability() //í™•ë¥  ê°€ì¤‘ì¹˜ ë¶€ì—¬
     {
         foreach(FoodTool i in FoodData.Instance.foodTool)
         {
@@ -64,9 +64,9 @@ public class FoodOrder : MonoBehaviour, IObserver
         guest.ChangeState(GuestNPC.State.StandUP);
         StopCoroutine(WaitingOrder());
         NPCUI.SetActive(false);
-        currentOrderUI.EndOrder(); //ÁÖ¹®¼­
+        currentOrderUI.EndOrder(); //ì£¼ë¬¸ì„œ
     }
-    public void ReceiveFood(int ReceiveFood) //npc¿¡°Ô À½½Ä Àü´Ş
+    public void ReceiveFood(int ReceiveFood) //npcì—ê²Œ ìŒì‹ ì „ë‹¬
     {
         if (ReceiveFood == foodInfos.ID && CanReceive) 
         {
@@ -91,7 +91,7 @@ public class FoodOrder : MonoBehaviour, IObserver
         GameManager.Instance.Money += Price;
     }
 
-    public void AddObserver() //MonoBehaviour ¶§¹®¿¡ new »ç¿ëºÒ°¡
+    public void AddObserver() //MonoBehaviour ë•Œë¬¸ì— new ì‚¬ìš©ë¶ˆê°€
     {
         guest.AddObserver(this);
     }
