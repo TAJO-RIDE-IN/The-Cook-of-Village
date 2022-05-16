@@ -89,6 +89,7 @@ public class FoodOrder : MonoBehaviour, IObserver
     public void PayFood(int Price)
     {
         GameManager.Instance.Money += Price;
+        guest.ChangeState(GuestNPC.State.Pay);
     }
 
     public void AddObserver() //MonoBehaviour 때문에 new 사용불가

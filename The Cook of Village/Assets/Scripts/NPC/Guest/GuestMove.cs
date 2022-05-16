@@ -43,16 +43,15 @@ public class GuestMove : MonoBehaviour, IObserver
 
     private IEnumerator NPCMove(Vector3 destination, string destination_name) //NPC이동
     {
-        if(guest.CurrentState != GuestNPC.State.Walk)
-        {
-            guest.ChangeState(GuestNPC.State.Walk);
-        }
+        isArrive = false;
+        agent.enabled = true;
+        guest.ChangeState(GuestNPC.State.Walk);
         while (!isArrive)
         {
             agent.SetDestination(destination);
-            if (agent.velocity.sqrMagnitude >= 0.2f && agent.remainingDistance <= 0.5f) //NPC 목적지 도착
+            if (agent.velocity.sqrMagnitude >= 1f && agent.remainingDistance <= 0.1f) //NPC 목적지 도착
             {
-                agent.isStopped = true;
+                agent.enabled = false;
                 NPCState(destination_name);
                 isArrive = true;
             }
@@ -65,6 +64,10 @@ public class GuestMove : MonoBehaviour, IObserver
         switch (destination_name)
         {
             case "Chair":
+                Vector3 table = new Vector3(UseChair.transform.parent.position.x, transform.position.y, UseChair.transform.parent.position.z);
+                Transform chair = UseChair.transform.GetChild(0);
+                transform.position = new Vector3(chair.position.x, transform.position.y, chair.position.z);
+                transform.LookAt(table);
                 guest.ChangeState(GuestNPC.State.Sit);
                 break;
             case "Door":
@@ -78,8 +81,6 @@ public class GuestMove : MonoBehaviour, IObserver
 
     private void GoDestination(GuestNPC.State state) //NPC 상태에 따른 이동
     {
-        isArrive = false;
-        agent.isStopped = false;
         switch (state)
         {
             case GuestNPC.State.StandUP:
