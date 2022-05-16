@@ -11,6 +11,7 @@ using UnityEngine.UI;
 
 public class Refrigerator : SlotParent
 {
+    private Animator frigdeAnimator;
     public GameObject RefrigeratorUI;
     [SerializeField]
     private List<SlotRefrigerator> RefrigeratorSlot = new List<SlotRefrigerator>();
@@ -19,6 +20,12 @@ public class Refrigerator : SlotParent
     {
         RefrigeratorSlot = RefrigeratorUI.transform.GetComponentsInChildren<SlotRefrigerator>(true).ToList();
     }
+
+    private void Start()
+    {
+        frigdeAnimator = transform.GetComponent<Animator>();
+    }
+
     public override void LoadSlotData()
     {
         int count = 0;
@@ -47,10 +54,12 @@ public class Refrigerator : SlotParent
         GameManager.Instance.IsUI = true;
         RefrigeratorUI.SetActive(true);
         LoadSlotData();
+        frigdeAnimator.SetBool("isOpen",true);
     }
     public override void CloseUI()
     {
         GameManager.Instance.IsUI = false;
         RefrigeratorUI.SetActive(false);
+        frigdeAnimator.SetBool("isOpen",false);
     }
 }

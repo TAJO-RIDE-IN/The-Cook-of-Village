@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class CookingCharacter : MonoBehaviour
 {
-    public Animator frigdeAnimator;
     public Animator charAnimator;
     public GameObject HandPosition;
     
@@ -24,8 +23,8 @@ public class CookingCharacter : MonoBehaviour
     private bool isGuestCollider;
     public bool isHand = false;//이거만 잘 컨트롤해주면 시작할때 null값 넣어주느니 그런거 안해도 되잖아
     private bool isDestroy;
-    
-    
+
+
     void Start()
     {
         /*currentFood = null;
@@ -42,14 +41,14 @@ public class CookingCharacter : MonoBehaviour
         }
 
 
-        /*if (currentIngredient != null || currentFood != null)//isHand를 혹시 중간에 빠뜨릴까봐 임시로 넣어둔거긴한데 최적화할때 뺄수도 있음
+        if (currentIngredient != null || currentFood != null)//isHand를 혹시 중간에 빠뜨릴까봐 임시로 넣어둔거긴한데 최적화할때 뺄수도 있음
         {
             isHand = true;
         }
         else
         {
             isHand = false;
-        }*/
+        }
         
     }
 
@@ -89,7 +88,7 @@ public class CookingCharacter : MonoBehaviour
             if (Input.GetKey(KeyCode.Space))
             {
                 other.transform.GetComponent<Refrigerator>().OpenUI();
-                frigdeAnimator.SetBool("isOpen",true);
+                
                 return;
             }
         }
@@ -192,9 +191,7 @@ public class CookingCharacter : MonoBehaviour
     {
         if (other.tag == "Fridge")
         {
-            CloseFridge();
             other.transform.GetComponent<Refrigerator>().CloseUI();
-            isToolCollider = false;
         }
 
         if (other.tag == "CookingTools")
@@ -204,8 +201,4 @@ public class CookingCharacter : MonoBehaviour
         
     }
 
-    public void CloseFridge()
-    {
-        frigdeAnimator.SetBool("isOpen",false);
-    }
 }
