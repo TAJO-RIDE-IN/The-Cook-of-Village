@@ -11,8 +11,8 @@ public class CookingCharacter : MonoBehaviour
     public Animator charAnimator;
     public GameObject HandPosition;
     
-    public MaterialInfos currentMaterial;
-    public FoodInfos foodInfos;
+    public MaterialInfos currentIngredient;
+    public FoodInfos currentFood;
     
     private CookingTool _cookingTool;
     private FoodOrder _foodOrder;
@@ -28,8 +28,8 @@ public class CookingCharacter : MonoBehaviour
     
     void Start()
     {
-        currentMaterial = null;
-        foodInfos = null;
+        /*currentFood = null;
+        currentIngredient = null;*/
         animatorOverrideController = new AnimatorOverrideController(charAnimator.runtimeAnimatorController);
         charAnimator.runtimeAnimatorController = animatorOverrideController;
     }
@@ -41,19 +41,15 @@ public class CookingCharacter : MonoBehaviour
             WhenKeyDown();
         }
 
-        if (isGuestCollider == true)
-        {
-            Debug.Log("게스트콜라이더");
-        }
 
-        if (currentMaterial != null || foodInfos != null)
+        /*if (currentIngredient != null || currentFood != null)//isHand를 혹시 중간에 빠뜨릴까봐 임시로 넣어둔거긴한데 최적화할때 뺄수도 있음
         {
             isHand = true;
         }
         else
         {
             isHand = false;
-        }
+        }*/
         
     }
 
@@ -78,6 +74,7 @@ public class CookingCharacter : MonoBehaviour
             isToolCollider = true;
             _cookingTool = other.transform.GetComponent<CookingTool>(); 
         }
+
         if (other.CompareTag("Guest"))
         {
             isGuestCollider = true;
@@ -93,6 +90,33 @@ public class CookingCharacter : MonoBehaviour
             {
                 other.transform.GetComponent<Refrigerator>().OpenUI();
                 frigdeAnimator.SetBool("isOpen",true);
+                return;
+            }
+        }
+        if (other.gameObject.name == "Flour")
+        {
+            Debug.Log("flour");
+            if (Input.GetKey(KeyCode.Space))
+            {
+                if (!isHand)
+                {
+                    currentIngredient = MaterialData.Instance.materialType[0].materialInfos[0];
+                    Instantiate(currentIngredient.PrefabMaterial,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
+                    isHand = true;
+                    return;
+                }
+            }
+        }
+        if (other.gameObject.name == "Sugar")
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                if (!isHand)
+                {
+                    currentIngredient = MaterialData.Instance.materialType[0].materialInfos[1];
+                    Instantiate(currentIngredient.PrefabMaterial,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
+                    isHand = true;
+                }
             }
         }
     }
@@ -106,7 +130,7 @@ public class CookingCharacter : MonoBehaviour
             {
                 if (isToolCollider)//요리도구에 들어갔을때만 재료넣는거 실행
                 {
-                    if (currentMaterial != null)
+                    if (currentIngredient != null)
                     {
                         PutIngredient();
                         return; //return 잘 썼는지 항상 확인하기
@@ -116,10 +140,11 @@ public class CookingCharacter : MonoBehaviour
                 if (isGuestCollider)
                 {
                     Debug.Log("콜라이더 정상");
-                    if (foodInfos != null)
+                    if (currentFood != null)
                     {
                         Debug.Log("음식 배달완료");
-                        _foodOrder.ReceiveFood(foodInfos.ID);
+                        isDestroy = _foodOrder.ReceiveFood(currentFood.ID);
+                        DestroyOrNot();
                     }
                 }
             }
@@ -129,9 +154,9 @@ public class CookingCharacter : MonoBehaviour
                 {
                     if (_cookingTool.FoodInfos != null)
                     {
-                        foodInfos = _cookingTool.FoodInfos;
+                        currentFood = _cookingTool.FoodInfos;
+                        Instantiate(currentFood.PrefabFood,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
                         isHand = true;
-                        Instantiate(foodInfos.PrefabFood,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
                     }
                 }
                 
@@ -145,9 +170,9 @@ public class CookingCharacter : MonoBehaviour
     }
     public void PutIngredient()
     {
-        isDestroy = _cookingTool.PutIngredient(currentMaterial.ID, currentMaterial.ImageUI);
+        isDestroy = _cookingTool.PutIngredient(currentIngredient.ID, currentIngredient.ImageUI);//값도 넣어주고, bool값도 return하는 함수 실행
         DestroyOrNot();
-        currentMaterial = null;//괜히 손에서 사라진 아이템정보 들고있는거 안좋을까봐
+        currentIngredient = null;//괜히 손에서 사라진 아이템정보 들고있는거 안좋을까봐
     }
 
     public void DestroyOrNot()

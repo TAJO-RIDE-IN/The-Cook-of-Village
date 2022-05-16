@@ -66,7 +66,7 @@ public class FoodOrder : MonoBehaviour, IObserver
         NPCUI.SetActive(false);
         currentOrderUI.EndOrder(); //주문서
     }
-    public void ReceiveFood(int ReceiveFood) //npc에게 음식 전달
+    public bool ReceiveFood(int ReceiveFood) //npc에게 음식 전달
     {
         if (ReceiveFood == foodInfos.ID && CanReceive) 
         {
@@ -74,7 +74,9 @@ public class FoodOrder : MonoBehaviour, IObserver
             guest.ChangeState(GuestNPC.State.Eat);
             StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => guest.ChangeState(GuestNPC.State.StandUP)));
             EndOrder();
+            return true;
         }
+        return false;
     }
     private void Order()
     {
