@@ -6,10 +6,11 @@ using UnityEngine.UI;
 
 public class CookingTool : MonoBehaviour
 {
-    public enum Type { Blender = 0, Pot = 1, FryPan = 2}
+    public enum Type { Blender = 0, Pot = 1, FryPan = 2}//접시도 추가할거니까 접시일때 행동들이랑 도구일때 행동들 구분하기, 그리고 머랭같은 특별한 도구도 어떻게할지 생각해야함
     public Type type;
 
-    public GameObject ToolInven;
+    public GameObject IngredientInven;
+    public GameObject FoodInven;
     public Animation animation;
     
     public List<int> ingredientList = new List<int>();
@@ -35,8 +36,8 @@ public class CookingTool : MonoBehaviour
                 animation.Play(type.ToString());
                 Debug.Log("애니메이션실행!");
                 ingredientList.Add(id);
-                ToolInven.SetActive(true);
-                ToolInven.transform.GetChild(i).transform.GetComponent<Image>().sprite = sprite;
+                IngredientInven.SetActive(true);
+                IngredientInven.transform.GetChild(i).transform.GetComponent<Image>().sprite = sprite;
                 return true;
             }
             else
@@ -50,7 +51,11 @@ public class CookingTool : MonoBehaviour
     public void Cook()
     {
         FoodInfos = FoodData.Instance.RecipeFood((int)type, ingredientList);
+        
         Debug.Log(FoodInfos.Name);
+        IngredientInven.SetActive(false);
+        FoodInven.transform.GetChild(0).transform.GetComponent<Image>().sprite = FoodInfos.ImageUI;
+        FoodInven.SetActive(true);
     }
 
     private void PutByGroup()//애니메이션 실행하려고 만들었는데 필요없어짐

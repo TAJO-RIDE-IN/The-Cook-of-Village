@@ -32,7 +32,7 @@ public class GuestMove : MonoBehaviour, IObserver
         UseChair = null;
     }
 
-    private Vector3 ChairPosition() //»ç¿ëÇÏÁö ¾ÊÀº ÀÇÀÚÀÇ À§Ä¡À» ·£´ýÀ¸·Î Ãâ·Â, »ç¿ëÁßÀÎ ÀÇÀÚ ÀúÀå
+    private Vector3 ChairPosition() //ì‚¬ìš©í•˜ì§€ ì•Šì€ ì˜ìžì˜ ìœ„ì¹˜ì„ ëžœë¤ìœ¼ë¡œ ì¶œë ¥, ì‚¬ìš©ì¤‘ì¸ ì˜ìž ì €ìž¥
     {
         int chairNum = Random.Range(0, chairContainer.WaitChair.Count);
         Vector3 destination = chairContainer.WaitChair[chairNum].transform.position;
@@ -41,7 +41,7 @@ public class GuestMove : MonoBehaviour, IObserver
         return (destination);
     }
 
-    private IEnumerator NPCMove(Vector3 destination, string destination_name) //NPCÀÌµ¿
+    private IEnumerator NPCMove(Vector3 destination, string destination_name) //NPCì´ë™
     {
         isArrive = false;
         agent.enabled = true;
@@ -49,7 +49,7 @@ public class GuestMove : MonoBehaviour, IObserver
         while (!isArrive)
         {
             agent.SetDestination(destination);
-            if (agent.velocity.sqrMagnitude >= 1f && agent.remainingDistance <= 0.1f) //NPC ¸ñÀûÁö µµÂø
+            if (agent.velocity.sqrMagnitude >= 1f && agent.remainingDistance <= 0.1f) //NPC ëª©ì ì§€ ë„ì°©
             {
                 agent.enabled = false;
                 NPCState(destination_name);
@@ -59,7 +59,7 @@ public class GuestMove : MonoBehaviour, IObserver
         }
     }
 
-    private void NPCState(string destination_name) //µµÂøÁö¿¡ µû¸¥ NPC»óÅÂ º¯È­
+    private void NPCState(string destination_name) //ë„ì°©ì§€ì— ë”°ë¥¸ NPCìƒíƒœ ë³€í™”
     {
         switch (destination_name)
         {
@@ -79,7 +79,7 @@ public class GuestMove : MonoBehaviour, IObserver
         }
     }
 
-    private void GoDestination(GuestNPC.State state) //NPC »óÅÂ¿¡ µû¸¥ ÀÌµ¿
+    private void GoDestination(GuestNPC.State state) //NPC ìƒíƒœì— ë”°ë¥¸ ì´ë™
     {
         switch (state)
         {
@@ -96,12 +96,12 @@ public class GuestMove : MonoBehaviour, IObserver
         }
     }
 
-    public void AddObserver() //MonoBehaviour ¶§¹®¿¡ new »ç¿ëºÒ°¡
+    public void AddObserver() //MonoBehaviour ë•Œë¬¸ì— new ì‚¬ìš©ë¶ˆê°€
     {
         guest.AddObserver(this);
     }
 
-    public void Change(GuestNPC obj) //observer ¹Ù²ï °ª ¹ÞÀ½
+    public void Change(GuestNPC obj) //observer ë°”ë€ ê°’ ë°›ìŒ
     {
         if(obj is GuestNPC)
         {

@@ -49,7 +49,7 @@ public class SlotRefrigerator : Slot
             RefrigeratorUI.SetActive(false);
             CookingCharacter cook;
             cook = player.transform.GetComponent<CookingCharacter>(); 
-            cook.currentMaterial = materialInfos;
+            cook.currentIngredient = materialInfos;
             cook.isHand = true;
             Instantiate(materialInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);
 
