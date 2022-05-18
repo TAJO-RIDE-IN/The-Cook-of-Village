@@ -118,6 +118,26 @@ public class CookingCharacter : MonoBehaviour
                 }
             }
         }
+
+        if (other.gameObject.name == "Trash")
+        {
+            Debug.Log("쓰레기콜라이더");
+            if (Input.GetKey(KeyCode.Space))
+            {
+                if (isHand)
+                {
+                    Debug.Log("제거");
+                    for (int i = 0; i < HandPosition.transform.childCount; i++)//이걸 꽉차면 안없애야하는데..(원래 PutIngredient에 있었음)
+                    {
+                        Destroy(HandPosition.transform.GetChild(i).gameObject);
+                    }
+
+                    currentFood = null;
+                    currentIngredient = null;
+                    isHand = false;
+                }
+            }
+        }
     }
 
     private void WhenKeyDown()//원래 재료넣는 함수였는데 스페이스바누를때 재료만 넣는게 아니고 다양한걸 하는데 스페이스바 누를때 모든 함수 실행하도록 최적화를 위해서 이렇게 하기로함
