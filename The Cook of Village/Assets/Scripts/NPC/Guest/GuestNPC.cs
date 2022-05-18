@@ -97,6 +97,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 ModelsAni.SetTrigger("StandUp");
                 break;
             case State.ChaseUP:
+                ModelsAni.SetTrigger("ChaseUp");
                 break;
             case State.Pay:
                 break;

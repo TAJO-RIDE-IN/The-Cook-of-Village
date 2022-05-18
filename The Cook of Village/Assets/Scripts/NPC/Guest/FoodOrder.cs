@@ -78,11 +78,11 @@ public class FoodOrder : MonoBehaviour, IObserver
     {
         if (ReceiveFood == foodInfos.ID && CanReceive) 
         {
+            Receive = true;
             Instantiate(foodInfos.PrefabFood, FoodPosition);
             guest.ChangeState(GuestNPC.State.Eat);
             EndOrder();
-            StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => guest.ChangeState(GuestNPC.State.StandUP))); //일정시간 후 일어남
-            Receive = true;
+            StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => guest.ChangeState(GuestNPC.State.StandUP))); //일정시간 후 일어남 
             return Receive;
         }
         return Receive;

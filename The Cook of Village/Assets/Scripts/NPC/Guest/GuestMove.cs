@@ -66,7 +66,7 @@ public class GuestMove : MonoBehaviour, IObserver
             case "Chair":
                 Vector3 table = new Vector3(UseChair.transform.parent.position.x, transform.position.y, UseChair.transform.parent.position.z);
                 Transform chair = UseChair.transform.GetChild(0);
-                transform.position = new Vector3(chair.position.x, transform.position.y, chair.position.z);
+                transform.position = chair.position;
                 transform.LookAt(table);
                 guest.ChangeState(GuestNPC.State.Sit);
                 break;
