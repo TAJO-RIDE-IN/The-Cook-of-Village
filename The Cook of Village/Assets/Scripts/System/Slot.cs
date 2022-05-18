@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public abstract class Slot : MonoBehaviour
 {
-    public MaterialInfos materialInfos;
+    public IngredientsInfos materialInfos;
     public abstract void SelectSlot();
     public abstract void ModifySlot();
 }

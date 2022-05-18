@@ -40,7 +40,7 @@ public class ShopUI : SlotParent
         int order = 0;
         int type = SlotDictionary[shop.ToString()];
 
-        foreach(MaterialInfos materialInfos in MaterialData.Instance.materialType[type].materialInfos)
+        foreach(IngredientsInfos materialInfos in IngredientsData.Instance.IngredientsType[type].materialInfos)
         {
             slot[order].materialInfos = materialInfos;
             slot[order].gameObject.SetActive(true);

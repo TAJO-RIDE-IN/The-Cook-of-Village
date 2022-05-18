@@ -9,7 +9,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 [System.Serializable]
-public class MaterialInfos
+public class IngredientsInfos
 {
     public int Type;
     public int ID;
@@ -19,7 +19,7 @@ public class MaterialInfos
     public GameObject PrefabMaterial;
     public Sprite ImageUI; //UIImage
 
-    public MaterialInfos(int type,int id, string name, int price, int amount, GameObject prefab, Sprite imageUI)
+    public IngredientsInfos(int type,int id, string name, int price, int amount, GameObject prefab, Sprite imageUI)
     {
         Type = type;
         ID = id;
@@ -32,29 +32,29 @@ public class MaterialInfos
 }
 
 [System.Serializable]
-public class MaterialType
+public class IngredientsType
 {
     public enum Type { Base, Fruit, Vegetable, Meat }
     [SerializeField]
     public Type type;
-    public List<MaterialInfos> materialInfos = new List<MaterialInfos>();
-    public MaterialType(Type _type, List<MaterialInfos> _materialInfos)
+    public List<IngredientsInfos> materialInfos = new List<IngredientsInfos>();
+    public IngredientsType(Type _type, List<IngredientsInfos> _materialInfos)
     {
         type = _type;
         materialInfos = _materialInfos;
     }
 }
 
-public class MaterialData : DataManager
+public class IngredientsData : DataManager
 {
     #region Singleton, LoadData
-    private static MaterialData instance = null;
+    private static IngredientsData instance = null;
     private void Awake() //씬 시작될때 인스턴스 초기화
     {
         if (null == instance)
         {
             instance = this;
-            //LoadData<MaterialType>(ref materialType, "MaterialData"); //data 완성 되었을때 다시 활성화
+            //LoadData<MaterialType>(ref IngredientsType, "IngredientsData"); //data 완성 되었을때 다시 활성화
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -62,7 +62,7 @@ public class MaterialData : DataManager
             Destroy(this.gameObject);
         }
     }
-    public static MaterialData Instance
+    public static IngredientsData Instance
     {
         get
         {
@@ -76,18 +76,18 @@ public class MaterialData : DataManager
     #endregion
     public int MaxMaterialCount = 99;
     [SerializeField]
-    public MaterialType[] materialType;
+    public IngredientsType[] IngredientsType;
     [ContextMenu("To Json Data")]
     public override void SaveDataTime()
     {
-        SaveData<MaterialType>(ref materialType, "MaterialData");
+        SaveData<IngredientsType>(ref IngredientsType, "IngredientsData");
     }
 
-    public MaterialInfos materialInfos(int id)
+    public IngredientsInfos IngredientsInfos(int id)
     {
         int dataIndex;
-        dataIndex = materialType[MaterialType(id)].materialInfos.FindIndex(m => m.ID == id);
-        return materialType[MaterialType(id)].materialInfos[dataIndex];
+        dataIndex = IngredientsType[MaterialType(id)].materialInfos.FindIndex(m => m.ID == id);
+        return IngredientsType[MaterialType(id)].materialInfos[dataIndex];
     }
     private int MaterialType(int id)
     {
@@ -95,7 +95,7 @@ public class MaterialData : DataManager
     }
     public void ChangeAmount(int type, int id, int amount)
     {
-        materialInfos(id).Amount = amount;
+        IngredientsInfos(id).Amount = amount;
     }
 
 }

@@ -29,10 +29,10 @@ public class Refrigerator : SlotParent
     public override void LoadSlotData()
     {
         int count = 0;
-        MaterialType[] materialType = MaterialData.Instance.materialType;
+        IngredientsType[] materialType = IngredientsData.Instance.IngredientsType;
         for(int i = 1; i < materialType.Length; i++)
         {
-            foreach (MaterialInfos materialInfos in materialType[i].materialInfos)
+            foreach (IngredientsInfos materialInfos in materialType[i].materialInfos)
             {
                 if (SlotDictionary[RefrigeratorSlot[count].transform.parent.name] == materialInfos.Type) //Type이 같을 때만 정보 Load
                 {
@@ -47,7 +47,7 @@ public class Refrigerator : SlotParent
 
     public void InputRefrigerator(int type, int id, int amount)
     {
-        MaterialData.Instance.ChangeAmount(type, id, amount++);
+        IngredientsData.Instance.ChangeAmount(type, id, amount++);
     }
     public override void OpenUI()
     {
