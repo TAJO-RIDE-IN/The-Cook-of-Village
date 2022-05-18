@@ -66,7 +66,7 @@ public class GuestMove : MonoBehaviour, IObserver
             case "Chair":
                 Vector3 table = new Vector3(UseChair.transform.parent.position.x, transform.position.y, UseChair.transform.parent.position.z);
                 Transform chair = UseChair.transform.GetChild(0);
-                transform.position = new Vector3(chair.position.x, transform.position.y, chair.position.z);
+                transform.position = chair.position;
                 transform.LookAt(table);
                 guest.ChangeState(GuestNPC.State.Sit);
                 break;
@@ -84,15 +84,29 @@ public class GuestMove : MonoBehaviour, IObserver
         switch (state)
         {
             case GuestNPC.State.StandUP:
-                ChangeChairState();
-                Transform Destination = (BeforeState == GuestNPC.State.Eat) ? Counter : Door;
-                StartCoroutine(NPCMove(Destination.position, Destination.name));
+                StartCoroutine(WaitStandUP());
                 break;
             case GuestNPC.State.Pay:
                 StartCoroutine(NPCMove(Door.position, Door.ToString()));
                 break;
             default:
                 break;
+        }
+    }
+
+    private IEnumerator WaitStandUP() //일어난 후 NPC 움직이도록
+    {
+        bool isPlayAni = true;
+        while (isPlayAni)
+        {
+            if (guest.ModelsAni.GetCurrentAnimatorStateInfo(0).IsName("StandUp") && guest.ModelsAni.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
+            {
+                Transform Destination = (BeforeState == GuestNPC.State.Eat) ? Counter : Door;
+                StartCoroutine(NPCMove(Destination.position, Destination.name));
+                ChangeChairState();
+                isPlayAni = false;
+            }
+            yield return null;
         }
     }
 
