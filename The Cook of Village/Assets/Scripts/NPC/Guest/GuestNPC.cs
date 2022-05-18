@@ -46,7 +46,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     [SerializeField]
     private GameObject[] Models;
     private GameObject CurrentModel;
-    private Animator ModelsAni;
+    public Animator ModelsAni;
     private void Start()
     {
         this.gameObject.GetComponent<GuestMove>().AddObserver();
@@ -79,7 +79,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
         switch (CurrentState)
         {
             case State.Idle:
-                //ModelsAni.SetBool("isWalk", false);
+                ModelsAni.SetBool("isWalk", false);
                 break;
             case State.Walk:
                 ModelsAni.SetBool("isWalk", true);
@@ -93,10 +93,11 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 ModelsAni.SetTrigger("SitIdle");
                 break;
             case State.StandUP:
+                ModelsAni.SetBool("isEat", false);
                 ModelsAni.SetTrigger("StandUp");
-                ModelsAni.SetBool("isEat", false);              
                 break;
             case State.ChaseUP:
+                ModelsAni.SetTrigger("ChaseUp");
                 break;
             case State.Pay:
                 break;
@@ -113,8 +114,8 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     {
         guest.State(state);
         CurrentState = state;
-        NotifyObserver(); //observer 전달
         NPCAction();
+        NotifyObserver(); //observer 전달     
     }
     #region Observer
     public void AddObserver(IObserver o)
