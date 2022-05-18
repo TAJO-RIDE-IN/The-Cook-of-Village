@@ -11,10 +11,11 @@ public class CookingTool : MonoBehaviour
 
     public GameObject IngredientInven;
     public GameObject FoodInven;
-    public Animation animation;
+    private Animation animation;
     
     public List<int> ingredientList = new List<int>();
     public FoodInfos FoodInfos { get; set;}//foodInfos가 바뀌면 해줄 일,즉 UI코루틴 끝났을때 할 일 set에 적자
+    public bool isCooked;
     
 
     /*[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -34,7 +35,7 @@ public class CookingTool : MonoBehaviour
             if (ingredientList.Count == i)
             {
                 animation.Play(type.ToString());
-                Debug.Log("애니메이션실행!");
+                //Debug.Log("애니메이션실행!");
                 ingredientList.Add(id);
                 IngredientInven.SetActive(true);
                 IngredientInven.transform.GetChild(i).transform.GetComponent<Image>().sprite = sprite;
@@ -52,10 +53,17 @@ public class CookingTool : MonoBehaviour
     {
         FoodInfos = FoodData.Instance.RecipeFood((int)type, ingredientList);
         
-        Debug.Log(FoodInfos.Name);
+        //Debug.Log(FoodInfos.Name);
         IngredientInven.SetActive(false);
         FoodInven.transform.GetChild(0).transform.GetComponent<Image>().sprite = FoodInfos.ImageUI;
         FoodInven.SetActive(true);
+        isCooked = true;
+    }
+
+    public void RefreshTool()
+    {
+        ingredientList.Clear();
+        FoodInven.SetActive(false);
     }
 
     private void PutByGroup()//애니메이션 실행하려고 만들었는데 필요없어짐

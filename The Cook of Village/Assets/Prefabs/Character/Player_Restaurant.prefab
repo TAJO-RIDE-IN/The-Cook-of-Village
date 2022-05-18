@@ -50,7 +50,7 @@ MonoBehaviour:
   charAnimator: {fileID: 466699732705157586}
   camera: {fileID: 0}
   controller: {fileID: 466699733000371447}
-  speed: 150
+  speed: 120
   turnSmoothTime: 0.1
 --- !u!143 &466699733000371447
 CharacterController:
@@ -82,9 +82,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae71b6df9f04e1b43bba67a37ec97f88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frigdeAnimator: {fileID: 0}
   charAnimator: {fileID: 466699732705157586}
-  currentMaterial:
+  HandPosition: {fileID: 4928002929507418811}
+  currentIngredient:
     Type: 0
     ID: 0
     Name: 
@@ -92,12 +92,23 @@ MonoBehaviour:
     Amount: 0
     PrefabMaterial: {fileID: 0}
     ImageUI: {fileID: 0}
+  currentFood:
+    Type: 0
+    ID: 0
+    Name: 
+    MakeTime: 0
+    Price: 0
+    OrderProbability: 0
+    Recipe: 
+    PrefabFood: {fileID: 0}
+    ImageUI: {fileID: 0}
   Idle:
   - {fileID: -203655887218126122, guid: 59eab32c2c3ffd14fbf955dfc70afd02, type: 3}
   - {fileID: 7400000, guid: 4b65c06a73b75fd4690447c5d4d4d7ed, type: 2}
   Walk:
   - {fileID: -203655887218126122, guid: 1d8813fc657687e4eb0a738865127449, type: 3}
   - {fileID: 7400000, guid: 2ff1ffc7feeb0e541b1110fb3d3f0af4, type: 2}
+  isHand: 0
 --- !u!1 &4928002929507418811
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2013079442747266641}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: HandPosition
   m_TagString: HandPosition
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
