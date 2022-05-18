@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance = null;
+    
     private void Awake() //씬 시작될때 인스턴스 초기화
     {
         if(null == instance)
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
     }
 
     public bool IsUI = false;
+    public int preSceneIndex;
 
     [SerializeField, Range(0, 24)]
     private float timeOfDay;
