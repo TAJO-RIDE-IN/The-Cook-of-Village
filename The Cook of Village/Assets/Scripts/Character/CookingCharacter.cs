@@ -41,14 +41,14 @@ public class CookingCharacter : MonoBehaviour
         }
 
 
-        if (currentIngredient != null || currentFood != null)//isHand를 혹시 중간에 빠뜨릴까봐 임시로 넣어둔거긴한데 최적화할때 뺄수도 있음
+        /*if (currentIngredient != null || currentFood != null)//isHand를 혹시 중간에 빠뜨릴까봐 임시로 넣어둔거긴한데 최적화할때 뺄수도 있음
         {
             isHand = true;
         }
         else
         {
             isHand = false;
-        }
+        }*/
         
     }
 
@@ -151,14 +151,18 @@ public class CookingCharacter : MonoBehaviour
             {
                 if (isToolCollider)
                 {
-                    if (_cookingTool.FoodInfos != null)
+                    if (!isHand)
                     {
-                        currentFood = _cookingTool.FoodInfos;
-                        Instantiate(currentFood.PrefabFood,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
-                        isHand = true;
+                        if (_cookingTool.isCooked)
+                        {
+                            currentFood = _cookingTool.FoodInfos;
+                            Instantiate(currentFood.PrefabFood,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
+                            isHand = true;
+                            _cookingTool.RefreshTool();
+                        }
+                        
                     }
                 }
-                
             }
         }
         

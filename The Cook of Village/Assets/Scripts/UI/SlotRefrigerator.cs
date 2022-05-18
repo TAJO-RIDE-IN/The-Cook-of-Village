@@ -48,10 +48,18 @@ public class SlotRefrigerator : Slot
             SlotCount--;
             RefrigeratorUI.SetActive(false);
             CookingCharacter cook;
-            cook = player.transform.GetComponent<CookingCharacter>(); 
-            cook.currentIngredient = materialInfos;
-            cook.isHand = true;
-            Instantiate(materialInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);
+            cook = player.transform.GetComponent<CookingCharacter>();
+            if (!cook.isHand)
+            {
+                cook.currentIngredient = materialInfos;
+                cook.isHand = true;
+                Instantiate(materialInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);
+            }
+            else
+            {
+                //손에 뭐 들고있는데 재료슬롯 눌렀을 때 행동
+            }
+            
 
         }
     }
