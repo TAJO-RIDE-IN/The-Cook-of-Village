@@ -12,29 +12,11 @@ public class ChangeScenes : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        
-        Scene scene = SceneManager.GetActiveScene();
-        GameManager.Instance.preSceneIndex = scene.buildIndex;
         if (other.tag == "Player")
         {
+            Scene scene = SceneManager.GetActiveScene();
+            GameManager.Instance.preSceneIndex = scene.buildIndex;
             SceneManager.LoadScene(1, LoadSceneMode.Additive);
-            /*if(scene.name == "Restaurant")
-            {
-                LoadSceneVillage();
-            }
-            else if(scene.name == "Village")
-            {
-                LoadSceneRestaurant();
-            }*/
         }
-    }
-    public void LoadSceneRestaurant()
-    {
-        SceneManager.LoadScene("Restaurant");
-    }
-    public void LoadSceneVillage()
-    {
-        SceneManager.LoadScene("GameLoad");
-        //SceneManager.LoadScene("Village");
     }
 }
