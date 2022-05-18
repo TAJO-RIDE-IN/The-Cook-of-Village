@@ -25,8 +25,8 @@ public class ShopSelect : MonoBehaviour
         {
             currentCount = value;
             CountSlider.value = 0;
-            CountSlider.maxValue = MaterialData.Instance.MaxMaterialCount;
-            BuyMaxCount = MaterialData.Instance.MaxMaterialCount - currentCount;
+            CountSlider.maxValue = IngredientsData.Instance.MaxMaterialCount;
+            BuyMaxCount = IngredientsData.Instance.MaxMaterialCount - currentCount;
             MoneyMaxCount = GameManager.Instance.Money / slot.materialInfos.Price;
         }
     }
@@ -71,7 +71,7 @@ public class ShopSelect : MonoBehaviour
     }
     public void BuyMaterial()
     {
-        MaterialData.Instance.ChangeAmount(slot.materialInfos.Type, slot.materialInfos.ID, CurrentAmount());
+        IngredientsData.Instance.ChangeAmount(slot.materialInfos.Type, slot.materialInfos.ID, CurrentAmount());
         GameManager.Instance.Money -= Int32.Parse(TotalPrice.text);
         CurrentCount = CurrentAmount();
     }

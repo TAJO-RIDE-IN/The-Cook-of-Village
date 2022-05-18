@@ -62,92 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxMaterialCount: 99
-  materialType:
-  - type: 0
-    materialInfos:
-    - Type: 0
-      ID: 0
-      Name: Flour
-      Price: 0
-      Amount: 0
-      PrefabMaterial: {fileID: 4591677314406918250, guid: 3d8131ed4665dfb43a06bded22d39109, type: 3}
-      ImageUI: {fileID: 21300000, guid: b0b759aada12d294e885e378d5defd6e, type: 3}
-    - Type: 0
-      ID: 1
-      Name: Sugar
-      Price: 0
-      Amount: 0
-      PrefabMaterial: {fileID: 4591677314406918250, guid: 3d8131ed4665dfb43a06bded22d39109, type: 3}
-      ImageUI: {fileID: 21300000, guid: 21fb8c82ee4d9c14d96f79a8d723957a, type: 3}
-  - type: 1
-    materialInfos:
-    - Type: 1
-      ID: 10
-      Name: Orange
-      Price: 100
-      Amount: 50
-      PrefabMaterial: {fileID: -927199367670048503, guid: d88f4dc7d2164fc4aa4251e648f060c2, type: 3}
-      ImageUI: {fileID: 21300000, guid: fbb9b59c42098bf4d9733db99a077e0d, type: 3}
-    - Type: 1
-      ID: 11
-      Name: Lemon
-      Price: 200
-      Amount: 10
-      PrefabMaterial: {fileID: -927199367670048503, guid: 0b6795b7f395ff8449fcef2ee0966ce1, type: 3}
-      ImageUI: {fileID: 21300000, guid: 517b956ee3027d74e933a4c270b53f01, type: 3}
-    - Type: 1
-      ID: 12
-      Name: Watermelon
-      Price: 500
-      Amount: 2
-      PrefabMaterial: {fileID: -927199367670048503, guid: 7e79de16814ded545a311b11622dd9b2, type: 3}
-      ImageUI: {fileID: 21300000, guid: c7e902bb69e8e394aa7de1e15d8732c8, type: 3}
-  - type: 2
-    materialInfos:
-    - Type: 2
-      ID: 20
-      Name: Tomato
-      Price: 100
-      Amount: 5
-      PrefabMaterial: {fileID: 1783045713081576343, guid: 2dc9359159d69474b8a8226365ebd0bc, type: 3}
-      ImageUI: {fileID: 21300000, guid: 77a6e314363cc5f409cfd0a67ea37765, type: 3}
-    - Type: 2
-      ID: 21
-      Name: Potato
-      Price: 100
-      Amount: 10
-      PrefabMaterial: {fileID: -927199367670048503, guid: aabc0072ecd6a3345b74744eb7bce061, type: 3}
-      ImageUI: {fileID: 21300000, guid: 47758e14a5a27fc4a8c0ca644b71e400, type: 3}
-  - type: 3
-    materialInfos:
-    - Type: 3
-      ID: 30
-      Name: Beef
-      Price: 200
-      Amount: 5
-      PrefabMaterial: {fileID: -927199367670048503, guid: 15f1cf728da66d346a950ceb25e4d4ed, type: 3}
-      ImageUI: {fileID: 21300000, guid: 1fb63ab6eae82c844a11ec4614d4ce94, type: 3}
-    - Type: 3
-      ID: 31
-      Name: Chicken
-      Price: 200
-      Amount: 10
-      PrefabMaterial: {fileID: -927199367670048503, guid: 3d124e8144bf3274b8aca97fa9a7c3b1, type: 3}
-      ImageUI: {fileID: 21300000, guid: a895cfc9b774a1244a173bcceadd0a43, type: 3}
-    - Type: 3
-      ID: 32
-      Name: Egg
-      Price: 100
-      Amount: 20
-      PrefabMaterial: {fileID: -927199367670048503, guid: 6d69d5e3378d7ad44bdcd7633a8e5e7b, type: 3}
-      ImageUI: {fileID: 21300000, guid: ceb4a17b8bf64c44597189268f6191c2, type: 3}
-    - Type: 3
-      ID: 33
-      Name: Bacon
-      Price: 500
-      Amount: 10
-      PrefabMaterial: {fileID: -927199367670048503, guid: 6f8aad615109c4642b8e0e968051c88d, type: 3}
-      ImageUI: {fileID: 21300000, guid: 0db93fe817a3f8744aff17f8a459f28d, type: 3}
+  IngredientsType: []
 --- !u!114 &2753781223019779922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +76,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OrderTime: 5
-  WaitingTime: 30
+  WaitingTime: 40
+  ChaseUPTime: 20
   EatTime: 10
   foodTool:
   - type: 0
