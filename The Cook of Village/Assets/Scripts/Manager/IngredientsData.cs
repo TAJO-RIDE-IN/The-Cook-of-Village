@@ -37,11 +37,11 @@ public class IngredientsType
     public enum Type { Base, Fruit, Vegetable, Meat }
     [SerializeField]
     public Type type;
-    public List<IngredientsInfos> materialInfos = new List<IngredientsInfos>();
+    public List<IngredientsInfos> IngredientsInfos = new List<IngredientsInfos>();
     public IngredientsType(Type _type, List<IngredientsInfos> _materialInfos)
     {
         type = _type;
-        materialInfos = _materialInfos;
+        IngredientsInfos = _materialInfos;
     }
 }
 
@@ -86,8 +86,8 @@ public class IngredientsData : DataManager
     public IngredientsInfos IngredientsInfos(int id)
     {
         int dataIndex;
-        dataIndex = IngredientsType[MaterialType(id)].materialInfos.FindIndex(m => m.ID == id);
-        return IngredientsType[MaterialType(id)].materialInfos[dataIndex];
+        dataIndex = IngredientsType[MaterialType(id)].IngredientsInfos.FindIndex(m => m.ID == id);
+        return IngredientsType[MaterialType(id)].IngredientsInfos[dataIndex];
     }
     private int MaterialType(int id)
     {

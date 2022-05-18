@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FoodOrder : MonoBehaviour, IObserver
+public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
 {
     Probability<FoodInfos> FoodProbability = new Probability<FoodInfos>();
     [SerializeField]
@@ -100,7 +100,7 @@ public class FoodOrder : MonoBehaviour, IObserver
     }
     public void PayFood(int Price)
     {
-        GameManager.Instance.Money += Price;
+        GameDataManager.Instance.Money += Price;
         guest.ChangeState(GuestNPC.State.Pay);
     }
 

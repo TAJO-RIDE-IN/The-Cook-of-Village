@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GuestMove : MonoBehaviour, IObserver
+public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
 {
     public Transform Counter;
     public Transform Door;

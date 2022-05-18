@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-            if(null == instance)
+            if (null == instance)
             {
                 return null;
             }
@@ -34,54 +34,5 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private MoneyText moneyText;
-    private TimeDayText timeDayText;
-    private void Start()
-    {
-        SceneManager.sceneLoaded += LoadedsceneEvent;
-        timeDayText = GameObject.Find("TimeDay").GetComponent<TimeDayText>();
-        moneyText = GameObject.Find("Money").GetComponent<MoneyText>();
-    }
-    private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
-    {
-        moneyText.ChangeMoney(money);
-        timeDayText = GameObject.Find("TimeDay").GetComponent<TimeDayText>();
-        moneyText = GameObject.Find("Money").GetComponent<MoneyText>();
-    }
-
     public bool IsUI = false;
-
-    [SerializeField, Range(0, 24)]
-    private float timeOfDay;
-    public float TimeOfDay
-    {
-        get { return timeOfDay; }
-        set 
-        { 
-            timeOfDay = value;
-            timeDayText.ChangeTime(value);
-        }
-    }
-    [SerializeField]
-    private int day = 1;
-    public int Day
-    {
-        get { return day; }
-        set 
-        { 
-            day = value;
-            timeDayText.ChangeDay(value);
-        }
-    }
-    [SerializeField]
-    private int money;
-    public int Money
-    {
-        get { return money; }
-        set 
-        { 
-            money = value;
-            moneyText.ChangeMoney(value);
-        }
-    }
 }

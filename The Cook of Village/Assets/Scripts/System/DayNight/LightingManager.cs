@@ -1,37 +1,13 @@
 ﻿using UnityEngine;
 
-public class LightingManager : MonoBehaviour
+public class LightingManager : MonoBehaviour, IObserver<GameDataManager>
 {
     [SerializeField] private Light DirectionalLight;
     [SerializeField] private LightingPreset Preset;
-    [SerializeField, Range(0, 24)] private float TimeOfDay;
-    public float orbitSpeed = 1.0f;
 
-    private void Awake()
+    private void UpdateLighting(float time)
     {
-        DontDestroyOnLoad(this.gameObject);
-    }
-
-
-    private void Update()
-    {
-        if (Preset == null)
-            return;
-
-            TimeOfDay += Time.deltaTime * orbitSpeed;
-        if(TimeOfDay > 24)
-        {
-            TimeOfDay = 0;
-            GameManager.Instance.Day++;
-        }
-        GameManager.Instance.TimeOfDay = TimeOfDay;
-        UpdateLighting();
-        
-    }
-
-    private void UpdateLighting()
-    {
-        float timePercent = TimeOfDay / 24f;
+        float timePercent = time / 24f;
         RenderSettings.ambientLight = Preset.AmbientColor.Evaluate(timePercent); // 씬의 주변 조명의 색상 변경
         RenderSettings.fogColor = Preset.FogColor.Evaluate(timePercent); // 안개 색상 변경
 
@@ -43,9 +19,8 @@ public class LightingManager : MonoBehaviour
         }
     }
 
-    private void OnValidate()
+    private void changeLight()
     {
-        UpdateLighting();
         if (DirectionalLight != null)
             return;
 
@@ -66,5 +41,23 @@ public class LightingManager : MonoBehaviour
             }
         }
     }
+    public void AddObserver(IGameDataOb o)
+    {
+        GameDataManager.Instance.AddObserver(this);
+    }
 
+    public void RemoveObserver(IGameDataOb o)
+    {
+        GameDataManager.Instance.RemoveObserver(this);
+    }
+
+    public void Change(GameDataManager obj)
+    {
+        if (obj is GameDataManager)
+        {
+            var GameData = obj;
+            changeLight();
+            UpdateLighting(GameData.TimeOfDay);
+        }
+    }
 }

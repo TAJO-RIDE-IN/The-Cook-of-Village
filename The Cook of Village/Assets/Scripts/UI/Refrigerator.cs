@@ -32,7 +32,7 @@ public class Refrigerator : SlotParent
         IngredientsType[] materialType = IngredientsData.Instance.IngredientsType;
         for(int i = 1; i < materialType.Length; i++)
         {
-            foreach (IngredientsInfos materialInfos in materialType[i].materialInfos)
+            foreach (IngredientsInfos materialInfos in materialType[i].IngredientsInfos)
             {
                 if (SlotDictionary[RefrigeratorSlot[count].transform.parent.name] == materialInfos.Type) //Type이 같을 때만 정보 Load
                 {
