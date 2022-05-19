@@ -10,7 +10,7 @@ public class LoadingScene : MonoBehaviour
     AsyncOperation async_operation;
     private void Start()
     {
-        StartCoroutine(StartLoad("Village"));   
+        StartCoroutine(StartLoad(GameManager.Instance.NextSceneIndex));
     }
 
     void Update()
@@ -18,15 +18,15 @@ public class LoadingScene : MonoBehaviour
         fTime += Time.deltaTime;
         slider.value = fTime;
  
-        if (fTime >= 5)
+        if (fTime >= 3)
         {
             async_operation.allowSceneActivation = true;
         }
     }
  
-    public IEnumerator StartLoad(string strSceneName)
+    public IEnumerator StartLoad(int SceneIndex)
     {
-        async_operation = SceneManager.LoadSceneAsync(strSceneName);
+        async_operation = SceneManager.LoadSceneAsync(SceneIndex);
         async_operation.allowSceneActivation = false;
  
         if (IsDone == false)
