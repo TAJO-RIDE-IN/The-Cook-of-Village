@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ChangeScenes : MonoBehaviour
+public class ChangeScene : MonoBehaviour
 {
-    public void loadScene()
-    {
-        SceneManager.LoadScene("GameLoad");
-    }
+    public enum SceneToGo { Intro = 0, SceneLoad = 1, Village = 2, Restaurant = 3 }
 
+    public SceneToGo sceneToGo;
     public void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            Scene scene = SceneManager.GetActiveScene();
-            GameManager.Instance.preSceneIndex = scene.buildIndex;
+            GameManager.Instance.NextSceneIndex = (int) sceneToGo;
             SceneManager.LoadScene(1, LoadSceneMode.Additive);
         }
     }
