@@ -74,6 +74,14 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             guest.ChangeState(GuestNPC.State.StandUP);
         }
     }
+    private void EndEat()
+    {
+        guest.ChangeState(GuestNPC.State.StandUP);
+        if(FoodPosition.GetChild(0) != null)
+        {
+            Destroy(FoodPosition.GetChild(0).gameObject);
+        }
+    }
     public bool ReceiveFood(int ReceiveFood) //npc에게 음식 전달
     {
         if (ReceiveFood == foodInfos.ID && CanReceive) 
@@ -82,11 +90,12 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             Instantiate(foodInfos.PrefabFood, FoodPosition);
             guest.ChangeState(GuestNPC.State.Eat);
             EndOrder();
-            StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => guest.ChangeState(GuestNPC.State.StandUP))); //일정시간 후 일어남 
+            StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => EndEat())); //일정시간 후 일어남 
             return Receive;
         }
         return Receive;
     }
+ 
     private void Order()
     {
         NPCUI.SetActive(true);
@@ -95,7 +104,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         currentOrderUI = ObjectPooling<OrderUI>.GetObject();
         currentOrderUI.foodInfos = foodInfos;
         currentOrderUI.gameObject.SetActive(true);
-        StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.ChaseUPTime, () => guest.ChangeState(GuestNPC.State.ChaseUP))); //일정시간 후 재촉함
+        //StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.ChaseUPTime, () => guest.ChangeState(GuestNPC.State.ChaseUP))); //일정시간 후 재촉함
         StartCoroutine(WaitingOrder());
     }
     public void PayFood(int Price)

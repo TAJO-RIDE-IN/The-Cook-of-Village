@@ -12,7 +12,8 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     private NPCPooling chairContainer;
     private NavMeshAgent agent;
     private GuestNPC guest;
-    private GuestNPC.State BeforeState;
+
+    private bool NPCEat = false;
     [SerializeField]
     private bool isArrive = false;
     private void Awake()
@@ -101,9 +102,10 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         {
             if (guest.ModelsAni.GetCurrentAnimatorStateInfo(0).IsName("StandUp") && guest.ModelsAni.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
             {
-                Transform Destination = (BeforeState == GuestNPC.State.Eat) ? Counter : Door;
+                Transform Destination = (NPCEat) ? Counter : Door;
                 StartCoroutine(NPCMove(Destination.position, Destination.name));
                 ChangeChairState();
+                NPCEat = false;
                 isPlayAni = false;
             }
             yield return null;
@@ -120,8 +122,11 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         if(obj is GuestNPC)
         {
             var guestNPC = obj;
+            if(guestNPC.CurrentState == GuestNPC.State.Eat)
+            {
+                NPCEat = true;
+            }
             GoDestination(guestNPC.CurrentState);
-            BeforeState = guestNPC.CurrentState;
         }
     }
 }
