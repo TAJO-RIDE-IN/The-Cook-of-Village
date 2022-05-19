@@ -19,19 +19,16 @@ public class Guest : IGuestDI
 
 public interface IGuestOb
 {
-    void AddObserver(IObserver o);
-    void RemoveObserver(IObserver o);
+    void AddObserver(IObserver<GuestNPC> o);
+    void RemoveObserver(IObserver<GuestNPC> o);
     void NotifyObserver();
 }
-public interface IObserver
-{
-    void Change(GuestNPC obj);
-}
+
 
 public class GuestNPC : MonoBehaviour, IGuestOb
 {
     IGuestDI guest;
-    private List<IObserver> _observers = new List<IObserver>();
+    private List<IObserver<GuestNPC>> _observers = new List<IObserver<GuestNPC>>();
     public enum State {Idle, Walk, Eat, Sit, StandUP, ChaseUP, Pay, GoOut }
     [SerializeField]
     private State currentState;
@@ -118,11 +115,11 @@ public class GuestNPC : MonoBehaviour, IGuestOb
         NotifyObserver(); //observer РќДо     
     }
     #region Observer
-    public void AddObserver(IObserver o)
+    public void AddObserver(IObserver<GuestNPC> o)
     {
         _observers.Add(o);
     }
-    public void RemoveObserver(IObserver o)
+    public void RemoveObserver(IObserver<GuestNPC> o)
     {
         _observers.Remove(o);
     }

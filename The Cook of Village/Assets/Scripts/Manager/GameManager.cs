@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     }
 
     public bool IsUI = false;
-    public int preSceneIndex = 2;
+    public int NextSceneIndex = 2;
 
     [SerializeField, Range(0, 24)]
     private float timeOfDay;

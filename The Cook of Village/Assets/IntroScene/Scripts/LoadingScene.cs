@@ -10,15 +10,7 @@ public class LoadingScene : MonoBehaviour
     AsyncOperation async_operation;
     private void Start()
     {
-        if (GameManager.Instance.preSceneIndex == 2)
-        {
-            StartCoroutine(StartLoad(3));
-        }
-        else
-        {
-            StartCoroutine(StartLoad(2));
-        }
-        
+        StartCoroutine(StartLoad(GameManager.Instance.NextSceneIndex));
     }
 
     void Update()

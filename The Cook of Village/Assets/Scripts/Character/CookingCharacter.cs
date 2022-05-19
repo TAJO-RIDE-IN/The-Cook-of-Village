@@ -99,7 +99,7 @@ public class CookingCharacter : MonoBehaviour
             {
                 if (!isHand)
                 {
-                    currentIngredient = IngredientsData.Instance.IngredientsType[0].materialInfos[0];
+                    currentIngredient = IngredientsData.Instance.IngredientsType[0].IngredientsInfos[0];
                     Instantiate(currentIngredient.PrefabMaterial,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
                     isHand = true;
                     return;
@@ -112,7 +112,7 @@ public class CookingCharacter : MonoBehaviour
             {
                 if (!isHand)
                 {
-                    currentIngredient = IngredientsData.Instance.IngredientsType[0].materialInfos[1];
+                    currentIngredient = IngredientsData.Instance.IngredientsType[0].IngredientsInfos[1];
                     Instantiate(currentIngredient.PrefabMaterial,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
                     isHand = true;
                 }
