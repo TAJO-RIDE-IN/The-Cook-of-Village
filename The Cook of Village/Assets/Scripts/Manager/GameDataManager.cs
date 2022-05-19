@@ -45,6 +45,7 @@ public class GameDataManager : MonoBehaviour, IGameDataOb
     #endregion
     private void Start()
     {
+        GameObject.Find("RestaurantDisplayUI").GetComponent<DisplayUI>().AddObserver(this);
         GameObject.Find("DayNightClycle").GetComponent<LightingManager>().AddObserver(this);
     }
     private void Update()
@@ -85,7 +86,7 @@ public class GameDataManager : MonoBehaviour, IGameDataOb
     }
 
     [SerializeField]
-    private int money;
+    private int money = 5000;
     public int Money
     {
         get { return money; }
