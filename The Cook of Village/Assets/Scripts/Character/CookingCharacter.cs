@@ -147,12 +147,16 @@ public class CookingCharacter : MonoBehaviour
             Debug.Log("스페이스바눌림");
             if (isHand)//현재 들고있는 재료 정보가 null이 아닐때 넘겨줌, 세부적인건 저기서 수행(UI 바꾸기, 레시피리스트에 ID 추가)
             {
-                if (isToolCollider)//요리도구에 들어갔을때만 재료넣는거 실행
+                if (isToolCollider)//요리도구에 들어갔을때만,요리중이 아닐때만 재료넣는거 실행
                 {
-                    if (currentIngredient != null)
+                    if (!_cookingTool.isToolUsed)
                     {
                         PutIngredient();
                         return; //return 잘 썼는지 항상 확인하기
+                    }
+                    else
+                    {
+                        //먼저 요리도구를 비우세요! 출력
                     }
                 }
 
@@ -173,13 +177,14 @@ public class CookingCharacter : MonoBehaviour
                 {
                     if (!isHand)
                     {
-                        if (_cookingTool.isCooked)
+                        if (_cookingTool.isToolUsed)
                         {
                             currentFood = _cookingTool.FoodInfos;
                             Instantiate(currentFood.PrefabFood,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
                             isHand = true;
                             _cookingTool.RefreshTool();
                         }
+                        
                         
                     }
                 }
@@ -188,7 +193,15 @@ public class CookingCharacter : MonoBehaviour
         
         else if(Input.GetKeyDown(KeyCode.E))
         {
-            _cookingTool.Cook();
+            if (!_cookingTool.isToolUsed)
+            {
+                _cookingTool.Cook();
+            }
+            else
+            {
+                //먼저 요리도구를 비우세요! 출력
+            }
+                
         }
     }
     public void PutIngredient()
