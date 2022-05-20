@@ -9,8 +9,8 @@ public class CookingTool : MonoBehaviour
     public enum Type { Blender = 0, Pot = 1, FryPan = 2}//접시도 추가할거니까 접시일때 행동들이랑 도구일때 행동들 구분하기, 그리고 머랭같은 특별한 도구도 어떻게할지 생각해야함
     public Type type;
 
-    public GameObject IngredientInven;
-    public GameObject FoodInven;
+    private GameObject IngredientInven;
+    private GameObject FoodInven;
     private Animation animation;
     
     public List<int> ingredientList = new List<int>();
@@ -25,6 +25,8 @@ public class CookingTool : MonoBehaviour
     private void Start()
     {
         animation = transform.GetComponent<Animation>();
+        IngredientInven = transform.GetChild(1).GetChild(0).gameObject;
+        FoodInven = transform.GetChild(1).GetChild(1).gameObject;
     }
 
 
