@@ -40,10 +40,11 @@ public class GuestNPC : MonoBehaviour, IGuestOb
             currentState = value;
         }
     }
+    public Animator ModelsAni;
     [SerializeField]
     private GameObject[] Models;
     private GameObject CurrentModel;
-    public Animator ModelsAni;
+ 
     private void Start()
     {
         this.gameObject.GetComponent<GuestMove>().AddObserver();

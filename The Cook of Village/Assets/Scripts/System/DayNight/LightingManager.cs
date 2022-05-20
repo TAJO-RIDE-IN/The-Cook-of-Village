@@ -7,7 +7,7 @@ public class LightingManager : MonoBehaviour, IObserver<GameDataManager>
 
     private void UpdateLighting(float time)
     {
-        float timePercent = time / 24f;
+        float timePercent = time / 1440f;
         RenderSettings.ambientLight = Preset.AmbientColor.Evaluate(timePercent); // 씬의 주변 조명의 색상 변경
         RenderSettings.fogColor = Preset.FogColor.Evaluate(timePercent); // 안개 색상 변경
 

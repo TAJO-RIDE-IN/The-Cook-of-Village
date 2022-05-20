@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7449887924147201401}
   - component: {fileID: 7449887924147201403}
   - component: {fileID: 7449887924147201402}
+  - component: {fileID: 9208882650466152477}
   m_Layer: 5
   m_Name: RestaurantDisplayUI
   m_TagString: Untagged
@@ -77,6 +78,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &9208882650466152477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7449887924147201400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be8607dddc24bd54eb11caebbc609014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Money: {fileID: 7449887925226655664}
+  TimeText: {fileID: 7449887924831090376}
+  DayText: {fileID: 7449887925524613633}
 --- !u!1 &7449887924831090382
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +261,7 @@ GameObject:
   - component: {fileID: 7449887925226655671}
   m_Layer: 5
   m_Name: MoneyText
-  m_TagString: Display
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -335,7 +351,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7449887925384722244}
   - component: {fileID: 7449887925384722245}
-  - component: {fileID: 4535496050298802445}
   m_Layer: 5
   m_Name: Money
   m_TagString: Untagged
@@ -371,19 +386,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7449887925384722251}
   m_CullTransparentMesh: 1
---- !u!114 &4535496050298802445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7449887925384722251}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be8607dddc24bd54eb11caebbc609014, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Money: {fileID: 7449887925226655664}
 --- !u!1 &7449887925437504413
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,10 +395,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7449887925437504414}
-  - component: {fileID: 7449887925437504415}
   m_Layer: 5
   m_Name: TimeDay
-  m_TagString: Display
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -422,20 +423,6 @@ RectTransform:
   m_AnchoredPosition: {x: 100, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7449887925437504415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7449887925437504413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 864605a1ebe4da14e836d051715de156, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeText: {fileID: 7449887924831090376}
-  DayText: {fileID: 7449887925524613633}
 --- !u!1 &7449887925524613639
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +514,7 @@ GameObject:
   - component: {fileID: 7449887926068684290}
   - component: {fileID: 7449887926068684289}
   m_Layer: 5
-  m_Name: MoneyText
+  m_Name: MoneyBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
