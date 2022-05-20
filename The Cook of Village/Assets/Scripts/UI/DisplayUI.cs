@@ -13,10 +13,8 @@ public class DisplayUI : MonoBehaviour, IObserver<GameDataManager>
     private int[] Time(float currentTime)
     {
         int[] time = new int[2];
-        time[0] = (int)Math.Truncate(currentTime);  //hour
-        float minute = (float)Math.Truncate((currentTime - time[0]) * 100) / 100; //minute 소수점 2에서 자름
-        minute = (int)Math.Truncate(minute * 60);
-        time[1] = (int)minute;
+        time[0] = (int) currentTime / 60;  //hour
+        time[1] = (int) currentTime % 60;
         return time;
     }
 

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -45,21 +46,65 @@ public class GameDataManager : MonoBehaviour, IGameDataOb
     #endregion
     private void Start()
     {
-        GameObject.Find("RestaurantDisplayUI").GetComponent<DisplayUI>().AddObserver(this);
-        GameObject.Find("DayNightClycle").GetComponent<LightingManager>().AddObserver(this);
+        LoadObject();
     }
-    private void Update()
+    void OnEnable()
     {
-        TimeOfDay += Time.deltaTime * orbitSpeed;
-        if (TimeOfDay > 24)
+        // 델리게이트 체인 추가
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnDisable()
+    {
+        // 델리게이트 체인 제거
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        LoadObject();
+    }
+    GameObject RestaurantDisplayUI;
+    GameObject VillageDisplayUI;
+    GameObject DayNightClycle;
+    private void LoadObject()
+    {
+        _observers.Clear();
+        StopCoroutine(UpdateLight());
+        RestaurantDisplayUI = GameObject.Find("RestaurantDisplayUI");
+        VillageDisplayUI = GameObject.Find("VillageDisplayUI");
+        DayNightClycle = GameObject.Find("DayNightClycle");
+        if (RestaurantDisplayUI != null)
         {
-            TimeOfDay = 0;
-            Day++;
+            RestaurantDisplayUI.GetComponent<DisplayUI>().AddObserver(this);
+        }
+
+        if (VillageDisplayUI != null)
+        {
+            VillageDisplayUI.GetComponent<DisplayUI>().AddObserver(this);
+        }
+
+        if (DayNightClycle != null)
+        {
+            DayNightClycle.GetComponent<LightingManager>().AddObserver(this);
+        }
+        StartCoroutine(UpdateLight());
+    }
+
+    private IEnumerator UpdateLight()
+    {
+        while (RestaurantDisplayUI != null || VillageDisplayUI != null)
+        {
+            TimeOfDay += Time.deltaTime * orbitSpeed;
+            if (TimeOfDay > 1440)
+            {
+                TimeOfDay = 0;
+                Day++;
+            }
+            yield return null;
         }
     }
 
-
-    [SerializeField, Range(0, 24)]
+    [SerializeField, Range(0, 1440)] //24시간 => 1440분
     private float timeOfDay;
     public float TimeOfDay 
     { 
