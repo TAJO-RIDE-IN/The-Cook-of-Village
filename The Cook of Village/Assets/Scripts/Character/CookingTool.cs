@@ -11,11 +11,16 @@ public class CookingTool : MonoBehaviour
 
     private GameObject IngredientInven;
     private GameObject FoodInven;
+    private Image blackCircle;
     private Animation animation;
+    private Coroutine coroutine;
+    
+    private float currentValue;
     
     public List<int> ingredientList = new List<int>();
     public FoodInfos FoodInfos { get; set;}//foodInfos가 바뀌면 해줄 일,즉 UI코루틴 끝났을때 할 일 set에 적자
-    public bool isCooked;
+    
+    public bool isToolUsed;
     
 
     /*[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -27,6 +32,7 @@ public class CookingTool : MonoBehaviour
         animation = transform.GetComponent<Animation>();
         IngredientInven = transform.GetChild(1).GetChild(0).gameObject;
         FoodInven = transform.GetChild(1).GetChild(1).gameObject;
+        blackCircle = FoodInven.transform.GetChild(1).GetComponent<Image>();
     }
 
 
@@ -54,34 +60,45 @@ public class CookingTool : MonoBehaviour
     public void Cook()
     {
         FoodInfos = FoodData.Instance.RecipeFood((int)type, ingredientList);
-        
         //Debug.Log(FoodInfos.Name);
         IngredientInven.SetActive(false);
-        FoodInven.transform.GetChild(0).transform.GetComponent<Image>().sprite = FoodInfos.ImageUI;
-        FoodInven.SetActive(true);
-        isCooked = true;
+        
+        coroutine = StartCoroutine(CookingGauge());
+        isToolUsed = true;
     }
 
     public void RefreshTool()
     {
         ingredientList.Clear();
-        FoodInven.SetActive(false);
+        for (int i = 0; i < IngredientInven.transform.childCount; i++)
+        {
+            IngredientInven.transform.GetChild(i).GetComponent<Image>().sprite = Resources.Load<Sprite>("IngriedientBox");
+        }
+        FoodInven.transform.GetChild(2).gameObject.SetActive(false);
+        FoodInven.transform.GetChild(3).gameObject.SetActive(true);
+        blackCircle.fillAmount = 0;
+        isToolUsed = false;
+        
+    }
+    
+    IEnumerator CookingGauge() //LoadingBar.fillAmount이 1이 될때까지 점점 게이지를 추가해줌
+    {
+        
+
+        while (blackCircle.fillAmount < 1)
+        {
+            currentValue += Time.deltaTime;
+            blackCircle.fillAmount = currentValue / FoodInfos.MakeTime;
+            yield return null;
+            /*if (!_wallCollision.iscollide)
+            {
+                StopCoroutine(co_my_coroutine); //요리 멈출때
+            }*/
+        }
+        FoodInven.transform.GetChild(2).transform.GetComponent<Image>().sprite = FoodInfos.ImageUI;
+        FoodInven.transform.GetChild(3).gameObject.SetActive(false);//디폴트 숨기기
+        FoodInven.transform.GetChild(2).gameObject.SetActive(true);
     }
 
-    private void PutByGroup()//애니메이션 실행하려고 만들었는데 필요없어짐
-    {
-        if (type == Type.Blender)
-        {
-            
-        }
-        else if (type == Type.Pot)
-        {
-            
-        }
-        else if(type == Type.FryPan)
-        {
-            
-        }
-    }
 
 }
