@@ -66,10 +66,10 @@ public class GameDataManager : MonoBehaviour, IGameDataOb
     GameObject RestaurantDisplayUI;
     GameObject VillageDisplayUI;
     GameObject DayNightClycle;
+    Coroutine runningCoroutine = null;
     private void LoadObject()
     {
         _observers.Clear();
-        StopCoroutine(UpdateLight());
         RestaurantDisplayUI = GameObject.Find("RestaurantDisplayUI");
         VillageDisplayUI = GameObject.Find("VillageDisplayUI");
         DayNightClycle = GameObject.Find("DayNightClycle");
@@ -87,7 +87,12 @@ public class GameDataManager : MonoBehaviour, IGameDataOb
         {
             DayNightClycle.GetComponent<LightingManager>().AddObserver(this);
         }
-        StartCoroutine(UpdateLight());
+
+        if(runningCoroutine != null) //한 개의 코루틴만 실행
+        {
+            StopCoroutine(runningCoroutine);
+        }
+        runningCoroutine = StartCoroutine(UpdateLight());
     }
 
     private IEnumerator UpdateLight()
