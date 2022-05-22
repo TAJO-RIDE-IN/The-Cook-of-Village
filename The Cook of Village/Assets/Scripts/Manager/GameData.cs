@@ -123,7 +123,7 @@ public class GameData : DataManager, IGameDataOb
     }
 
     [SerializeField]
-    public GameInfos gameInfos;
+    private GameInfos gameInfos;
 
     #region 변수
     [SerializeField, Range(0, 1440)] //24시간 => 1440분

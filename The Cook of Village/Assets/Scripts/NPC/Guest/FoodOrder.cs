@@ -50,11 +50,11 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     private IEnumerator WaitingOrder()
     {
-        float time = FoodData.Instance.WaitingTime;
+        float time = FoodData.Instance.FoodWaitingTime;
         while(time > 0)
         {
             time -= Time.deltaTime;
-            float ratio = time / FoodData.Instance.WaitingTime;
+            float ratio = time / FoodData.Instance.FoodWaitingTime;
             RemainingTimeImage.fillAmount = ratio;
             currentOrderUI.TimeBar.fillAmount = ratio;
             yield return null;

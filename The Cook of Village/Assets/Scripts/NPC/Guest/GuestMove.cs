@@ -76,6 +76,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
                 break;
             case "Counter":
                 guest.ChangeState(GuestNPC.State.Idle);
+                StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.PayWaitingTime, () => StartCoroutine(NPCMove(Door.position, "Door")))); //일정 시간 이후 나감
                 break;
         }
     }
@@ -85,27 +86,27 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         switch (state)
         {
             case GuestNPC.State.StandUP:
-                StartCoroutine(WaitStandUP());
+                Transform Destination = (NPCEat) ? Counter : Door;
+                NPCEat = false;
+                ChangeChairState();
+                StartCoroutine(WaitAnimation("StandUp", Destination));
                 break;
             case GuestNPC.State.Pay:
-                StartCoroutine(NPCMove(Door.position, Door.ToString()));
+                StartCoroutine(WaitAnimation("Pay", Door));
                 break;
             default:
                 break;
         }
     }
 
-    private IEnumerator WaitStandUP() //일어난 후 NPC 움직이도록
+    private IEnumerator WaitAnimation(string AnimationName, Transform Destination) //일어난 후 NPC 움직이도록
     {
         bool isPlayAni = true;
         while (isPlayAni)
         {
-            if (guest.ModelsAni.GetCurrentAnimatorStateInfo(0).IsName("StandUp") && guest.ModelsAni.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
+            if (guest.ModelsAni.GetCurrentAnimatorStateInfo(0).IsName(AnimationName) && guest.ModelsAni.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
             {
-                Transform Destination = (NPCEat) ? Counter : Door;
                 StartCoroutine(NPCMove(Destination.position, Destination.name));
-                ChangeChairState();
-                NPCEat = false;
                 isPlayAni = false;
             }
             yield return null;

@@ -98,6 +98,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 ModelsAni.SetTrigger("ChaseUp");
                 break;
             case State.Pay:
+                ModelsAni.SetTrigger("Pay");
                 break;
             case State.GoOut:
                 ObjectPooling<GuestNPC>.ReturnObject(this);
