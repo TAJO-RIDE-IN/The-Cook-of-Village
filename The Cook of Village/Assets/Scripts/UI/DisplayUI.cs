@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DisplayUI : MonoBehaviour, IObserver<GameDataManager>
+public class DisplayUI : MonoBehaviour, IObserver<GameData>
 {
     public Text Money;
     public Text TimeText;
@@ -26,17 +26,17 @@ public class DisplayUI : MonoBehaviour, IObserver<GameDataManager>
     }
     public void AddObserver(IGameDataOb o)
     {
-        GameDataManager.Instance.AddObserver(this);
+        GameData.Instance.AddObserver(this);
     }
 
     public void RemoveObserver(IGameDataOb o)
     {
-        GameDataManager.Instance.RemoveObserver(this);
+        GameData.Instance.RemoveObserver(this);
     }
 
-    public void Change(GameDataManager obj)
+    public void Change(GameData obj)
     {
-        if (obj is GameDataManager)
+        if (obj is GameData)
         {
             var GameData = obj;
             ChangeDisplay(GameData.TimeOfDay, GameData.Day, GameData.Money);

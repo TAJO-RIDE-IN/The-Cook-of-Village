@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class LightingManager : MonoBehaviour, IObserver<GameDataManager>
+public class LightingManager : MonoBehaviour, IObserver<GameData>
 {
     [SerializeField] private Light DirectionalLight;
     [SerializeField] private LightingPreset Preset;
@@ -43,17 +43,17 @@ public class LightingManager : MonoBehaviour, IObserver<GameDataManager>
     }
     public void AddObserver(IGameDataOb o)
     {
-        GameDataManager.Instance.AddObserver(this);
+        GameData.Instance.AddObserver(this);
     }
 
     public void RemoveObserver(IGameDataOb o)
     {
-        GameDataManager.Instance.RemoveObserver(this);
+        GameData.Instance.RemoveObserver(this);
     }
 
-    public void Change(GameDataManager obj)
+    public void Change(GameData obj)
     {
-        if (obj is GameDataManager)
+        if (obj is GameData)
         {
             var GameData = obj;
             changeLight();
