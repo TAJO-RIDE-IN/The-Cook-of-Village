@@ -15,11 +15,11 @@ public interface IObserver<T>
 }
 
 [System.Serializable]
-public class Game
+public class GameInfos
 {
     public int Day;
     public int Money;
-    public Game(int day, int money)
+    public GameInfos(int day, int money)
     {
         Day = day;
         Money = money;
@@ -123,7 +123,7 @@ public class GameData : DataManager, IGameDataOb
     }
 
     [SerializeField]
-    public Game gameData;
+    public GameInfos gameInfos;
 
     #region 변수
     [SerializeField, Range(0, 1440)] //24시간 => 1440분
@@ -141,27 +141,27 @@ public class GameData : DataManager, IGameDataOb
     private float orbitSpeed = 1.0f;
     public int Day
     {
-        get { return gameData.Day; }
+        get { return gameInfos.Day; }
         set
         {
-            gameData.Day = value;
+            gameInfos.Day = value;
             NotifyObserver();
             SaveDataTime();
         }
     }
     public int Money
     {
-        get { return gameData.Money; }
+        get { return gameInfos.Money; }
         set
         {
-            gameData.Money = value;
+            gameInfos.Money = value;
             NotifyObserver();
         }
     }
     #endregion
     public override void SaveDataTime()
     {
-        SaveData<Game>(ref gameData, "GameData");
+        SaveData<GameInfos>(ref gameInfos, "GameData");
         IngredientsData.Instance.SaveDataTime();
         FoodData.Instance.SaveDataTime();
     }
