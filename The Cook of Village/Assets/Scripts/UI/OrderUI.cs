@@ -34,8 +34,11 @@ public class OrderUI : MonoBehaviour
     public Transform Order;
     public Transform OrderContainer;
 
+    [SerializeField]
+    private Animator ani;
     private void OnDisable()
     {
+        ani.SetTrigger("Idle");
         foreach (GameObject i in MaterialObject)
         {
             i.SetActive(false);
@@ -52,7 +55,11 @@ public class OrderUI : MonoBehaviour
     private void ChangeImage(Sprite food, Sprite tool)
     {
         FoodImage.sprite = food;
-        ToolImgae.sprite = tool;
+        ToolImgae.sprite = tool;       
+    }
+    public void StartAnimation()
+    {
+        ani.SetTrigger("Out");
     }
     public void EndOrder()
     {
