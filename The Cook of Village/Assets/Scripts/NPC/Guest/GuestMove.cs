@@ -6,12 +6,12 @@ using UnityEngine.AI;
 
 public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
 {
-    public Transform Counter;
     public Transform Door;
     private GameObject UseChair;
     private NPCPooling chairContainer;
     private NavMeshAgent agent;
     private GuestNPC guest;
+    public CounterQueue counter;
 
     private bool NPCEat = false;
     [SerializeField]
@@ -61,7 +61,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     }
 
     private void NPCState(string destination_name) //도착지에 따른 NPC상태 변화
-    {
+   {
         switch (destination_name)
         {
             case "Chair":
@@ -76,7 +76,10 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
                 break;
             case "Counter":
                 guest.ChangeState(GuestNPC.State.Idle);
-                StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.PayWaitingTime, () => StartCoroutine(NPCMove(Door.position, "Door")))); //일정 시간 이후 나감
+                StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.PayWaitingTime, () => OutCounter())); //일정 시간 이후 나감
+                break;
+            case "CounterLine":
+                guest.ChangeState(GuestNPC.State.Idle);
                 break;
         }
     }
@@ -86,32 +89,48 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         switch (state)
         {
             case GuestNPC.State.StandUP:
-                Transform Destination = (NPCEat) ? Counter : Door;
+                if(NPCEat) { GoCounter(); }
+                else { StartCoroutine(WaitAnimation("StandUp", Door.position, "Door")); }
                 NPCEat = false;
-                ChangeChairState();
-                StartCoroutine(WaitAnimation("StandUp", Destination));
+                ChangeChairState();                                
                 break;
             case GuestNPC.State.Pay:
-                StartCoroutine(WaitAnimation("Pay", Door));
+                StartCoroutine(WaitAnimation("Pay", Door.position, "Door"));
+                counter.OutGuest(this.gameObject);
                 break;
             default:
                 break;
         }
     }
-
-    private IEnumerator WaitAnimation(string AnimationName, Transform Destination) //일어난 후 NPC 움직이도록
+    private IEnumerator WaitAnimation(string AnimationName, Vector3 Destination, string destination_name) //일어난 후 NPC 움직이도록
     {
         bool isPlayAni = true;
         while (isPlayAni)
         {
             if (guest.ModelsAni.GetCurrentAnimatorStateInfo(0).IsName(AnimationName) && guest.ModelsAni.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
             {
-                StartCoroutine(NPCMove(Destination.position, Destination.name));
+                StartCoroutine(NPCMove(Destination, destination_name));
                 isPlayAni = false;
             }
             yield return null;
         }
     }
+
+    private void GoCounter() //Counter 줄서기
+    {
+        counter.GoGuest(this.gameObject);
+        StartCoroutine(WaitAnimation("StandUp", counter.waitngQueue.LineUPPosition(this.gameObject), "Counter"));
+    }
+    private void OutCounter() //Counter에서 문으로
+    {
+        counter.OutGuest(this.gameObject);
+        StartCoroutine(NPCMove(Door.position, "Door"));
+    }
+    public void RelocateGuest(Vector3 position) //Counter 줄 앞으로 땡기기
+    {
+        StartCoroutine(NPCMove(position, "CounterLine"));
+    }
+
 
     public void AddObserver() //MonoBehaviour 때문에 new 사용불가
     {

@@ -90,7 +90,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             Instantiate(foodInfos.PrefabFood, FoodPosition);
             guest.ChangeState(GuestNPC.State.Eat);
             EndOrder();
-            StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => EndEat())); //일정시간 후 일어남 
+            StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => EndEat())); //일정 시간 후 다 먹음
             return Receive;
         }
         return Receive;
@@ -104,7 +104,6 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         currentOrderUI = ObjectPooling<OrderUI>.GetObject();
         currentOrderUI.foodInfos = foodInfos;
         currentOrderUI.gameObject.SetActive(true);
-        //StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.ChaseUPTime, () => guest.ChangeState(GuestNPC.State.ChaseUP))); //일정시간 후 재촉함
         StartCoroutine(WaitingOrder());
     }
     public void PayFood()
