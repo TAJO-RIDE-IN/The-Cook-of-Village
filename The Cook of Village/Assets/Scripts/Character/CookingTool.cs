@@ -20,7 +20,8 @@ public class CookingTool : MonoBehaviour
     public List<int> ingredientList = new List<int>();
     public FoodInfos FoodInfos { get; set;}//foodInfos가 바뀌면 해줄 일,즉 UI코루틴 끝났을때 할 일 set에 적자
     
-    public bool isToolUsed;
+    [HideInInspector]public bool isBeforeCooking = true;
+    [HideInInspector]public bool isCooked;
     
 
     /*[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -59,12 +60,11 @@ public class CookingTool : MonoBehaviour
 
     public void Cook()
     {
+        ingredientList.Sort();
         FoodInfos = FoodData.Instance.RecipeFood((int)type, ingredientList);
         //Debug.Log(FoodInfos.Name);
         IngredientInven.SetActive(false);
-        
         coroutine = StartCoroutine(CookingGauge());
-        isToolUsed = true;
     }
 
     public void RefreshTool()
@@ -77,24 +77,28 @@ public class CookingTool : MonoBehaviour
         FoodInven.transform.GetChild(2).gameObject.SetActive(false);
         FoodInven.transform.GetChild(3).gameObject.SetActive(true);
         blackCircle.fillAmount = 0;
-        isToolUsed = false;
-        
+        isBeforeCooking = true;
+        isCooked = false;
+
     }
     
     IEnumerator CookingGauge() //LoadingBar.fillAmount이 1이 될때까지 점점 게이지를 추가해줌
     {
-        
-
+        isBeforeCooking = false;
         while (blackCircle.fillAmount < 1)
         {
             currentValue += Time.deltaTime;
             blackCircle.fillAmount = currentValue / FoodInfos.MakeTime;
+            FoodInven.transform.GetChild(3).Rotate(0, 0, 1);
             yield return null;
             /*if (!_wallCollision.iscollide)
             {
                 StopCoroutine(co_my_coroutine); //요리 멈출때
             }*/
         }
+
+        
+        isCooked = true;
         FoodInven.transform.GetChild(2).transform.GetComponent<Image>().sprite = FoodInfos.ImageUI;
         FoodInven.transform.GetChild(3).gameObject.SetActive(false);//디폴트 숨기기
         FoodInven.transform.GetChild(2).gameObject.SetActive(true);
