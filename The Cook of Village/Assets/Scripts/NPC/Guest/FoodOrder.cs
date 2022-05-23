@@ -50,11 +50,11 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     private IEnumerator WaitingOrder()
     {
-        float time = FoodData.Instance.WaitingTime;
+        float time = FoodData.Instance.FoodWaitingTime;
         while(time > 0)
         {
             time -= Time.deltaTime;
-            float ratio = time / FoodData.Instance.WaitingTime;
+            float ratio = time / FoodData.Instance.FoodWaitingTime;
             RemainingTimeImage.fillAmount = ratio;
             currentOrderUI.TimeBar.fillAmount = ratio;
             yield return null;
@@ -107,9 +107,10 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         //StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.ChaseUPTime, () => guest.ChangeState(GuestNPC.State.ChaseUP))); //일정시간 후 재촉함
         StartCoroutine(WaitingOrder());
     }
-    public void PayFood(int Price)
+    public void PayFood()
     {
-        GameData.Instance.Money += Price;
+        GameData.Instance.Money += foodInfos.Price;
+        foodInfos = null;
         guest.ChangeState(GuestNPC.State.Pay);
     }
 
