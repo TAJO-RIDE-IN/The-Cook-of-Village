@@ -132,7 +132,7 @@ public class CookingCharacter : MonoBehaviour
             {
                 if (isToolCollider)//요리도구에 들어갔을때만,요리중이 아닐때만 재료넣는거 실행
                 {
-                    if (!_cookingTool.isBeforeCooking)
+                    if (_cookingTool.isBeforeCooking)
                     {
                         PutIngredient();
                         return; //return 잘 썼는지 항상 확인하기
@@ -179,7 +179,7 @@ public class CookingCharacter : MonoBehaviour
         
         else if(Input.GetKeyDown(KeyCode.E))
         {
-            if (!_cookingTool.isBeforeCooking)//요리 전일때
+            if (_cookingTool.isBeforeCooking)//요리 전일때
             {
                 _cookingTool.Cook();
             }

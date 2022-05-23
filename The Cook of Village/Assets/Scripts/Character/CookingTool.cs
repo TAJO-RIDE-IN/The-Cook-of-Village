@@ -20,8 +20,8 @@ public class CookingTool : MonoBehaviour
     public List<int> ingredientList = new List<int>();
     public FoodInfos FoodInfos { get; set;}//foodInfos가 바뀌면 해줄 일,즉 UI코루틴 끝났을때 할 일 set에 적자
     
-    public bool isBeforeCooking;
-    public bool isCooked;
+    [HideInInspector]public bool isBeforeCooking = true;
+    [HideInInspector]public bool isCooked;
     
 
     /*[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -89,6 +89,7 @@ public class CookingTool : MonoBehaviour
         {
             currentValue += Time.deltaTime;
             blackCircle.fillAmount = currentValue / FoodInfos.MakeTime;
+            FoodInven.transform.GetChild(3).Rotate(0, 0, 1);
             yield return null;
             /*if (!_wallCollision.iscollide)
             {
