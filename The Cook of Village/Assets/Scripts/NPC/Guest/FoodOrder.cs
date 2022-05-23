@@ -107,9 +107,10 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         //StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.ChaseUPTime, () => guest.ChangeState(GuestNPC.State.ChaseUP))); //일정시간 후 재촉함
         StartCoroutine(WaitingOrder());
     }
-    public void PayFood(int Price)
+    public void PayFood()
     {
-        GameData.Instance.Money += Price;
+        GameData.Instance.Money += foodInfos.Price;
+        foodInfos = null;
         guest.ChangeState(GuestNPC.State.Pay);
     }
 

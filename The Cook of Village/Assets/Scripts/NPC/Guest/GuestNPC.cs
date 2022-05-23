@@ -44,11 +44,12 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     [SerializeField]
     private GameObject[] Models;
     private GameObject CurrentModel;
- 
+    private BoxCollider col;
     private void Start()
     {
         this.gameObject.GetComponent<GuestMove>().AddObserver();
         this.gameObject.GetComponent<FoodOrder>().AddObserver();
+        col = this.gameObject.GetComponent<BoxCollider>();
     }
     #region Model º¯°æ
     private void OnEnable()
@@ -86,11 +87,13 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 ModelsAni.SetBool("isEat", true);
                 break;
             case State.Sit:
+                col.enabled = true;
                 ModelsAni.SetBool("isWalk", false);
                 ModelsAni.SetTrigger("Sit");
                 ModelsAni.SetTrigger("SitIdle");
                 break;
             case State.StandUP:
+                col.enabled = false;
                 ModelsAni.SetBool("isEat", false);
                 ModelsAni.SetTrigger("StandUp");
                 break;
