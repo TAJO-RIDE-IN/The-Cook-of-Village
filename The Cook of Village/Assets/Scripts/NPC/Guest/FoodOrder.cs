@@ -109,7 +109,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     public void PayFood(int Price)
     {
-        GameDataManager.Instance.Money += Price;
+        GameData.Instance.Money += Price;
         guest.ChangeState(GuestNPC.State.Pay);
     }
 

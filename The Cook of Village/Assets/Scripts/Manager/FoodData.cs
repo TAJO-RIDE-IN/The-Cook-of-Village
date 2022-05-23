@@ -99,6 +99,6 @@ public class FoodData : DataManager
     }
     public override void SaveDataTime()
     {
-        SaveData<FoodTool>(ref foodTool, "FoodData");
+        SaveArrayData<FoodTool>(ref foodTool, "FoodData");
     }
 }

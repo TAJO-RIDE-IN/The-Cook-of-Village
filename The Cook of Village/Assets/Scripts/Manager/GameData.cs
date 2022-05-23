@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public interface IGameDataOb
 {
-    void AddObserver(IObserver<GameDataManager> o);
-    void RemoveObserver(IObserver<GameDataManager> o);
+    void AddObserver(IObserver<GameData> o);
+    void RemoveObserver(IObserver<GameData> o);
     void NotifyObserver();
 }
 public interface IObserver<T>
@@ -14,12 +14,28 @@ public interface IObserver<T>
     void Change(T obj);
 }
 
-public class GameDataManager : MonoBehaviour, IGameDataOb
+[System.Serializable]
+public class GameInfos
 {
-    private List<IObserver<GameDataManager>> _observers = new List<IObserver<GameDataManager>>();
+    public int Day;
+    public int Money;
+    public GameInfos(int day, int money)
+    {
+        Day = day;
+        Money = money;
+    }
+}
+
+public class GameData : DataManager, IGameDataOb
+{
+    private List<IObserver<GameData>> _observers = new List<IObserver<GameData>>();
+    private GameObject RestaurantDisplayUI;
+    private GameObject VillageDisplayUI;
+    private GameObject DayNightClycle;
+    private Coroutine runningCoroutine = null;
 
     #region 싱글톤
-    private static GameDataManager instance = null;
+    private static GameData instance = null;
     private void Awake() //씬 시작될때 인스턴스 초기화
     {
         if (null == instance)
@@ -32,7 +48,7 @@ public class GameDataManager : MonoBehaviour, IGameDataOb
             Destroy(this.gameObject);
         }
     }
-    public static GameDataManager Instance
+    public static GameData Instance
     {
         get
         {
@@ -44,6 +60,7 @@ public class GameDataManager : MonoBehaviour, IGameDataOb
         }
     }
     #endregion
+    #region OnSceneLoaded
     private void Start()
     {
         LoadObject();
@@ -63,13 +80,9 @@ public class GameDataManager : MonoBehaviour, IGameDataOb
     {
         LoadObject();
     }
-    GameObject RestaurantDisplayUI;
-    GameObject VillageDisplayUI;
-    GameObject DayNightClycle;
     private void LoadObject()
     {
         _observers.Clear();
-        StopCoroutine(UpdateLight());
         RestaurantDisplayUI = GameObject.Find("RestaurantDisplayUI");
         VillageDisplayUI = GameObject.Find("VillageDisplayUI");
         DayNightClycle = GameObject.Find("DayNightClycle");
@@ -87,10 +100,15 @@ public class GameDataManager : MonoBehaviour, IGameDataOb
         {
             DayNightClycle.GetComponent<LightingManager>().AddObserver(this);
         }
-        StartCoroutine(UpdateLight());
-    }
 
-    private IEnumerator UpdateLight()
+        if(runningCoroutine != null) //한 개의 코루틴만 실행
+        {
+            StopCoroutine(runningCoroutine);
+        }
+        runningCoroutine = StartCoroutine(UpdateTime());
+    }
+    #endregion
+    private IEnumerator UpdateTime()
     {
         while (RestaurantDisplayUI != null || VillageDisplayUI != null)
         {
@@ -104,6 +122,10 @@ public class GameDataManager : MonoBehaviour, IGameDataOb
         }
     }
 
+    [SerializeField]
+    public GameInfos gameInfos;
+
+    #region 변수
     [SerializeField, Range(0, 1440)] //24시간 => 1440분
     private float timeOfDay;
     public float TimeOfDay 
@@ -117,41 +139,39 @@ public class GameDataManager : MonoBehaviour, IGameDataOb
     }
     [SerializeField]
     private float orbitSpeed = 1.0f;
-
-    [SerializeField]
-    private int day = 1;
-    public int Day 
+    public int Day
     {
-        get { return day; } 
-        set 
-        {
-            day = value;
-            NotifyObserver();
-        } 
-    }
-
-    [SerializeField]
-    private int money = 5000;
-    public int Money
-    {
-        get { return money; }
+        get { return gameInfos.Day; }
         set
         {
-            money = value;
+            gameInfos.Day = value;
+            NotifyObserver();
+            SaveDataTime();
+        }
+    }
+    public int Money
+    {
+        get { return gameInfos.Money; }
+        set
+        {
+            gameInfos.Money = value;
             NotifyObserver();
         }
     }
-
-    private void OnValidate()
+    #endregion
+    public override void SaveDataTime()
     {
-        NotifyObserver();
+        SaveData<GameInfos>(ref gameInfos, "GameData");
+        IngredientsData.Instance.SaveDataTime();
+        FoodData.Instance.SaveDataTime();
     }
+    #region observer
 
-    public void AddObserver(IObserver<GameDataManager> o)
+    public void AddObserver(IObserver<GameData> o)
     {
         _observers.Add(o);
     }
-    public void RemoveObserver(IObserver<GameDataManager> o)
+    public void RemoveObserver(IObserver<GameData> o)
     {
         _observers.Remove(o);
     }
@@ -162,4 +182,5 @@ public class GameDataManager : MonoBehaviour, IGameDataOb
             observer.Change(this);
         }
     }
+    #endregion
 }

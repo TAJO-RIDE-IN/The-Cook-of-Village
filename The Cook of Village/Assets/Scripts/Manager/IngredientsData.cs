@@ -77,10 +77,10 @@ public class IngredientsData : DataManager
     public int MaxMaterialCount = 99;
     [SerializeField]
     public IngredientsType[] IngredientsType;
-    [ContextMenu("To Json Data")]
+
     public override void SaveDataTime()
     {
-        SaveData<IngredientsType>(ref IngredientsType, "IngredientsData");
+        SaveArrayData<IngredientsType>(ref IngredientsType, "IngredientsData");
     }
 
     public IngredientsInfos IngredientsInfos(int id)

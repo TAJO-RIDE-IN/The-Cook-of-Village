@@ -12,6 +12,7 @@ public class SlotRefrigerator : Slot
     public GameObject RefrigeratorUI;
     public Text CountText;
     private Transform player;
+    private CookingCharacter cook;
     public int SlotCount
     {
         get { return materialInfos.Amount; }
@@ -26,6 +27,7 @@ public class SlotRefrigerator : Slot
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        cook = player.transform.GetComponent<CookingCharacter>();
     }
     private void OnEnable()
     {
@@ -45,13 +47,10 @@ public class SlotRefrigerator : Slot
     {
         if (materialInfos.Amount > 0)
         {
-            SlotCount--;
-            RefrigeratorUI.SetActive(false);
-            CookingCharacter cook;
-            cook = player.transform.GetComponent<CookingCharacter>();
             if (!cook.isHand)
             {
-                
+                SlotCount--;
+                RefrigeratorUI.SetActive(false);
                 cook.currentIngredient = materialInfos;
                 cook.isHand = true;
                 Instantiate(materialInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);
@@ -60,8 +59,6 @@ public class SlotRefrigerator : Slot
             {
                 //손에 뭐 들고있는데 재료슬롯 눌렀을 때 행동
             }
-            
-
         }
     }
 }
