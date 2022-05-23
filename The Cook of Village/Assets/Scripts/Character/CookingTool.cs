@@ -96,8 +96,7 @@ public class CookingTool : MonoBehaviour
                 StopCoroutine(co_my_coroutine); //요리 멈출때
             }*/
         }
-
-        
+        currentValue = 0;
         isCooked = true;
         FoodInven.transform.GetChild(2).transform.GetComponent<Image>().sprite = FoodInfos.ImageUI;
         FoodInven.transform.GetChild(3).gameObject.SetActive(false);//디폴트 숨기기

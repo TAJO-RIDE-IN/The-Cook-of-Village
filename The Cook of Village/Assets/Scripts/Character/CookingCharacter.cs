@@ -74,7 +74,6 @@ public class CookingCharacter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("스페이스바눌림");
             if (isHand)//현재 들고있는 재료 정보가 null이 아닐때 넘겨줌, 세부적인건 저기서 수행(UI 바꾸기, 레시피리스트에 ID 추가)
             {
                 if (isToolCollider)//요리도구에 들어갔을때만,요리중이 아닐때만 재료넣는거 실행
@@ -91,10 +90,8 @@ public class CookingCharacter : MonoBehaviour
                 }
                 if (isGuestCollider)
                 {
-                    Debug.Log("콜라이더 정상");
                     if (currentFood != null)
                     {
-                        Debug.Log("음식 배달완료");
                         isDestroy = _foodOrder.ReceiveFood(currentFood.ID);
                         DestroyOrNot();
                     }
@@ -126,14 +123,19 @@ public class CookingCharacter : MonoBehaviour
         
         else if(Input.GetKeyDown(KeyCode.E))
         {
-            if (_cookingTool.isBeforeCooking)//요리 전일때
+            if (isToolCollider)
             {
-                _cookingTool.Cook();
+                if (_cookingTool.isBeforeCooking)//요리 전일때
+                {
+                    _cookingTool.Cook();
+                }
+                else
+                {
+                    //먼저 요리도구를 비우세요! 출력
+                }
             }
-            else
-            {
-                //먼저 요리도구를 비우세요! 출력
-            }
+            
+            
                 
         }
     }
@@ -182,7 +184,6 @@ public class CookingCharacter : MonoBehaviour
         
         if (other.gameObject.name == "Flour")
         {
-            Debug.Log("flour");
             if (Input.GetKey(KeyCode.Space))
             {
                 if (!isHand)
@@ -211,18 +212,16 @@ public class CookingCharacter : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                
+                 
             }
         }
 
         if (other.gameObject.name == "Trash")
         {
-            Debug.Log("쓰레기콜라이더");
             if (Input.GetKey(KeyCode.Space))
             {
                 if (isHand)
                 {
-                    Debug.Log("제거");
                     for (int i = 0; i < HandPosition.transform.childCount; i++)//이걸 꽉차면 안없애야하는데..(원래 PutIngredient에 있었음)
                     {
                         Destroy(HandPosition.transform.GetChild(i).gameObject);
@@ -247,8 +246,12 @@ public class CookingCharacter : MonoBehaviour
         if (other.tag == "CookingTools")
         {
             isToolCollider = false;
+            return;
         }
-        
+        if (other.CompareTag("Guest"))
+        {
+            isGuestCollider = false;
+        }
     }
 
 }
