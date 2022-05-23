@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraMove : MonoBehaviour
+public class CameraMoving : MonoBehaviour
 {
     public float dragSpeed;
     public float zoomSpeed;
@@ -13,6 +13,8 @@ public class CameraMove : MonoBehaviour
     public float outerUp;
     
     public Camera flatCamera;
+
+    public float zoomValue;
     
     private void Start()
     {
@@ -20,19 +22,23 @@ public class CameraMove : MonoBehaviour
     }
     private void Update()
     {
-        float distance = Input.GetAxis("Mouse ScrollWheel") * -1 * zoomSpeed;
-        if (flatCamera.fieldOfView >=30)
+        float distance = Input.GetAxis("Mouse ScrollWheel") * 1 * zoomSpeed;
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            if (Input.GetAxis("Mouse ScrollWheel") > 0)
+            if (zoomValue < 20)
             {
-                flatCamera.fieldOfView += distance;
+                flatCamera.transform.Translate(flatCamera.transform.forward * distance * Time.deltaTime * zoomSpeed, Space.World);
+                zoomValue += distance;
             }
+            
+            //flatCamera.transform.position = Vector3.Lerp(flatCamera.transform.position, flatCamera.transform.forward*distance, Time.deltaTime);
         }
-        if (flatCamera.fieldOfView <= 70)
+        else
         {
-            if (Input.GetAxis("Mouse ScrollWheel") < 0)
+            if (zoomValue > -20)
             {
-                flatCamera.fieldOfView += distance;
+                flatCamera.transform.Translate(flatCamera.transform.forward * distance * Time.deltaTime * zoomSpeed, Space.World);
+                zoomValue += distance;
             }
         }
     }
