@@ -12,7 +12,7 @@ public class CookingTool : MonoBehaviour
     private GameObject IngredientInven;
     private GameObject FoodInven;
     private Image blackCircle;
-    private Animation animation;
+    private Animation _animation;
     private Coroutine coroutine;
     
     private float currentValue;
@@ -30,7 +30,7 @@ public class CookingTool : MonoBehaviour
     }*/
     private void Start()
     {
-        animation = transform.GetComponent<Animation>();
+        _animation = transform.GetComponent<Animation>();
         IngredientInven = transform.GetChild(1).GetChild(0).gameObject;
         FoodInven = transform.GetChild(1).GetChild(1).gameObject;
         blackCircle = FoodInven.transform.GetChild(1).GetComponent<Image>();
@@ -43,7 +43,7 @@ public class CookingTool : MonoBehaviour
         {
             if (ingredientList.Count == i)
             {
-                animation.Play(type.ToString());
+                _animation.Play(type.ToString());
                 //Debug.Log("애니메이션실행!");
                 ingredientList.Add(id);
                 IngredientInven.SetActive(true);
