@@ -91,6 +91,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 ModelsAni.SetBool("isWalk", false);
                 ModelsAni.SetTrigger("Sit");
                 ModelsAni.SetTrigger("SitIdle");
+                //StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.FoodWaitingTime, () => ChangeState(State.ChaseUP)));
                 break;
             case State.StandUP:
                 col.enabled = false;

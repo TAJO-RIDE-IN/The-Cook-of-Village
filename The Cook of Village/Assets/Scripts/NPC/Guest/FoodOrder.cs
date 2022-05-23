@@ -21,7 +21,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     private bool CanReceive = false;
     private OrderUI currentOrderUI;
     private GuestNPC guest;
-    private Transform camera;
+    private new Transform camera;
     private bool Receive = false;
     private void Awake()
     {
@@ -37,6 +37,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     private void OnEnable()
     {
         Receive = false; //Receive bool 초기화
+        foodInfos = null; // Food 정보 초기화
     }
     private void AddProbability() //확률 가중치 부여
     {

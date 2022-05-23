@@ -26,6 +26,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     private void OnEnable()
     {
         StartCoroutine(NPCMove(ChairPosition(), "Chair"));
+        transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
     }
     private void ChangeChairState()
     {
@@ -90,24 +91,26 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         {
             case GuestNPC.State.StandUP:
                 if(NPCEat) { GoCounter(); }
-                else { StartCoroutine(WaitAnimation("StandUp", Door.position, "Door")); }
+                else { StartCoroutine(WaitAnimation("StandUp", Door.position, "Door", 0.8f)); }
                 NPCEat = false;
                 ChangeChairState();                                
                 break;
             case GuestNPC.State.Pay:
-                StartCoroutine(WaitAnimation("Pay", Door.position, "Door"));
                 counter.OutGuest(this.gameObject);
+                StartCoroutine(WaitAnimation("Pay", Door.position, "Door", 0.1f));
+                Vector3 look = new Vector3(counter.CounterObject.position.x, transform.position.y, counter.CounterObject.position.z);
+                transform.LookAt(look);               
                 break;
             default:
                 break;
         }
     }
-    private IEnumerator WaitAnimation(string AnimationName, Vector3 Destination, string destination_name) //일어난 후 NPC 움직이도록
+    private IEnumerator WaitAnimation(string AnimationName, Vector3 Destination, string destination_name, float time) //애니메이션 재생후 NPC 움직이도록
     {
         bool isPlayAni = true;
         while (isPlayAni)
         {
-            if (guest.ModelsAni.GetCurrentAnimatorStateInfo(0).IsName(AnimationName) && guest.ModelsAni.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
+            if (guest.ModelsAni.GetCurrentAnimatorStateInfo(0).IsName(AnimationName) && guest.ModelsAni.GetCurrentAnimatorStateInfo(0).normalizedTime >= time)
             {
                 StartCoroutine(NPCMove(Destination, destination_name));
                 isPlayAni = false;
@@ -119,7 +122,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     private void GoCounter() //Counter 줄서기
     {
         counter.GoGuest(this.gameObject);
-        StartCoroutine(WaitAnimation("StandUp", counter.waitngQueue.LineUPPosition(this.gameObject), "Counter"));
+        StartCoroutine(WaitAnimation("StandUp", counter.waitngQueue.LineUPPosition(this.gameObject), "Counter", 0.8f));
     }
     private void OutCounter() //Counter에서 문으로
     {
