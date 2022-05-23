@@ -7,7 +7,7 @@ public class ThirdPersonMovement : MonoBehaviour
 {
 
     public Animator charAnimator;
-    public Transform camera;
+    public Transform _camera;
     public CharacterController controller;
     public float speed = 6f;
     public float turnSmoothTime = 0.1f;
@@ -24,7 +24,7 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             
             charAnimator.SetBool("isWalk",true);
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
                 turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
