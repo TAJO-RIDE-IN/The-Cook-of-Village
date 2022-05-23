@@ -51,6 +51,7 @@ public class SlotRefrigerator : Slot
             cook = player.transform.GetComponent<CookingCharacter>();
             if (!cook.isHand)
             {
+                
                 cook.currentIngredient = materialInfos;
                 cook.isHand = true;
                 Instantiate(materialInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);

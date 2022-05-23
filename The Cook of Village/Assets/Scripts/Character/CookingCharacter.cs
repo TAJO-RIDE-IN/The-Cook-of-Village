@@ -15,12 +15,14 @@ public class CookingCharacter : MonoBehaviour
     
     private CookingTool _cookingTool;
     private FoodOrder _foodOrder;
+    private Refrigerator fridge;
     private AnimatorOverrideController animatorOverrideController;
     public AnimationClip[] Idle;
     public AnimationClip[] Walk;
     
     private bool isToolCollider;
     private bool isGuestCollider;
+    private bool isFridgeCollider;
     public bool isHand = false;//이거만 잘 컨트롤해주면 시작할때 null값 넣어주느니 그런거 안해도 되잖아
     private bool isDestroy;
 
@@ -29,13 +31,15 @@ public class CookingCharacter : MonoBehaviour
     {
         /*currentFood = null;
         currentIngredient = null;*/
+        fridge = GameObject.FindGameObjectWithTag("Fridge").GetComponent<Refrigerator>();
         animatorOverrideController = new AnimatorOverrideController(charAnimator.runtimeAnimatorController);
         charAnimator.runtimeAnimatorController = animatorOverrideController;
     }
 
     private void Update()
     {
-        if (isToolCollider || isGuestCollider)
+        
+        if (isToolCollider || isGuestCollider || isFridgeCollider)
         {
             WhenKeyDown();
         }
@@ -66,32 +70,11 @@ public class CookingCharacter : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("CookingTools"))
-        {
-            isToolCollider = true;
-            _cookingTool = other.transform.GetComponent<CookingTool>(); 
-        }
-
-        if (other.CompareTag("Guest"))
-        {
-            isGuestCollider = true;
-            _foodOrder = other.GetComponent<FoodOrder>();
-        }
-    }
+    
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Fridge"))
-        {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                other.transform.GetComponent<Refrigerator>().OpenUI();
-                
-                return;
-            }
-        }
+        
         if (other.gameObject.name == "Flour")
         {
             Debug.Log("flour");
@@ -149,7 +132,7 @@ public class CookingCharacter : MonoBehaviour
             {
                 if (isToolCollider)//요리도구에 들어갔을때만,요리중이 아닐때만 재료넣는거 실행
                 {
-                    if (!_cookingTool.isToolUsed)
+                    if (!_cookingTool.isBeforeCooking)
                     {
                         PutIngredient();
                         return; //return 잘 썼는지 항상 확인하기
@@ -159,7 +142,6 @@ public class CookingCharacter : MonoBehaviour
                         //먼저 요리도구를 비우세요! 출력
                     }
                 }
-
                 if (isGuestCollider)
                 {
                     Debug.Log("콜라이더 정상");
@@ -175,25 +157,29 @@ public class CookingCharacter : MonoBehaviour
             {
                 if (isToolCollider)
                 {
-                    if (!isHand)
+                    if (_cookingTool.isCooked)//요리가 완성됐을때만
                     {
-                        if (_cookingTool.isToolUsed)
-                        {
-                            currentFood = _cookingTool.FoodInfos;
-                            Instantiate(currentFood.PrefabFood,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
-                            isHand = true;
-                            _cookingTool.RefreshTool();
-                        }
-                        
+                        currentFood = _cookingTool.FoodInfos;
+                        Instantiate(currentFood.PrefabFood,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
+                        isHand = true;
+                        _cookingTool.RefreshTool();
+                    }
+                    else
+                    {
                         
                     }
+                }
+
+                if (isFridgeCollider)
+                {
+                    fridge.transform.GetComponent<Refrigerator>().OpenUI();
                 }
             }
         }
         
         else if(Input.GetKeyDown(KeyCode.E))
         {
-            if (!_cookingTool.isToolUsed)
+            if (!_cookingTool.isBeforeCooking)//요리 전일때
             {
                 _cookingTool.Cook();
             }
@@ -224,11 +210,33 @@ public class CookingCharacter : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("CookingTools"))
+        {
+            isToolCollider = true;
+            _cookingTool = other.transform.GetComponent<CookingTool>(); 
+            return;
+        }
+
+        if (other.CompareTag("Guest"))
+        {
+            isGuestCollider = true;
+            _foodOrder = other.GetComponent<FoodOrder>();
+            return;
+        }
+        if (other.CompareTag("Fridge"))
+        {
+            isFridgeCollider = true;
+        }
+    }
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Fridge")
         {
             other.transform.GetComponent<Refrigerator>().CloseUI();
+            isFridgeCollider = false;
+            return;
         }
 
         if (other.tag == "CookingTools")
