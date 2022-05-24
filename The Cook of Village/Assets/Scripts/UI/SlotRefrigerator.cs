@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class SlotRefrigerator : Slot
 {
     public GameObject RefrigeratorUI;
+    public Refrigerator refrigerator;
     public Text CountText;
     private Transform player;
     private CookingCharacter cook;
@@ -50,7 +51,7 @@ public class SlotRefrigerator : Slot
             if (!cook.isHand)
             {
                 SlotCount--;
-                RefrigeratorUI.SetActive(false);
+                refrigerator.CloseUI();
                 cook.currentIngredient = materialInfos;
                 cook.isHand = true;
                 Instantiate(materialInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);
