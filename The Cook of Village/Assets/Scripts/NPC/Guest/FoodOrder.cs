@@ -22,9 +22,11 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     private OrderUI currentOrderUI;
     private GuestNPC guest;
     private new Transform camera;
+    private IEnumerator WaitingOrderCoroutine;
     private bool Receive = false;
     private void Awake()
     {
+        WaitingOrderCoroutine = WaitingOrder();
         camera = Camera.main.transform;
         guest = this.gameObject.GetComponent<GuestNPC>();
         guest.AddGuestNPC(new Guest());
@@ -58,20 +60,21 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             float ratio = time / FoodData.Instance.FoodWaitingTime;
             RemainingTimeImage.fillAmount = ratio;
             currentOrderUI.TimeBar.fillAmount = ratio;
-            if (time <= 25)
+            if (ratio <= 0.4)
             {
-                currentOrderUI.StartAnimation();
+                currentOrderUI.OrderAnimation(true);
             }
-            yield return null;
-            if(time <= 0)
+            if (time <= 0)
             {
+                currentOrderUI.OrderAnimation(false);
                 EndOrder();
             }
+            yield return null;
         }
     }
     private void EndOrder()
     {
-        StopCoroutine(WaitingOrder());
+        StopCoroutine(WaitingOrderCoroutine);
         NPCUI.SetActive(false);
         currentOrderUI.EndOrder(); //주문서
         if(Receive == false)

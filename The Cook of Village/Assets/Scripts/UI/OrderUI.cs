@@ -38,7 +38,7 @@ public class OrderUI : MonoBehaviour
     private Animator ani;
     private void OnDisable()
     {
-        ani.SetTrigger("Idle");
+        OrderAnimation(false);
         foreach (GameObject i in MaterialObject)
         {
             i.SetActive(false);
@@ -57,9 +57,9 @@ public class OrderUI : MonoBehaviour
         FoodImage.sprite = food;
         ToolImgae.sprite = tool;       
     }
-    public void StartAnimation()
+    public void OrderAnimation(bool state)
     {
-        ani.SetTrigger("Out");
+         ani.SetBool("TimeOut", state);
     }
     public void EndOrder()
     {

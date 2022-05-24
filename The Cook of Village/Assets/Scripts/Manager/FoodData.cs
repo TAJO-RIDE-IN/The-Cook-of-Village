@@ -17,11 +17,11 @@ public class FoodInfos
     public string Name;
     public float MakeTime;
     public int Price;
-    public int OrderProbability;
+    public float OrderProbability;
     public List<int> Recipe = new List<int>();
     public GameObject PrefabFood;
     public Sprite ImageUI; //UIImage
-    public FoodInfos(int type, int id, string name, float makeTime, int price, int orderProbability, List<int> recipe, GameObject prefab, Sprite imageUI)
+    public FoodInfos(int type, int id, string name, float makeTime, int price, float orderProbability, List<int> recipe, GameObject prefab, Sprite imageUI)
     {
         Type = type;
         ID = id;
