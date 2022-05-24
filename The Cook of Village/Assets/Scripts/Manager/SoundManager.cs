@@ -24,11 +24,6 @@ public class SoundManager : MonoBehaviour
             {
                 //return; //배경음악이 재생되고 있다면 패스
             }
-                
-                
-                
-                
-                
             else
             {
                 _audioSource.Play(); //배경음악 계속 재생하게(이후 버튼매니저에서 조작)
