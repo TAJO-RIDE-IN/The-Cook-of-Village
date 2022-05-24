@@ -39,6 +39,7 @@ public class Refrigerator : SlotParent
                     RefrigeratorSlot[count].materialInfos = materialInfos;
                     RefrigeratorSlot[count].SlotCount = materialInfos.Amount;
                     RefrigeratorSlot[count].RefrigeratorUI = RefrigeratorUI;
+                    RefrigeratorSlot[count].refrigerator = this;
                 }
                 count++;
             }
