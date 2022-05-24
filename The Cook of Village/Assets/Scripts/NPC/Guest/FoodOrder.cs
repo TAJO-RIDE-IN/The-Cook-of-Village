@@ -22,11 +22,10 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     private OrderUI currentOrderUI;
     private GuestNPC guest;
     private new Transform camera;
-    private IEnumerator WaitingOrderCoroutine;
+    private Coroutine WaitingOrderCoroutine;
     private bool Receive = false;
     private void Awake()
     {
-        WaitingOrderCoroutine = WaitingOrder();
         camera = Camera.main.transform;
         guest = this.gameObject.GetComponent<GuestNPC>();
         guest.AddGuestNPC(new Guest());
@@ -112,7 +111,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         currentOrderUI = ObjectPooling<OrderUI>.GetObject();
         currentOrderUI.foodInfos = foodInfos;
         currentOrderUI.gameObject.SetActive(true);
-        StartCoroutine(WaitingOrder());
+        WaitingOrderCoroutine = StartCoroutine(WaitingOrder());
     }
     public void PayFood()
     {
