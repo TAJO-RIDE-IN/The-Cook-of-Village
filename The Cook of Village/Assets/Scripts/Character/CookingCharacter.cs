@@ -74,7 +74,7 @@ public class CookingCharacter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (isHand)//현재 들고있는 재료 정보가 null이 아닐때 넘겨줌, 세부적인건 저기서 수행(UI 바꾸기, 레시피리스트에 ID 추가)
+            if (isHand)//현재 들고있는 것이 없을 때 실행, 세부적인건 저기서 수행(UI 바꾸기, 레시피리스트에 ID 추가)
             {
                 if (isToolCollider)//요리도구에 들어갔을때만,요리중이 아닐때만 재료넣는거 실행
                 {
@@ -184,7 +184,7 @@ public class CookingCharacter : MonoBehaviour
         
         if (other.gameObject.name == "Flour")
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space))
             {
                 if (!isHand)
                 {
@@ -197,7 +197,7 @@ public class CookingCharacter : MonoBehaviour
         }
         if (other.gameObject.name == "Sugar")
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space))
             {
                 if (!isHand)
                 {
@@ -219,7 +219,7 @@ public class CookingCharacter : MonoBehaviour
 
         if (other.gameObject.name == "Trash")
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space))
             {
                 if (isHand)
                 {
