@@ -184,7 +184,7 @@ public class CookingCharacter : MonoBehaviour
         
         if (other.gameObject.name == "Flour")
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (!isHand)
                 {
@@ -197,7 +197,7 @@ public class CookingCharacter : MonoBehaviour
         }
         if (other.gameObject.name == "Sugar")
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (!isHand)
                 {
@@ -208,17 +208,18 @@ public class CookingCharacter : MonoBehaviour
             }
         }
 
-        if (other.gameObject.name == "Counter")
+        if (other.gameObject.name == "CounterPosition")
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                 
+                Debug.Log("계산스페이스바눌림");
+                other.GetComponent<CounterQueue>().PayCounter();
             }
         }
 
         if (other.gameObject.name == "Trash")
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (isHand)
                 {

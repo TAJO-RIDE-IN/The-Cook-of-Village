@@ -72,7 +72,7 @@ public class CookingTool : MonoBehaviour
         ingredientList.Clear();
         for (int i = 0; i < IngredientInven.transform.childCount; i++)
         {
-            IngredientInven.transform.GetChild(i).GetComponent<Image>().sprite = Resources.Load<Sprite>("IngriedientBox");
+            IngredientInven.transform.GetChild(i).GetComponent<Image>().sprite = Resources.Load<Sprite>("IconSets");
         }
         FoodInven.transform.GetChild(2).gameObject.SetActive(false);
         FoodInven.transform.GetChild(3).gameObject.SetActive(true);
