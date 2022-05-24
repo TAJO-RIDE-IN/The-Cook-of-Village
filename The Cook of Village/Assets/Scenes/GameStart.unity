@@ -378,7 +378,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9061862936139186759, guid: ebe1263b9279e7643947fba18a21481a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9061862936139186759, guid: ebe1263b9279e7643947fba18a21481a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -390,11 +390,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9061862936139186759, guid: ebe1263b9279e7643947fba18a21481a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: loadScene
+      value: ButtonClick
       objectReference: {fileID: 0}
     - target: {fileID: 9061862936139186759, guid: ebe1263b9279e7643947fba18a21481a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: ChangeScenes, Assembly-CSharp
+      value: ChangeScene, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9061862936139186759, guid: ebe1263b9279e7643947fba18a21481a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9061862936139186759, guid: ebe1263b9279e7643947fba18a21481a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -490,18 +494,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebe1263b9279e7643947fba18a21481a, type: 3}
---- !u!1 &9061862936698939581 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9061862936139186757, guid: ebe1263b9279e7643947fba18a21481a, type: 3}
+--- !u!114 &9061862936698939582 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 487281333270619790, guid: ebe1263b9279e7643947fba18a21481a, type: 3}
   m_PrefabInstance: {fileID: 9061862936698939580}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9061862936698939582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9061862936698939581}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e20dfc7716e75a4bb08d2bfbc01facc, type: 3}

@@ -12,8 +12,13 @@ public class ChangeScene : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            GameManager.Instance.NextSceneIndex = (int) sceneToGo;
+            GameManager.Instance.NextSceneIndex = (int)sceneToGo;
             SceneManager.LoadScene(1, LoadSceneMode.Additive);
         }
+    }
+    public void SceneButtonClick()
+    {
+            GameManager.Instance.NextSceneIndex = (int)sceneToGo;
+            SceneManager.LoadScene(1, LoadSceneMode.Additive);
     }
 }
