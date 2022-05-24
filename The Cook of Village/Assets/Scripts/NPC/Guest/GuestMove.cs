@@ -13,6 +13,11 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     private GuestNPC guest;
     public CounterQueue counter;
 
+
+    public int counterNUM; //수정
+    public bool isCounter; //수정
+
+
     private bool NPCEat = false;
     [SerializeField]
     private bool isArrive = false;
@@ -26,7 +31,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     private void OnEnable()
     {
         StartCoroutine(NPCMove(ChairPosition(), "Chair"));
-        transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+        transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0)); //정면 보도록
     }
     private void ChangeChairState()
     {
@@ -56,6 +61,10 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
                 agent.enabled = false;
                 NPCState(destination_name);
                 isArrive = true;
+                if(counterNUM == 0 || counterNUM == 1)
+                {
+                    isCounter = true;
+                }
             }
             yield return null;
         }
@@ -124,13 +133,14 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         counter.GoGuest(this.gameObject);
         StartCoroutine(WaitAnimation("StandUp", counter.waitngQueue.LineUPPosition(this.gameObject), "Counter", 0.8f));
     }
-    private void OutCounter() //Counter에서 문으로
+    private void OutCounter() //Counter에서 문으로 이동
     {
         counter.OutGuest(this.gameObject);
         StartCoroutine(NPCMove(Door.position, "Door"));
     }
-    public void RelocateGuest(Vector3 position) //Counter 줄 앞으로 땡기기
+    public void RelocateGuest(Vector3 position) //Counter 줄 정렬
     {
+        Debug.Log(counterNUM);
         StartCoroutine(NPCMove(position, "CounterLine"));
     }
 

@@ -7,11 +7,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>
 {
     [SerializeField]
     private GameObject ChairContainer;
-    [SerializeField]
-    private GameObject CounterLineContainer;
-
     public List<GameObject> WaitChair = new List<GameObject>();
-    public List<GameObject> CounterWaitLine = new List<GameObject>();
 
     [SerializeField]
     private float CallTime = 10f;
@@ -20,7 +16,6 @@ public class NPCPooling : ObjectPooling<GuestNPC>
     private void Start()
     {
         WaitChair = GameObject.FindGameObjectsWithTag("Chair").ToList();
-        //CounterWaitLine = ChairContainer.transform.GetComponentsInChildren<GameObject>().ToList();
         StartCoroutine(CallNPC());
     }
 

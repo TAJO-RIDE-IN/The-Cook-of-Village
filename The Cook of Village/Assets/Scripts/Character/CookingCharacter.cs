@@ -210,7 +210,7 @@ public class CookingCharacter : MonoBehaviour
 
         if (other.gameObject.name == "CounterPosition")
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space))
             {
                 Debug.Log("계산스페이스바눌림");
                 other.GetComponent<CounterQueue>().PayCounter();

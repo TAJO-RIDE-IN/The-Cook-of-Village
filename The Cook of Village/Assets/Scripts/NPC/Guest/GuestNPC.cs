@@ -2,10 +2,8 @@
 /// 학번 : 91914200
 /// 이름 : JungNaEun 정나은
 ////////////////////////////////////
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public interface IGuestDI
 {
@@ -14,7 +12,7 @@ public interface IGuestDI
 
 public class Guest : IGuestDI
 {
-    public void State(GuestNPC.State state){ }
+    public void State(GuestNPC.State state) { }
 }
 
 public interface IGuestOb
@@ -28,17 +26,14 @@ public interface IGuestOb
 public class GuestNPC : MonoBehaviour, IGuestOb
 {
     IGuestDI guest;
-    private List<IObserver<GuestNPC>> _observers = new List<IObserver<GuestNPC>>();
-    public enum State {Idle, Walk, Eat, Sit, StandUP, ChaseUP, Pay, GoOut }
+    private List<IObserver<GuestNPC>> _observers = new List<IObserver<GuestNPC>>(); //ObserverList
+    public enum State { Idle, Walk, Eat, Sit, StandUP, ChaseUP, Pay, GoOut }
     [SerializeField]
     private State currentState;
     public State CurrentState
     {
-        get{ return currentState; }
-        set
-        {
-            currentState = value;
-        }
+        get { return currentState; }
+        set { currentState = value; }
     }
     public Animator ModelsAni;
     [SerializeField]
@@ -59,12 +54,12 @@ public class GuestNPC : MonoBehaviour, IGuestOb
 
     private void OnDisable()
     {
-        CurrentModel.SetActive(false);
+        SetNPCModel(false);
     }
 
     private void SetNPCModel(bool state)
     {
-        if (true)
+        if(state == true)
         {
             int model = Random.Range(0, Models.Length);
             CurrentModel = Models[model];
@@ -117,21 +112,21 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     {
         guest.State(state);
         CurrentState = state;
-        NPCAction();
+        NPCAction(); // NPC상태에 따른 행동
         NotifyObserver(); //observer 전달     
     }
     #region Observer
-    public void AddObserver(IObserver<GuestNPC> o)
+    public void AddObserver(IObserver<GuestNPC> o) //ObserverList에 추가
     {
         _observers.Add(o);
     }
-    public void RemoveObserver(IObserver<GuestNPC> o)
+    public void RemoveObserver(IObserver<GuestNPC> o) //ObserverList에서 제거
     {
         _observers.Remove(o);
     }
     public void NotifyObserver() //observer에 값 전달
     {
-        foreach(var observer in _observers)
+        foreach (var observer in _observers)
         {
             observer.Change(this);
         }

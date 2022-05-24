@@ -35,12 +35,13 @@ public class WaitingLine
             RelocateAllGuests();
         }
     }
-    private void RelocateAllGuests() //NPC줄 앞으로 땡기기
+    private void RelocateAllGuests() //NPC줄 재정렬
     {
         foreach(GameObject guest in GuestQueue)
         {
             GuestMove move = guest.GetComponent<GuestMove>();
             move.RelocateGuest(LineUPPosition(guest));
+            move.counterNUM = GuestQueue.ToList().IndexOf(guest); //수정
         }
     }
 }
