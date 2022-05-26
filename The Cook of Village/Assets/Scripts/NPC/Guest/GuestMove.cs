@@ -61,7 +61,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
                 agent.enabled = false;
                 NPCState(destination_name);
                 isArrive = true;
-                if(counterNUM == 0 || counterNUM == 1)
+                if(counterNUM == 0)
                 {
                     isCounter = true;
                 }
