@@ -41,7 +41,6 @@ public class WaitingLine
         {
             GuestMove move = guest.GetComponent<GuestMove>();
             move.RelocateGuest(LineUPPosition(guest));
-            move.counterNUM = GuestQueue.ToList().IndexOf(guest); //¼öÁ¤
         }
     }
 }

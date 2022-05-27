@@ -13,11 +13,6 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     private GuestNPC guest;
     public CounterQueue counter;
 
-
-    public int counterNUM; //수정
-    public bool isCounter; //수정
-
-
     private bool NPCEat = false;
     [SerializeField]
     private bool isArrive = false;
@@ -61,10 +56,6 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
                 agent.enabled = false;
                 NPCState(destination_name);
                 isArrive = true;
-                if(counterNUM == 0)
-                {
-                    isCounter = true;
-                }
             }
             yield return null;
         }
@@ -140,7 +131,6 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     }
     public void RelocateGuest(Vector3 position) //Counter 줄 정렬
     {
-        Debug.Log(counterNUM);
         StartCoroutine(NPCMove(position, "CounterLine"));
     }
 
