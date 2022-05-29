@@ -37,5 +37,21 @@ public class GameManager : MonoBehaviour
 
     public bool IsUI = false;
     public int NextSceneIndex = 2;
- 
+
+    public void Pause() // Game Pause
+    {
+        if (Time.timeScale == 1.0f)
+        {
+            Time.timeScale = 0.0f;
+        }
+        else
+        {
+            Time.timeScale = 1.0f;
+        }
+    }
+
+    public void GameQuit()
+    {
+        Application.Quit();
+    }
 }
