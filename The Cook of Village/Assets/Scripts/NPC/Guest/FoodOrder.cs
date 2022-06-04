@@ -57,8 +57,8 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         {
             time -= Time.deltaTime;
             float ratio = time / FoodData.Instance.FoodWaitingTime;
-            RemainingTimeImage.fillAmount = ratio;
-            currentOrderUI.TimeBar.fillAmount = ratio;
+            RemainingTimeImage.fillAmount = 1 - ratio;
+            currentOrderUI.TimeBar.fillAmount = 1 - ratio;
             if (ratio <= 0.4)
             {
                 currentOrderUI.OrderAnimation(true);
