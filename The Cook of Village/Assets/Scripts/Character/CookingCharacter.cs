@@ -17,6 +17,7 @@ public class CookingCharacter : MonoBehaviour
     private FoodOrder _foodOrder;
     private Refrigerator fridge;
     private AnimatorOverrideController animatorOverrideController;
+    private SoundManager soundManager;
     public AnimationClip[] Idle;
     public AnimationClip[] Walk;
     
@@ -128,6 +129,7 @@ public class CookingCharacter : MonoBehaviour
                 if (_cookingTool.isBeforeCooking)//요리 전일때
                 {
                     _cookingTool.Cook();
+                    SoundManager.Instance.PlaySE("StartCookOfPan");
                 }
                 else
                 {
