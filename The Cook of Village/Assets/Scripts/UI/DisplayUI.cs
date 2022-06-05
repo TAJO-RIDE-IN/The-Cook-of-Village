@@ -21,7 +21,11 @@ public class DisplayUI : MonoBehaviour, IObserver<GameData>
 
     public void ChangeDisplay(float time, float day, int money)
     {
-        TimeText.text = Time(time)[0] + " : " + Time(time)[1]+"0";
+        string min = Time(time)[1].ToString();
+        TimeText.text = string.Format("{0:00} : ", Time(time)[0]) + min.PadRight(2, '0');
+
+
+        //TimeText.text = Time(time)[0] + " : " + Time(time)[1]+"0";
         DayText.text = "Day" + day.ToString();
         Money.text = money.ToString();
         TodayText.text = Today(day);
