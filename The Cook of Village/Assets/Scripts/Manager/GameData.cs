@@ -149,6 +149,12 @@ public class GameData : DataManager, IGameDataOb
             SaveDataTime();
         }
     }
+
+    public void SetTimeMorning()
+    {
+        timeOfDay = 480;
+    }
+
     public int Money
     {
         get { return gameInfos.Money; }
