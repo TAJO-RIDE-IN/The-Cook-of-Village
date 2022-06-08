@@ -38,7 +38,7 @@ public class FoodInfos
 [System.Serializable]
 public class FoodTool
 {
-    public enum Type { Blender, Pot, Frypan, Failure}
+    public enum Type { Blender, Pot, Frypan, Plate, Failure}
     [SerializeField]
     public Type type;
     public Sprite ToolImage;
