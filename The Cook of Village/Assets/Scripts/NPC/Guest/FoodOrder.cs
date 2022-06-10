@@ -8,9 +8,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class NPCUIImage
+{
+    public Sprite OrderWaitImage;
+    public Sprite MoneyImage;
+}
+
 public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
 {
     Probability<FoodInfos> FoodProbability = new Probability<FoodInfos>();
+    [SerializeField]
+    private NPCUIImage NPCImage;
     [SerializeField]
     private FoodInfos foodInfos;
     public GameObject NPCUI;
@@ -37,6 +46,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     private void OnEnable()
     {
+        RemainingTimeImage.fillAmount = 0;
         Receive = false; //Receive bool 초기화
         foodInfos = null; // Food 정보 초기화
     }
@@ -105,7 +115,6 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
  
     private void Order()
     {
-        NPCUI.SetActive(true);
         foodInfos = FoodProbability.Get();
         OrderFoodImage.sprite = foodInfos.ImageUI;
         currentOrderUI = ObjectPooling<OrderUI>.GetObject();
@@ -133,6 +142,8 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             if (guestNPC.CurrentState == GuestNPC.State.Sit)
             {
                 StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.OrderTime, () => Order()));
+                NPCUI.SetActive(true);
+                OrderFoodImage.sprite = NPCImage.OrderWaitImage;
             }
         }
     }
