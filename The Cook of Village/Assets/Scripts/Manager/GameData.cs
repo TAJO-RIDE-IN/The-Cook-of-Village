@@ -29,8 +29,7 @@ public class GameInfos
 public class GameData : DataManager, IGameDataOb
 {
     private List<IObserver<GameData>> _observers = new List<IObserver<GameData>>();
-    private GameObject RestaurantDisplayUI;
-    private GameObject VillageDisplayUI;
+    private GameObject UIDisplay;
     private GameObject DayNightClycle;
     private Coroutine runningCoroutine = null;
 
@@ -83,17 +82,11 @@ public class GameData : DataManager, IGameDataOb
     private void LoadObject()
     {
         _observers.Clear();
-        RestaurantDisplayUI = GameObject.Find("RestaurantDisplayUI");
-        VillageDisplayUI = GameObject.Find("VillageDisplayUI");
+        UIDisplay = GameObject.Find("DisplayUI");
         DayNightClycle = GameObject.Find("DayNightClycle");
-        if (RestaurantDisplayUI != null)
+        if (UIDisplay != null)
         {
-            RestaurantDisplayUI.GetComponent<DisplayUI>().AddObserver(this);
-        }
-
-        if (VillageDisplayUI != null)
-        {
-            VillageDisplayUI.GetComponent<DisplayUI>().AddObserver(this);
+            UIDisplay.GetComponent<DisplayUI>().AddObserver(this);
         }
 
         if (DayNightClycle != null)
@@ -110,7 +103,7 @@ public class GameData : DataManager, IGameDataOb
     #endregion
     private IEnumerator UpdateTime()
     {
-        while (RestaurantDisplayUI != null || VillageDisplayUI != null)
+        while (UIDisplay != null)
         {
             TimeOfDay += Time.deltaTime * orbitSpeed;
             if (TimeOfDay > 1440)
