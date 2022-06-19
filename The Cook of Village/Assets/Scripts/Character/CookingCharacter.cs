@@ -24,8 +24,10 @@ public class CookingCharacter : MonoBehaviour
     private bool isToolCollider;
     private bool isGuestCollider;
     private bool isFridgeCollider;
+    private bool isObjectCollider;
     public bool isHand = false;//이거만 잘 컨트롤해주면 시작할때 null값 넣어주느니 그런거 안해도 되잖아
     private bool isDestroy;
+    private string objectName;
 
 
     void Start()
@@ -39,8 +41,8 @@ public class CookingCharacter : MonoBehaviour
 
     private void Update()
     {
-        
-        if (isToolCollider || isGuestCollider || isFridgeCollider)
+
+        if (isObjectCollider || isToolCollider || isGuestCollider || isFridgeCollider)
         {
             WhenKeyDown();
         }
@@ -114,10 +116,16 @@ public class CookingCharacter : MonoBehaviour
                         
                     }
                 }
-
-                if (isFridgeCollider)
+                
+                if (objectName == "Fridge")
                 {
                     fridge.transform.GetComponent<Refrigerator>().OpenUI();
+                }
+
+                if (objectName == "Ladder")
+                {
+                    GameData.Instance.SetTimeMorning();
+                    Debug.Log("아침으로 변경");
                 }
             }
         }
@@ -163,6 +171,7 @@ public class CookingCharacter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.CompareTag("CookingTools"))
         {
             isToolCollider = true;
@@ -179,6 +188,13 @@ public class CookingCharacter : MonoBehaviour
         if (other.CompareTag("Fridge"))
         {
             isFridgeCollider = true;
+            return;
+        }
+        else
+        {
+            isObjectCollider = true;
+            objectName = other.gameObject.name;
+            Debug.Log(other.gameObject.name + "에 진입");
         }
     }
     private void OnTriggerStay(Collider other)
@@ -239,6 +255,7 @@ public class CookingCharacter : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
+        
         if (other.tag == "Fridge")
         {
             other.transform.GetComponent<Refrigerator>().CloseUI();
@@ -254,6 +271,10 @@ public class CookingCharacter : MonoBehaviour
         if (other.CompareTag("Guest"))
         {
             isGuestCollider = false;
+        }
+        else
+        {
+            isObjectCollider = false;
         }
     }
 
