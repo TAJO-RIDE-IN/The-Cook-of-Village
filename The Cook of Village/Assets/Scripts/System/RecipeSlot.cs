@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RecipeSlot : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public FoodInfos foodInfos;
+    public Image FoodImage;
+    public SelectRecipe selectRecipe;
+
+    public void ChangeImage()
     {
-        
+        FoodImage.sprite = foodInfos.ImageUI;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ClickSlot()
     {
-        
+        selectRecipe.foodInfos = foodInfos;
+        selectRecipe.LoadSlot();
     }
 }
