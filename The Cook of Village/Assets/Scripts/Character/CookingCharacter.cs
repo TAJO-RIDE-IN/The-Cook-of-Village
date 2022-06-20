@@ -12,6 +12,12 @@ public class CookingCharacter : MonoBehaviour
     
     public IngredientsInfos currentIngredient;
     public FoodInfos currentFood;
+
+    public IngredientsInfos[] ingInv;
+    public FoodInfos[] foodInv;
+    public int maxInvCount = 4;
+    public int curruntInvCount = 0;
+    
     
     private CookingTool _cookingTool;
     private FoodOrder _foodOrder;
@@ -26,6 +32,8 @@ public class CookingCharacter : MonoBehaviour
     private bool isFridgeCollider;
     private bool isObjectCollider;
     public bool isHand = false;//이거만 잘 컨트롤해주면 시작할때 null값 넣어주느니 그런거 안해도 되잖아
+    public bool isFoodInHand;
+    public bool isIngInHand;
     private bool isDestroy;
     private string objectName;
 
@@ -72,18 +80,19 @@ public class CookingCharacter : MonoBehaviour
             animatorOverrideController["Walk"] = Walk[1];
         }
     }
+    //isHand 참 거짓 상관 없이 실행되어야 하는 것 : 냉장고, 자러가기, 달력 보기
 
     private void WhenKeyDown()//원래 재료넣는 함수였는데 스페이스바누를때 재료만 넣는게 아니고 다양한걸 하는데 스페이스바 누를때 모든 함수 실행하도록 최적화를 위해서 이렇게 하기로함
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (isHand)//현재 들고있는 것이 없을 때 실행, 세부적인건 저기서 수행(UI 바꾸기, 레시피리스트에 ID 추가)
+            if (isHand)//현재 들고있는 것이 있을 때 실행
             {
                 if (isToolCollider)//요리도구에 들어갔을때만,요리중이 아닐때만 재료넣는거 실행
                 {
                     if (_cookingTool.isBeforeCooking)
                     {
-                        PutIngredient();
+                        PutIngredient();//세부적인건 툴 스크립트에서 수행(UI 바꾸기, 레시피리스트에 ID 추가)
                         return; //return 잘 썼는지 항상 확인하기
                     }
                     else
@@ -108,7 +117,7 @@ public class CookingCharacter : MonoBehaviour
                     {
                         currentFood = _cookingTool.FoodInfos;
                         Instantiate(currentFood.PrefabFood,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
-                        isHand = true;
+                        isFoodInHand = true;
                         _cookingTool.RefreshTool();
                     }
                     else
