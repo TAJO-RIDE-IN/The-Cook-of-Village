@@ -42,7 +42,7 @@ public class ShopUI : SlotParent
 
         foreach(IngredientsInfos materialInfos in IngredientsData.Instance.IngredientsType[type].IngredientsInfos)
         {
-            slot[order].materialInfos = materialInfos;
+            slot[order].ingredientsInfos = materialInfos;
             slot[order].gameObject.SetActive(true);
             order++;
         }

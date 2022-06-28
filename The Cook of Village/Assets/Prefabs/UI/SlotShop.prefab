@@ -487,16 +487,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b608b493fcc86bc419303a6036ffa7e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
-  ID: 0
-  slotCount: 0
-  CountText: {fileID: 6299321409721678681}
-  Price: 0
-  Name: 
+  materialInfos:
+    Type: 0
+    ID: 0
+    Name: 
+    Price: 0
+    Amount: 0
+    PrefabMaterial: {fileID: 0}
+    ImageUI: {fileID: 0}
   SlotText: {fileID: 6299321409857355621}
   PriceText: {fileID: 6299321409721678681}
   SlotImage: {fileID: 8245744732934309479}
-  SlotImageData: {fileID: 0}
   SelectSlotObject: {fileID: 6783756727052105253, guid: 2ac866c01091d694cb925dd35e87bc44, type: 3}
 --- !u!1 &6299321409857355623
 GameObject:
@@ -510,6 +511,7 @@ GameObject:
   - component: {fileID: 6299321409857355642}
   - component: {fileID: 6299321409857355621}
   - component: {fileID: 3874444311615559594}
+  - component: {fileID: 3400121827599826398}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -592,6 +594,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!114 &3400121827599826398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6299321409857355623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6299321409857355621}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 1
 --- !u!1 &6299321410024634081
 GameObject:
   m_ObjectHideFlags: 0

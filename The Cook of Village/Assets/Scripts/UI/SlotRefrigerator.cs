@@ -1,7 +1,3 @@
-/////////////////////////////////////
-/// �й� : 91914200
-/// �̸� : JungNaEun ������
-////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,20 +5,21 @@ using UnityEngine.UI;
 
 public class SlotRefrigerator : Slot
 {
-    public GameObject RefrigeratorUI;
-    public Refrigerator refrigerator;
     public Text CountText;
+    public Text IngredientName;
+    public Image IngredientImage;
     private Transform player;
     private CookingCharacter cook;
+    public RefrigeratorUI refrigeratorUI;
     public int SlotCount
     {
-        get { return materialInfos.Amount; }
+        get { return ingredientsInfos.Amount; }
         set
         {
-            materialInfos.Amount = value;
+            ingredientsInfos.Amount = value;
             ModifySlot();
             SlotState();
-            IngredientsData.Instance.ChangeAmount(materialInfos.Type, materialInfos.ID, materialInfos.Amount);
+            IngredientsData.Instance.ChangeAmount(ingredientsInfos.Type, ingredientsInfos.ID, ingredientsInfos.Amount);
         }
     }
     private void Start()
@@ -37,24 +34,26 @@ public class SlotRefrigerator : Slot
     private void SlotState()
     {
         bool state;
-        state = (materialInfos.Amount > 0) ? true : false;
+        state = (ingredientsInfos.Amount > 0) ? true : false;
         this.gameObject.SetActive(state);
     }
     public override void ModifySlot()
     {
         CountText.text = "X" + SlotCount;
+        IngredientName.text = Localization.GetLocalizedString("Ingredient", ingredientsInfos.Name);
+        IngredientImage.sprite = ingredientsInfos.ImageUI;
     }
     public override void SelectSlot()
     {
-        if (materialInfos.Amount > 0)
+        if (ingredientsInfos.Amount > 0)
         {
             if (!cook.isHand)
             {
                 SlotCount--;
-                refrigerator.CloseUI();
-                cook.currentIngredient = materialInfos;
+                cook.currentIngredient = ingredientsInfos;
                 cook.isHand = true;
-                Instantiate(materialInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);
+                refrigeratorUI.CloseUI();
+                Instantiate(ingredientsInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);
             }
             else
             {

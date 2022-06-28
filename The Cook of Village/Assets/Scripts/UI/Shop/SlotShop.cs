@@ -21,20 +21,20 @@ public class SlotShop : Slot
     private void OnDisable()
     {
         this.gameObject.SetActive(false);
-        materialInfos = null;
+        ingredientsInfos = null;
     }
     public override void SelectSlot()
     {
         SelectSlotObject.gameObject.SetActive(true);
         SelectSlotObject.slot = this;
-        SelectSlotObject.CurrentCount = materialInfos.Amount;
-        SelectSlotObject.ModifySlot(materialInfos.Name, materialInfos.ImageUI);
+        SelectSlotObject.CurrentCount = ingredientsInfos.Amount;
+        SelectSlotObject.ModifySlot(ingredientsInfos.Name, ingredientsInfos.ImageUI);
     }
 
     public override void ModifySlot()
     {
-        PriceText.text = materialInfos.Price.ToString();
-        SlotImage.sprite = materialInfos.ImageUI;
-        SlotText.text = materialInfos.Name;
+        PriceText.text = ingredientsInfos.Price.ToString();
+        SlotImage.sprite = ingredientsInfos.ImageUI;
+        SlotText.text = Localization.GetLocalizedString("Ingredient", ingredientsInfos.Name);
     }
 }
