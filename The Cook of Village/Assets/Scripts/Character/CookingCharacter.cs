@@ -21,7 +21,7 @@ public class CookingCharacter : MonoBehaviour
     
     private CookingTool _cookingTool;
     private FoodOrder _foodOrder;
-    private Refrigerator fridge;
+    private Fridge fridge;
     private AnimatorOverrideController animatorOverrideController;
     private SoundManager soundManager;
     public AnimationClip[] Idle;
@@ -42,7 +42,7 @@ public class CookingCharacter : MonoBehaviour
     {
         /*currentFood = null;
         currentIngredient = null;*/
-        fridge = GameObject.FindGameObjectWithTag("Fridge").GetComponent<Refrigerator>();
+        fridge = GameObject.FindGameObjectWithTag("Fridge").GetComponent<Fridge>();
         animatorOverrideController = new AnimatorOverrideController(charAnimator.runtimeAnimatorController);
         charAnimator.runtimeAnimatorController = animatorOverrideController;
     }
@@ -129,7 +129,7 @@ public class CookingCharacter : MonoBehaviour
                 
                 if (isFridgeCollider)
                 {
-                    fridge.transform.GetComponent<Refrigerator>().OpenRefrigerator();
+                    fridge.transform.GetComponent<Fridge>().OpenRefrigerator();
                 }
 
                 if (objectName == "Ladder")
@@ -268,7 +268,7 @@ public class CookingCharacter : MonoBehaviour
         
         if (other.tag == "Fridge")
         {
-            other.transform.GetComponent<Refrigerator>().CloseRefrigerator();
+            other.transform.GetComponent<Fridge>().CloseRefrigerator();
             isFridgeCollider = false;
             return;
         }

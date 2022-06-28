@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RefrigeratorUI : SlotParent
+public class FridgeUI : SlotParent
 {
     [SerializeField]
-    private List<SlotRefrigerator> RefrigeratorSlot = new List<SlotRefrigerator>();
+    private List<SlotFridge> FridgeSlot = new List<SlotFridge>();
 
     public override void LoadSlotData()
     {
@@ -15,11 +15,11 @@ public class RefrigeratorUI : SlotParent
         {
             foreach (IngredientsInfos materialInfos in materialType[i].IngredientsInfos)
             {
-                if (SlotDictionary[RefrigeratorSlot[count].transform.parent.name] == materialInfos.Type) //Type이 같을 때만 정보 Load
+                if (SlotDictionary[FridgeSlot[count].transform.parent.name] == materialInfos.Type) //Type이 같을 때만 정보 Load
                 {
-                    RefrigeratorSlot[count].ingredientsInfos = materialInfos;
-                    RefrigeratorSlot[count].SlotCount = materialInfos.Amount;
-                    RefrigeratorSlot[count].refrigeratorUI = this;
+                    FridgeSlot[count].ingredientsInfos = materialInfos;
+                    FridgeSlot[count].SlotCount = materialInfos.Amount;
+                    FridgeSlot[count].FridgeUI = this;
                 }
                 count++;
             }

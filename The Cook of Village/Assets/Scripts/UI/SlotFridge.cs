@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SlotRefrigerator : Slot
+public class SlotFridge : Slot
 {
     public Text CountText;
     public Text IngredientName;
     public Image IngredientImage;
     private Transform player;
     private CookingCharacter cook;
-    public RefrigeratorUI refrigeratorUI;
+    public FridgeUI FridgeUI;
     public int SlotCount
     {
         get { return ingredientsInfos.Amount; }
@@ -52,7 +52,7 @@ public class SlotRefrigerator : Slot
                 SlotCount--;
                 cook.currentIngredient = ingredientsInfos;
                 cook.isHand = true;
-                refrigeratorUI.CloseUI();
+                FridgeUI.CloseUI();
                 Instantiate(ingredientsInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);
             }
             else

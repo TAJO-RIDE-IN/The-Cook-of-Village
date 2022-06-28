@@ -5,9 +5,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Refrigerator : MonoBehaviour
+public class Fridge : MonoBehaviour
 {
-    public RefrigeratorUI refrigeratorUI;
+    public FridgeUI refrigeratorUI;
     private Animator frigdeAnimator;
 
     private void Start()
