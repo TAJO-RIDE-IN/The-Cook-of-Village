@@ -16,13 +16,13 @@ public class SlotRefrigerator : Slot
     private CookingCharacter cook;
     public int SlotCount
     {
-        get { return materialInfos.Amount; }
+        get { return ingredientsInfos.Amount; }
         set
         {
-            materialInfos.Amount = value;
+            ingredientsInfos.Amount = value;
             ModifySlot();
             SlotState();
-            IngredientsData.Instance.ChangeAmount(materialInfos.Type, materialInfos.ID, materialInfos.Amount);
+            IngredientsData.Instance.ChangeAmount(ingredientsInfos.Type, ingredientsInfos.ID, ingredientsInfos.Amount);
         }
     }
     private void Start()
@@ -37,7 +37,7 @@ public class SlotRefrigerator : Slot
     private void SlotState()
     {
         bool state;
-        state = (materialInfos.Amount > 0) ? true : false;
+        state = (ingredientsInfos.Amount > 0) ? true : false;
         this.gameObject.SetActive(state);
     }
     public override void ModifySlot()
@@ -46,15 +46,15 @@ public class SlotRefrigerator : Slot
     }
     public override void SelectSlot()
     {
-        if (materialInfos.Amount > 0)
+        if (ingredientsInfos.Amount > 0)
         {
             if (!cook.isHand)
             {
                 SlotCount--;
                 refrigerator.CloseUI();
-                cook.currentIngredient = materialInfos;
+                cook.currentIngredient = ingredientsInfos;
                 cook.isHand = true;
-                Instantiate(materialInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);
+                Instantiate(ingredientsInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);
             }
             else
             {

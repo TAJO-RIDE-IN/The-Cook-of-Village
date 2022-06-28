@@ -11,7 +11,6 @@ public class SelectRecipe : MonoBehaviour
     public Text FoodText;
     public Text FoodExplanation;
 
-
     public void Init()
     {
         foreach (Image ingredientImage in IngredientImage)
@@ -25,7 +24,7 @@ public class SelectRecipe : MonoBehaviour
         Init();
         int count = 0;
         FoodImage.sprite = foodInfos.ImageUI;
-        FoodText.text = foodInfos.Name;
+        FoodText.text = Localization.GetLocalizedString("Food", foodInfos.Name);
         foreach(int ingredientID in foodInfos.Recipe)
         {
             IngredientsInfos infos = IngredientsData.Instance.IngredientsInfos(ingredientID);

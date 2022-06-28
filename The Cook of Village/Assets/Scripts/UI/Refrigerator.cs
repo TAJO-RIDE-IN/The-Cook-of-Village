@@ -36,7 +36,7 @@ public class Refrigerator : SlotParent
             {
                 if (SlotDictionary[RefrigeratorSlot[count].transform.parent.name] == materialInfos.Type) //Type이 같을 때만 정보 Load
                 {
-                    RefrigeratorSlot[count].materialInfos = materialInfos;
+                    RefrigeratorSlot[count].ingredientsInfos = materialInfos;
                     RefrigeratorSlot[count].SlotCount = materialInfos.Amount;
                     RefrigeratorSlot[count].RefrigeratorUI = RefrigeratorUI;
                     RefrigeratorSlot[count].refrigerator = this;
