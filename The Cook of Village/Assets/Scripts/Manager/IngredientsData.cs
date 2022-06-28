@@ -97,5 +97,4 @@ public class IngredientsData : DataManager
     {
         IngredientsInfos(id).Amount = amount;
     }
-
 }

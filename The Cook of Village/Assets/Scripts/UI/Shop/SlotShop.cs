@@ -28,7 +28,7 @@ public class SlotShop : Slot
         SelectSlotObject.gameObject.SetActive(true);
         SelectSlotObject.slot = this;
         SelectSlotObject.CurrentCount = ingredientsInfos.Amount;
-        SelectSlotObject.ModifySlot(ingredientsInfos.Name, ingredientsInfos.ImageUI);
+        SelectSlotObject.ModifySlot(Localization.GetLocalizedString("Ingredient", ingredientsInfos.Name), ingredientsInfos.ImageUI);
     }
 
     public override void ModifySlot()
