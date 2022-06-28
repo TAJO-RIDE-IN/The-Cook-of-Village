@@ -29,7 +29,7 @@ public class CookingCharacter : MonoBehaviour
     
     private bool isToolCollider;
     private bool isGuestCollider;
-    private bool isFridgeCollider;
+    public bool isFridgeCollider;
     private bool isObjectCollider;
     public bool isHand = false;//이거만 잘 컨트롤해주면 시작할때 null값 넣어주느니 그런거 안해도 되잖아
     public bool isFoodInHand;
@@ -117,6 +117,7 @@ public class CookingCharacter : MonoBehaviour
                     {
                         currentFood = _cookingTool.FoodInfos;
                         Instantiate(currentFood.PrefabFood,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
+                        isHand = true;
                         isFoodInHand = true;
                         _cookingTool.RefreshTool();
                     }
@@ -126,9 +127,9 @@ public class CookingCharacter : MonoBehaviour
                     }
                 }
                 
-                if (objectName == "Fridge")
+                if (isFridgeCollider)
                 {
-                    fridge.transform.GetComponent<Refrigerator>().OpenUI();
+                    fridge.transform.GetComponent<Refrigerator>().OpenRefrigerator();
                 }
 
                 if (objectName == "Ladder")
@@ -267,7 +268,7 @@ public class CookingCharacter : MonoBehaviour
         
         if (other.tag == "Fridge")
         {
-            other.transform.GetComponent<Refrigerator>().CloseUI();
+            other.transform.GetComponent<Refrigerator>().CloseRefrigerator();
             isFridgeCollider = false;
             return;
         }
