@@ -1,7 +1,3 @@
-/////////////////////////////////////
-/// �й� : 91914200
-/// �̸� : JungNaEun ������
-////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,11 +5,12 @@ using UnityEngine.UI;
 
 public class SlotRefrigerator : Slot
 {
-    public GameObject RefrigeratorUI;
-    public Refrigerator refrigerator;
     public Text CountText;
+    public Text IngredientName;
+    public Image IngredientImage;
     private Transform player;
     private CookingCharacter cook;
+    public RefrigeratorUI refrigeratorUI;
     public int SlotCount
     {
         get { return ingredientsInfos.Amount; }
@@ -43,6 +40,8 @@ public class SlotRefrigerator : Slot
     public override void ModifySlot()
     {
         CountText.text = "X" + SlotCount;
+        IngredientName.text = Localization.GetLocalizedString("Ingredient", ingredientsInfos.Name);
+        IngredientImage.sprite = ingredientsInfos.ImageUI;
     }
     public override void SelectSlot()
     {
@@ -51,9 +50,9 @@ public class SlotRefrigerator : Slot
             if (!cook.isHand)
             {
                 SlotCount--;
-                refrigerator.CloseUI();
                 cook.currentIngredient = ingredientsInfos;
                 cook.isHand = true;
+                refrigeratorUI.CloseUI();
                 Instantiate(ingredientsInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);
             }
             else
