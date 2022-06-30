@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
         if(null == instance)
         {
             instance = this;
+            CurosrControl(false);
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -35,9 +36,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public bool IsUI = false;
+    private bool isUI = false;
+    public bool IsUI
+    {
+        get { return isUI; }
+        set 
+        {
+            isUI = value;
+            CurosrControl(value);
+        }
+    }
     public int NextSceneIndex = 2;
 
+    private void CurosrControl(bool value)
+    {
+        Cursor.visible = value;
+        Cursor.lockState = (value) ?  CursorLockMode.None : CursorLockMode.Locked;
+    }
     public void Pause() // Game Pause
     {
         if (Time.timeScale == 1.0f)
