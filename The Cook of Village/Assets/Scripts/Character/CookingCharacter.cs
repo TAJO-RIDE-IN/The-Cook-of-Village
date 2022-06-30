@@ -40,6 +40,7 @@ public class CookingCharacter : MonoBehaviour
 
     void Start()
     {
+        
         /*currentFood = null;
         currentIngredient = null;*/
         fridge = GameObject.FindGameObjectWithTag("Fridge").GetComponent<Fridge>();
