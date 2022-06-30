@@ -16,10 +16,12 @@ public class MenuUI : MonoBehaviour
         Storage.enabled = onMenu;
         if (onMenu == true)
         {
+            GameManager.Instance.IsUI = true;
             SubMenuAni.SetTrigger("Open");
         }
         else
         {
+            GameManager.Instance.IsUI = false;
             SubMenuAni.SetTrigger("Close");
         }
     }

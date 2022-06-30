@@ -30,15 +30,9 @@ public class RecipeUI : MonoBehaviour
         }
     }
 
-    public void RecipeExitButton()
+    public void RecipeButton()
     {
-        GameManager.Instance.IsUI = false;
-        this.gameObject.SetActive(false);
-    }
-
-    public void OpenRecipe()
-    {
-        GameManager.Instance.IsUI = true;
-        this.gameObject.SetActive(true);
+        this.gameObject.SetActive(!this.gameObject.activeSelf);
+        GameManager.Instance.IsUI = this.gameObject.activeSelf;
     }
 }
