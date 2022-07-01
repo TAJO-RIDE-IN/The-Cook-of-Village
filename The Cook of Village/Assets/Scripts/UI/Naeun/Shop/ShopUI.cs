@@ -10,7 +10,7 @@ public class ShopUI : SlotParent
 {
     public GameObject SlotContent;
     public SlotShop[] slot;
-    public enum Shop {Fruit, Vegetable, Meat}
+    public enum Shop {Fruit, Vegetable, Meat, Potion}
     [SerializeField]
     public Shop shop;
 

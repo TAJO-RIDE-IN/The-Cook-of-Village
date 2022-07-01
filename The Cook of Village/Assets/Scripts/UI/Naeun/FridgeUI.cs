@@ -10,10 +10,9 @@ public class FridgeUI : SlotParent
     public override void LoadSlotData()
     {
         int count = 0;
-        IngredientsType[] materialType = IngredientsData.Instance.IngredientsType;
-        for (int i = 1; i < materialType.Length; i++)
+        foreach(IngredientsType type in IngredientsData.Instance.IngredientsType)
         {
-            foreach (IngredientsInfos materialInfos in materialType[i].IngredientsInfos)
+            foreach (IngredientsInfos materialInfos in type.IngredientsInfos)
             {
                 if (SlotDictionary[FridgeSlot[count].transform.parent.name] == materialInfos.Type) //Type이 같을 때만 정보 Load
                 {
