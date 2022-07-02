@@ -19,10 +19,12 @@ public class GameInfos
 {
     public int Day;
     public int Money;
-    public GameInfos(int day, int money)
+    public int Turnover;
+    public GameInfos(int day, int money, int turnover)
     {
         Day = day;
         Money = money;
+        Turnover = turnover;
     }
 }
 
@@ -153,6 +155,10 @@ public class GameData : DataManager, IGameDataOb
         get { return gameInfos.Money; }
         set
         {
+            if(gameInfos.Money < value)
+            {
+                gameInfos.Turnover += value - gameInfos.Money;
+            }
             gameInfos.Money = value;
             NotifyObserver();
         }

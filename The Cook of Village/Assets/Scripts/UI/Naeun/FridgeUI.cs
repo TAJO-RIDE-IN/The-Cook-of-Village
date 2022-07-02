@@ -12,15 +12,18 @@ public class FridgeUI : SlotParent
         int count = 0;
         foreach(IngredientsType type in IngredientsData.Instance.IngredientsType)
         {
-            foreach (IngredientsInfos materialInfos in type.IngredientsInfos)
+            if(type.type != IngredientsType.Type.Base)
             {
-                if (SlotDictionary[FridgeSlot[count].transform.parent.name] == materialInfos.Type) //Type이 같을 때만 정보 Load
+                foreach (IngredientsInfos materialInfos in type.IngredientsInfos)
                 {
-                    FridgeSlot[count].ingredientsInfos = materialInfos;
-                    FridgeSlot[count].SlotCount = materialInfos.Amount;
-                    FridgeSlot[count].FridgeUI = this;
+                    if (SlotDictionary[FridgeSlot[count].transform.parent.name] == materialInfos.Type) //Type이 같을 때만 정보 Load
+                    {
+                        FridgeSlot[count].ingredientsInfos = materialInfos;
+                        FridgeSlot[count].SlotCount = materialInfos.Amount;
+                        FridgeSlot[count].FridgeUI = this;
+                    }
+                    count++;
                 }
-                count++;
             }
         }
     }
