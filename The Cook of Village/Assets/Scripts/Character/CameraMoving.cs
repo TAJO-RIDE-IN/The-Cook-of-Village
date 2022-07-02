@@ -22,7 +22,7 @@ public class CameraMoving : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(flatCamera.transform.localPosition);
+        //Debug.Log(flatCamera.transform.localPosition);
         float distance = Input.GetAxis("Mouse ScrollWheel") * 1 * zoomSpeed;
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
