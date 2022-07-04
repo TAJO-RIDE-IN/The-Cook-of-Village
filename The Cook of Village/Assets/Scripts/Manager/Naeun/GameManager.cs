@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         set 
         {
             isUI = value;
-            CurosrControl(value);
+            //CurosrControl(value);
         }
     }
     public int NextSceneIndex = 2;
