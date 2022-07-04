@@ -18,11 +18,13 @@ public interface IObserver<T>
 public class GameInfos
 {
     public int Day;
+    public int Month;
     public int Money;
     public int Turnover;
-    public GameInfos(int day, int money, int turnover)
+    public GameInfos(int day, int month, int money, int turnover)
     {
         Day = day;
+        Month = month;
         Money = money;
         Turnover = turnover;
     }
@@ -140,6 +142,7 @@ public class GameData : DataManager, IGameDataOb
         set
         {
             gameInfos.Day = value;
+            gameInfos.Month = value / 28 % 4 + 1;
             NotifyObserver();
             SaveDataTime();
         }
@@ -148,6 +151,7 @@ public class GameData : DataManager, IGameDataOb
     public void SetTimeMorning()
     {
         timeOfDay = 480;
+        Day++;
     }
 
     public int Money
