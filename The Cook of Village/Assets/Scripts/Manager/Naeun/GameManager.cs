@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
         if(null == instance)
         {
             instance = this;
-            CurosrControl(false);
+            CurosrControl(true);
             DontDestroyOnLoad(this.gameObject);
         }
         else
