@@ -10,9 +10,17 @@ public class Sound
     public AudioClip clip; // 곡.
 }
 
+[System.Serializable]
+public class EffectType
+{
+    [SerializeField]
+    public enum Type {Plyaer, GuestNPC, ShopNPC}
+    public Type type = Type.Plyaer;
+    public List<Sound> sound = new List<Sound>();
+}
+
 public class SoundManager : MonoBehaviour
 {
-
     private static SoundManager instance;
     #region singleton
     void Awake() // 객체 생성시 최초 실행.
@@ -49,10 +57,13 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource[] audioSourceEffects;
     public AudioSource audioSourceBgm;
+    Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>();
+
 
     public string[] playSoundName;
 
-    public Sound[] effectSounds;
+    [SerializeField]
+    public List<EffectType> effectSounds = new List<EffectType>();
     public Sound[] bgmSounds;
 
     public AudioSource _audioSource;
@@ -63,14 +74,9 @@ public class SoundManager : MonoBehaviour
         playSoundName = new string[audioSourceEffects.Length];
     }
 
-    private void Update()
-    {
-        //throw new NotImplementedException();
-    }
-
     public void PlaySE(string _name)
     {
-        for (int i = 0; i < effectSounds.Length; i++)
+/*        for (int i = 0; i < effectSounds.Length; i++)
         {
             if (_name == effectSounds[i].name)
             {
@@ -88,7 +94,7 @@ public class SoundManager : MonoBehaviour
                 return;
             }
         }
-        Debug.Log(_name + "사운드가 SoundManager에 등록되지 않았습니다.");
+        Debug.Log(_name + "사운드가 SoundManager에 등록되지 않았습니다.");*/
     }
 
     public void StopAllSE()
