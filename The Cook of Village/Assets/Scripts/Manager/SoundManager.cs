@@ -6,47 +6,45 @@ using UnityEngine;
 [System.Serializable]
 public class Sound
 {
-    public string name; // 곡의 이름.
-    public AudioClip clip; // 곡.
+    public SoundType.Type type = SoundType.Type.Effect;
+    public string SoundName;
+    public AudioClip audio;
 }
 
+
 [System.Serializable]
-public class EffectType
+public class SoundType
 {
     [SerializeField]
-    public enum Type {Plyaer, GuestNPC, ShopNPC}
-    public Type type = Type.Plyaer;
+    public enum Type { Bgm, Effect }
+    public Type type = Type.Effect;
     public List<Sound> sound = new List<Sound>();
 }
 
 public class SoundManager : MonoBehaviour
 {
+    [SerializeField]
+    public List<SoundType> soundType = new List<SoundType>();
     private static SoundManager instance;
     #region singleton
-    void Awake() // 객체 생성시 최초 실행.
+    private void Awake() //씬 시작될때 인스턴스 초기화
     {
-        if (instance == null)
+        if (null == instance)
         {
             instance = this;
-            if (_audioSource.isPlaying)
-            {
-                //return; //배경음악이 재생되고 있다면 패스
-            }
-            else
-            {
-                _audioSource.Play(); //배경음악 계속 재생하게(이후 버튼매니저에서 조작)
-            }
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(this.gameObject);
         }
-
         else
-            Destroy(gameObject);
+        {
+            Destroy(this.gameObject);
+        }
     }
+
     public static SoundManager Instance
     {
         get
         {
-            if(instance == null)
+            if (null == instance)
             {
                 return null;
             }
@@ -54,68 +52,74 @@ public class SoundManager : MonoBehaviour
         }
     }
     #endregion singleton
+    AudioSource[] _audioSources = new AudioSource[System.Enum.GetValues(typeof(SoundType.Type)).Length];
+    Dictionary<string, Sound> _audioClips = new Dictionary<string, Sound>();
 
-    public AudioSource[] audioSourceEffects;
-    public AudioSource audioSourceBgm;
-    Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>();
-
-
-    public string[] playSoundName;
-
-    [SerializeField]
-    public List<EffectType> effectSounds = new List<EffectType>();
-    public Sound[] bgmSounds;
-
-    public AudioSource _audioSource;
-
-    void Start()
+    private void AudioDictionary()
     {
-        _audioSource = transform.GetComponent<AudioSource>();
-        playSoundName = new string[audioSourceEffects.Length];
-    }
-
-    public void PlaySE(string _name)
-    {
-/*        for (int i = 0; i < effectSounds.Length; i++)
+        foreach(var _soundType in soundType)
         {
-            if (_name == effectSounds[i].name)
+            foreach(var _sound in _soundType.sound)
             {
-                for (int j = 0; j < audioSourceEffects.Length; j++)
-                {
-                    if (!audioSourceEffects[j].isPlaying)
-                    {
-                        playSoundName[j] = effectSounds[i].name;
-                        audioSourceEffects[j].clip = effectSounds[i].clip;
-                        audioSourceEffects[j].Play();
-                        return;
-                    }
-                }
-                Debug.Log("모든 가용 AudioSource가 사용중입니다.");
-                return;
+                _audioClips.Add(_sound.SoundName, _sound);
             }
         }
-        Debug.Log(_name + "사운드가 SoundManager에 등록되지 않았습니다.");*/
     }
 
-    public void StopAllSE()
+    public void Init()
     {
-        for (int i = 0; i < audioSourceEffects.Length; i++)
+        AudioDictionary();
+        GameObject root = GameObject.Find("Sound");
+        if (root == null)
         {
-            audioSourceEffects[i].Stop();
-        }
-    }
+            root = new GameObject { name = "Sound" };
+            DontDestroyOnLoad(root);
 
-    public void StopSE(string _name)
-    {
-        for (int i = 0; i < audioSourceEffects.Length; i++)
-        {
-            if (playSoundName[i] == _name)
+            string[] soundNames = System.Enum.GetNames(typeof(SoundType.Type)); // "Bgm", "Effect"
+            for (int i = 0; i < soundNames.Length; i++)
             {
-                audioSourceEffects[i].Stop();
-                break;
+                GameObject go = new GameObject { name = soundNames[i] };
+                _audioSources[i] = go.AddComponent<AudioSource>();
+                go.transform.parent = root.transform;
             }
+
+            _audioSources[(int)SoundType.Type.Bgm].loop = true; // bgm 재생기는 무한 반복 재생
         }
-        Debug.Log("재생 중인" + _name + "사운드가 없습니다.");
+        Play(_audioClips["RestuarantBackground"]);
     }
 
+    public void Play(Sound sound, float pitch = 1.0f)
+    {
+        if (sound == null)
+            return;
+
+        if (sound.type == SoundType.Type.Bgm) // BGM 배경음악 재생
+        {
+            AudioSource audioSource = _audioSources[(int)SoundType.Type.Bgm];
+            if (audioSource.isPlaying)
+                audioSource.Stop();
+
+            audioSource.pitch = pitch;
+            audioSource.clip = sound.audio;
+            audioSource.Play();
+        }
+        else // Effect 효과음 재생
+        {
+            AudioSource audioSource = _audioSources[(int)SoundType.Type.Effect];
+            audioSource.pitch = pitch;
+            audioSource.PlayOneShot(sound.audio);
+        }
+    }
+
+    public void Clear()
+    {
+        // 재생기 전부 재생 스탑, 음반 빼기
+        foreach (AudioSource audioSource in _audioSources)
+        {
+            audioSource.clip = null;
+            audioSource.Stop();
+        }
+        // 효과음 Dictionary 비우기
+        _audioClips.Clear();
+    }
 }

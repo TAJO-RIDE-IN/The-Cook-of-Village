@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             CurosrControl(true);
+            SoundManager.Instance.Init();
             DontDestroyOnLoad(this.gameObject);
         }
         else

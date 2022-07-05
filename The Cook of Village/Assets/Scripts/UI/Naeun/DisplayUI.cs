@@ -10,6 +10,10 @@ public class DisplayUI : MonoBehaviour, IObserver<GameData>
     public Text TimeText;
     public Text DayText;
     public Text TodayText;
+    private Dictionary<int, string> today =  new Dictionary<int, string>
+    {
+        {1, "MON" }, {2, "TUE" }, {3, "WED" }, {4, "THU"}, {5, "FRI"}, {6, "SAT"}, {7, "SUN"}
+    };
 
     private int[] Time(float currentTime)
     {
@@ -28,31 +32,12 @@ public class DisplayUI : MonoBehaviour, IObserver<GameData>
         //TimeText.text = Time(time)[0] + " : " + Time(time)[1]+"0";
         DayText.text = "Day" + day.ToString();
         Money.text = money.ToString();
-        TodayText.text = Today(day);
+        TodayText.text = WhatToday(day);
     }
 
-    private string Today(float day)
+    private string WhatToday(float day)
     {
-        float today = day % 7;
-        switch(today)
-        {
-            case 1:
-                return "MON";
-            case 2:
-                return "TUE";
-            case 3:
-                return "WED";
-            case 4:
-                return "THU";
-            case 5:
-                return "FRI";
-            case 6:
-                return "SAT";
-            case 0:
-                return "SUN";
-            default:
-                return "";
-        }
+        return today[(int)day % 7];
     }
 
     public void AddObserver(IGameDataOb o)

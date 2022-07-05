@@ -148,7 +148,7 @@ public class CookingCharacter : MonoBehaviour
                 if (_cookingTool.isBeforeCooking)//요리 전일때
                 {
                     _cookingTool.Cook();
-                    SoundManager.Instance.PlaySE("StartCookOfPan");
+                    //SoundManager.Instance.PlaySE("StartCookOfPan");
                 }
                 else
                 {
