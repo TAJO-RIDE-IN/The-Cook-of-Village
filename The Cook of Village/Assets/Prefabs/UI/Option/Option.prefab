@@ -807,6 +807,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8930497624793549538}
   - component: {fileID: 5535317182922353739}
+  - component: {fileID: 3271667031037983334}
   m_Layer: 5
   m_Name: Option
   m_TagString: Untagged
@@ -845,6 +846,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8930497624793549537}
   m_CullTransparentMesh: 1
+--- !u!114 &3271667031037983334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8930497624793549537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262ea4f1c672bcd4eb44d91f72da342f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ResolutionDrop: {fileID: 0}
+  WindowToggle: {fileID: 8930497625947718454}
 --- !u!1 &8930497624841359363
 GameObject:
   m_ObjectHideFlags: 0
@@ -2555,7 +2570,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8930497625947718455}
   - component: {fileID: 8930497625947718454}
-  - component: {fileID: 8930497625947718440}
   m_Layer: 5
   m_Name: TgWindow
   m_TagString: Untagged
@@ -2631,8 +2645,8 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8930497625947718440}
-        m_TargetAssemblyTypeName: FullScreen, Assembly-CSharp
+      - m_Target: {fileID: 3271667031037983334}
+        m_TargetAssemblyTypeName: Option, Assembly-CSharp
         m_MethodName: ChangeScreen
         m_Mode: 6
         m_Arguments:
@@ -2644,19 +2658,6 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   m_IsOn: 0
---- !u!114 &8930497625947718440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8930497625947718453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e23fe95c43fc3ea4ebb75777106e0999, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toggle: {fileID: 8930497625947718454}
 --- !u!1 &8930497625983742637
 GameObject:
   m_ObjectHideFlags: 0

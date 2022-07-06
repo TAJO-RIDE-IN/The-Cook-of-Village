@@ -111,6 +111,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void AudioVolume(SoundType.Type type, float vloume)
+    {
+        _audioSources[(int)type].volume = vloume;
+    }
+
     public void Clear()
     {
         // 재생기 전부 재생 스탑, 음반 빼기
