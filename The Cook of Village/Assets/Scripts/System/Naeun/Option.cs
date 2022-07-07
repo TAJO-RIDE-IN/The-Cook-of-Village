@@ -25,14 +25,10 @@ public class Option : MonoBehaviour
         }
         ResolutionDrop.RefreshShownValue();
     }
-    public void ChangeScreen(bool isOn)
+    public void ChangeScreen()
     {
-        int _width = Screen.width;
-        int _height = Screen.height;
+        int _width = resolutions[ResolutionDrop.value].width;
+        int _height = resolutions[ResolutionDrop.value].height;
         Screen.SetResolution(_width, _height, WindowToggle.isOn);
-    }
-    public void ChangeResolution()
-    {
-
     }
 }

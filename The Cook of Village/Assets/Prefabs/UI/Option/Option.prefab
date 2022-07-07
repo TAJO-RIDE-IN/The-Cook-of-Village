@@ -717,7 +717,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1920x1080
+  m_Text: 
 --- !u!1 &8930497624755932841
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,7 +858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262ea4f1c672bcd4eb44d91f72da342f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResolutionDrop: {fileID: 0}
+  ResolutionDrop: {fileID: 8930497625843759920}
   WindowToggle: {fileID: 8930497625947718454}
 --- !u!1 &8930497624841359363
 GameObject:
@@ -2221,7 +2221,6 @@ GameObject:
   - component: {fileID: 8930497625843759922}
   - component: {fileID: 8930497625843759921}
   - component: {fileID: 8930497625843759920}
-  - component: {fileID: 8930497625843759923}
   m_Layer: 5
   m_Name: DrResolution
   m_TagString: Untagged
@@ -2337,31 +2336,13 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options:
-    - m_Text: 1920x1080
-      m_Image: {fileID: 0}
-    - m_Text: 1600x900
-      m_Image: {fileID: 0}
-    - m_Text: 1280x720
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8930497625843759923}
-        m_TargetAssemblyTypeName: Resolution, Assembly-CSharp
-        m_MethodName: Function_Button
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
+      - m_Target: {fileID: 3271667031037983334}
+        m_TargetAssemblyTypeName: Option, Assembly-CSharp
+        m_MethodName: ChangeScreen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2372,20 +2353,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_AlphaFadeSpeed: 0.15
---- !u!114 &8930497625843759923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8930497625843759934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca525aa5b6cc148439d6a9b91724f24a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropdown: {fileID: 8930497625843759920}
-  toggle: {fileID: 8930497625947718454}
 --- !u!1 &8930497625907352276
 GameObject:
   m_ObjectHideFlags: 0
