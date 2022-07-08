@@ -52,7 +52,7 @@ public class SoundManager : MonoBehaviour
         }
     }
     #endregion singleton
-    AudioSource[] _audioSources = new AudioSource[System.Enum.GetValues(typeof(SoundType.Type)).Length];
+    public AudioSource[] _audioSources = new AudioSource[System.Enum.GetValues(typeof(SoundType.Type)).Length];
     Dictionary<string, Sound> _audioClips = new Dictionary<string, Sound>();
 
     private void AudioDictionary()
