@@ -1,7 +1,3 @@
-/////////////////////////////////////
-/// ÇĞ¹ø : 91914200
-/// ÀÌ¸§ : JungNaEun Á¤³ªÀº
-////////////////////////////////////
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,12 +29,12 @@ public class ShopButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
     }
 
-    public void OnPointerDown(PointerEventData eventData) // Å¬¸¯À» ÇÏ´Â ¼ø°£ ½ÇÇà
+    public void OnPointerDown(PointerEventData eventData) // í´ë¦­ì„ í•˜ëŠ” ìˆœê°„ ì‹¤í–‰
     {
         IsClick = true;
         StartCoroutine(ChangeWithDelay.CheckDelay(1f, () => StartCoroutine(LongClickValueChange(ClickSpeed))));
     }
-    public void OnPointerUp(PointerEventData eventData) // Å¬¸¯À» ¶¼´Â ¼ø°£ ½ÇÇà
+    public void OnPointerUp(PointerEventData eventData) // í´ë¦­ì„ ë–¼ëŠ” ìˆœê°„ ì‹¤í–‰
     {
         IsClick = false;
     }

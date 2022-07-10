@@ -35,7 +35,7 @@ public class WaitingLine
             RelocateAllGuests();
         }
     }
-    private void RelocateAllGuests() //NPCÁÙ ÀçÁ¤·Ä
+    private void RelocateAllGuests() //NPCì¤„ ìž¬ì •ë ¬
     {
         foreach(GameObject guest in GuestQueue)
         {

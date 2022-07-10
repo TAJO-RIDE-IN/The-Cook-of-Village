@@ -7,7 +7,7 @@ public class RecipeUI : MonoBehaviour
 
     private void Start()
     {
-        LoadRecipeSlot(0); //Ã¹ ÆäÀÌÁö ¹Í¼­±â
+        LoadRecipeSlot(0); //ì²« í˜ì´ì§€ ë¯¹ì„œê¸°
     }
     public void Init()
     {

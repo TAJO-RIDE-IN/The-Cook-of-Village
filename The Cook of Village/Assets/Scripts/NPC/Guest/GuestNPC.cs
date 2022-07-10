@@ -1,6 +1,6 @@
 /////////////////////////////////////
-/// ÇĞ¹ø : 91914200
-/// ÀÌ¸§ : JungNaEun Á¤³ªÀº
+/// í•™ë²ˆ : 91914200
+/// ì´ë¦„ : JungNaEun ì •ë‚˜ì€
 ////////////////////////////////////
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,7 +46,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
         this.gameObject.GetComponent<FoodOrder>().AddObserver();
         col = this.gameObject.GetComponent<BoxCollider>();
     }
-    #region Model º¯°æ
+    #region Model ë³€ê²½
     private void OnEnable()
     {
         SetNPCModel(true);
@@ -104,7 +104,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 break;
         }
     }
-    public void AddGuestNPC(IGuestDI guest_) //MonoBehaviour ¶§¹®¿¡ new »ç¿ëºÒ°¡
+    public void AddGuestNPC(IGuestDI guest_) //MonoBehaviour ë•Œë¬¸ì— new ì‚¬ìš©ë¶ˆê°€
     {
         guest = guest_;
     }
@@ -112,19 +112,19 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     {
         guest.State(state);
         CurrentState = state;
-        NPCAction(); // NPC»óÅÂ¿¡ µû¸¥ Çàµ¿
-        NotifyObserver(); //observer Àü´Ş     
+        NPCAction(); // NPCìƒíƒœì— ë”°ë¥¸ í–‰ë™
+        NotifyObserver(); //observer ì „ë‹¬     
     }
     #region Observer
-    public void AddObserver(IObserver<GuestNPC> o) //ObserverList¿¡ Ãß°¡
+    public void AddObserver(IObserver<GuestNPC> o) //ObserverListì— ì¶”ê°€
     {
         _observers.Add(o);
     }
-    public void RemoveObserver(IObserver<GuestNPC> o) //ObserverList¿¡¼­ Á¦°Å
+    public void RemoveObserver(IObserver<GuestNPC> o) //ObserverListì—ì„œ ì œê±°
     {
         _observers.Remove(o);
     }
-    public void NotifyObserver() //observer¿¡ °ª Àü´Ş
+    public void NotifyObserver() //observerì— ê°’ ì „ë‹¬
     {
         foreach (var observer in _observers)
         {
