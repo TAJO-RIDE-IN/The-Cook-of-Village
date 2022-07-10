@@ -52,11 +52,11 @@ public class SlotFridge : Slot
             if (!cook.isHand)
             {
                 SlotCount--;
-                //cook.currentIngredient = ingredientsInfos;
+                cook.currentIngredient = ingredientsInfos;
                 _inventoryManager.AddIngredient(ingredientsInfos);
                 cook.isHand = true;
                 FridgeUI.CloseUI();
-                //Instantiate(ingredientsInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);
+                Instantiate(ingredientsInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);
             }
             else
             {
