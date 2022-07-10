@@ -16,7 +16,7 @@ public class FridgeUI : SlotParent
             {
                 foreach (IngredientsInfos materialInfos in type.IngredientsInfos)
                 {
-                    if (SlotDictionary[FridgeSlot[count].transform.parent.name] == materialInfos.Type) //Type¿Ã ∞∞¿ª ∂ß∏∏ ¡§∫∏ Load
+                    if (SlotDictionary[FridgeSlot[count].transform.parent.name] == materialInfos.Type) //TypeÏù¥ Í∞ôÏùÑ ÎïåÎßå Ï†ïÎ≥¥ Load
                     {
                         FridgeSlot[count].ingredientsInfos = materialInfos;
                         FridgeSlot[count].SlotCount = materialInfos.Amount;

@@ -37,9 +37,9 @@ public class GameData : DataManager, IGameDataOb
     private GameObject DayNightClycle;
     private Coroutine runningCoroutine = null;
 
-    #region ½Ì±ÛÅæ
+    #region ì‹±ê¸€í†¤
     private static GameData instance = null;
-    private void Awake() //¾À ½ÃÀÛµÉ¶§ ÀÎ½ºÅÏ½º ÃÊ±âÈ­
+    private void Awake() //ì”¬ ì‹œì‘ë ë•Œ ì¸ìŠ¤í„´ìŠ¤ ì´ˆê¸°í™”
     {
         if (null == instance)
         {
@@ -70,12 +70,12 @@ public class GameData : DataManager, IGameDataOb
     }
     void OnEnable()
     {
-        // µ¨¸®°ÔÀÌÆ® Ã¼ÀÎ Ãß°¡
+        // ë¸ë¦¬ê²Œì´íŠ¸ ì²´ì¸ ì¶”ê°€
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
     void OnDisable()
     {
-        // µ¨¸®°ÔÀÌÆ® Ã¼ÀÎ Á¦°Å
+        // ë¸ë¦¬ê²Œì´íŠ¸ ì²´ì¸ ì œê±°
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
@@ -98,7 +98,7 @@ public class GameData : DataManager, IGameDataOb
             DayNightClycle.GetComponent<LightingManager>().AddObserver(this);
         }
 
-        if(runningCoroutine != null) //ÇÑ °³ÀÇ ÄÚ·çÆ¾¸¸ ½ÇÇà
+        if(runningCoroutine != null) //í•œ ê°œì˜ ì½”ë£¨í‹´ë§Œ ì‹¤í–‰
         {
             StopCoroutine(runningCoroutine);
         }
@@ -122,8 +122,8 @@ public class GameData : DataManager, IGameDataOb
     [SerializeField]
     private GameInfos gameInfos;
 
-    #region º¯¼ö
-    [SerializeField, Range(0, 1440)] //24½Ã°£ => 1440ºĞ
+    #region ë³€ìˆ˜
+    [SerializeField, Range(0, 1440)] //24ì‹œê°„ => 1440ë¶„
     private float timeOfDay;
     public float TimeOfDay 
     { 
@@ -184,7 +184,7 @@ public class GameData : DataManager, IGameDataOb
     {
         _observers.Remove(o);
     }
-    public void NotifyObserver() //observer¿¡ °ª Àü´Ş
+    public void NotifyObserver() //observerì— ê°’ ì „ë‹¬
     {
         foreach (var observer in _observers)
         {

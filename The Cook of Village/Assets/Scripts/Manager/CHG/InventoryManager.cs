@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    private int maxInven;
+    public ItemSlotManager SlotManager;
+    private int maxInven = 2;//이 값이 바뀌면 인벤토리 잠금을 해제할거니깐 초기화도 게임데이터에서 하면 좋을듯
     
     public int MaxInven
     {
@@ -13,7 +14,7 @@ public class InventoryManager : MonoBehaviour
         set
         {
             maxInven = value;
-            //EdibleItems.Add();
+            ExtensionInventory();
         }
     }
     
@@ -21,19 +22,58 @@ public class InventoryManager : MonoBehaviour
     public class EdibleItem
     {
         [Serializable]
-        enum ItemType
+        public enum ItemType
         {
             Ingredient, Food
         }
-        [SerializeField] private ItemType _itemType;
-        [SerializeField] private IngredientsData _ingredientsData;
-        [SerializeField] private FoodData _foodData;
+        [SerializeField] public ItemType _itemType;
+        [SerializeField] public IngredientsInfos _ingredientsInfos;
+        [SerializeField] public FoodInfos _foodInfos;
     }
+    
 
-    [SerializeField] public List<EdibleItem> EdibleItems = new List<EdibleItem>();
+    [SerializeField] private List<EdibleItem> edibleItems = new List<EdibleItem>();
 
     private void ExtensionInventory()
     {
-        
+        //UI 바꿈
+    }
+
+    public void AddOrNot()
+    {
+        if (edibleItems.Count < maxInven)
+        {
+            //AddIngredient();
+        }
+        else
+        {
+            SlotManager.ShowWarning();
+        }
+    }
+
+    public void AddIngredient(IngredientsInfos infos)
+    {
+        if (edibleItems.Count < maxInven)
+        {
+            Debug.Log("리스트 추가");
+            edibleItems.Add(new EdibleItem(){_itemType = EdibleItem.ItemType.Ingredient, _ingredientsInfos = infos, 
+                _foodInfos = null});
+        }
+        else
+        {
+            SlotManager.ShowWarning();
+        }
+    }
+    public void AddFood(FoodInfos food)
+    {
+        if (edibleItems.Count < maxInven)
+        {
+            edibleItems.Add(new EdibleItem(){_itemType = EdibleItem.ItemType.Ingredient, _ingredientsInfos = null, 
+                _foodInfos = food});
+        }
+        else
+        {
+            SlotManager.ShowWarning();
+        }
     }
 }

@@ -68,7 +68,7 @@ public class CameraMoving : MonoBehaviour
                 
                 flatCamera.transform.Translate(-newPosition, Space.World);
             }
-            Debug.Log("카메라움직임 끝");
+            //Debug.Log("카메라움직임 끝");
             
 
 

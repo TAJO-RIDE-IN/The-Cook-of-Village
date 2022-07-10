@@ -8,6 +8,7 @@ public class SlotFridge : Slot
     public Text CountText;
     public Text IngredientName;
     public Image IngredientImage;
+    private InventoryManager _inventoryManager;
     private Transform player;
     private CookingCharacter cook;
     public FridgeUI FridgeUI;
@@ -24,6 +25,7 @@ public class SlotFridge : Slot
     }
     private void Start()
     {
+        _inventoryManager = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         cook = player.transform.GetComponent<CookingCharacter>();
     }
@@ -50,10 +52,11 @@ public class SlotFridge : Slot
             if (!cook.isHand)
             {
                 SlotCount--;
-                cook.currentIngredient = ingredientsInfos;
+                //cook.currentIngredient = ingredientsInfos;
+                _inventoryManager.AddIngredient(ingredientsInfos);
                 cook.isHand = true;
                 FridgeUI.CloseUI();
-                Instantiate(ingredientsInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);
+                //Instantiate(ingredientsInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);
             }
             else
             {
