@@ -1,14 +1,29 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
     public ItemSlotManager SlotManager;
+    public GameObject SlotParent;
     private int maxInven = 2;//이 값이 바뀌면 인벤토리 잠금을 해제할거니깐 초기화도 게임데이터에서 하면 좋을듯
-    
+    private void Start()
+    {
+        
+    }
     public int MaxInven
+    {
+        get { return maxInven;}
+        set
+        {
+            maxInven = value;
+            ExtensionInventory();
+        }
+    }
+    private int wholeInven = 6;//이건 나중에 하자..
+    public int WholeInven
     {
         get { return maxInven;}
         set
@@ -30,9 +45,23 @@ public class InventoryManager : MonoBehaviour
         [SerializeField] public IngredientsInfos _ingredientsInfos;
         [SerializeField] public FoodInfos _foodInfos;
     }
-    
 
-    [SerializeField] private List<EdibleItem> edibleItems = new List<EdibleItem>();
+
+    [SerializeField] private EdibleItem[] EdibleItems = new EdibleItem[6];
+
+    /*public EdibleItem[] EdibleItems
+    {
+        get { return edibleItems;}
+        set
+        {
+            edibleItems = value;
+            
+        }
+    }*/
+    private bool[] isUsed = Enumerable.Repeat(false, 6).ToArray();
+        
+        
+        //= new List<EdibleItem>()
 
     private void ExtensionInventory()
     {
@@ -41,7 +70,7 @@ public class InventoryManager : MonoBehaviour
 
     public void AddOrNot()
     {
-        if (edibleItems.Count < maxInven)
+        if (EdibleItems.Length < maxInven)
         {
             //AddIngredient();
         }
@@ -53,27 +82,37 @@ public class InventoryManager : MonoBehaviour
 
     public void AddIngredient(IngredientsInfos infos)
     {
-        if (edibleItems.Count < maxInven)
+        for (int i = 0; i < MaxInven; i++)
         {
-            Debug.Log("리스트 추가");
-            edibleItems.Add(new EdibleItem(){_itemType = EdibleItem.ItemType.Ingredient, _ingredientsInfos = infos, 
-                _foodInfos = null});
+            if (isUsed[i] == false)
+            {
+                EdibleItems[i] = new EdibleItem(){_itemType = EdibleItem.ItemType.Ingredient, _ingredientsInfos = infos, 
+                    _foodInfos = null};
+                SlotManager.AddIngredientItem(infos);
+                isUsed[i] = true;
+                return;
+            }
+            
+
+            
         }
-        else
-        {
-            SlotManager.ShowWarning();
-        }
+        SlotManager.ShowWarning();
     }
     public void AddFood(FoodInfos food)
     {
-        if (edibleItems.Count < maxInven)
+        for (int i = 0; i < MaxInven; i++)
         {
-            edibleItems.Add(new EdibleItem(){_itemType = EdibleItem.ItemType.Ingredient, _ingredientsInfos = null, 
-                _foodInfos = food});
+            EdibleItems[i] = new EdibleItem(){_itemType = EdibleItem.ItemType.Ingredient, _ingredientsInfos = null, 
+                _foodInfos = food};
+            SlotManager.AddFoodItem(food);
+
+            return;
         }
-        else
-        {
-            SlotManager.ShowWarning();
-        }
+        SlotManager.ShowWarning();
+    }
+
+    public void UseIngredient(int i)
+    {
+        
     }
 }

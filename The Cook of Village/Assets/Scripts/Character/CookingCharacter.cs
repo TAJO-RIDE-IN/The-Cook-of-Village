@@ -40,9 +40,6 @@ public class CookingCharacter : MonoBehaviour
 
     void Start()
     {
-        
-        /*currentFood = null;
-        currentIngredient = null;*/
         fridge = GameObject.FindGameObjectWithTag("Fridge").GetComponent<Fridge>();
         animatorOverrideController = new AnimatorOverrideController(charAnimator.runtimeAnimatorController);
         charAnimator.runtimeAnimatorController = animatorOverrideController;
@@ -55,17 +52,6 @@ public class CookingCharacter : MonoBehaviour
         {
             WhenKeyDown();
         }
-
-
-        /*if (currentIngredient != null || currentFood != null)//isHand를 혹시 중간에 빠뜨릴까봐 임시로 넣어둔거긴한데 최적화할때 뺄수도 있음
-        {
-            isHand = true;
-        }
-        else
-        {
-            isHand = false;
-        }*/
-        
     }
 
     private void FixedUpdate()
@@ -162,9 +148,10 @@ public class CookingCharacter : MonoBehaviour
     }
     public void PutIngredient()
     {
+        Debug.Log("PutIngredient실행");
         isDestroy = _cookingTool.PutIngredient(currentIngredient.ID, currentIngredient.ImageUI);//값도 넣어주고, bool값도 return하는 함수 실행
         DestroyOrNot();
-        currentIngredient = null;//괜히 손에서 사라진 아이템정보 들고있는거 안좋을까봐
+        
     }
 
     public void DestroyOrNot()
@@ -176,6 +163,8 @@ public class CookingCharacter : MonoBehaviour
                 Destroy(HandPosition.transform.GetChild(i).gameObject);
             }
             isHand = false;
+            currentIngredient = null;//괜히 손에서 사라진 아이템정보 들고있는거 안좋을까봐
+            Debug.Log("재료 없앰");
         }
         
     }

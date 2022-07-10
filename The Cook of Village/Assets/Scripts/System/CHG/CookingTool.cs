@@ -48,14 +48,13 @@ public class CookingTool : MonoBehaviour
                 ingredientList.Add(id);
                 IngredientInven.SetActive(true);
                 IngredientInven.transform.GetChild(i).transform.GetComponent<Image>().sprite = sprite;
+                Debug.Log("재료 넣음");
                 return true;
             }
-            else
-            {
-                //도구에 재료 꽉찼는데 넣으려고할때 행동
-            }
             
-        } return false;
+        }
+        //도구에 재료 꽉찼는데 넣으려고할때 행동
+        return false;
     }
 
     public void Cook()
