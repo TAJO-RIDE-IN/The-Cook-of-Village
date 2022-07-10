@@ -25,13 +25,14 @@ public class SoundManager : MonoBehaviour
 {
     [SerializeField]
     public List<SoundType> soundType = new List<SoundType>();
-    private static SoundManager instance;
+    private static SoundManager instance = null;
     #region singleton
     private void Awake() //씬 시작될때 인스턴스 초기화
     {
         if (null == instance)
         {
             instance = this;
+            Init();
             DontDestroyOnLoad(this.gameObject);
         }
         else
