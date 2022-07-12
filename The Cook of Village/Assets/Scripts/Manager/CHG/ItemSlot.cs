@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
-using Image = Microsoft.Unity.VisualStudio.Editor.Image;
 
 public class ItemSlot : MonoBehaviour
 {
