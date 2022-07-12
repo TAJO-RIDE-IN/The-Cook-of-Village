@@ -35,6 +35,7 @@ public class GameData : DataManager, IGameDataOb
     private List<IObserver<GameData>> _observers = new List<IObserver<GameData>>();
     private GameObject UIDisplay;
     private GameObject DayNightClycle;
+    private GameObject[] Shop;
     private Coroutine runningCoroutine = null;
 
     #region 싱글톤
@@ -88,6 +89,11 @@ public class GameData : DataManager, IGameDataOb
         _observers.Clear();
         UIDisplay = GameObject.Find("DisplayUI");
         DayNightClycle = GameObject.Find("DayNightClycle");
+        Shop = GameObject.FindGameObjectsWithTag("Shop");
+        foreach(GameObject obj in Shop)
+        {
+            obj.GetComponent<ShopNPC>().AddObserver(this);
+        }
         if (UIDisplay != null)
         {
             UIDisplay.GetComponent<DisplayUI>().AddObserver(this);
@@ -142,12 +148,13 @@ public class GameData : DataManager, IGameDataOb
         set
         {
             gameInfos.Day = value;
-            gameInfos.Month = value / 28 % 4 + 1;
+            Today = (int)value % 7;
+            gameInfos.Month = value / 14 % 4 + 1;
             NotifyObserver();
             SaveDataTime();
         }
     }
-
+    public int Today = 1;
     public void SetTimeMorning()
     {
         timeOfDay = 480;
