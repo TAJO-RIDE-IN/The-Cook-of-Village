@@ -6,10 +6,16 @@ public class ShopNPC : MonoBehaviour, IObserver<GameData>
 {
     public ShopUI shopUI;
     public ShopUI.Shop type;
+    private Animator ani;
 
     public int OpenTime;
     public int CloseTime;
     public int CloseDay;
+
+    private void Start()
+    {
+        ani = this.gameObject.GetComponent<Animator>();
+    }
     public void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
