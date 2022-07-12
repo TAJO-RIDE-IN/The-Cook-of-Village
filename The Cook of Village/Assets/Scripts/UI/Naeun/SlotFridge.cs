@@ -52,7 +52,6 @@ public class SlotFridge : Slot
             if (_inventoryManager.AddIngredient(ingredientsInfos))
             {
                 SlotCount--;
-                
             }
         }
     }

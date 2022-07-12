@@ -51,7 +51,7 @@ public class CookingTool : MonoBehaviour
                 ingredientList.Add(id);
                 IngredientInven.SetActive(true);
                 IngredientInven.transform.GetChild(i).transform.GetComponent<Image>().sprite = sprite;
-                IngredientInvenBig.transform.GetChild(i).transform.GetComponent<Image>().sprite = sprite;
+                IngredientInvenBig.transform.GetChild(i).GetChild(0).transform.GetComponent<Image>().sprite = sprite;
                 return true;
             }
             
@@ -93,6 +93,7 @@ public class CookingTool : MonoBehaviour
             currentValue += Time.deltaTime;
             blackCircle.fillAmount = currentValue / FoodInfos.MakeTime;
             FoodInven.transform.GetChild(3).Rotate(0, 0, 1);
+            FoodInvenBig.transform.Rotate(0, 0, 1);
             yield return null;
             /*if (!_wallCollision.iscollide)
             {
@@ -103,6 +104,7 @@ public class CookingTool : MonoBehaviour
         isCooked = true;
         FoodInvenBig.sprite = FoodInfos.ImageUI;
         FoodInven.transform.GetChild(2).transform.GetComponent<Image>().sprite = FoodInfos.ImageUI;
+        FoodInvenBig.sprite = FoodInfos.ImageUI;
         FoodInven.transform.GetChild(3).gameObject.SetActive(false);//디폴트 숨기기
         FoodInven.transform.GetChild(2).gameObject.SetActive(true);
     }
