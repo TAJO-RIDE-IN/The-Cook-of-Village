@@ -23,21 +23,13 @@ public class DisplayUI : MonoBehaviour, IObserver<GameData>
         return time;
     }
 
-    public void ChangeDisplay(float time, float day, int money)
+    public void ChangeDisplay(float time, float day, int today, int money)
     {
         string min = Time(time)[1].ToString();
         TimeText.text = string.Format("{0:00} : ", Time(time)[0]) + min.PadRight(2, '0');
-
-
-        //TimeText.text = Time(time)[0] + " : " + Time(time)[1]+"0";
         DayText.text = "Day" + day.ToString();
         Money.text = money.ToString();
-        TodayText.text = WhatToday(day);
-    }
-
-    private string WhatToday(float day)
-    {
-        return today[(int)day % 7];
+        TodayText.text = today.ToString();
     }
 
     public void AddObserver(IGameDataOb o)
@@ -55,7 +47,7 @@ public class DisplayUI : MonoBehaviour, IObserver<GameData>
         if (obj is GameData)
         {
             var GameData = obj;
-            ChangeDisplay(GameData.TimeOfDay, GameData.Day, GameData.Money);
+            ChangeDisplay(GameData.TimeOfDay, GameData.Day, GameData.Today, GameData.Money);
         }
     }
 }
