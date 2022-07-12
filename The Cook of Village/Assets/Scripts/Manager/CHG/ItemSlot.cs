@@ -6,7 +6,7 @@ using Image = Microsoft.Unity.VisualStudio.Editor.Image;
 
 public class ItemSlot : MonoBehaviour
 {
-    private int index;//필요없을지두..?
+    private int index;
 
     public int Index
     {
@@ -19,19 +19,17 @@ public class ItemSlot : MonoBehaviour
     }
 
     private UnityEngine.UI.Image slotUI;
-    
-
-    public bool isBeingUsed;
+    private InventoryManager _inventoryManager;
     // Start is called before the first frame update
     void Start()
     {
         slotUI = transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();
+        _inventoryManager = GameObject.FindWithTag("InventoryManager").GetComponent<InventoryManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SlotClick()
     {
-        
+        _inventoryManager.SendItem(index);
     }
 
     public void changeSlotUI(Sprite sprite)
