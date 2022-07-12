@@ -49,18 +49,10 @@ public class SlotFridge : Slot
     {
         if (ingredientsInfos.Amount > 0)
         {
-            if (!cook.isHand)
+            if (_inventoryManager.AddIngredient(ingredientsInfos))
             {
                 SlotCount--;
-                cook.currentIngredient = ingredientsInfos;
-                _inventoryManager.AddIngredient(ingredientsInfos);
-                cook.isHand = true;
-                FridgeUI.CloseUI();
-                Instantiate(ingredientsInfos.PrefabMaterial, cook.HandPosition.transform.position, Quaternion.identity, cook.HandPosition.transform);
-            }
-            else
-            {
-                //손에 뭐 들고있는데 재료슬롯 눌렀을 때 행동
+                
             }
         }
     }
