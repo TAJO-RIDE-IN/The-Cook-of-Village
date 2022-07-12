@@ -9,6 +9,9 @@ public class CookingTool : MonoBehaviour
     public enum Type { Blender = 0, Pot = 1, FryPan = 2}//접시도 추가할거니까 접시일때 행동들이랑 도구일때 행동들 구분하기, 그리고 머랭같은 특별한 도구도 어떻게할지 생각해야함
     public Type type;
 
+    public GameObject Inventory;
+    public GameObject IngredientInvenBig;
+    public Image FoodInvenBig;
     private GameObject IngredientInven;
     private GameObject FoodInven;
     private Image blackCircle;
@@ -48,18 +51,18 @@ public class CookingTool : MonoBehaviour
                 ingredientList.Add(id);
                 IngredientInven.SetActive(true);
                 IngredientInven.transform.GetChild(i).transform.GetComponent<Image>().sprite = sprite;
+                IngredientInvenBig.transform.GetChild(i).transform.GetComponent<Image>().sprite = sprite;
                 return true;
             }
-            else
-            {
-                //도구에 재료 꽉찼는데 넣으려고할때 행동
-            }
             
-        } return false;
+        }
+        //도구에 재료 꽉찼는데 넣으려고할때 행동
+        return false;
     }
 
     public void Cook()
     {
+        isBeforeCooking = false;
         ingredientList.Sort();
         FoodInfos = FoodData.Instance.RecipeFood((int)type, ingredientList);
         //Debug.Log(FoodInfos.Name);
@@ -84,7 +87,7 @@ public class CookingTool : MonoBehaviour
     
     IEnumerator CookingGauge() //LoadingBar.fillAmount이 1이 될때까지 점점 게이지를 추가해줌
     {
-        isBeforeCooking = false;
+        
         while (blackCircle.fillAmount < 1)
         {
             currentValue += Time.deltaTime;
@@ -98,6 +101,7 @@ public class CookingTool : MonoBehaviour
         }
         currentValue = 0;
         isCooked = true;
+        FoodInvenBig.sprite = FoodInfos.ImageUI;
         FoodInven.transform.GetChild(2).transform.GetComponent<Image>().sprite = FoodInfos.ImageUI;
         FoodInven.transform.GetChild(3).gameObject.SetActive(false);//디폴트 숨기기
         FoodInven.transform.GetChild(2).gameObject.SetActive(true);

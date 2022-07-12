@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using Image = Microsoft.Unity.VisualStudio.Editor.Image;
 
 public class ItemSlot : MonoBehaviour
 {
     private int index;
-    
+
     public int Index
     {
         get { return index;}
@@ -16,16 +18,22 @@ public class ItemSlot : MonoBehaviour
         }
     }
 
-    public bool isEmpty;
+    private UnityEngine.UI.Image slotUI;
+    private InventoryManager _inventoryManager;
     // Start is called before the first frame update
     void Start()
     {
-        
+        slotUI = transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();
+        _inventoryManager = GameObject.FindWithTag("InventoryManager").GetComponent<InventoryManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SlotClick()
     {
-        
+        _inventoryManager.SendItem(index);
+    }
+
+    public void changeSlotUI(Sprite sprite)
+    {
+        slotUI.sprite = sprite;
     }
 }

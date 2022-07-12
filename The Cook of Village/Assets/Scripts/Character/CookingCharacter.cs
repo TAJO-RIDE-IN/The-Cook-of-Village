@@ -13,13 +13,8 @@ public class CookingCharacter : MonoBehaviour
     public IngredientsInfos currentIngredient;
     public FoodInfos currentFood;
 
-    public IngredientsInfos[] ingInv;
-    public FoodInfos[] foodInv;
-    public int maxInvCount = 4;
-    public int curruntInvCount = 0;
-    
-    
-    private CookingTool _cookingTool;
+
+    [HideInInspector] public CookingTool _cookingTool;
     private FoodOrder _foodOrder;
     private Fridge fridge;
     private AnimatorOverrideController animatorOverrideController;
@@ -27,22 +22,19 @@ public class CookingCharacter : MonoBehaviour
     public AnimationClip[] Idle;
     public AnimationClip[] Walk;
     
-    private bool isToolCollider;
+    public bool isToolCollider;
     private bool isGuestCollider;
     public bool isFridgeCollider;
     private bool isObjectCollider;
     public bool isHand = false;//이거만 잘 컨트롤해주면 시작할때 null값 넣어주느니 그런거 안해도 되잖아
-    public bool isFoodInHand;
-    public bool isIngInHand;
+    public bool isInvenSpace;
+    
     private bool isDestroy;
     private string objectName;
 
 
     void Start()
     {
-        
-        /*currentFood = null;
-        currentIngredient = null;*/
         fridge = GameObject.FindGameObjectWithTag("Fridge").GetComponent<Fridge>();
         animatorOverrideController = new AnimatorOverrideController(charAnimator.runtimeAnimatorController);
         charAnimator.runtimeAnimatorController = animatorOverrideController;
@@ -55,17 +47,6 @@ public class CookingCharacter : MonoBehaviour
         {
             WhenKeyDown();
         }
-
-
-        /*if (currentIngredient != null || currentFood != null)//isHand를 혹시 중간에 빠뜨릴까봐 임시로 넣어둔거긴한데 최적화할때 뺄수도 있음
-        {
-            isHand = true;
-        }
-        else
-        {
-            isHand = false;
-        }*/
-        
     }
 
     private void FixedUpdate()
@@ -87,28 +68,32 @@ public class CookingCharacter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (isToolCollider)//요리도구에 들어갔을때만,요리중이 아닐때만 재료넣는거 실행
+            {
+                isInvenSpace = true;
+                _cookingTool.Inventory.SetActive(true);
+            }
+            if (isGuestCollider)
+            {
+                if (currentFood != null)
+                {
+                    isDestroy = _foodOrder.ReceiveFood(currentFood.ID);
+                    DestroyOrNot();
+                }
+            }
+            if (isFridgeCollider)
+            {
+                isInvenSpace = true;
+                fridge.transform.GetComponent<Fridge>().OpenRefrigerator();
+            }
+            if (objectName == "Ladder")
+            {
+                GameData.Instance.SetTimeMorning();
+                Debug.Log("아침으로 변경");
+            }
             if (isHand)//현재 들고있는 것이 있을 때 실행
             {
-                if (isToolCollider)//요리도구에 들어갔을때만,요리중이 아닐때만 재료넣는거 실행
-                {
-                    if (_cookingTool.isBeforeCooking)
-                    {
-                        PutIngredient();//세부적인건 툴 스크립트에서 수행(UI 바꾸기, 레시피리스트에 ID 추가)
-                        return; //return 잘 썼는지 항상 확인하기
-                    }
-                    else
-                    {
-                        //먼저 요리도구를 비우세요! 출력
-                    }
-                }
-                if (isGuestCollider)
-                {
-                    if (currentFood != null)
-                    {
-                        isDestroy = _foodOrder.ReceiveFood(currentFood.ID);
-                        DestroyOrNot();
-                    }
-                }
+                
             }
             else//안들고 있을때 들수 있는거 (냉장고의 재료들은 제외) => 접시, 음식, 밀가루와설탕
             {
@@ -119,7 +104,7 @@ public class CookingCharacter : MonoBehaviour
                         currentFood = _cookingTool.FoodInfos;
                         Instantiate(currentFood.PrefabFood,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
                         isHand = true;
-                        isFoodInHand = true;
+                        
                         _cookingTool.RefreshTool();
                     }
                     else
@@ -128,16 +113,9 @@ public class CookingCharacter : MonoBehaviour
                     }
                 }
                 
-                if (isFridgeCollider)
-                {
-                    fridge.transform.GetComponent<Fridge>().OpenRefrigerator();
-                }
+                
 
-                if (objectName == "Ladder")
-                {
-                    GameData.Instance.SetTimeMorning();
-                    Debug.Log("아침으로 변경");
-                }
+                
             }
         }
         
@@ -164,7 +142,7 @@ public class CookingCharacter : MonoBehaviour
     {
         isDestroy = _cookingTool.PutIngredient(currentIngredient.ID, currentIngredient.ImageUI);//값도 넣어주고, bool값도 return하는 함수 실행
         DestroyOrNot();
-        currentIngredient = null;//괜히 손에서 사라진 아이템정보 들고있는거 안좋을까봐
+        
     }
 
     public void DestroyOrNot()
@@ -176,6 +154,7 @@ public class CookingCharacter : MonoBehaviour
                 Destroy(HandPosition.transform.GetChild(i).gameObject);
             }
             isHand = false;
+            currentIngredient = null;//괜히 손에서 사라진 아이템정보 들고있는거 안좋을까봐
         }
         
     }
@@ -277,6 +256,8 @@ public class CookingCharacter : MonoBehaviour
         if (other.tag == "CookingTools")
         {
             isToolCollider = false;
+            isInvenSpace = false;
+            _cookingTool.Inventory.SetActive(false);
             return;
         }
         if (other.CompareTag("Guest"))
