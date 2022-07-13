@@ -72,6 +72,7 @@ public class CookingCharacter : MonoBehaviour
             {
                 isInvenSpace = true;
                 _cookingTool.Inventory.SetActive(true);
+                return;
             }
             if (isGuestCollider)
             {
@@ -79,43 +80,39 @@ public class CookingCharacter : MonoBehaviour
                 {
                     isDestroy = _foodOrder.ReceiveFood(currentFood.ID);
                     DestroyOrNot();
+                    return;
                 }
             }
             if (isFridgeCollider)
             {
                 isInvenSpace = true;
                 fridge.transform.GetComponent<Fridge>().OpenRefrigerator();
+                return;
             }
             if (objectName == "Ladder")
             {
                 GameData.Instance.SetTimeMorning();
                 Debug.Log("아침으로 변경");
+                return;
             }
-            if (isHand)//현재 들고있는 것이 있을 때 실행
-            {
-                
-            }
-            else//안들고 있을때 들수 있는거 (냉장고의 재료들은 제외) => 접시, 음식, 밀가루와설탕
-            {
-                if (isToolCollider)
-                {
-                    if (_cookingTool.isCooked)//요리가 완성됐을때만
-                    {
-                        currentFood = _cookingTool.FoodInfos;
-                        Instantiate(currentFood.PrefabFood,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
-                        isHand = true;
-                        
-                        _cookingTool.RefreshTool();
-                    }
-                    else
-                    {
-                        
-                    }
-                }
-                
-                
 
-                
+            if (objectName == "Flour")
+            {
+                if (InventoryManager.Instance.AddIngredient(IngredientsData.Instance.IngredientsType[0]
+                    .IngredientsInfos[0]))
+                {
+                    return;
+                    //쟁반에 밀가루 생성
+                }
+            }
+            if (objectName == "Sugar")
+            {
+                if (InventoryManager.Instance.AddIngredient(IngredientsData.Instance.IngredientsType[0]
+                    .IngredientsInfos[1]))
+                {
+                    return;
+                    //쟁반에 밀가루 생성
+                }
             }
         }
         
@@ -137,12 +134,6 @@ public class CookingCharacter : MonoBehaviour
             
                 
         }
-    }
-    public void PutIngredient()
-    {
-        isDestroy = _cookingTool.PutIngredient(currentIngredient.ID, currentIngredient.ImageUI);//값도 넣어주고, bool값도 return하는 함수 실행
-        DestroyOrNot();
-        
     }
 
     public void DestroyOrNot()
@@ -180,41 +171,12 @@ public class CookingCharacter : MonoBehaviour
             isFridgeCollider = true;
             return;
         }
-        else
-        {
-            isObjectCollider = true;
-            objectName = other.gameObject.name;
-            Debug.Log(other.gameObject.name + "에 진입");
-        }
+        isObjectCollider = true;
+        objectName = other.gameObject.name;
+        //Debug.Log(other.gameObject.name + "에 진입");
     }
     private void OnTriggerStay(Collider other)
     {
-        
-        if (other.gameObject.name == "Flour")
-        {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                if (!isHand)
-                {
-                    currentIngredient = IngredientsData.Instance.IngredientsType[0].IngredientsInfos[0];
-                    Instantiate(currentIngredient.PrefabMaterial,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
-                    isHand = true;
-                    return;
-                }
-            }
-        }
-        if (other.gameObject.name == "Sugar")
-        {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                if (!isHand)
-                {
-                    currentIngredient = IngredientsData.Instance.IngredientsType[0].IngredientsInfos[1];
-                    Instantiate(currentIngredient.PrefabMaterial,HandPosition.transform.position, Quaternion.identity, HandPosition.transform);
-                    isHand = true;
-                }
-            }
-        }
 
         if (other.gameObject.name == "CounterPosition")
         {

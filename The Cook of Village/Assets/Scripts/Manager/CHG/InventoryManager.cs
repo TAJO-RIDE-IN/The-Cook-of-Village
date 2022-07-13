@@ -7,13 +7,36 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     
-    public ItemSlotManager SlotManager;
-    public GameObject SlotParent;
+    private static InventoryManager instance = null;
+        
+    private void Awake()
+    {
+        if (null == instance)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    public static InventoryManager Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+
+    public CookItemSlotManager cookSlotManager;
+    public EdibleItemSlotManager edibleSlotManager;
     private int maxInven = 2;//이 값이 바뀌면 인벤토리 잠금을 해제할거니깐 초기화도 게임데이터에서 하면 좋을듯
     private CookingCharacter _cookingCharacter;
-
-    
-
 
     public int MaxInven
     {
@@ -76,18 +99,6 @@ public class InventoryManager : MonoBehaviour
         //버튼 Interactable 켜주기
     }
 
-    public void AddOrNot()
-    {
-        if (EdibleItems.Length < maxInven)
-        {
-            //AddIngredient();
-        }
-        else
-        {
-            SlotManager.ShowWarning();
-        }
-    }
-
     public bool AddIngredient(IngredientsInfos infos)
     {
         for (int i = 0; i < MaxInven; i++)
@@ -98,26 +109,32 @@ public class InventoryManager : MonoBehaviour
                 Debug.Log(i+"번째 슬롯이 비어있음");
                 EdibleItems[i] = new EdibleItem(){_itemType = EdibleItem.ItemType.Ingredient, _ingredientsInfos = infos, 
                     _foodInfos = null};
-                SlotManager.AddIngredientItem(infos, i);
+                edibleSlotManager.AddIngredientItem(infos, i);
                 isUsed[i] = true;
                 return true;
             }
         }
-        SlotManager.ShowWarning();
+        edibleSlotManager.ShowWarning();
         return false;
         
     }
-    public void AddFood(FoodInfos food)
+    public bool AddFood(FoodInfos food)
     {
         for (int i = 0; i < MaxInven; i++)
         {
-            EdibleItems[i] = new EdibleItem(){_itemType = EdibleItem.ItemType.Ingredient, _ingredientsInfos = null, 
-                _foodInfos = food};
+            if (isUsed[i] == false)
+            {
+                Debug.Log(i+"번째 슬롯이 비어있음");
+                EdibleItems[i] = new EdibleItem(){_itemType = EdibleItem.ItemType.Ingredient, _ingredientsInfos = null, 
+                    _foodInfos = food};
+                edibleSlotManager.AddFoodItem(food, i);
+                isUsed[i] = true;
+                return true;
+            }
             //SlotManager.AddFoodItem(food);
-
-            return;
         }
-        SlotManager.ShowWarning();
+        edibleSlotManager.ShowWarning();
+        return false;
     }
 
     public void UseIngredient(int i)
@@ -131,15 +148,18 @@ public class InventoryManager : MonoBehaviour
         {
             if (_cookingCharacter.isInvenSpace) //우선 캐릭터가 스페이스바를 눌렀는지 확인
             {
-                if (_cookingCharacter.isToolCollider) //스페이스바를 냉장고안에서 누른건 아닌지 확인
+                if (_cookingCharacter.isToolCollider) //스페이스바를 냉장고안이나에서 누른건 아닌지 확인 => 스위치로 변경
                 {
                     if (_cookingCharacter._cookingTool.isBeforeCooking)//요리하기 전이 맞는지 확인
                     {
-                        _cookingCharacter._cookingTool.PutIngredient(EdibleItems[i]._ingredientsInfos.ID,
-                            EdibleItems[i]._ingredientsInfos.ImageUI);
-                        EdibleItems[i] = null;
-                        isUsed[i] = false;
-                        SlotManager.itemslots[i].changeSlotUI(SlotManager.emptySlot);
+                        if (_cookingCharacter._cookingTool.PutIngredient(EdibleItems[i]._ingredientsInfos.ID,
+                            EdibleItems[i]._ingredientsInfos.ImageUI))
+                        {
+                            EdibleItems[i] = null;
+                            isUsed[i] = false;
+                            edibleSlotManager.itemslots[i].changeSlotUI(edibleSlotManager.emptySlot);
+                        };
+                        
                     }
                 }
                 //_cookingCharacter._cookingTool

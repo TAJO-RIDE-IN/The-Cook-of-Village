@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ItemSlot : MonoBehaviour
 {
-    private int index;
+    [SerializeField] protected int index;
 
     public int Index
     {
@@ -16,20 +16,10 @@ public class ItemSlot : MonoBehaviour
             //EdibleItems.Add();
         }
     }
+    protected UnityEngine.UI.Image slotUI;
 
-    private UnityEngine.UI.Image slotUI;
-    private InventoryManager _inventoryManager;
-    // Start is called before the first frame update
-    void Start()
-    {
-        slotUI = transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();
-        _inventoryManager = GameObject.FindWithTag("InventoryManager").GetComponent<InventoryManager>();
-    }
+    public virtual void SlotClick() { }
 
-    public void SlotClick()
-    {
-        _inventoryManager.SendItem(index);
-    }
 
     public void changeSlotUI(Sprite sprite)
     {
