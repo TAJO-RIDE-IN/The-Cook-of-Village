@@ -8,9 +8,7 @@ public class SlotFridge : Slot
     public Text CountText;
     public Text IngredientName;
     public Image IngredientImage;
-    private InventoryManager _inventoryManager;
     private Transform player;
-    private CookingCharacter cook;
     public FridgeUI FridgeUI;
     public int SlotCount
     {
@@ -22,12 +20,6 @@ public class SlotFridge : Slot
             SlotState();
             IngredientsData.Instance.ChangeAmount(ingredientsInfos.Type, ingredientsInfos.ID, ingredientsInfos.Amount);
         }
-    }
-    private void Start()
-    {
-        _inventoryManager = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        cook = player.transform.GetComponent<CookingCharacter>();
     }
     private void OnEnable()
     {
@@ -49,7 +41,7 @@ public class SlotFridge : Slot
     {
         if (ingredientsInfos.Amount > 0)
         {
-            if (_inventoryManager.AddIngredient(ingredientsInfos))
+            if (InventoryManager.Instance.AddIngredient(ingredientsInfos))
             {
                 SlotCount--;
             }
