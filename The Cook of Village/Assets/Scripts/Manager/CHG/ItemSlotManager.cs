@@ -6,38 +6,15 @@ using UnityEngine.UI;
 
 public class ItemSlotManager : MonoBehaviour
 {
+    public int ChildSlotCount;
     public Text WarningText;
     
     public Sprite lockedSlot;
     public Sprite emptySlot;
-    public int ChildSlotCount;
     
-    private InventoryManager _inventoryManager;
-    public ItemSlot[] itemslots;
-    void Start()
-    {
-        
-        for (int i = 0; i < ChildSlotCount; i++)//이 작업을 나중에 함수 만들어서 게임 시작할 때 한번에 호출해주자
-        {
-            itemslots[i].Index = i;
-        }
-        _inventoryManager = GameObject.FindWithTag("InventoryManager").GetComponent<InventoryManager>();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void AddIngredientItem(IngredientsInfos infos, int index)
-    {
-        itemslots[index].changeSlotUI(infos.ImageUI);
-    }
-    public void AddFoodItem(FoodInfos infos, int index)
-    {
-        itemslots[index].changeSlotUI(infos.ImageUI);
-    }
+    public virtual void AddIngredientItem(IngredientsInfos infos, int index) { }
+    public virtual void AddFoodItem(FoodInfos infos, int index) { }
 
     public void ShowWarning()
     {
