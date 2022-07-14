@@ -12,13 +12,18 @@ public class CookingTool : MonoBehaviour
     public GameObject Inventory;
     public GameObject IngredientInvenBig;
     public Image FoodInvenBig;
+    public Sprite beforeCook;
+    
+    public CookItemSlotManager cookSlotManager;
+
+    
     private GameObject IngredientInven;
     private GameObject FoodInven;
     private Image blackCircle;
     private Animation _animation;
     private Coroutine coroutine;
-    
     private float currentValue;
+    
     
     public List<int> ingredientList = new List<int>();
     public FoodInfos FoodInfos { get; set;}//foodInfos가 바뀌면 해줄 일,즉 UI코루틴 끝났을때 할 일 set에 적자
@@ -31,14 +36,28 @@ public class CookingTool : MonoBehaviour
     static void FirstLoad(){
         
     }*/
+    
     private void Start()
     {
+        Inventory.SetActive(false);
         _animation = transform.GetComponent<Animation>();
         IngredientInven = transform.GetChild(1).GetChild(0).gameObject;
         FoodInven = transform.GetChild(1).GetChild(1).gameObject;
         blackCircle = FoodInven.transform.GetChild(1).GetComponent<Image>();
     }
 
+    
+    public void ReturnIngredient(int i)
+    {
+        if (ingredientList.Count > 0)
+        {
+            if (InventoryManager.Instance.AddIngredient(IngredientsData.Instance.IngredientsInfos(ingredientList[i])))
+            {
+                cookSlotManager.itemslots[i].changeSlotUI(cookSlotManager.emptySlot);
+            }
+            
+        }
+    }
 
     public bool PutIngredient(int id, Sprite sprite) //이걸 현재 들고있는게 null이 아닐때만 실행시켜주면 되는데 혹시몰라서 한번 더 조건문 넣음
     {
@@ -62,9 +81,12 @@ public class CookingTool : MonoBehaviour
 
     public void Cook()
     {
+        
         isBeforeCooking = false;
         ingredientList.Sort();
         FoodInfos = FoodData.Instance.RecipeFood((int)type, ingredientList);
+        cookSlotManager.RefreshSlot();
+        ingredientList.Clear();
         //Debug.Log(FoodInfos.Name);
         IngredientInven.SetActive(false);
         coroutine = StartCoroutine(CookingGauge());
@@ -72,7 +94,7 @@ public class CookingTool : MonoBehaviour
 
     public void RefreshTool()
     {
-        ingredientList.Clear();
+        
         for (int i = 0; i < IngredientInven.transform.childCount; i++)
         {
             IngredientInven.transform.GetChild(i).GetComponent<Image>().sprite = Resources.Load<Sprite>("IconSets");
@@ -104,6 +126,7 @@ public class CookingTool : MonoBehaviour
         isCooked = true;
         FoodInvenBig.sprite = FoodInfos.ImageUI;
         FoodInven.transform.GetChild(2).transform.GetComponent<Image>().sprite = FoodInfos.ImageUI;
+        FoodInvenBig.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
         FoodInvenBig.sprite = FoodInfos.ImageUI;
         FoodInven.transform.GetChild(3).gameObject.SetActive(false);//디폴트 숨기기
         FoodInven.transform.GetChild(2).gameObject.SetActive(true);
