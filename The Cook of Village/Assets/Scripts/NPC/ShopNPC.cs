@@ -23,7 +23,13 @@ public class ShopNPC : MonoBehaviour, IObserver<GameData>
             currentShop();
         }
     }
-
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            ani.SetTrigger("Sell");
+        }
+    }
     private bool TodayShopOpen(float time ,bool open)
     {
         if(time >= OpenTime && time <= CloseTime)
