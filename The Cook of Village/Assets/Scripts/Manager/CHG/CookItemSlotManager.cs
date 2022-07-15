@@ -6,6 +6,7 @@ using UnityEngine;
 public class CookItemSlotManager : ItemSlotManager
 {
     public CookItemSlot[] itemslots;
+    public CookingTool cookingTool;
     
 
     private void Awake()
@@ -21,6 +22,15 @@ public class CookItemSlotManager : ItemSlotManager
         for (int i = 0; i < ChildSlotCount; i++)
         {
             itemslots[i].changeSlotUI(emptySlot);
+        }
+    }
+
+    public void ThrowTrash()
+    {
+        if (InventoryManager.Instance._cookingCharacter)
+        {
+            cookingTool.ingredientList.Clear();
+            RefreshSlot();
         }
     }
 

@@ -9,7 +9,7 @@ public class CookItemSlot : ItemSlot
 
     public Type _type;
 
-    public CookingTool cookingTool;
+    public CookItemSlotManager itemSlotManager;
 
     // Start is called before the first frame update
     private void Awake()
@@ -20,23 +20,27 @@ public class CookItemSlot : ItemSlot
 
     public override void SlotClick()
     {
-        cookingTool.ReturnIngredient(index);
+        itemSlotManager.cookingTool.ReturnIngredient(index);
     }
 
     public void FoodSlotClick()
     {
         Debug.Log("요리 호출");
-        if (cookingTool.isCooked)
+        if (itemSlotManager.cookingTool.isCooked)
         {
             Debug.Log("요리 완료");
-            if (InventoryManager.Instance.AddFood(cookingTool.FoodInfos))
+            if (InventoryManager.Instance.AddFood(itemSlotManager.cookingTool.FoodInfos))
             {
-                cookingTool.RefreshTool();
-                changeSlotUI(cookingTool.beforeCook);
+                changeSlotUI(itemSlotManager.cookingTool.toolBeforeCook);
             }
-            
+            return;
+        }
+        if(itemSlotManager.cookingTool.isBeforeCooking)
+        {
+            //요리하는 거 하기
         }
     }
+
 
     public void changeSlotUI(Sprite sprite)
     {

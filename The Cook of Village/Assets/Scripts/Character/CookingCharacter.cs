@@ -21,16 +21,16 @@ public class CookingCharacter : MonoBehaviour
     private SoundManager soundManager;
     public AnimationClip[] Idle;
     public AnimationClip[] Walk;
-    
+
     public bool isToolCollider;
     private bool isGuestCollider;
     public bool isFridgeCollider;
     private bool isObjectCollider;
     public bool isHand = false;//이거만 잘 컨트롤해주면 시작할때 null값 넣어주느니 그런거 안해도 되잖아
-    public bool isInvenSpace;
+    public bool isSpace;
     
     private bool isDestroy;
-    private string objectName;
+    [HideInInspector]public string objectName;
 
 
     void Start()
@@ -70,12 +70,13 @@ public class CookingCharacter : MonoBehaviour
         {
             if (isToolCollider)//요리도구에 들어갔을때만,요리중이 아닐때만 재료넣는거 실행
             {
-                isInvenSpace = true;
-                _cookingTool.Inventory.SetActive(true);
+                isSpace = true;
+                _cookingTool.InventoryBig.SetActive(true);
                 return;
             }
             if (isGuestCollider)
             {
+                isSpace = true;
                 if (currentFood != null)
                 {
                     isDestroy = _foodOrder.ReceiveFood(currentFood.ID);
@@ -85,7 +86,7 @@ public class CookingCharacter : MonoBehaviour
             }
             if (isFridgeCollider)
             {
-                isInvenSpace = true;
+                isSpace = true;
                 fridge.transform.GetComponent<Fridge>().OpenRefrigerator();
                 return;
             }
@@ -114,6 +115,7 @@ public class CookingCharacter : MonoBehaviour
                     //쟁반에 밀가루 생성
                 }
             }
+            
         }
         
         else if(Input.GetKeyDown(KeyCode.E))
@@ -187,23 +189,7 @@ public class CookingCharacter : MonoBehaviour
             }
         }
 
-        if (other.gameObject.name == "Trash")
-        {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                if (isHand)
-                {
-                    for (int i = 0; i < HandPosition.transform.childCount; i++)//이걸 꽉차면 안없애야하는데..(원래 PutIngredient에 있었음)
-                    {
-                        Destroy(HandPosition.transform.GetChild(i).gameObject);
-                    }
-
-                    currentFood = null;
-                    currentIngredient = null;
-                    isHand = false;
-                }
-            }
-        }
+        
     }
     private void OnTriggerExit(Collider other)
     {
@@ -218,12 +204,13 @@ public class CookingCharacter : MonoBehaviour
         if (other.tag == "CookingTools")
         {
             isToolCollider = false;
-            isInvenSpace = false;
-            _cookingTool.Inventory.SetActive(false);
+            isSpace = false;
+            _cookingTool.InventoryBig.SetActive(false);
             return;
         }
         if (other.CompareTag("Guest"))
         {
+            isSpace = false;
             isGuestCollider = false;
         }
         else
