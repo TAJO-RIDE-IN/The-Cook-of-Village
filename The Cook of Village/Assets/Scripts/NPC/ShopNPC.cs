@@ -6,12 +6,26 @@ public class ShopNPC : MonoBehaviour, IObserver<GameData>
 {
     public ShopUI shopUI;
     public ShopUI.Shop type;
+
+    public enum State { Idle, Walk, Sell, Greet}
+    [SerializeField]
+    private State NPCState;
+    public State CurrentState
+    {
+        get{ return NPCState; }
+        set
+        {
+            NPCState = value;
+            NPCAnimation();
+        }
+    }
+
     private Animator ani;
+    public bool isOpen;
 
     public int OpenTime;
     public int CloseTime;
     public int CloseDay;
-
     private void Start()
     {
         ani = this.gameObject.GetComponent<Animator>();
@@ -20,6 +34,9 @@ public class ShopNPC : MonoBehaviour, IObserver<GameData>
     {
         if(other.tag == "Player")
         {
+
+            isOpen = true;
+            CurrentState = State.Greet;
             currentShop();
         }
     }
@@ -27,7 +44,8 @@ public class ShopNPC : MonoBehaviour, IObserver<GameData>
     {
         if (other.tag == "Player")
         {
-            ani.SetTrigger("Sell");
+            isOpen = false;
+            CurrentState = State.Greet;
         }
     }
     private bool TodayShopOpen(float time ,bool open)
@@ -39,7 +57,29 @@ public class ShopNPC : MonoBehaviour, IObserver<GameData>
         }
         else
         {
+            isOpen = false;
             return false;
+        }
+    }
+
+    public void NPCAnimation()
+    {
+        switch(CurrentState)
+        {
+            case State.Idle:
+                ani.SetTrigger("Idle");
+                break;
+            case State.Walk:
+                ani.SetTrigger("Walk");
+                break;
+            case State.Sell:
+                ani.SetTrigger("Sell");
+                CurrentState = State.Idle;
+                break;
+            case State.Greet:
+                ani.SetTrigger("Greet");
+                CurrentState = State.Idle;
+                break;
         }
     }
 
