@@ -15,15 +15,16 @@ public class CookingCharacter : MonoBehaviour
 
 
     [HideInInspector] public CookingTool _cookingTool;
-    private FoodOrder _foodOrder;
+    public FoodOrder _foodOrder;
     private Fridge fridge;
     private AnimatorOverrideController animatorOverrideController;
     private SoundManager soundManager;
     public AnimationClip[] Idle;
     public AnimationClip[] Walk;
+    public UIMovement uiMovement;
 
     public bool isToolCollider;
-    private bool isGuestCollider;
+    public bool isGuestCollider;
     public bool isFridgeCollider;
     private bool isObjectCollider;
     public bool isHand = false;//이거만 잘 컨트롤해주면 시작할때 null값 넣어주느니 그런거 안해도 되잖아
@@ -70,25 +71,52 @@ public class CookingCharacter : MonoBehaviour
         {
             if (isToolCollider)//요리도구에 들어갔을때만,요리중이 아닐때만 재료넣는거 실행
             {
-                isSpace = true;
-                _cookingTool.InventoryBig.SetActive(true);
-                return;
+                if (isSpace)
+                {
+                    isSpace = false;
+                    _cookingTool.InventoryBig.SetActive(false);
+                    return;
+                }
+                else
+                {
+                    isSpace = true;
+                    _cookingTool.InventoryBig.SetActive(true);
+                    return;
+                }
+                
             }
             if (isGuestCollider)
             {
-                isSpace = true;
-                if (currentFood != null)
+                if(isSpace)
                 {
-                    isDestroy = _foodOrder.ReceiveFood(currentFood.ID);
-                    DestroyOrNot();
+                    uiMovement.CloseUI();
+                    isSpace = false;
+                    //UI 띄우기
+                    return;
+                }
+                else
+                {
+                    uiMovement.ShowUI();
+                    isSpace = true;
+                    //UI 끄기
                     return;
                 }
             }
             if (isFridgeCollider)
             {
-                isSpace = true;
-                fridge.transform.GetComponent<Fridge>().OpenRefrigerator();
-                return;
+                if (isSpace)
+                {
+                    isSpace = false;
+                    fridge.CloseRefrigerator();
+                    return;
+                }
+                else
+                {
+                    isSpace = true;
+                    fridge.OpenRefrigerator();
+                    return;
+                }
+                
             }
             if (objectName == "Ladder")
             {
@@ -137,8 +165,23 @@ public class CookingCharacter : MonoBehaviour
                 
         }
     }
+    public IEnumerator FoodOrderUI()
+    {
+        int TrueNumber = 1;
+        int loopNum = 0;
+        while (TrueNumber == 1)
+        {
 
-    public void DestroyOrNot()
+            yield return null;
+
+            if(loopNum++ > 10000)
+                throw new System.Exception("Infinite Loop");
+
+        }
+
+    }
+
+    public void DestroyOrNot()//쟁반에서 써야할듯
     {
         if (isDestroy)
         {
@@ -196,7 +239,7 @@ public class CookingCharacter : MonoBehaviour
         
         if (other.tag == "Fridge")
         {
-            other.transform.GetComponent<Fridge>().CloseRefrigerator();
+            fridge.CloseRefrigerator();
             isFridgeCollider = false;
             return;
         }
@@ -210,6 +253,7 @@ public class CookingCharacter : MonoBehaviour
         }
         if (other.CompareTag("Guest"))
         {
+            uiMovement.CloseUI();
             isSpace = false;
             isGuestCollider = false;
         }

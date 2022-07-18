@@ -87,29 +87,42 @@ public class CookingTool : MonoBehaviour
 
     public void Cook()
     {
-        isBeforeCooking = false;
-        ingredientList.Sort();
-        FoodInfos = FoodData.Instance.RecipeFood((int)type, ingredientList);
-        cookSlotManager.RefreshSlot();
-        RefreshTool();
-        ingredientList.Clear();
-        //Debug.Log(FoodInfos.Name);
-        IngredientInven.SetActive(false);
-        StartCoroutine(CookingGauge());
+        if (ingredientList.Count > 0)
+        {
+            isBeforeCooking = false;
+            ingredientList.Sort();
+            FoodInfos = FoodData.Instance.RecipeFood((int)type, ingredientList);
+            cookSlotManager.RefreshSlot();
+            RemoveIng();
+            ingredientList.Clear();
+            //Debug.Log(FoodInfos.Name);
+            IngredientInven.SetActive(false);
+            StartCoroutine(CookingGauge());
+        }
+        else
+        {
+            //재료를 넣으세요! UI 출력
+        }
+        
     }
 
-    public void RefreshTool()
+    public void RemoveFood()
+    {
+        blackCircle.fillAmount = 0;
+        isCooked = false;
+        food.sprite = toolBeforeCook;
+    }
+
+    public void RemoveIng()
     {
         for (int i = 0; i < 3; i++)
         {
             Ing[i].sprite = cookSlotManager.emptySlot;
         }
-        food.sprite = toolBeforeCook;
-        blackCircle.fillAmount = 0;
         isBeforeCooking = true;
-        isCooked = false;
 
     }
+
     
     IEnumerator CookingGauge() //LoadingBar.fillAmount이 1이 될때까지 점점 게이지를 추가해줌
     {

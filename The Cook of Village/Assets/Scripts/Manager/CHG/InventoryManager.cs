@@ -11,6 +11,11 @@ public class InventoryManager : MonoBehaviour
         
     private void Awake()
     {
+        for (int i = 0; i < MaxInven; i++)
+        {
+            EdibleItems[i] = new EdibleItem()
+                {_itemType = EdibleItem.ItemType.Ingredient, _ingredientsInfos = null, _foodInfos = null};
+        }
         if (null == instance)
         {
             instance = this;
@@ -90,6 +95,10 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
+        for (int i = 0; i < MaxInven; i++)
+        {
+            EdibleItems[i]._itemType = EdibleItem.ItemType.Ingredient;
+        }
         _cookingCharacter = GameObject.FindGameObjectWithTag("Player").GetComponent<CookingCharacter>();
 
     }
@@ -99,17 +108,18 @@ public class InventoryManager : MonoBehaviour
         //버튼 Interactable 켜주기
     }
 
-    public bool AddIngredient(IngredientsInfos infos)
+    public bool AddIngredient(IngredientsInfos ingredient)
     {
         for (int i = 0; i < MaxInven; i++)
         {
-            Debug.Log(i+"번째 슬롯 진입");
+            //Debug.Log(i+"번째 슬롯 진입");
             if (isUsed[i] == false)
             {
-                Debug.Log(i+"번째 슬롯이 비어있음");
-                EdibleItems[i] = new EdibleItem(){_itemType = EdibleItem.ItemType.Ingredient, _ingredientsInfos = infos, 
-                    _foodInfos = null};
-                edibleSlotManager.AddIngredientItem(infos, i);
+                //Debug.Log(i+"번째 슬롯이 비어있음");
+                EdibleItems[i]._itemType = EdibleItem.ItemType.Ingredient;
+                EdibleItems[i]._ingredientsInfos = ingredient;
+                EdibleItems[i]._foodInfos = null;
+                edibleSlotManager.AddIngredientItem(ingredient, i);
                 isUsed[i] = true;
                 return true;
             }
@@ -124,9 +134,10 @@ public class InventoryManager : MonoBehaviour
         {
             if (isUsed[i] == false)
             {
-                Debug.Log(i+"번째 슬롯이 비어있음");
-                EdibleItems[i] = new EdibleItem(){_itemType = EdibleItem.ItemType.Ingredient, _ingredientsInfos = null, 
-                    _foodInfos = food};
+                //Debug.Log(i+"번째 슬롯이 비어있음");
+                EdibleItems[i]._itemType = EdibleItem.ItemType.Food;
+                EdibleItems[i]._ingredientsInfos = null;
+                EdibleItems[i]._foodInfos = food;
                 edibleSlotManager.AddFoodItem(food, i);
                 isUsed[i] = true;
                 return true;
@@ -142,9 +153,9 @@ public class InventoryManager : MonoBehaviour
     {
         if (isUsed[i])
         {
-            if (EdibleItems[i]._itemType == EdibleItem.ItemType.Ingredient)
+            if (_cookingCharacter.isSpace)
             {
-                if (_cookingCharacter.isSpace) //우선 캐릭터가 스페이스바를 눌렀는지 확인
+                if (EdibleItems[i]._itemType == EdibleItem.ItemType.Ingredient)
                 {
                     if (_cookingCharacter.isToolCollider) //스페이스바를 냉장고안이나에서 누른건 아닌지 확인 => 스위치로 변경
                     {
@@ -153,7 +164,7 @@ public class InventoryManager : MonoBehaviour
                             if (_cookingCharacter._cookingTool.PutIngredient(EdibleItems[i]._ingredientsInfos.ID,
                                 EdibleItems[i]._ingredientsInfos.ImageUI))
                             {
-                                EdibleItems[i] = null;
+                                EdibleItems[i]._ingredientsInfos = null;
                                 isUsed[i] = false;
                                 edibleSlotManager.itemslots[i].changeSlotUI(edibleSlotManager.emptySlot);
                                 return;
@@ -162,7 +173,26 @@ public class InventoryManager : MonoBehaviour
                         }
                     }
                 }
+
+                if (EdibleItems[i]._itemType == EdibleItem.ItemType.Food)
+                {
+                    if (_cookingCharacter.isGuestCollider)
+                    {
+                        Debug.Log("음식 전달 완료");
+                        //게스트가 안받은 상태라면
+                        if (_cookingCharacter._foodOrder.ReceiveFood(EdibleItems[i]._foodInfos.ID))
+                        {
+                            isUsed[i] = false;
+                            edibleSlotManager.itemslots[i].changeSlotUI(edibleSlotManager.emptySlot);
+                            _cookingCharacter.uiMovement.foodOrderImage.sprite = EdibleItems[i]._foodInfos.ImageUI;
+                            _cookingCharacter.uiMovement.CloseUI();
+                            EdibleItems[i]._foodInfos = null;
+                            return;
+                        }
+                    }
+                }
             }
+            
             else
             {
                 
