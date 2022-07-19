@@ -15,14 +15,18 @@ public class Fridge : MonoBehaviour
         frigdeAnimator = transform.GetComponent<Animator>();
     }
 
+    public void FridgeAnimaion(bool state)
+    {
+        frigdeAnimator.SetBool("isOpen", state);
+    }
     public void OpenRefrigerator()
     {
-        frigdeAnimator.SetBool("isOpen", true);
+        FridgeAnimaion(true);
         refrigeratorUI.OpenUI();
     }
     public void CloseRefrigerator()
     {
-        frigdeAnimator.SetBool("isOpen", false);
+        FridgeAnimaion(false);
         refrigeratorUI.CloseUI();
     }
 }
