@@ -32,6 +32,7 @@ public class FridgeUI : SlotParent
     {
         IngredientsData.Instance.ChangeAmount(type, id, amount++);
     }
+
     public override void OpenUI()
     {
         GameManager.Instance.IsUI = true;
@@ -42,5 +43,10 @@ public class FridgeUI : SlotParent
     {
         GameManager.Instance.IsUI = false;
         this.gameObject.SetActive(false);
+        GameObject fridge = GameObject.FindGameObjectWithTag("Fridge");
+        if(fridge != null)
+        {
+            fridge.GetComponent<Fridge>().FridgeAnimaion(false);
+        }
     }
 }
