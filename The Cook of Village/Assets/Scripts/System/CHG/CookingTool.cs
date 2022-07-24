@@ -123,10 +123,14 @@ public class CookingTool : MonoBehaviour
 
     }
 
+    public void CloseUI()
+    {
+        IngredientInven.SetActive(false);
+    }
+
     
     IEnumerator CookingGauge() //LoadingBar.fillAmount이 1이 될때까지 점점 게이지를 추가해줌
     {
-        
         while (blackCircle.fillAmount < 1)
         {
             currentValue += Time.deltaTime;
