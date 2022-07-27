@@ -86,10 +86,10 @@ public class IngredientsData : DataManager
     public IngredientsInfos IngredientsInfos(int id)
     {
         int dataIndex;
-        dataIndex = IngredientsType[MaterialType(id)].IngredientsInfos.FindIndex(m => m.ID == id);
-        return IngredientsType[MaterialType(id)].IngredientsInfos[dataIndex];
+        dataIndex = IngredientsType[IngredientType(id)].IngredientsInfos.FindIndex(m => m.ID == id);
+        return IngredientsType[IngredientType(id)].IngredientsInfos[dataIndex];
     }
-    private int MaterialType(int id)
+    private int IngredientType(int id)
     {
         return id / 10;
     }
