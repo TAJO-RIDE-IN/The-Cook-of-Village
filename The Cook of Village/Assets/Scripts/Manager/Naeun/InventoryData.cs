@@ -15,7 +15,7 @@ public class InventoryItemInfos
 [System.Serializable]
 public class InventoryType
 {
-    public enum Type {Potion, CookingTool, Ingredient}
+    public enum Type {Potion, CookingTool, Furniture}
     [SerializeField]
     public Type type;
     public List<InventoryItemInfos> InventoryInfos = new List<InventoryItemInfos>();
