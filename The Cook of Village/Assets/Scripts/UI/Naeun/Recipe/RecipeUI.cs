@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RecipeUI : MonoBehaviour
@@ -20,13 +21,10 @@ public class RecipeUI : MonoBehaviour
     public void LoadRecipeSlot(int ToolID)
     {
         Init();
-        int order = 0;
-        foreach (FoodInfos food in FoodData.Instance.foodTool[ToolID].foodInfos)
+        List<FoodInfos> infos = FoodData.Instance.foodTool[ToolID].foodInfos;
+        foreach (var food in infos.Select((value, index) => (value, index)))
         {
-            FoodSlot[order].gameObject.SetActive(true);
-            FoodSlot[order].foodInfos = food;
-            FoodSlot[order].ChangeImage();
-            order++;
+            FoodSlot[food.index].foodInfos = food.value;
         }
     }
 

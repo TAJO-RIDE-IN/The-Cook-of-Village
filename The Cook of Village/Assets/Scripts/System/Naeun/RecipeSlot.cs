@@ -5,11 +5,21 @@ using UnityEngine.UI;
 
 public class RecipeSlot : MonoBehaviour
 {
-    public FoodInfos foodInfos;
+    private FoodInfos infos;
+    public FoodInfos foodInfos
+    {
+        get { return infos; }
+        set 
+        { 
+            infos = value;
+            this.gameObject.SetActive(true);
+            ChangeImage();
+        }
+    }
     public Image FoodImage;
     public SelectRecipe selectRecipe;
 
-    public void ChangeImage()
+    private void ChangeImage()
     {
         FoodImage.sprite = foodInfos.ImageUI;
     }
