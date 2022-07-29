@@ -23,6 +23,11 @@ public class InventoryUI : MonoBehaviour
         LoadInventorySlot();
     }
 
+    public void TabClick(int _tab)
+    {
+        CurrentTab = (InventoryType.Type)_tab;
+    }
+
     private void LoadInventorySlot()
     {
         List <InventoryItemInfos> Iteminfos = InventoryData.Instance.inventoryType[(int)CurrentTab].InventoryInfos;

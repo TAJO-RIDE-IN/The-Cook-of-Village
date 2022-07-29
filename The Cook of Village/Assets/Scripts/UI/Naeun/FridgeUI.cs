@@ -16,7 +16,6 @@ public class FridgeUI : SlotParent
 
     public override void LoadSlotData()
     {
-        int count = 0;
         foreach(var Container in SlotContainer)
         {
             List<IngredientsInfos> ingredients = IngredientsData.Instance.IngredientsType[(int)Container.ingredientsType].IngredientsInfos;
