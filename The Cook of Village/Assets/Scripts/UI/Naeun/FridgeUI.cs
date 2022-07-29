@@ -1,29 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
+[System.Serializable]
+public class FirdgeSlotContainer
+{
+    public IngredientsType.Type ingredientsType;
+    public List<SlotFridge> FridgeSlot = new List<SlotFridge>();
+}
 public class FridgeUI : SlotParent
 {
     [SerializeField]
-    private List<SlotFridge> FridgeSlot = new List<SlotFridge>();
+    private FirdgeSlotContainer[] SlotContainer;
 
     public override void LoadSlotData()
     {
         int count = 0;
-        foreach(IngredientsType type in IngredientsData.Instance.IngredientsType)
+        foreach(var Container in SlotContainer)
         {
-            if(type.type != IngredientsType.Type.Base)
+            List<IngredientsInfos> ingredients = IngredientsData.Instance.IngredientsType[(int)Container.ingredientsType].IngredientsInfos;
+            foreach (var Infos in ingredients.Select((value, index) => (value, index)))
             {
-                foreach (IngredientsInfos materialInfos in type.IngredientsInfos)
-                {
-                    if (SlotDictionary[FridgeSlot[count].transform.parent.name] == materialInfos.Type) //Type이 같을 때만 정보 Load
-                    {
-                        FridgeSlot[count].ingredientsInfos = materialInfos;
-                        FridgeSlot[count].SlotCount = materialInfos.Amount;
-                        FridgeSlot[count].FridgeUI = this;
-                    }
-                    count++;
-                }
+                Container.FridgeSlot[Infos.index].Infos = Infos.value;
+                Container.FridgeSlot[Infos.index].SlotCount = Infos.value.Amount;
+                Container.FridgeSlot[Infos.index].FridgeUI = this;
             }
         }
     }

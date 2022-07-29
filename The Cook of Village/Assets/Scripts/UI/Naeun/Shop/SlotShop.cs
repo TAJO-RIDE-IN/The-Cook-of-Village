@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SlotShop : Slot
+public class SlotShop : Slot<IngredientsInfos>
 {
     public Text SlotText;
     public Text PriceText;
@@ -17,20 +17,20 @@ public class SlotShop : Slot
     private void OnDisable()
     {
         this.gameObject.SetActive(false);
-        ingredientsInfos = null;
+        Infos = null;
     }
     public override void SelectSlot()
     {
         SelectSlotObject.gameObject.SetActive(true);
         SelectSlotObject.slot = this;
-        SelectSlotObject.CurrentCount = ingredientsInfos.Amount;
-        SelectSlotObject.ModifySlot(Localization.GetLocalizedString("Ingredient", ingredientsInfos.Name), ingredientsInfos.ImageUI);
+        SelectSlotObject.CurrentCount = Infos.Amount;
+        SelectSlotObject.ModifySlot(Localization.GetLocalizedString("Ingredient", Infos.Name), Infos.ImageUI);
     }
 
     public override void ModifySlot()
     {
-        PriceText.text = ingredientsInfos.Price.ToString();
-        SlotImage.sprite = ingredientsInfos.ImageUI;
-        SlotText.text = Localization.GetLocalizedString("Ingredient", ingredientsInfos.Name);
+        PriceText.text = Infos.Price.ToString();
+        SlotImage.sprite = Infos.ImageUI;
+        SlotText.text = Localization.GetLocalizedString("Ingredient", Infos.Name);
     }
 }

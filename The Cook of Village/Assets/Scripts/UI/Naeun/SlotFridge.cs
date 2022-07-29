@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SlotFridge : Slot
+public class SlotFridge : Slot<IngredientsInfos>
 {
     public Text CountText;
     public Text IngredientName;
@@ -12,13 +12,13 @@ public class SlotFridge : Slot
     public FridgeUI FridgeUI;
     public int SlotCount
     {
-        get { return ingredientsInfos.Amount; }
+        get { return Infos.Amount; }
         set
         {
-            ingredientsInfos.Amount = value;
+            Infos.Amount = value;
             ModifySlot();
             SlotState();
-            IngredientsData.Instance.ChangeAmount(ingredientsInfos.Type, ingredientsInfos.ID, ingredientsInfos.Amount);
+            IngredientsData.Instance.ChangeAmount(Infos.Type, Infos.ID, Infos.Amount);
         }
     }
     private void OnEnable()
@@ -28,20 +28,20 @@ public class SlotFridge : Slot
     private void SlotState()
     {
         bool state;
-        state = (ingredientsInfos.Amount > 0) ? true : false;
+        state = (Infos.Amount > 0) ? true : false;
         this.gameObject.SetActive(state);
     }
     public override void ModifySlot()
     {
         CountText.text = "X" + SlotCount;
-        IngredientName.text = Localization.GetLocalizedString("Ingredient", ingredientsInfos.Name);
-        IngredientImage.sprite = ingredientsInfos.ImageUI;
+        IngredientName.text = Localization.GetLocalizedString("Ingredient", Infos.Name);
+        IngredientImage.sprite = Infos.ImageUI;
     }
     public override void SelectSlot()
     {
-        if (ingredientsInfos.Amount > 0)
+        if (Infos.Amount > 0)
         {
-            if (InventoryManager.Instance.AddIngredient(ingredientsInfos))
+            if (InventoryManager.Instance.AddIngredient(Infos))
             {
                 SlotCount--;
             }
