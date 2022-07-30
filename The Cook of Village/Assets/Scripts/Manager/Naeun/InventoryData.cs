@@ -5,9 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class InventoryItemInfos
 {
-    public int Type;
+    public InventoryType.Type type;
     public int ID;
     public string Name;
+    [Multiline]
     public string Explanation;
     public int Price;
     public int Amount;

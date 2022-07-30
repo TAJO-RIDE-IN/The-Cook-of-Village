@@ -6,8 +6,6 @@ using UnityEngine;
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField]
-    private SlotInventory[] slotInventory;
-    [SerializeField]
     private InventoryType.Type tab;
     public InventoryType.Type CurrentTab
     {
@@ -18,6 +16,9 @@ public class InventoryUI : MonoBehaviour
             LoadInventorySlot();
         }
     }
+
+    [SerializeField]
+    private SlotInventory[] slotInventory;
     private void OnEnable()
     {
         LoadInventorySlot();
