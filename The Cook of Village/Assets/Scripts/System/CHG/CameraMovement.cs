@@ -67,7 +67,7 @@ public class CameraMovement : MonoBehaviour
         }
         else
         {
-            if (zoomValue > -3)
+            if (zoomValue > -5)
             {
                 cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
                 zoomValue += distance;
