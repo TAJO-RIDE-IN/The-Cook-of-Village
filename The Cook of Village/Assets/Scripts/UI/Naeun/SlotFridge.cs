@@ -18,7 +18,7 @@ public class SlotFridge : Slot<ItemInfos>
             Infos.Amount = value;
             ModifySlot();
             SlotState();
-            ItemData.Instance.ChangeAmount((int)Infos.type, Infos.ID, Infos.Amount);
+            ItemData.Instance.ChangeAmount(Infos.ID, Infos.Amount);
         }
     }
     private void OnEnable()

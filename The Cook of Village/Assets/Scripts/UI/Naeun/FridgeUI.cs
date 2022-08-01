@@ -28,9 +28,9 @@ public class FridgeUI : SlotParent
         }
     }
 
-    public void InputRefrigerator(int type, int id, int amount)
+    public void InputRefrigerator(int id, int amount)
     {
-        ItemData.Instance.ChangeAmount(type, id, amount++);
+        ItemData.Instance.ChangeAmount(id, amount++);
     }
 
     public override void OpenUI()

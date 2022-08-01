@@ -65,7 +65,7 @@ public class ItemData : DataManager
         SaveArrayData<ItemType>(ref ItemType, "IngredientsData");
     }
 
-    public ItemInfos IngredientsInfos(int id)
+    public ItemInfos ItemInfos(int id)
     {
         int dataIndex;
         dataIndex = ItemType[IngredientType(id)].ItemInfos.FindIndex(m => m.ID == id);
@@ -75,8 +75,8 @@ public class ItemData : DataManager
     {
         return id / 10;
     }
-    public void ChangeAmount(int type, int id, int amount)
+    public void ChangeAmount(int id, int amount)
     {
-        IngredientsInfos(id).Amount = amount;
+        ItemInfos(id).Amount = amount;
     }
 }

@@ -80,7 +80,7 @@ public class ShopSelect : MonoBehaviour
                 npc.CurrentState = ShopNPC.State.Sell;
             }
         }
-        ItemData.Instance.ChangeAmount((int)slot.Infos.type, slot.Infos.ID, CurrentAmount());
+        ItemData.Instance.ChangeAmount(slot.Infos.ID, CurrentAmount());
         GameData.Instance.Money -= Int32.Parse(TotalPrice.text);
         CurrentCount = CurrentAmount();
     }

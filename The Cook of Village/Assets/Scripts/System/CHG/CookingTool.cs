@@ -53,7 +53,7 @@ public class CookingTool : MonoBehaviour
     {
         if (ingredientList.Count > 0)
         {
-            if (InventoryManager.Instance.AddIngredient(ItemData.Instance.IngredientsInfos(ingredientList[i])))
+            if (InventoryManager.Instance.AddIngredient(ItemData.Instance.ItemInfos(ingredientList[i])))
             {
                 cookSlotManager.itemslots[i].changeSlotUI(cookSlotManager.emptySlot);
             }
