@@ -13,7 +13,7 @@ public class ItemSlotManager : MonoBehaviour
     public Sprite emptySlot;
     
 
-    public virtual void AddIngredientItem(IngredientsInfos infos, int index) { }
+    public virtual void AddIngredientItem(ItemInfos infos, int index) { }
     public virtual void AddFoodItem(FoodInfos infos, int index) { }
 
     public void ShowWarning()

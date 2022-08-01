@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class FirdgeSlotContainer
 {
-    public IngredientsType.Type ingredientsType;
+    public ItemType.Type ingredientsType;
     public List<SlotFridge> FridgeSlot = new List<SlotFridge>();
 }
 public class FridgeUI : SlotParent
@@ -18,7 +18,7 @@ public class FridgeUI : SlotParent
     {
         foreach(var Container in SlotContainer)
         {
-            List<IngredientsInfos> ingredients = IngredientsData.Instance.IngredientsType[(int)Container.ingredientsType].IngredientsInfos;
+            List<ItemInfos> ingredients = ItemData.Instance.ItemType[(int)Container.ingredientsType].ItemInfos;
             foreach (var Infos in ingredients.Select((value, index) => (value, index)))
             {
                 Container.FridgeSlot[Infos.index].Infos = Infos.value;
@@ -30,7 +30,7 @@ public class FridgeUI : SlotParent
 
     public void InputRefrigerator(int type, int id, int amount)
     {
-        IngredientsData.Instance.ChangeAmount(type, id, amount++);
+        ItemData.Instance.ChangeAmount(type, id, amount++);
     }
 
     public override void OpenUI()

@@ -34,7 +34,7 @@ public class CookItemSlotManager : ItemSlotManager
         }
     }
 
-    public override void AddIngredientItem(IngredientsInfos infos, int index)
+    public override void AddIngredientItem(ItemInfos infos, int index)
     {
         itemslots[index].changeSlotUI(infos.ImageUI);
     }

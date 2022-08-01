@@ -29,7 +29,7 @@ public class ShopUI : SlotParent
 
     public override void LoadSlotData ()
     {
-        List <IngredientsInfos> infos = IngredientsData.Instance.IngredientsType[(int)shop+1].IngredientsInfos;
+        List <ItemInfos> infos = ItemData.Instance.ItemType[(int)shop+1].ItemInfos;
 
         foreach (var Ingredient in infos.Select((value, index) => (value, index)))
         {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SlotInventory : Slot<InventoryItemInfos>
+public class SlotInventory : Slot<ItemInfos>
 {
-    public InventoryItemInfos ItemInfos
+    public ItemInfos ItemInfos
     {
         get { return Infos; }
         set 
@@ -26,17 +26,19 @@ public class SlotInventory : Slot<InventoryItemInfos>
     public void ResetSlot()
     {
         ItemImage.gameObject.SetActive(false);
+        UseItemButton.enabled = false;
         Infos = null;
     }
     public override void SelectSlot()
     {
         ItemExplanation.SetActive(true);
         ExplanationText.text = Infos.Explanation;
-        UseItemButton.gameObject.SetActive(Infos.type == InventoryType.Type.Potion);
+        UseItemButton.gameObject.SetActive(Infos.type == ItemType.Type.Potion);
     }
     public override void ModifySlot()
     {
         ItemImage.gameObject.SetActive(true);
+        UseItemButton.enabled = true;
         ItemImage.sprite = Infos.ImageUI;
     }
 }

@@ -8,7 +8,7 @@ using Object = System.Object;
 
 public class CookingTool : MonoBehaviour
 {
-    public enum Type { Blender = 0, Pot = 1, FryPan = 2, Oven = 3, Whisker = 4, Trash = 5}//접시도 추가할거니까 접시일때 행동들이랑 도구일때 행동들 구분하기, 그리고 머랭같은 특별한 도구도 어떻게할지 생각해야함
+    public enum Type { Blender = 0, FryPan = 1, Pot = 2, Oven = 3, Whisker = 4, Trash = 5}//접시도 추가할거니까 접시일때 행동들이랑 도구일때 행동들 구분하기, 그리고 머랭같은 특별한 도구도 어떻게할지 생각해야함
     public Type type;
 
     public GameObject InventoryBig;
@@ -53,7 +53,7 @@ public class CookingTool : MonoBehaviour
     {
         if (ingredientList.Count > 0)
         {
-            if (InventoryManager.Instance.AddIngredient(IngredientsData.Instance.IngredientsInfos(ingredientList[i])))
+            if (InventoryManager.Instance.AddIngredient(ItemData.Instance.IngredientsInfos(ingredientList[i])))
             {
                 cookSlotManager.itemslots[i].changeSlotUI(cookSlotManager.emptySlot);
             }

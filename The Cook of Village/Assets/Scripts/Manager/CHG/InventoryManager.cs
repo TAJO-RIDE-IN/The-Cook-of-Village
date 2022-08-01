@@ -72,7 +72,7 @@ public class InventoryManager : MonoBehaviour
             Ingredient, Food
         }
         [SerializeField] public ItemType _itemType;
-        [SerializeField] public IngredientsInfos _ingredientsInfos;
+        [SerializeField] public ItemInfos _ingredientsInfos;
         [SerializeField] public FoodInfos _foodInfos;
     }
 
@@ -108,7 +108,7 @@ public class InventoryManager : MonoBehaviour
         //버튼 Interactable 켜주기
     }
 
-    public bool AddIngredient(IngredientsInfos ingredient)
+    public bool AddIngredient(ItemInfos ingredient)
     {
         for (int i = 0; i < MaxInven; i++)
         {

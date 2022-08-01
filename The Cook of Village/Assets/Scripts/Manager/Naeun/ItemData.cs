@@ -5,30 +5,32 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 [System.Serializable]
-public class IngredientsInfos
+public class ItemInfos
 {
-    public int Type;
+    public ItemType.Type type;
     public int ID;
     public string Name;
+    [Multiline]
+    public string Explanation;
     public int Price;
     public int Amount;
-    public GameObject PrefabMaterial;
-    public Sprite ImageUI; //UIImage
+    public GameObject ItemPrefab;
+    public Sprite ImageUI;
 }
 
 [System.Serializable]
-public class IngredientsType
+public class ItemType
 {
-    public enum Type { Base, Fruit, Vegetable, Meat }
+    public enum Type { Base, Fruit, Vegetable, Meat, Other, Potion, CookingTool, Furniture }
     [SerializeField]
     public Type type;
-    public List<IngredientsInfos> IngredientsInfos = new List<IngredientsInfos>();
+    public List<ItemInfos> ItemInfos = new List<ItemInfos>();
 }
 
-public class IngredientsData : DataManager
+public class ItemData : DataManager
 {
     #region Singleton, LoadData
-    private static IngredientsData instance = null;
+    private static ItemData instance = null;
     private void Awake() //씬 시작될때 인스턴스 초기화
     {
         if (null == instance)
@@ -42,7 +44,7 @@ public class IngredientsData : DataManager
             Destroy(this.gameObject);
         }
     }
-    public static IngredientsData Instance
+    public static ItemData Instance
     {
         get
         {
@@ -56,18 +58,18 @@ public class IngredientsData : DataManager
     #endregion
     public int MaxMaterialCount = 99;
     [SerializeField]
-    public IngredientsType[] IngredientsType;
+    public ItemType[] ItemType;
 
     public override void SaveDataTime()
     {
-        SaveArrayData<IngredientsType>(ref IngredientsType, "IngredientsData");
+        SaveArrayData<ItemType>(ref ItemType, "IngredientsData");
     }
 
-    public IngredientsInfos IngredientsInfos(int id)
+    public ItemInfos IngredientsInfos(int id)
     {
         int dataIndex;
-        dataIndex = IngredientsType[IngredientType(id)].IngredientsInfos.FindIndex(m => m.ID == id);
-        return IngredientsType[IngredientType(id)].IngredientsInfos[dataIndex];
+        dataIndex = ItemType[IngredientType(id)].ItemInfos.FindIndex(m => m.ID == id);
+        return ItemType[IngredientType(id)].ItemInfos[dataIndex];
     }
     private int IngredientType(int id)
     {

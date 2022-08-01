@@ -6,8 +6,8 @@ using UnityEngine;
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField]
-    private InventoryType.Type tab;
-    public InventoryType.Type CurrentTab
+    private ItemType.Type tab;
+    public ItemType.Type CurrentTab
     {
         get { return tab; }
         set 
@@ -29,7 +29,7 @@ public class InventoryUI : MonoBehaviour
 
     public void TabClick(int _tab)
     {
-        CurrentTab = (InventoryType.Type)_tab;
+        CurrentTab = (ItemType.Type)_tab;
     }
 
     private void ResetInventory()
@@ -42,7 +42,7 @@ public class InventoryUI : MonoBehaviour
 
     private void LoadInventorySlot()
     {
-        List <InventoryItemInfos> Iteminfos = InventoryData.Instance.inventoryType[(int)CurrentTab].InventoryInfos;
+        List <ItemInfos> Iteminfos = ItemData.Instance.ItemType[(int)CurrentTab].ItemInfos;
         foreach (var infos in Iteminfos.Select((value, index) => (value, index)))
         {
             if (infos.value.Amount != 0)
