@@ -12,8 +12,8 @@ public class InventoryItemInfos
     public string Explanation;
     public int Price;
     public int Amount;
-    public Sprite ImageUI;
     public GameObject ItemPrefab;
+    public Sprite ImageUI;
 }
 [System.Serializable]
 public class InventoryType

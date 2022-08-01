@@ -13,7 +13,9 @@ public class InventoryUI : MonoBehaviour
         set 
         { 
             tab = value;
+            ResetInventory();
             LoadInventorySlot();
+
         }
     }
 
@@ -21,6 +23,7 @@ public class InventoryUI : MonoBehaviour
     private SlotInventory[] slotInventory;
     private void OnEnable()
     {
+        ResetInventory();
         LoadInventorySlot();
     }
 
@@ -29,12 +32,23 @@ public class InventoryUI : MonoBehaviour
         CurrentTab = (InventoryType.Type)_tab;
     }
 
+    private void ResetInventory()
+    {
+        foreach (var slot in slotInventory)
+        {
+            slot.ResetSlot();
+        }
+    }
+
     private void LoadInventorySlot()
     {
         List <InventoryItemInfos> Iteminfos = InventoryData.Instance.inventoryType[(int)CurrentTab].InventoryInfos;
         foreach (var infos in Iteminfos.Select((value, index) => (value, index)))
         {
-            slotInventory[infos.index].ItemInfos = infos.value;
+            if (infos.value.Amount != 0)
+            {
+                slotInventory[infos.index].ItemInfos = infos.value;
+            }
         }
     }
 

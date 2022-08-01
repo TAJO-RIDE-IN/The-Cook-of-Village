@@ -1,7 +1,3 @@
-/////////////////////////////////////
-/// 학번 : 91914200
-/// 이름 : JungNaEun 정나은
-////////////////////////////////////
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,17 +14,6 @@ public class IngredientsInfos
     public int Amount;
     public GameObject PrefabMaterial;
     public Sprite ImageUI; //UIImage
-
-    public IngredientsInfos(int type,int id, string name, int price, int amount, GameObject prefab, Sprite imageUI)
-    {
-        Type = type;
-        ID = id;
-        Name = name;
-        Price = price;
-        Amount = amount;
-        PrefabMaterial = prefab;
-        ImageUI = imageUI;
-    }
 }
 
 [System.Serializable]
@@ -38,11 +23,6 @@ public class IngredientsType
     [SerializeField]
     public Type type;
     public List<IngredientsInfos> IngredientsInfos = new List<IngredientsInfos>();
-    public IngredientsType(Type _type, List<IngredientsInfos> _materialInfos)
-    {
-        type = _type;
-        IngredientsInfos = _materialInfos;
-    }
 }
 
 public class IngredientsData : DataManager

@@ -3,28 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RecipeSlot : MonoBehaviour
+public class RecipeSlot : Slot<FoodInfos>
 {
-    private FoodInfos infos;
     public FoodInfos foodInfos
     {
-        get { return infos; }
+        get { return Infos; }
         set 
-        { 
-            infos = value;
+        {
+            Infos = value;
             this.gameObject.SetActive(true);
-            ChangeImage();
+            ModifySlot();
         }
     }
     public Image FoodImage;
     public SelectRecipe selectRecipe;
 
-    private void ChangeImage()
+    public override void ModifySlot()
     {
         FoodImage.sprite = foodInfos.ImageUI;
     }
 
-    public void ClickSlot()
+    public override void SelectSlot()
     {
         selectRecipe.foodInfos = foodInfos;
         selectRecipe.LoadSlot();

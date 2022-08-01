@@ -7,7 +7,7 @@ public class ShopUI : SlotParent
 {
     public GameObject SlotContent;
     public SlotShop[] slot;
-    public enum Shop {Fruit, Vegetable, Meat, Potion}
+    public enum Shop {Fruit, Vegetable, Meat, Potion, CookingTool, Funiture}
     [SerializeField]
     public Shop shop;
 
@@ -27,12 +27,7 @@ public class ShopUI : SlotParent
         this.gameObject.SetActive(false);
     }
 
-    private void OnEnable()
-    {
-        LoadSlotData();
-    }
-
-    public override void LoadSlotData()
+    public override void LoadSlotData ()
     {
         List <IngredientsInfos> infos = IngredientsData.Instance.IngredientsType[(int)shop+1].IngredientsInfos;
 
