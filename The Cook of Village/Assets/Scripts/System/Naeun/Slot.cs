@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Slot : MonoBehaviour
+public abstract class Slot<T> : MonoBehaviour
 {
-    public IngredientsInfos ingredientsInfos;
+    public T Infos;
     public abstract void SelectSlot();
     public abstract void ModifySlot();
 }

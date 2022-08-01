@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ShopUI : SlotParent
@@ -33,14 +34,12 @@ public class ShopUI : SlotParent
 
     public override void LoadSlotData()
     {
-        int order = 0;
-        int type = SlotDictionary[shop.ToString()];
+        List <IngredientsInfos> infos = IngredientsData.Instance.IngredientsType[(int)shop+1].IngredientsInfos;
 
-        foreach(IngredientsInfos materialInfos in IngredientsData.Instance.IngredientsType[type].IngredientsInfos)
+        foreach (var Ingredient in infos.Select((value, index) => (value, index)))
         {
-            slot[order].ingredientsInfos = materialInfos;
-            slot[order].gameObject.SetActive(true);
-            order++;
+            slot[Ingredient.index].Infos = Ingredient.value;
+            slot[Ingredient.index].gameObject.SetActive(true);
         }
     }
 }

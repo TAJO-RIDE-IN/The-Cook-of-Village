@@ -5,12 +5,15 @@ using UnityEngine;
 [System.Serializable]
 public class InventoryItemInfos
 {
-    public int Type;
+    public InventoryType.Type type;
     public int ID;
     public string Name;
+    [Multiline]
     public string Explanation;
     public int Price;
     public int Amount;
+    public Sprite ImageUI;
+    public GameObject ItemPrefab;
 }
 [System.Serializable]
 public class InventoryType
@@ -51,15 +54,15 @@ public class InventoryData : DataManager
     }
     #endregion
     [SerializeField]
-    public InventoryType[] InventoryType;
+    public InventoryType[] inventoryType;
     public override void SaveDataTime()
     {
-        SaveArrayData<InventoryType>(ref InventoryType, "InventoryData");
+        SaveArrayData<InventoryType>(ref inventoryType, "InventoryData");
     }
     public InventoryItemInfos InventoryItemInfos(int id, int type)
     {
         int dataIndex;
-        dataIndex = InventoryType[type].InventoryInfos.FindIndex(m => m.ID == id);
-        return InventoryType[type].InventoryInfos[dataIndex];
+        dataIndex = inventoryType[type].InventoryInfos.FindIndex(m => m.ID == id);
+        return inventoryType[type].InventoryInfos[dataIndex];
     }
 }
