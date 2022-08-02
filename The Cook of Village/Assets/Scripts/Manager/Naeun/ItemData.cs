@@ -36,7 +36,7 @@ public class ItemData : DataManager
         if (null == instance)
         {
             instance = this;
-            //LoadData<MaterialType>(ref IngredientsType, "IngredientsData"); //data 완성 되었을때 다시 활성화
+            LoadData<ItemType>(ref ItemType, "ItemData"); //data 완성 되었을때 다시 활성화
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -62,7 +62,7 @@ public class ItemData : DataManager
 
     public override void SaveDataTime()
     {
-        SaveArrayData<ItemType>(ref ItemType, "IngredientsData");
+        SaveArrayData<ItemType>(ref ItemType, "ItemData");
     }
 
     public ItemInfos ItemInfos(int id)
