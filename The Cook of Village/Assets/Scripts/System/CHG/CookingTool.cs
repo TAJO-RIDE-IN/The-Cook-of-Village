@@ -26,6 +26,7 @@ public class CookingTool : MonoBehaviour
     public CookItemSlotManager cookSlotManager;
 
 
+    
     private Animation _animation;
     private float currentValue;
     
@@ -33,6 +34,7 @@ public class CookingTool : MonoBehaviour
     public List<int> ingredientList = new List<int>();
     public FoodInfos FoodInfos { get; set;}//foodInfos가 바뀌면 해줄 일,즉 UI코루틴 끝났을때 할 일 set에 적자
     
+    [HideInInspector] public float cookTimePotion = 1f;
     [HideInInspector]public bool isBeforeCooking = true;
     [HideInInspector]public bool isCooked;
     
@@ -53,7 +55,7 @@ public class CookingTool : MonoBehaviour
     {
         if (ingredientList.Count > 0)
         {
-            if (InventoryManager.Instance.AddIngredient(IngredientsData.Instance.IngredientsInfos(ingredientList[i])))
+            if (ChefInventory.Instance.AddIngredient(IngredientsData.Instance.IngredientsInfos(ingredientList[i])))
             {
                 cookSlotManager.itemslots[i].changeSlotUI(cookSlotManager.emptySlot);
             }
@@ -134,7 +136,7 @@ public class CookingTool : MonoBehaviour
         while (blackCircle.fillAmount < 1)
         {
             currentValue += Time.deltaTime;
-            blackCircle.fillAmount = currentValue / FoodInfos.MakeTime;
+            blackCircle.fillAmount = currentValue / FoodInfos.MakeTime * cookTimePotion;
             circleUI.transform.Rotate(0, 0, 1);
             circleUIBig.transform.Rotate(0, 0, 1);
             yield return null;

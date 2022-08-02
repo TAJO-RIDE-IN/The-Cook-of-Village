@@ -31,7 +31,7 @@ public class CookItemSlot : ItemSlot
         if (itemSlotManager.cookingTool.isCooked)
         {
             Debug.Log("요리 완료");
-            if (InventoryManager.Instance.AddFood(itemSlotManager.cookingTool.FoodInfos))
+            if (ChefInventory.Instance.AddFood(itemSlotManager.cookingTool.FoodInfos))
             {
                 //itemSlotManager.cookingTool.toolBeforeCook
                 Debug.Log("요리 추가 완료");

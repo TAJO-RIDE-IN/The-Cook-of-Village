@@ -11,6 +11,6 @@ public class EdibleItemSlot : ItemSlot
     
     public override void SlotClick()
     {
-        InventoryManager.Instance.SendItem(index);
+        ChefInventory.Instance.SendItem(index);
     }
 }
