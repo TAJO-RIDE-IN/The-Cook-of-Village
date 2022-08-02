@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+public class ChefInventory : MonoBehaviour
 {
     
-    private static InventoryManager instance = null;
+    private static ChefInventory instance = null;
         
     private void Awake()
     {
@@ -26,7 +26,7 @@ public class InventoryManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public static InventoryManager Instance
+    public static ChefInventory Instance
     {
         get
         {

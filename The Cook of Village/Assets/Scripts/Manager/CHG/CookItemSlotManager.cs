@@ -27,7 +27,7 @@ public class CookItemSlotManager : ItemSlotManager
 
     public void ThrowTrash()
     {
-        if (InventoryManager.Instance._cookingCharacter)
+        if (ChefInventory.Instance._cookingCharacter)
         {
             cookingTool.ingredientList.Clear();
             RefreshSlot();

@@ -41,7 +41,7 @@ public class SlotFridge : Slot<ItemInfos>
     {
         if (Infos.Amount > 0)
         {
-            if (InventoryManager.Instance.AddIngredient(Infos))
+            if (ChefInventory.Instance.AddIngredient(Infos))
             {
                 SlotCount--;
             }
