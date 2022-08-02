@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SlotShop : Slot<IngredientsInfos>
+public class SlotShop : Slot<ItemInfos>
 {
     public Text SlotText;
     public Text PriceText;

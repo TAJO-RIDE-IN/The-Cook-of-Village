@@ -8,7 +8,7 @@ using Object = System.Object;
 
 public class CookingTool : MonoBehaviour
 {
-    public enum Type { Blender = 0, Pot = 1, FryPan = 2, Oven = 3, Whisker = 4, Trash = 5}//접시도 추가할거니까 접시일때 행동들이랑 도구일때 행동들 구분하기, 그리고 머랭같은 특별한 도구도 어떻게할지 생각해야함
+    public enum Type { Blender = 0, FryPan = 1, Pot = 2, Oven = 3, Whisker = 4, Trash = 5}//접시도 추가할거니까 접시일때 행동들이랑 도구일때 행동들 구분하기, 그리고 머랭같은 특별한 도구도 어떻게할지 생각해야함
     public Type type;
 
     public GameObject InventoryBig;
@@ -26,7 +26,6 @@ public class CookingTool : MonoBehaviour
     public CookItemSlotManager cookSlotManager;
 
 
-    
     private Animation _animation;
     private float currentValue;
     
@@ -34,7 +33,6 @@ public class CookingTool : MonoBehaviour
     public List<int> ingredientList = new List<int>();
     public FoodInfos FoodInfos { get; set;}//foodInfos가 바뀌면 해줄 일,즉 UI코루틴 끝났을때 할 일 set에 적자
     
-    [HideInInspector] public float cookTimePotion = 1f;
     [HideInInspector]public bool isBeforeCooking = true;
     [HideInInspector]public bool isCooked;
     
@@ -55,7 +53,7 @@ public class CookingTool : MonoBehaviour
     {
         if (ingredientList.Count > 0)
         {
-            if (ChefInventory.Instance.AddIngredient(IngredientsData.Instance.IngredientsInfos(ingredientList[i])))
+            if (InventoryManager.Instance.AddIngredient(ItemData.Instance.ItemInfos(ingredientList[i])))
             {
                 cookSlotManager.itemslots[i].changeSlotUI(cookSlotManager.emptySlot);
             }
@@ -136,7 +134,7 @@ public class CookingTool : MonoBehaviour
         while (blackCircle.fillAmount < 1)
         {
             currentValue += Time.deltaTime;
-            blackCircle.fillAmount = currentValue / FoodInfos.MakeTime * cookTimePotion;
+            blackCircle.fillAmount = currentValue / FoodInfos.MakeTime;
             circleUI.transform.Rotate(0, 0, 1);
             circleUIBig.transform.Rotate(0, 0, 1);
             yield return null;

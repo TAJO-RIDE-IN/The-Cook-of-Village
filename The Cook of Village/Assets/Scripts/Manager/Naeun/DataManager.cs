@@ -20,7 +20,7 @@ public abstract class DataManager : MonoBehaviour
     }
     protected void LoadData<T>(ref T[] source, string FileName)
     {
-        string DataPath = Application.persistentDataPath + "/" + FileName;
+        string DataPath = Application.persistentDataPath + "/" + FileName + ".json";
         string json = File.ReadAllText(DataPath);
         source = JsonHelper.getJsonArray<T>(json);
     }

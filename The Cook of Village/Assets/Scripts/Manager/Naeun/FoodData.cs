@@ -15,7 +15,10 @@ public class FoodInfos
     public int Type;
     public int ID;
     public string Name;
+    [Multiline]
+    public string Explanation;
     public float MakeTime;
+    public float BurntTime;
     public int Price;
     public float OrderProbability;
     public List<int> Recipe = new List<int>();
@@ -96,7 +99,7 @@ public class FoodData : DataManager
                 return i;
             }
         }
-        return foodTool[3].foodInfos[0];
+        return foodTool[(int)FoodTool.Type.Failure].foodInfos[0];
     }
     public override void SaveDataTime()
     {

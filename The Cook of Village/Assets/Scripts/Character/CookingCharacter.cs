@@ -10,7 +10,7 @@ public class CookingCharacter : MonoBehaviour
     public Animator charAnimator;
     public GameObject HandPosition;
     
-    public IngredientsInfos currentIngredient;
+    public ItemInfos currentIngredient;
     public FoodInfos currentFood;
 
 
@@ -127,8 +127,8 @@ public class CookingCharacter : MonoBehaviour
 
             if (objectName == "Flour")
             {
-                if (ChefInventory.Instance.AddIngredient(IngredientsData.Instance.IngredientsType[0]
-                    .IngredientsInfos[0]))
+                if (InventoryManager.Instance.AddIngredient(ItemData.Instance.ItemType[0]
+                    .ItemInfos[0]))
                 {
                     return;
                     //쟁반에 밀가루 생성
@@ -136,8 +136,8 @@ public class CookingCharacter : MonoBehaviour
             }
             if (objectName == "Sugar")
             {
-                if (ChefInventory.Instance.AddIngredient(IngredientsData.Instance.IngredientsType[0]
-                    .IngredientsInfos[1]))
+                if (InventoryManager.Instance.AddIngredient(ItemData.Instance.ItemType[0]
+                    .ItemInfos[1]))
                 {
                     return;
                     //쟁반에 밀가루 생성
@@ -225,7 +225,7 @@ public class CookingCharacter : MonoBehaviour
 
         if (other.gameObject.name == "CounterPosition")
         {
-            if (Input.GetKey(KeyCode.Space))//여러번 실행됨
+            if (Input.GetKey(KeyCode.Space))
             {
                 Debug.Log("계산스페이스바눌림");
                 other.GetComponent<CounterQueue>().PayCounter();

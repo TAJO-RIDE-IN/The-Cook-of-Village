@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SlotFridge : Slot<IngredientsInfos>
+public class SlotFridge : Slot<ItemInfos>
 {
     public Text CountText;
     public Text IngredientName;
@@ -18,7 +18,7 @@ public class SlotFridge : Slot<IngredientsInfos>
             Infos.Amount = value;
             ModifySlot();
             SlotState();
-            IngredientsData.Instance.ChangeAmount(Infos.Type, Infos.ID, Infos.Amount);
+            ItemData.Instance.ChangeAmount(Infos.ID, Infos.Amount);
         }
     }
     private void OnEnable()

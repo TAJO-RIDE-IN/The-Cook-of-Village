@@ -178,7 +178,7 @@ public class GameData : DataManager, IGameDataOb
     public override void SaveDataTime()
     {
         SaveData<GameInfos>(ref gameInfos, "GameData");
-        IngredientsData.Instance.SaveDataTime();
+        ItemData.Instance.SaveDataTime();
         FoodData.Instance.SaveDataTime();
     }
     #region observer
