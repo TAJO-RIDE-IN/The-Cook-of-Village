@@ -1,7 +1,3 @@
-/////////////////////////////////////
-/// 학번 : 91914200
-/// 이름 : JungNaEun 정나은
-////////////////////////////////////
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,7 +36,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         guest.AddGuestNPC(new Guest());
         AddProbability();
     }
-    private void Update()
+    private void Update() //손님 머리위 UI가 항상 카메라를 보도록 함.
     {
         NPCUI.transform.LookAt(NPCUI.transform.position + camera.rotation * Vector3.forward, camera.rotation * Vector3.up);
     }
@@ -60,7 +56,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             }
         }
     }
-    private IEnumerator WaitingOrder()
+    private IEnumerator WaitingOrder() //주문 기다림
     {
         float time = FoodData.Instance.FoodWaitingTime;
         while(time > 0)
@@ -122,7 +118,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         currentOrderUI.gameObject.SetActive(true);
         WaitingOrderCoroutine = StartCoroutine(WaitingOrder());
     }
-    public void PayFood()
+    public void PayFood() //계산
     {
         GameData.Instance.Money += foodInfos.Price;
         foodInfos = null;

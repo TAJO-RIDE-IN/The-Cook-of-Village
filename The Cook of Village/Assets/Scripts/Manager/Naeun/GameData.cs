@@ -21,13 +21,6 @@ public class GameInfos
     public int Month;
     public int Money;
     public int Turnover;
-    public GameInfos(int day, int month, int money, int turnover)
-    {
-        Day = day;
-        Month = month;
-        Money = money;
-        Turnover = turnover;
-    }
 }
 
 public class GameData : DataManager, IGameDataOb
@@ -127,6 +120,8 @@ public class GameData : DataManager, IGameDataOb
 
     [SerializeField]
     private GameInfos gameInfos;
+
+
 
     #region 변수
     [SerializeField, Range(0, 1440)] //24시간 => 1440분

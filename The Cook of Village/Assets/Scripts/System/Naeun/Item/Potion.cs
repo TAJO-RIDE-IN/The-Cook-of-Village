@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class Potion : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void UseRedPotion() //이동속도 증가
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    }
+    public void UseOrangePotion() //판매가격 증가
     {
-        
+
+    }
+    public void UseGreenPotion() //조리시간 감소
+    {
+
+    }
+    public void UseBrownPotion() //초콜릿 상인 소환
+    {
+
+    }
+    public void UseRainbowPotion() //인벤토리 해금
+    {
+
     }
 }
