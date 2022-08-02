@@ -127,7 +127,7 @@ public class CookingCharacter : MonoBehaviour
 
             if (objectName == "Flour")
             {
-                if (InventoryManager.Instance.AddIngredient(IngredientsData.Instance.IngredientsType[0]
+                if (ChefInventory.Instance.AddIngredient(IngredientsData.Instance.IngredientsType[0]
                     .IngredientsInfos[0]))
                 {
                     return;
@@ -136,7 +136,7 @@ public class CookingCharacter : MonoBehaviour
             }
             if (objectName == "Sugar")
             {
-                if (InventoryManager.Instance.AddIngredient(IngredientsData.Instance.IngredientsType[0]
+                if (ChefInventory.Instance.AddIngredient(IngredientsData.Instance.IngredientsType[0]
                     .IngredientsInfos[1]))
                 {
                     return;
@@ -225,7 +225,7 @@ public class CookingCharacter : MonoBehaviour
 
         if (other.gameObject.name == "CounterPosition")
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space))//여러번 실행됨
             {
                 Debug.Log("계산스페이스바눌림");
                 other.GetComponent<CounterQueue>().PayCounter();
