@@ -67,7 +67,6 @@ public class ShopNPC : MonoBehaviour, IObserver<GameData>
         switch(CurrentState)
         {
             case State.Idle:
-                ani.SetTrigger("Idle");
                 break;
             case State.Walk:
                 ani.SetTrigger("Walk");

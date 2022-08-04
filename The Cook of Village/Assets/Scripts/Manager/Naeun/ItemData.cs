@@ -36,7 +36,7 @@ public class ItemData : DataManager
         if (null == instance)
         {
             instance = this;
-            LoadData<ItemType>(ref ItemType, "ItemData"); //data 완성 되었을때 다시 활성화
+            //LoadData<ItemType>(ref ItemType, "ItemData"); //data 완성 되었을때 다시 활성화
             DontDestroyOnLoad(this.gameObject);
         }
         else
