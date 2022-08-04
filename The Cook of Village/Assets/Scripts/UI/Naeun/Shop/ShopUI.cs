@@ -7,9 +7,8 @@ public class ShopUI : SlotParent
 {
     public GameObject SlotContent;
     public SlotShop[] slot;
-    public enum Shop {Fruit, Vegetable, Meat, Potion, CookingTool, Funiture}
     [SerializeField]
-    public Shop shop;
+    public ItemType.Type shop;
 
     private void Awake()
     {
@@ -29,7 +28,7 @@ public class ShopUI : SlotParent
 
     public override void LoadSlotData ()
     {
-        List <ItemInfos> infos = ItemData.Instance.ItemType[(int)shop+1].ItemInfos;
+        List <ItemInfos> infos = ItemData.Instance.ItemType[(int)shop].ItemInfos;
 
         foreach (var Ingredient in infos.Select((value, index) => (value, index)))
         {

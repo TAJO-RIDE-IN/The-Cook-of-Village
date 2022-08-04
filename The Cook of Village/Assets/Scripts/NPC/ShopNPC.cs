@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShopNPC : MonoBehaviour, IObserver<GameData>
 {
     public ShopUI shopUI;
-    public ShopUI.Shop type;
+    public ItemType.Type type;
 
     public enum State { Idle, Walk, Sell, Greet}
     [SerializeField]
