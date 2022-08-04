@@ -127,7 +127,7 @@ public class CookingCharacter : MonoBehaviour
 
             if (objectName == "Flour")
             {
-                if (InventoryManager.Instance.AddIngredient(ItemData.Instance.ItemType[0]
+                if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemType[0]
                     .ItemInfos[0]))
                 {
                     return;
@@ -136,7 +136,7 @@ public class CookingCharacter : MonoBehaviour
             }
             if (objectName == "Sugar")
             {
-                if (InventoryManager.Instance.AddIngredient(ItemData.Instance.ItemType[0]
+                if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemType[0]
                     .ItemInfos[1]))
                 {
                     return;
