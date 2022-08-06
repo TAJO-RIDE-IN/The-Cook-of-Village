@@ -21,6 +21,7 @@ public class GameInfos
     public int Month;
     public int Money;
     public int Turnover;
+    public int RainbowDrinking;
 }
 
 public class GameData : DataManager, IGameDataOb
@@ -167,6 +168,15 @@ public class GameData : DataManager, IGameDataOb
             }
             gameInfos.Money = value;
             NotifyObserver();
+        }
+    }
+
+    public int RainbowDrinking
+    {
+        get { return gameInfos.RainbowDrinking; }
+        set
+        {
+            gameInfos.RainbowDrinking = value;
         }
     }
     #endregion

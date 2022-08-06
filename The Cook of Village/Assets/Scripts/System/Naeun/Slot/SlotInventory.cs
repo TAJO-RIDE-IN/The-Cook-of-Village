@@ -18,8 +18,8 @@ public class SlotInventory : Slot<ItemInfos>
     [SerializeField] private GameObject ItemExplanation;
     [SerializeField] private Image ItemImage;
     [SerializeField] private Text ItemCount;
-    [SerializeField] private Text ExplanationText; //¾ÆÀÌÅÛ ¼³¸í
-    [SerializeField] private Button UseItemButton; //¾ÆÀÌÅÛ »ç¿ë ¹öÆ°
+    [SerializeField] private Text ExplanationText; //ì•„ì´í…œ ì„¤ëª…
+    [SerializeField] private Button UseItemButton; //ì•„ì´í…œ ì‚¬ìš© ë²„íŠ¼
 
     private void OnDisable()
     {
@@ -36,13 +36,13 @@ public class SlotInventory : Slot<ItemInfos>
         ObjectState(false);
         Infos = null;
     }
-    public override void ModifySlot() //½½·Ô Á¤º¸ ¼öÁ¤
+    public override void ModifySlot() //ìŠ¬ë¡¯ ì •ë³´ ìˆ˜ì •
     {
         ObjectState(true);
         ItemCount.text = Infos.Amount.ToString();
         ItemImage.sprite = Infos.ImageUI;
     }
-    public override void SelectSlot() //½½·Ô Å¬¸¯
+    public override void SelectSlot() //ìŠ¬ë¡¯ í´ë¦­
     {
         UseItemButton.onClick.RemoveAllListeners();
         UseItemButton.onClick.AddListener(UseItem);
@@ -50,24 +50,24 @@ public class SlotInventory : Slot<ItemInfos>
         ItemExplanation.SetActive(true);
         ExplanationText.text = Infos.Explanation;
     }
-    public void UseItem() //¾ÆÀÌÅÛ »ç¿ë
+    public void UseItem() //ì•„ì´í…œ ì‚¬ìš©
     {
-        Infos.Amount--;
-        ItemData.Instance.ChangeAmount(Infos.ID, Infos.Amount);
-        ItemCount.text = Infos.Amount.ToString();
-        if (Infos.Amount <= 0)
-        {
-            inventoryUI.LoadInventorySlot(); //ÀÎº¥Åä¸® ÀçÁ¤·Ä
-        }
-
-/*        switch(Infos.type) //¾ÆÀÌÅÛ Å¸ÀÔ¿¡ µû¶ó È£Ãâ ÇÔ¼ö ´Ş¶óÁü
+        switch (Infos.type) //ì•„ì´í…œ íƒ€ì…ì— ë”°ë¼ í˜¸ì¶œ í•¨ìˆ˜ ë‹¬ë¼ì§
         {
             case (ItemType.Type.Potion):
+                Potion.Instance.UsePotion(Infos.Name);
                 break;
             case (ItemType.Type.CookingTool):
                 break;
             case (ItemType.Type.Furniture):
                 break;
-        }*/
+        }
+        Infos.Amount--;
+        ItemData.Instance.ChangeAmount(Infos.ID, Infos.Amount);
+        ItemCount.text = Infos.Amount.ToString();
+        if (Infos.Amount <= 0)
+        {
+            inventoryUI.LoadInventorySlot(); //ì¸ë²¤í† ë¦¬ ì¬ì •ë ¬
+        }
     }
 }
