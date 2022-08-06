@@ -51,7 +51,8 @@ MonoBehaviour:
   charAnimator: {fileID: 4995481545487291031}
   _camera: {fileID: 0}
   controller: {fileID: 466699733000371447}
-  speed: 120
+  speed: 80
+  OriginSpeed: 80
   turnSmoothTime: 0.1
 --- !u!143 &466699733000371447
 CharacterController:
@@ -86,18 +87,21 @@ MonoBehaviour:
   charAnimator: {fileID: 4995481545487291031}
   HandPosition: {fileID: 4928002929507418811}
   currentIngredient:
-    Type: 0
+    type: 0
     ID: 0
     Name: 
+    Explanation: 
     Price: 0
     Amount: 0
-    PrefabMaterial: {fileID: 0}
+    ItemPrefab: {fileID: 0}
     ImageUI: {fileID: 0}
   currentFood:
     Type: 0
     ID: 0
     Name: 
+    Explanation: 
     MakeTime: 0
+    BurntTime: 0
     Price: 0
     OrderProbability: 0
     Recipe: 

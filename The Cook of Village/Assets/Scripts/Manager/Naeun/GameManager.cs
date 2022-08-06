@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
         if(null == instance)
         {
             instance = this;
+            LoadObject();
             CurosrControl(true);
             DontDestroyOnLoad(this.gameObject);
         }
@@ -43,7 +44,33 @@ public class GameManager : MonoBehaviour
         }
     }
     public int NextSceneIndex = 2;
+    public int CurrentSceneIndex;
 
+    #region OnSceneLoaded
+    private void Start()
+    {
+        LoadObject();
+    }
+    void OnEnable()
+    {
+        // 델리게이트 체인 추가
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnDisable()
+    {
+        // 델리게이트 체인 제거
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        LoadObject();
+    }
+    private void LoadObject()
+    {
+        CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+    }
+    #endregion
     private void CurosrControl(bool value)
     {
         Cursor.visible = value;

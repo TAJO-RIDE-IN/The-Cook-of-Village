@@ -8,10 +8,6 @@ public class ChangeScene : MonoBehaviour
     public enum SceneToGo { Intro = 0, SceneLoad = 1, Village = 2, Restaurant = 3 }
 
     public SceneToGo sceneToGo;
-    private void Awake()
-    {
-        GameManager.Instance.NextSceneIndex = (int)sceneToGo;
-    }
     public void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")

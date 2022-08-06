@@ -9,7 +9,8 @@ public class ThirdPersonGravity : MonoBehaviour
     public CharacterController controller;
     public Transform cam;
 
-    public float speed = 6;
+    public float speed = 3;
+    public float OriginSpeed = 3;
     public float gravity = -9.81f;
     public float jumpHeight = 3;
     Vector3 velocity;
