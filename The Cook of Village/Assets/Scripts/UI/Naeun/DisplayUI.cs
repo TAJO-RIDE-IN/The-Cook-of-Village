@@ -23,7 +23,7 @@ public class DisplayUI : MonoBehaviour, IObserver<GameData>
         return time;
     }
 
-    public void ChangeDisplay(float time, float day, int today, int money)
+    public void ChangeDisplay(float time, float day, int today, float money)
     {
         string min = Time(time)[1].ToString();
         TimeText.text = string.Format("{0:00} : ", Time(time)[0]) + min.PadRight(2, '0');

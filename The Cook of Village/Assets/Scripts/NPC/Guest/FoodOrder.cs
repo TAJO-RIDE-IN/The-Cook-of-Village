@@ -77,7 +77,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             yield return null;
         }
     }
-    private void EndOrder()
+    private void EndOrder() //주문종료
     {
         StopCoroutine(WaitingOrderCoroutine);
         NPCUI.SetActive(false);
@@ -87,7 +87,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             guest.ChangeState(GuestNPC.State.StandUP);
         }
     }
-    private void EndEat()
+    private void EndEat() //음식 다 먹음
     {
         guest.ChangeState(GuestNPC.State.StandUP);
         if(FoodPosition.GetChild(0) != null)
@@ -109,18 +109,17 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         return Receive;
     }
  
-    private void Order()
+    private void Order() //음식주문
     {
-        foodInfos = FoodProbability.Get();
+        foodInfos = FoodProbability.Get(); //음식 확률에 따라 고르기
         OrderFoodImage.sprite = foodInfos.ImageUI;
-        currentOrderUI = ObjectPooling<OrderUI>.GetObject();
+        currentOrderUI = ObjectPooling<OrderUI>.GetObject(); //화면 상단 주문서 표시
         currentOrderUI.foodInfos = foodInfos;
-        currentOrderUI.gameObject.SetActive(true);
         WaitingOrderCoroutine = StartCoroutine(WaitingOrder());
     }
-    public void PayFood() //계산
+    public void PayFood(float multiple) //계산
     {
-        GameData.Instance.Money += foodInfos.Price;
+        GameData.Instance.Money += foodInfos.Price * multiple;
         foodInfos = null;
         guest.ChangeState(GuestNPC.State.Pay);
     }

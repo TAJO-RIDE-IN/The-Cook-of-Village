@@ -19,8 +19,8 @@ public class GameInfos
 {
     public int Day;
     public int Month;
-    public int Money;
-    public int Turnover;
+    public float Money;
+    public float Turnover;
     public int RainbowDrinking;
 }
 
@@ -157,7 +157,7 @@ public class GameData : DataManager, IGameDataOb
         Day++;
     }
 
-    public int Money
+    public float Money
     {
         get { return gameInfos.Money; }
         set

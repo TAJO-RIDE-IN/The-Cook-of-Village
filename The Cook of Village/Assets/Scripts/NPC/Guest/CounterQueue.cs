@@ -48,6 +48,7 @@ public class WaitingLine
 public class CounterQueue : MonoBehaviour
 {
     private Queue<Vector3> WaitingPosition = new Queue<Vector3>();
+    public float PayMultiple;
     public Transform CounterObject;
     [SerializeField]
     private Transform[] WaitingPositionArray;
@@ -76,7 +77,7 @@ public class CounterQueue : MonoBehaviour
         if(waitngQueue.GuestQueue.Count > 0)
         {
             FoodOrder PayGuest = waitngQueue.GuestQueue.Peek().GetComponent<FoodOrder>();
-            PayGuest.PayFood();
+            PayGuest.PayFood(PayMultiple);
         }
     }
 }
