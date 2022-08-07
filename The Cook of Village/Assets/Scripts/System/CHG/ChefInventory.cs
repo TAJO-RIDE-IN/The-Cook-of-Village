@@ -39,7 +39,7 @@ public class ChefInventory : MonoBehaviour
     }
 
     public CookItemSlotManager cookSlotManager;
-    public EdibleItemSlotManager edibleSlotManager;
+    public ChefItemSlotManager chefSlotManager;
     private int maxInven = 2;//이 값이 바뀌면 인벤토리 잠금을 해제할거니깐 초기화도 게임데이터에서 하면 좋을듯
     [HideInInspector]public CookingCharacter _cookingCharacter;
 
@@ -79,15 +79,6 @@ public class ChefInventory : MonoBehaviour
 
     [SerializeField] private EdibleItem[] EdibleItems = new EdibleItem[6];
 
-    /*public EdibleItem[] EdibleItems
-    {
-        get { return edibleItems;}
-        set
-        {
-            edibleItems = value;
-            
-        }
-    }*/
     public bool[] isUsed = Enumerable.Repeat(false, 6).ToArray();
         
         
@@ -119,12 +110,12 @@ public class ChefInventory : MonoBehaviour
                 EdibleItems[i]._itemType = EdibleItem.ItemType.Ingredient;
                 EdibleItems[i]._ingredientsInfos = ingredient;
                 EdibleItems[i]._foodInfos = null;
-                edibleSlotManager.AddIngredientItem(ingredient, i);
+                chefSlotManager.AddIngredientItem(ingredient, i);
                 isUsed[i] = true;
                 return true;
             }
         }
-        edibleSlotManager.ShowWarning();
+        chefSlotManager.ShowWarning();
         return false;
         
     }
@@ -138,13 +129,13 @@ public class ChefInventory : MonoBehaviour
                 EdibleItems[i]._itemType = EdibleItem.ItemType.Food;
                 EdibleItems[i]._ingredientsInfos = null;
                 EdibleItems[i]._foodInfos = food;
-                edibleSlotManager.AddFoodItem(food, i);
+                chefSlotManager.AddFoodItem(food, i);
                 isUsed[i] = true;
                 return true;
             }
             //SlotManager.AddFoodItem(food);
         }
-        edibleSlotManager.ShowWarning();
+        chefSlotManager.ShowWarning();
         return false;
     }
 
@@ -166,7 +157,7 @@ public class ChefInventory : MonoBehaviour
                             {
                                 EdibleItems[i]._ingredientsInfos = null;
                                 isUsed[i] = false;
-                                edibleSlotManager.itemslots[i].changeSlotUI(edibleSlotManager.emptySlot);
+                                chefSlotManager.itemslots[i].changeSlotUI(chefSlotManager.emptySlot);
                                 return;
                             };
                         
@@ -183,7 +174,7 @@ public class ChefInventory : MonoBehaviour
                         if (_cookingCharacter._foodOrder.ReceiveFood(EdibleItems[i]._foodInfos.ID))
                         {
                             isUsed[i] = false;
-                            edibleSlotManager.itemslots[i].changeSlotUI(edibleSlotManager.emptySlot);
+                            chefSlotManager.itemslots[i].changeSlotUI(chefSlotManager.emptySlot);
                             _cookingCharacter.uiMovement.foodOrderImage.sprite = EdibleItems[i]._foodInfos.ImageUI;
                             _cookingCharacter.uiMovement.CloseUI();
                             EdibleItems[i]._foodInfos = null;

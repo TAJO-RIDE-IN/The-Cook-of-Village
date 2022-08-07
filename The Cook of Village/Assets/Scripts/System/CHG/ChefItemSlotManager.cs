@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EdibleItemSlotManager : ItemSlotManager
+public class ChefItemSlotManager : ItemSlotManager
 {
     // Start is called before the first frame update
     public ItemSlot[] itemslots;
