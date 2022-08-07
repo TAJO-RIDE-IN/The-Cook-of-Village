@@ -34,14 +34,15 @@ public class InventoryUI : MonoBehaviour
         CurrentTab = (ItemType.Type)_tab;
     }
 
-    public void ObjectState(GameObject UI)
+    public void InventoryButton()
     {
-        UI.SetActive(false);
+        this.gameObject.SetActive(!this.gameObject.activeSelf);
+        GameManager.Instance.IsUI = this.gameObject.activeSelf;
     }
 
     private void ResetInventory()
     {
-        ObjectState(ItemExplanation);
+        ItemExplanation.SetActive(false);
         foreach (var slot in slotInventory)
         {
             slot.ResetSlot();
