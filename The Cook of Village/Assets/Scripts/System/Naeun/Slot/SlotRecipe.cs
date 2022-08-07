@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RecipeSlot : Slot<FoodInfos>
+public class SlotRecipe : Slot<FoodInfos>
 {
     public FoodInfos foodInfos
     {

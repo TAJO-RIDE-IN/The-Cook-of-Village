@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RecipeUI : MonoBehaviour
 {
-    public List<RecipeSlot> FoodSlot = new List<RecipeSlot>();
+    public List<SlotRecipe> FoodSlot = new List<SlotRecipe>();
 
     private void Start()
     {
@@ -12,7 +12,7 @@ public class RecipeUI : MonoBehaviour
     }
     public void Init()
     {
-        foreach(RecipeSlot slot in FoodSlot)
+        foreach(SlotRecipe slot in FoodSlot)
         {
             slot.gameObject.SetActive(false);
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ShopUI : SlotParent
+public class ShopUI : MonoBehaviour
 {
     public GameObject SlotContent;
     public SlotShop[] slot;
@@ -14,19 +14,19 @@ public class ShopUI : SlotParent
     {
         slot = SlotContent.transform.GetComponentsInChildren<SlotShop>(true);
     }
-    public override void OpenUI()
+    public void OpenUI()
     {
         GameManager.Instance.IsUI = true;
         this.gameObject.SetActive(true);
         LoadSlotData();
     }
-    public override void CloseUI()
+    public void CloseUI()
     {
         GameManager.Instance.IsUI = false;
         this.gameObject.SetActive(false);
     }
 
-    public override void LoadSlotData ()
+    public void LoadSlotData ()
     {
         List <ItemInfos> infos = ItemData.Instance.ItemType[(int)shop].ItemInfos;
 

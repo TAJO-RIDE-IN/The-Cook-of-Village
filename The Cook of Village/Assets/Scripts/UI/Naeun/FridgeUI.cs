@@ -9,12 +9,12 @@ public class FirdgeSlotContainer
     public ItemType.Type ingredientsType;
     public List<SlotFridge> FridgeSlot = new List<SlotFridge>();
 }
-public class FridgeUI : SlotParent
+public class FridgeUI : MonoBehaviour
 {
     [SerializeField]
     private FirdgeSlotContainer[] SlotContainer;
 
-    public override void LoadSlotData()
+    public void LoadSlotData()
     {
         foreach(var Container in SlotContainer)
         {
@@ -33,13 +33,13 @@ public class FridgeUI : SlotParent
         ItemData.Instance.ChangeAmount(id, amount++);
     }
 
-    public override void OpenUI()
+    public void OpenUI()
     {
         GameManager.Instance.IsUI = true;
         this.gameObject.SetActive(true);
         LoadSlotData();
     }
-    public override void CloseUI()
+    public void CloseUI()
     {
         GameManager.Instance.IsUI = false;
         this.gameObject.SetActive(false);
