@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EdibleItemSlot : ItemSlot
+public class ChefItemSlot : ItemSlot
 {
     private void Awake()
     {
