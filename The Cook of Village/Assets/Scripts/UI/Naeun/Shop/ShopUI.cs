@@ -10,10 +10,6 @@ public class ShopUI : MonoBehaviour
     [SerializeField]
     public ItemType.Type shop;
 
-    private void Awake()
-    {
-        slot = SlotContent.transform.GetComponentsInChildren<SlotShop>(true);
-    }
     public void OpenUI()
     {
         GameManager.Instance.IsUI = true;
