@@ -8481,17 +8481,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 360566265}
   m_CullTransparentMesh: 1
---- !u!114 &360748258 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 921164029050450339, guid: 6448bb422bc4a9c47810f6fd73e7910b, type: 3}
-  m_PrefabInstance: {fileID: 835902753}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffdbf9f11d551e349a84d15152b40449, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &361937221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9290,6 +9279,7 @@ MonoBehaviour:
   food: {fileID: 0}
   foodBig: {fileID: 0}
   blackCircle: {fileID: 0}
+  blackCircleBig: {fileID: 0}
   circleUI: {fileID: 0}
   circleUIBig: {fileID: 0}
   toolBeforeCook: {fileID: 0}
@@ -19051,7 +19041,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1184711576638892519, guid: 6448bb422bc4a9c47810f6fd73e7910b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 89.5
       objectReference: {fileID: 0}
     - target: {fileID: 1184711576638892519, guid: 6448bb422bc4a9c47810f6fd73e7910b, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -22271,7 +22261,6 @@ Transform:
   - {fileID: 8641007451926677125}
   - {fileID: 2123031434062396065}
   - {fileID: 5110210226390891372}
-  - {fileID: 1853480976}
   - {fileID: 7018721960614449443}
   - {fileID: 4673833265204420915}
   - {fileID: 7798755346410888074}
@@ -23886,6 +23875,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1540353884209580157, guid: a3c1c638d746d8145b3777970677a1fe, type: 3}
   m_PrefabInstance: {fileID: 240465285}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1023833971 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8729705656861978343, guid: 6448bb422bc4a9c47810f6fd73e7910b, type: 3}
+  m_PrefabInstance: {fileID: 835902753}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffdbf9f11d551e349a84d15152b40449, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1024309169
 GameObject:
   m_ObjectHideFlags: 0
@@ -40379,129 +40379,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6342902777399991998, guid: bb3455792564e434ab0da982af28d3fe, type: 3}
   m_PrefabInstance: {fileID: 1263884636}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1853480975
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 950022983}
-    m_Modifications:
-    - target: {fileID: 1594650137879037455, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_Name
-      value: Fridge
-      objectReference: {fileID: 0}
-    - target: {fileID: 1594650137879037455, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1594650137879037938, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1936613860030754024, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119653319101029557, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119653319101029557, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.4100002
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119653319101029557, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.41
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119653319101029557, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.4100002
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119653319101029557, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.68
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119653319101029557, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.04399997
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119653319101029557, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 3.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119653319101029557, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.0036698894
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119653319101029557, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119653319101029557, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.99999326
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119653319101029557, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119653319101029557, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119653319101029557, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 179.579
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119653319101029557, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5381697906524105236, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: FridgeUI
-      value: 
-      objectReference: {fileID: 360748258}
-    - target: {fileID: 5381697906524105236, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: RefrigeratorUI
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5381697906524105236, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: refrigeratorUI
-      value: 
-      objectReference: {fileID: 360748258}
-    - target: {fileID: 8653405297781092192, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_Size.x
-      value: 0.42562526
-      objectReference: {fileID: 0}
-    - target: {fileID: 8653405297781092192, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_Size.y
-      value: 0.99999994
-      objectReference: {fileID: 0}
-    - target: {fileID: 8653405297781092192, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_Size.z
-      value: 1.2000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 8653405297781092192, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8653405297781092192, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_Center.x
-      value: 0.0020478847
-      objectReference: {fileID: 0}
-    - target: {fileID: 8653405297781092192, guid: b2286323051564449bfc20592527f254, type: 3}
-      propertyPath: m_Center.z
-      value: 0.6000117
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1594650137879037937, guid: b2286323051564449bfc20592527f254, type: 3}
-  m_SourcePrefab: {fileID: 100100000, guid: b2286323051564449bfc20592527f254, type: 3}
---- !u!4 &1853480976 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2119653319101029557, guid: b2286323051564449bfc20592527f254, type: 3}
-  m_PrefabInstance: {fileID: 1853480975}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1853717223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48051,6 +47928,7 @@ MonoBehaviour:
   food: {fileID: 2165500579870692865}
   foodBig: {fileID: 1643164679}
   blackCircle: {fileID: 1389465568159135136}
+  blackCircleBig: {fileID: 1570948519}
   circleUI: {fileID: 1359407503}
   circleUIBig: {fileID: 1570948517}
   toolBeforeCook: {fileID: 21300000, guid: 1b205d79e0935424283cb8923d239d6d, type: 3}
@@ -49511,6 +49389,7 @@ MonoBehaviour:
   food: {fileID: 4805728276875440411}
   foodBig: {fileID: 55316847}
   blackCircle: {fileID: 4805728276786555232}
+  blackCircleBig: {fileID: 1616087794}
   circleUI: {fileID: 51228432}
   circleUIBig: {fileID: 1616087792}
   toolBeforeCook: {fileID: 21300000, guid: f87f2a1174d2cdc4396a83796b79bd46, type: 3}
@@ -49709,7 +49588,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4673833264408043827, guid: b6f197138fc0dcc42b21ce394285d808, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4673833264408043827, guid: b6f197138fc0dcc42b21ce394285d808, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51542,7 +51421,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0
+  m_FillAmount: 0.655
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -52189,7 +52068,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 110699849441464506, guid: 3ae304c3a64f87c4e9a889497746ed61, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 110699849441464506, guid: 3ae304c3a64f87c4e9a889497746ed61, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52281,6 +52160,7 @@ MonoBehaviour:
   food: {fileID: 0}
   foodBig: {fileID: 0}
   blackCircle: {fileID: 0}
+  blackCircleBig: {fileID: 0}
   circleUI: {fileID: 0}
   circleUIBig: {fileID: 0}
   toolBeforeCook: {fileID: 0}
@@ -52316,7 +52196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f17662cdd8a9354cb82695d98ebf14c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FridgeUI: {fileID: 360748258}
+  FridgeUI: {fileID: 1023833971}
 --- !u!33 &5834229771117051795
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -52362,11 +52242,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6113440085900569217, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000001641968
+      value: 0.000000016419678
       objectReference: {fileID: 0}
     - target: {fileID: 6113440085900569217, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000051433218
+      value: -0.0000000051433213
       objectReference: {fileID: 0}
     - target: {fileID: 6113440086044157811, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52390,11 +52270,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6113440086044157811, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000003264682
+      value: -0.0000000326468
       objectReference: {fileID: 0}
     - target: {fileID: 6113440086044157811, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000010882274
+      value: 0.000000010882268
       objectReference: {fileID: 0}
     - target: {fileID: 6113440086876352782, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52450,11 +52330,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6113440086886357291, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000016427245
+      value: 0.000000016427316
       objectReference: {fileID: 0}
     - target: {fileID: 6113440086886357291, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000005140729
+      value: -0.0000000051409685
       objectReference: {fileID: 0}
     - target: {fileID: 6113440086886357291, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -53090,7 +52970,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7798755346759354731, guid: 2acc876d1e13de84db120b3f916eba34, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7798755346759354731, guid: 2acc876d1e13de84db120b3f916eba34, type: 3}
       propertyPath: m_LocalScale.x
@@ -55491,7 +55371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4966544450653392535, guid: fe19a331430349b4f8fdadcc8c7acccd, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4966544450653392535, guid: fe19a331430349b4f8fdadcc8c7acccd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55613,6 +55493,7 @@ MonoBehaviour:
   food: {fileID: 7169291243645623497}
   foodBig: {fileID: 401736283}
   blackCircle: {fileID: 8209514792963906985}
+  blackCircleBig: {fileID: 9660004}
   circleUI: {fileID: 1359407503}
   circleUIBig: {fileID: 9660001}
   toolBeforeCook: {fileID: 21300000, guid: 92249ab8ba5f48c419d4ce752888d4bb, type: 3}
