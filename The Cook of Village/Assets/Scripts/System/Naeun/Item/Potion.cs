@@ -8,7 +8,9 @@ public class Potion : MonoBehaviour
 {
     public float RedDuration = 60f;
     public float OrangeDuration = 180f;
+    public float OrangeMutipleNum = 1.5f;
 
+    //포션 사용상태
     public bool Red = false;
     public bool Orange = false;
     public bool Green = false;
@@ -19,6 +21,7 @@ public class Potion : MonoBehaviour
 
     private ThirdPersonGravity VillagePlayer;
     private ThirdPersonMovement RestaurantPlayer;
+    private CounterQueue Counter;
 
     private Coroutine RunningRed;
     private Coroutine RunningOrange;
@@ -52,7 +55,6 @@ public class Potion : MonoBehaviour
     private void Start()
     {
         LoadObject();
-        ResetPotion();
     }
     void OnEnable()
     {
@@ -79,6 +81,7 @@ public class Potion : MonoBehaviour
         if (GameManager.Instance.CurrentSceneIndex == 3)
         {
             RestaurantPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonMovement>();
+            Counter = GameObject.FindGameObjectWithTag("Counter").GetComponent<CounterQueue>();
             RestaurantPlayer.speed = RestaurantPlayer.OriginSpeed;
         }
         if (Red) {StopCoroutine(RunningRed); StartCoroutine(UseRedPotion()); }
@@ -89,6 +92,7 @@ public class Potion : MonoBehaviour
         Red = false; Orange = false; Green = false; Brown = false;
         RedTime = 0; OrangeTime = 0;
         RedPlayerSpeed(1);
+        Counter.PayMultiple = 1f;
     }
     public bool CanUsePotion(string potion)
     {
@@ -97,14 +101,15 @@ public class Potion : MonoBehaviour
             case "OrangePotion":
                 return (GameManager.Instance.CurrentSceneIndex == 3); //레스토랑
             case "GreenPotion":
-                return (GameManager.Instance.CurrentSceneIndex == 3); //레스토랑
+                return (GameManager.Instance.CurrentSceneIndex == 3 && !Green); //레스토랑
             case "BrownPotion":
-                return (GameManager.Instance.CurrentSceneIndex == 2); //마을
+                return (GameManager.Instance.CurrentSceneIndex == 2 && !Brown); //마을
             default: //Red, Rainbow 씬 상관없음
                 return true;
         }
     } //정해진 씬에서만 사용가능, 사용 유무 확인
 
+    #region Potion Effect
     public void UsePotion(string potion)
     {
         switch (potion)
@@ -115,7 +120,9 @@ public class Potion : MonoBehaviour
                 RunningRed = StartCoroutine(UseRedPotion());
                 break;
             case "OrangePotion":
-                StartCoroutine(UseOrangePotion());
+                OrangeTime += OrangeDuration;
+                if (Orange == true) { StopCoroutine(RunningOrange); } //코루틴 중복방지
+                RunningOrange = StartCoroutine(UseOrangePotion());
                 break;
             case "GreenPotion":
                 UseGreenPotion();
@@ -135,7 +142,6 @@ public class Potion : MonoBehaviour
         RedPlayerSpeed(1.5f);
         while (RedTime > 0)
         {
-            Debug.Log(RedTime);
             RedTime -= Time.deltaTime;
             if(RedTime <= 0) //지속시간 종료
             {
@@ -161,7 +167,17 @@ public class Potion : MonoBehaviour
     private IEnumerator UseOrangePotion() //계산 가격 증가
     {
         Orange = true;
-        yield return null;
+        Counter.PayMultiple = 1.5f;
+        while (OrangeTime > 0)
+        {
+            OrangeTime -= Time.deltaTime;
+            if (OrangeTime <= 0) //지속시간 종료
+            {
+                Counter.PayMultiple = 1f;
+                Orange = false;
+            }
+            yield return null;
+        }
     }
     private void UseGreenPotion() //조리시간 감소
     {
@@ -180,4 +196,5 @@ public class Potion : MonoBehaviour
             //해금
         }
     }
+    #endregion
 }

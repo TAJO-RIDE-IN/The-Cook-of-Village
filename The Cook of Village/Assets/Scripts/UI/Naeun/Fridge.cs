@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Fridge : MonoBehaviour
 {
-    public FridgeUI refrigeratorUI;
+    public FridgeUI FridgeUI;
     private Animator frigdeAnimator;
 
     private void Start()
@@ -22,11 +22,11 @@ public class Fridge : MonoBehaviour
     public void OpenRefrigerator()
     {
         FridgeAnimaion(true);
-        refrigeratorUI.OpenUI();
+        FridgeUI.OpenUI();
     }
     public void CloseRefrigerator()
     {
         FridgeAnimaion(false);
-        refrigeratorUI.CloseUI();
+        FridgeUI.CloseUI();
     }
 }

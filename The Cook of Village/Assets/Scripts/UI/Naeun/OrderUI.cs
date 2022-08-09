@@ -13,6 +13,7 @@ public class OrderUI : MonoBehaviour
         {
             food = value;
             this.gameObject.transform.SetParent(Order);
+            this.gameObject.SetActive(true);
             OrderContainer.gameObject.GetComponent<OrderControl>().OrderCount++;
             ChangeImage(food.ImageUI, FoodData.Instance.foodTool[food.Type].ToolImage);
             MateiralState();
