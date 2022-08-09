@@ -18,6 +18,7 @@ public class CookingTool : MonoBehaviour
     public Image food;
     public Image foodBig;
     public Image blackCircle;
+    public Image blackCircleBig;
 
     public GameObject circleUI;
     public GameObject circleUIBig;
@@ -135,14 +136,30 @@ public class CookingTool : MonoBehaviour
         {
             currentValue += Time.deltaTime;
             blackCircle.fillAmount = currentValue / FoodInfos.MakeTime;
+            blackCircleBig.fillAmount = currentValue / FoodInfos.MakeTime;
             circleUI.transform.Rotate(0, 0, 1);
             circleUIBig.transform.Rotate(0, 0, 1);
             yield return null;
         }
         currentValue = 0;
+        StartCoroutine(BurntFood());
         isCooked = true;
         food.sprite = FoodInfos.ImageUI;
         foodBig.sprite = FoodInfos.ImageUI;
+    }
+
+    IEnumerator BurntFood()
+    {
+        while (blackCircle.fillAmount > 0)
+        {
+            Debug.Log(currentValue / FoodInfos.MakeTime * 1.25f);
+            currentValue += Time.deltaTime;
+            blackCircle.fillAmount = 1 - (currentValue / (FoodInfos.MakeTime * 1.25f));
+            blackCircleBig.fillAmount = 1 - (currentValue / (FoodInfos.MakeTime * 1.25f));
+            yield return null;
+        }
+        FoodInfos = FoodData.Instance.foodTool[4].foodInfos[1];
+
     }
 
 
