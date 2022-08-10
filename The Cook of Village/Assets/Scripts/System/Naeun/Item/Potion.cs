@@ -7,8 +7,10 @@ using UnityEngine.SceneManagement;
 public class Potion : MonoBehaviour
 {
     public float RedDuration = 60f;
+    public float RedMutiple = 1.5f;
     public float OrangeDuration = 180f;
-    public float OrangeMutipleNum = 1.5f;
+    public float OrangeMutiple = 1.5f;
+    public float GreenReduction = 0.5f;
 
     //포션 사용상태
     public bool Red = false;
@@ -22,6 +24,7 @@ public class Potion : MonoBehaviour
     private ThirdPersonGravity VillagePlayer;
     private ThirdPersonMovement RestaurantPlayer;
     private CounterQueue Counter;
+    private List<CookingTool> Tool = new List<CookingTool>();
 
     private Coroutine RunningRed;
     private Coroutine RunningOrange;
@@ -80,8 +83,13 @@ public class Potion : MonoBehaviour
         }
         if (GameManager.Instance.CurrentSceneIndex == 3)
         {
+            Tool.Clear();
             RestaurantPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonMovement>();
             Counter = GameObject.FindGameObjectWithTag("Counter").GetComponent<CounterQueue>();
+            GameObject[] CookTool = GameObject.FindGameObjectsWithTag("CookingTools");
+            foreach(var tool in CookTool) {
+                Tool.Add(tool.GetComponent<CookingTool>()); //CookingTool 리스트에 추가
+            } 
             RestaurantPlayer.speed = RestaurantPlayer.OriginSpeed;
         }
         if (Red) {StopCoroutine(RunningRed); StartCoroutine(UseRedPotion()); }
@@ -93,6 +101,10 @@ public class Potion : MonoBehaviour
         RedTime = 0; OrangeTime = 0;
         RedPlayerSpeed(1);
         Counter.PayMultiple = 1f;
+        foreach (var CookingTool in Tool)
+        {
+            CookingTool.GreenPotionEffect = 1;
+        }
     }
     public bool CanUsePotion(string potion)
     {
@@ -139,7 +151,7 @@ public class Potion : MonoBehaviour
     private IEnumerator UseRedPotion() //이동속도 증가
     {
         Red = true;
-        RedPlayerSpeed(1.5f);
+        RedPlayerSpeed(RedMutiple);
         while (RedTime > 0)
         {
             RedTime -= Time.deltaTime;
@@ -181,7 +193,10 @@ public class Potion : MonoBehaviour
     }
     private void UseGreenPotion() //조리시간 감소
     {
-
+        foreach (var CookingTool in Tool)
+        {
+            CookingTool.GreenPotionEffect = GreenReduction;
+        }
     }
     private void UseBrownPotion() //초콜릿 상인 소환
     {

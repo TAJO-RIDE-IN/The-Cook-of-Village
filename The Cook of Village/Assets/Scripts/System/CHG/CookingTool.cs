@@ -25,11 +25,11 @@ public class CookingTool : MonoBehaviour
     
     public Sprite toolBeforeCook;
     public CookItemSlotManager cookSlotManager;
-
+    
 
     private Animation _animation;
     private float currentValue;
-    
+    public float GreenPotionEffect = 1;
     
     public List<int> ingredientList = new List<int>();
     public FoodInfos FoodInfos { get; set;}//foodInfos가 바뀌면 해줄 일,즉 UI코루틴 끝났을때 할 일 set에 적자
@@ -135,8 +135,8 @@ public class CookingTool : MonoBehaviour
         while (blackCircle.fillAmount < 1)
         {
             currentValue += Time.deltaTime;
-            blackCircle.fillAmount = currentValue / FoodInfos.MakeTime;
-            blackCircleBig.fillAmount = currentValue / FoodInfos.MakeTime;
+            blackCircle.fillAmount = currentValue / FoodInfos.MakeTime * GreenPotionEffect;
+            blackCircleBig.fillAmount = currentValue / FoodInfos.MakeTime * GreenPotionEffect;
             circleUI.transform.Rotate(0, 0, 1);
             circleUIBig.transform.Rotate(0, 0, 1);
             yield return null;
@@ -154,8 +154,8 @@ public class CookingTool : MonoBehaviour
         {
             Debug.Log(currentValue / FoodInfos.MakeTime * 1.25f);
             currentValue += Time.deltaTime;
-            blackCircle.fillAmount = 1 - (currentValue / (FoodInfos.MakeTime * 1.25f));
-            blackCircleBig.fillAmount = 1 - (currentValue / (FoodInfos.MakeTime * 1.25f));
+            blackCircle.fillAmount = 1 - (currentValue / (FoodInfos.MakeTime * GreenPotionEffect * 1.25f));
+            blackCircleBig.fillAmount = 1 - (currentValue / (FoodInfos.MakeTime * GreenPotionEffect * 1.25f));
             yield return null;
         }
         FoodInfos = FoodData.Instance.foodTool[4].foodInfos[1];
