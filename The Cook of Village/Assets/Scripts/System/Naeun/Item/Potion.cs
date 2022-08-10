@@ -7,10 +7,10 @@ using UnityEngine.SceneManagement;
 public class Potion : MonoBehaviour
 {
     public float RedDuration = 60f;
-    public float RedMutiple = 1.5f;
+    public float RedEffectNum = 1.5f;
     public float OrangeDuration = 180f;
-    public float OrangeMutiple = 1.5f;
-    public float GreenReduction = 0.5f;
+    public float OrangeEffectNum = 1.5f;
+    public float GreenEffectNum = 2f;
 
     //포션 사용상태
     public bool Red = false;
@@ -151,7 +151,7 @@ public class Potion : MonoBehaviour
     private IEnumerator UseRedPotion() //이동속도 증가
     {
         Red = true;
-        RedPlayerSpeed(RedMutiple);
+        RedPlayerSpeed(RedEffectNum);
         while (RedTime > 0)
         {
             RedTime -= Time.deltaTime;
@@ -195,7 +195,7 @@ public class Potion : MonoBehaviour
     {
         foreach (var CookingTool in Tool)
         {
-            CookingTool.GreenPotionEffect = GreenReduction;
+            CookingTool.GreenPotionEffect = GreenEffectNum;
         }
     }
     private void UseBrownPotion() //초콜릿 상인 소환
