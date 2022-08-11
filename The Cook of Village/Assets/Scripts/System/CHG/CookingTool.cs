@@ -154,8 +154,8 @@ public class CookingTool : MonoBehaviour
         {
             Debug.Log(currentValue / FoodInfos.MakeTime * 1.25f);
             currentValue += Time.deltaTime;
-            blackCircle.fillAmount = 1 - (currentValue / (FoodInfos.MakeTime * GreenPotionEffect * 1.25f));
-            blackCircleBig.fillAmount = 1 - (currentValue / (FoodInfos.MakeTime * GreenPotionEffect * 1.25f));
+            blackCircle.fillAmount = 1 - (currentValue / (FoodInfos.MakeTime * 1.25f));
+            blackCircleBig.fillAmount = 1 - (currentValue / (FoodInfos.MakeTime * 1.25f));
             yield return null;
         }
         FoodInfos = FoodData.Instance.foodTool[4].foodInfos[1];
