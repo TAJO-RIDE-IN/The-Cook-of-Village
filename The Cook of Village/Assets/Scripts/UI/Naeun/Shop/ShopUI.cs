@@ -22,14 +22,34 @@ public class ShopUI : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    private bool PotionState(ItemInfos info)
+    {
+        if (shop == ItemType.Type.Potion )
+        {
+            if(GameData.Instance.Today == 5)
+            {
+                return true;
+            }
+            else
+            {
+                if(info.ID == 54) { return false; }
+                return true;
+            }
+        }
+        return true;
+    }
+
     public void LoadSlotData ()
     {
         List <ItemInfos> infos = ItemData.Instance.ItemType[(int)shop].ItemInfos;
 
-        foreach (var Ingredient in infos.Select((value, index) => (value, index)))
+        foreach (var info in infos.Select((value, index) => (value, index)))
         {
-            slot[Ingredient.index].Infos = Ingredient.value;
-            slot[Ingredient.index].gameObject.SetActive(true);
+            if(PotionState(info.value))
+            {
+                slot[info.index].Infos = info.value;
+                slot[info.index].gameObject.SetActive(true);
+            }
         }
     }
 }

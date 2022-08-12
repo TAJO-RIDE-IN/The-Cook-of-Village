@@ -63,7 +63,6 @@ public class SlotInventory : Slot<ItemInfos>
                 break;
         }
         Infos.Amount--;
-        ItemData.Instance.ChangeAmount(Infos.ID, Infos.Amount);
         ItemCount.text = Infos.Amount.ToString();
         if (Infos.Amount <= 0)
         {

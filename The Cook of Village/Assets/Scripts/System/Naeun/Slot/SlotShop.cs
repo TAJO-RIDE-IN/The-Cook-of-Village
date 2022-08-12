@@ -22,7 +22,7 @@ public class SlotShop : Slot<ItemInfos>
     public override void SelectSlot()
     {
         SelectSlotObject.gameObject.SetActive(true);
-        SelectSlotObject.slot = this;
+        SelectSlotObject.shop = this;
         SelectSlotObject.CurrentCount = Infos.Amount;
         SelectSlotObject.ModifySlot(Localization.GetLocalizedString("Ingredient", Infos.Name), Infos.ImageUI);
     }
