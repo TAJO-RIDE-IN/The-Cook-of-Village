@@ -12,11 +12,21 @@ public class NPCPooling : ObjectPooling<GuestNPC>
     [SerializeField]
     private float CallTime = 10f;
     private bool isCall = true;
+    private Coroutine _callNPC;
 
     private void Start()
     {
         WaitChair = GameObject.FindGameObjectsWithTag("Chair").ToList();
-        StartCoroutine(CallNPC());
+    }
+
+    public void OpenRestaurant()
+    {
+        _callNPC = StartCoroutine(CallNPC());
+    }
+
+    public void CloseRestaurant()
+    {
+        StopCoroutine(_callNPC);
     }
 
     private IEnumerator CallNPC()
