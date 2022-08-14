@@ -25,17 +25,18 @@ public class CookingTool : MonoBehaviour
     
     public Sprite toolBeforeCook;
     public CookItemSlotManager cookSlotManager;
-    
+
 
     private Animation _animation;
     private float currentValue;
-    public float GreenPotionEffect = 1;
+    public float GreenPotionEffect = 1f;
+    private IEnumerator burntCoroutine;
     
     public List<int> ingredientList = new List<int>();
     public FoodInfos FoodInfos { get; set;}//foodInfos가 바뀌면 해줄 일,즉 UI코루틴 끝났을때 할 일 set에 적자
     
-    [HideInInspector]public bool isBeforeCooking = true;
-    [HideInInspector]public bool isCooked;
+    [HideInInspector]public bool isBeforeCooking = true;//요리를 시작하면 false가 되고, 요리가 끝나면 true가 된다.
+    [HideInInspector]public bool isCooked;//요리가 완성되면 true가 되고, 요리가 담겨있지 않으면 false이다.
     
 
     /*[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -47,6 +48,7 @@ public class CookingTool : MonoBehaviour
     {
         //InventoryBig.SetActive(false);
         _animation = transform.GetComponent<Animation>();
+        burntCoroutine = BurntFood();
     }
 
     
@@ -88,39 +90,50 @@ public class CookingTool : MonoBehaviour
 
     public void Cook()
     {
-        if (ingredientList.Count > 0)
+        if (isBeforeCooking)
         {
-            isBeforeCooking = false;
-            ingredientList.Sort();
-            FoodInfos = FoodData.Instance.RecipeFood((int)type, ingredientList);
-            cookSlotManager.RefreshSlot();
-            RemoveIng();
-            ingredientList.Clear();
-            //Debug.Log(FoodInfos.Name);
-            IngredientInven.SetActive(false);
-            StartCoroutine(CookingGauge());
+            if (!isCooked)
+            {
+                if (ingredientList.Count > 0)
+                {
+                    isBeforeCooking = false;
+                    ingredientList.Sort();
+                    FoodInfos = FoodData.Instance.RecipeFood((int)type, ingredientList);
+                    cookSlotManager.RefreshSlot();
+                    RemoveIngSlot();
+                    ingredientList.Clear();
+                    //Debug.Log(FoodInfos.Name);
+                    IngredientInven.SetActive(false);
+                    StartCoroutine(CookingGauge());
+                    return;
+                }
+                else
+                {
+                    //재료를 넣으세요! UI 출력
+                }
+            }
+            
         }
-        else
-        {
-            //재료를 넣으세요! UI 출력
-        }
+        
         
     }
 
     public void RemoveFood()
     {
+        currentValue = 0;
         blackCircle.fillAmount = 0;
+        blackCircleBig.fillAmount = 0;
         isCooked = false;
         food.sprite = toolBeforeCook;
+        StopCoroutine(burntCoroutine);
     }
 
-    public void RemoveIng()
+    public void RemoveIngSlot()
     {
         for (int i = 0; i < 3; i++)
         {
             Ing[i].sprite = cookSlotManager.emptySlot;
         }
-        isBeforeCooking = true;
 
     }
 
@@ -132,6 +145,7 @@ public class CookingTool : MonoBehaviour
     
     IEnumerator CookingGauge() //LoadingBar.fillAmount이 1이 될때까지 점점 게이지를 추가해줌
     {
+        Debug.Log(blackCircle.fillAmount);
         while (blackCircle.fillAmount < 1)
         {
             currentValue += Time.deltaTime;
@@ -141,8 +155,9 @@ public class CookingTool : MonoBehaviour
             circleUIBig.transform.Rotate(0, 0, 1);
             yield return null;
         }
+        isBeforeCooking = true;
         currentValue = 0;
-        StartCoroutine(BurntFood());
+        StartCoroutine(burntCoroutine);
         isCooked = true;
         food.sprite = FoodInfos.ImageUI;
         foodBig.sprite = FoodInfos.ImageUI;
@@ -152,13 +167,17 @@ public class CookingTool : MonoBehaviour
     {
         while (blackCircle.fillAmount > 0)
         {
-            Debug.Log(currentValue / FoodInfos.MakeTime * 1.25f);
+            //Debug.Log(currentValue / FoodInfos.MakeTime * 1.25f);
             currentValue += Time.deltaTime;
             blackCircle.fillAmount = 1 - (currentValue / (FoodInfos.MakeTime * 1.25f));
             blackCircleBig.fillAmount = 1 - (currentValue / (FoodInfos.MakeTime * 1.25f));
             yield return null;
         }
+        currentValue = 0;
+        food.sprite = FoodData.Instance.foodTool[4].foodInfos[1].ImageUI;
+        foodBig.sprite = FoodData.Instance.foodTool[4].foodInfos[1].ImageUI;
         FoodInfos = FoodData.Instance.foodTool[4].foodInfos[1];
+        
 
     }
 
