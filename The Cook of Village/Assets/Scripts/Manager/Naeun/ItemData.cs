@@ -14,6 +14,7 @@ public class ItemInfos
     public string Explanation;
     public int Price;
     public int Amount;
+    public int ShopCount;
     public GameObject ItemPrefab;
     public Sprite ImageUI;
 }

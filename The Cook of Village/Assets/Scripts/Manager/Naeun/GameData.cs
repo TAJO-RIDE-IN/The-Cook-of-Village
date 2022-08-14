@@ -122,8 +122,6 @@ public class GameData : DataManager, IGameDataOb
     [SerializeField]
     private GameInfos gameInfos;
 
-
-
     #region 변수
     [SerializeField, Range(0, 1440)] //24시간 => 1440분
     private float timeOfDay;
@@ -146,6 +144,7 @@ public class GameData : DataManager, IGameDataOb
             gameInfos.Day = value;
             Today = (int)value % 7;
             gameInfos.Month = value / 14 % 4 + 1;
+            ShopCount.ResetShopCount();
             NotifyObserver();
             SaveDataTime();
         }
