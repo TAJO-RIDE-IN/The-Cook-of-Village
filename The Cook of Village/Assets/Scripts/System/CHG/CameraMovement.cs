@@ -40,15 +40,16 @@ public class CameraMovement : MonoBehaviour
             isAngle = false;
             cinemachine.m_XAxis.m_MaxSpeed = 300;
             
-            cameraPosition.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
+            //cameraPosition.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
             cinemachine.m_XAxis.Value += Input.GetAxis("Mouse X");
-            cameraPosition.transform.rotation = flatCamera.transform.rotation;
+            cameraPosition.transform.rotation = Quaternion.Euler(0,flatCamera.transform.eulerAngles.y,0);
+            Debug.Log(flatCamera.transform.rotation.y);
         }
         else
         {
             if (!isAngle)
             {
-                upDirection = Quaternion.Euler(0, cinemachine.m_XAxis.Value - preAngle, 0) * upDirection;
+                upDirection = Quaternion.Euler(0, cinemachine.m_XAxis.Value - preAngle, 0) * upDirection;//이게 upDirection을 이 회전각도에 따라서 바꿔주는것
                 preAngle = cinemachine.m_XAxis.Value;
                 isAngle = true;
             }
@@ -80,14 +81,14 @@ public class CameraMovement : MonoBehaviour
         
         if (Input.GetMouseButton(1) && !Input.GetKey(KeyCode.LeftControl))
         {
-            Debug.Log(Vector3.forward);
+            //Debug.Log(Vector3.forward);
             //Debug.Log(upDirection);
             
             //new Vector3()
             if (cameraPosition.transform.position.x >= outerLeft && cameraPosition.transform.position.x <= outerRight &&
                 cameraPosition.transform.position.z >= outerDown && cameraPosition.transform.position.z <= outerUp)
             {
-                cameraPosition.transform.Translate(-upDirection * Input.GetAxis("Mouse Y") * dragSpeed * Time.deltaTime
+                cameraPosition.transform.Translate(-cameraPosition.transform.forward * Input.GetAxis("Mouse Y") * dragSpeed * Time.deltaTime
                     , Space.World);
                 cameraPosition.transform.Translate(-Vector3.right * Input.GetAxis("Mouse X") * dragSpeed * Time.deltaTime,
                     Space.Self);

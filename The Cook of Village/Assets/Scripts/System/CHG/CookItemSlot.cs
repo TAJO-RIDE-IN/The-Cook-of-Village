@@ -40,11 +40,7 @@ public class CookItemSlot : ItemSlot
             }
             return;
         }
-        if(itemSlotManager.cookingTool.isBeforeCooking)
-        {
-            itemSlotManager.cookingTool.Cook();
-            //요리하는 거 하기
-        }
+        itemSlotManager.cookingTool.Cook();
     }
 
 
