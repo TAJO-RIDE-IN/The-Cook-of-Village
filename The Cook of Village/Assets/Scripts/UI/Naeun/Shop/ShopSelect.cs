@@ -22,8 +22,6 @@ public class ShopSelect : MonoBehaviour
         {
             currentCount = value;
             CountSlider.value = 0;
-            Debug.Log(ShopCount.ShopCountDictionary[shop.Infos.Name]);
-            Debug.Log(shop.Infos.ShopCount);
             CountSlider.maxValue = shop.Infos.ShopCount - ShopCount.ShopCountDictionary[shop.Infos.Name];
             BuyMaxCount = ItemData.Instance.MaxMaterialCount - currentCount;
             MoneyMaxCount = (int)GameData.Instance.Money / shop.Infos.Price;
