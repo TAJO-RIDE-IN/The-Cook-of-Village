@@ -8,7 +8,7 @@ public class ChefInventory : MonoBehaviour
 {
     
     private static ChefInventory instance = null;
-        
+    
     private void Awake()
     {
         for (int i = 0; i < MaxInven; i++)
