@@ -97,8 +97,7 @@ public class GameData : DataManager, IGameDataOb
         {
             DayNightClycle.GetComponent<LightingManager>().AddObserver(this);
         }
-
-        if(runningCoroutine != null) //한 개의 코루틴만 실행
+        if (runningCoroutine != null) //한 개의 코루틴만 실행
         {
             StopCoroutine(runningCoroutine);
         }

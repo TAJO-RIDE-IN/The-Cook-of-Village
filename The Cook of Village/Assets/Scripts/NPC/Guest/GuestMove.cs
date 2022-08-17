@@ -51,7 +51,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         while (!isArrive)
         {
             agent.SetDestination(destination);
-            if (agent.velocity.sqrMagnitude >= 1f && agent.remainingDistance <= 0.1f) //NPC 목적지 도착
+            if (agent.velocity.sqrMagnitude >= 1.3f && agent.remainingDistance <= 0.1f) //NPC 목적지 도착
             {
                 agent.enabled = false;
                 NPCState(destination_name);
@@ -66,8 +66,8 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         switch (destination_name)
         {
             case "Chair":
-                Vector3 table = new Vector3(UseChair.transform.parent.position.x, transform.position.y, UseChair.transform.parent.position.z);
                 Transform chair = UseChair.transform.GetChild(0);
+                Vector3 table = new Vector3(UseChair.transform.parent.position.x, chair.transform.position.y, UseChair.transform.parent.position.z);
                 transform.position = chair.position;
                 transform.LookAt(table);
                 guest.ChangeState(GuestNPC.State.Sit);
