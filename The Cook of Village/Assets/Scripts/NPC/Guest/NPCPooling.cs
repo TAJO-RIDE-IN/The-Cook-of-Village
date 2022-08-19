@@ -7,6 +7,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>
 {
     [SerializeField]
     private GameObject ChairContainer;
+    [SerializeField] private List<VillageGuest> VillgeNPC = new List<VillageGuest>();
     public List<GameObject> WaitChair = new List<GameObject>();
 
     [SerializeField]
