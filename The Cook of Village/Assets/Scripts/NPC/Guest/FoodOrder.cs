@@ -50,9 +50,12 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     {
         foreach(FoodTool i in FoodData.Instance.foodTool)
         {
-            foreach (FoodInfos j in i.foodInfos)
+            if(i.Amount != 0)
             {
-                FoodProbability.Add(j, j.OrderProbability);
+                foreach (FoodInfos j in i.foodInfos)
+                {
+                    FoodProbability.Add(j, j.OrderProbability);
+                }
             }
         }
     }

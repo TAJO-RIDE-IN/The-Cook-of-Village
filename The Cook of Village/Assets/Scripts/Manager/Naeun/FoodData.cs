@@ -45,6 +45,7 @@ public class FoodTool
     [SerializeField]
     public Type type;
     public Sprite ToolImage;
+    public int Amount;
     public List<FoodInfos> foodInfos = new List<FoodInfos>();
     public FoodTool(Type _type,Sprite tool, List<FoodInfos> _foodInfos)
     {
