@@ -447,6 +447,7 @@ GameObject:
   - component: {fileID: 1531429878981391108}
   - component: {fileID: 8908563786562773595}
   - component: {fileID: 7401886509079043323}
+  - component: {fileID: 4159759577444574125}
   m_Layer: 0
   m_Name: GuestCow
   m_TagString: Untagged
@@ -500,16 +501,16 @@ NavMeshAgent:
   m_GameObject: {fileID: 2301739997543854636}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 350
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -589,6 +590,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   villageNPC: 0
   Holiday: 0
+--- !u!65 &4159759577444574125
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2301739997543854636}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 1, z: 0.9}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2385173234870746484
 GameObject:
   m_ObjectHideFlags: 0
