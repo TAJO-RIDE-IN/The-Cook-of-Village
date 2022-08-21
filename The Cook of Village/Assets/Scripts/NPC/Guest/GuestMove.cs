@@ -26,7 +26,6 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     private void OnEnable()
     {
         StartCoroutine(NPCMove(ChairPosition(), "Chair"));
-        transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0)); //정면 보도록
     }
     private void ChangeChairState()
     {

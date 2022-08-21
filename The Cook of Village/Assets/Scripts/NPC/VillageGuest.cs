@@ -8,4 +8,5 @@ public class VillageGuest : MonoBehaviour
     [SerializeField]private VillageNPC villageNPC;
 
     public int Holiday;
+    public int FavoriteFoodID;
 }
