@@ -26,15 +26,21 @@ public static class ShopCount
     static int ShopFrypanCount;
     static int ShopWhippingMachineCount;
     static int ShopOvenCount;
+    static int ShopTableCount;
+    static int ShopChairCount;
+    static int ShopBackrestChairCount;
+    static int ShopPlantCount;
+    static int ShopOrchidCount;
 
-    public static List<int> ShopCountList = new List<int> 
+    public static List<int> ShopCountList = new List<int>()
     { 
         ShopLemonCount, ShopOrangeCount, ShopWatermelonCount,
         ShopTomatoCount, ShopPotatoCount,
         ShopEggCount, ShopChickenCount, ShopBeefCount, ShopBaconCount,
         ShopChocolateCount,
         ShopRedPotionCount, ShopOrangePotionCount, ShopGreenPotionCount, ShopBrownPotionCount, ShopRainbowPotionCount,
-        ShopBlenderCount, ShopPotCount, ShopFrypanCount, ShopWhippingMachineCount, ShopOvenCount
+        ShopBlenderCount, ShopPotCount, ShopFrypanCount, ShopWhippingMachineCount, ShopOvenCount,
+        ShopTableCount, ShopChairCount, ShopBackrestChairCount, ShopPlantCount, ShopOrchidCount
     };
 
     public static Dictionary<string, int> ShopCountDictionary = new Dictionary<string, int>()
@@ -44,7 +50,8 @@ public static class ShopCount
         {"Egg", ShopEggCount }, {"Chicken", ShopChickenCount }, {"Beef", ShopBeefCount }, {"Bacon", ShopBaconCount },
         {"Chocolate", ShopChocolateCount },
         {"RedPotion", ShopRedPotionCount }, {"OrangePotion", ShopOrangePotionCount }, {"GreenPotion", ShopGreenPotionCount }, {"BrownPotion", ShopBrownPotionCount }, {"RainbowPotion", ShopRainbowPotionCount },
-        {"Blender", ShopBlenderCount }, {"Pot", ShopPotCount }, {"Frypan", ShopFrypanCount }, {"WhippingMachine", ShopWhippingMachineCount }, {"Oven", ShopOvenCount }
+        {"Blender", ShopBlenderCount }, {"Pot", ShopPotCount }, {"Frypan", ShopFrypanCount }, {"WhippingMachine", ShopWhippingMachineCount }, {"Oven", ShopOvenCount },
+        {"WoodTable", ShopTableCount }, {"WoodChair", ShopChairCount }, {"WoodBackrestChair", ShopBackrestChairCount },{"PlantPot", ShopPlantCount },{"OrchidPlantPot", ShopOrchidCount }
     };
     public static void ResetShopCount()
     {

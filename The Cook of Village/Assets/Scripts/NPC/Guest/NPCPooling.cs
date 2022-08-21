@@ -7,6 +7,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>
 {
     [SerializeField]
     private GameObject ChairContainer;
+    [SerializeField] private List<VillageGuest> VillgeNPC = new List<VillageGuest>();
     public List<GameObject> WaitChair = new List<GameObject>();
 
     [SerializeField]
@@ -17,6 +18,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>
     private void Start()
     {
         WaitChair = GameObject.FindGameObjectsWithTag("Chair").ToList();
+        OpenRestaurant();
     }
 
     public void OpenRestaurant()
