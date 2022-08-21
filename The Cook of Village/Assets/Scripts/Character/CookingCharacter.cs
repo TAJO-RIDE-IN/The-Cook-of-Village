@@ -9,9 +9,6 @@ public class CookingCharacter : MonoBehaviour
 {
     public Animator charAnimator;
     public GameObject HandPosition;
-    
-    public ItemInfos currentIngredient;
-    public FoodInfos currentFood;
 
 
     [HideInInspector] public CookingTool _cookingTool;
@@ -190,7 +187,6 @@ public class CookingCharacter : MonoBehaviour
                 Destroy(HandPosition.transform.GetChild(i).gameObject);
             }
             isHand = false;
-            currentIngredient = null;//괜히 손에서 사라진 아이템정보 들고있는거 안좋을까봐
         }
         
     }
