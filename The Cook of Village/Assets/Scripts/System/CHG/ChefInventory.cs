@@ -38,6 +38,7 @@ public class ChefInventory : MonoBehaviour
         }
     }
 
+    public FridgeUI fridgeUI;
     public CookItemSlotManager cookSlotManager;
     public ChefItemSlotManager chefSlotManager;
     private int maxInven = 2;//이 값이 바뀌면 인벤토리 잠금을 해제할거니깐 초기화도 게임데이터에서 하면 좋을듯
@@ -162,6 +163,15 @@ public class ChefInventory : MonoBehaviour
                             };
                         
                         }
+                    }
+
+                    if (_cookingCharacter.isFridgeCollider)
+                    {
+                        fridgeUI.InputRefrigerator(EdibleItems[i]._ingredientsInfos.ID, 1);
+                        Debug.Log("냉장고재료");
+                        EdibleItems[i]._ingredientsInfos = null;
+                        isUsed[i] = false;
+                        chefSlotManager.itemslots[i].changeSlotUI(chefSlotManager.emptySlot);
                     }
                 }
 
