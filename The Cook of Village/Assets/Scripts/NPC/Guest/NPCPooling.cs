@@ -18,7 +18,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>
     private void Start()
     {
         WaitChair = GameObject.FindGameObjectsWithTag("Chair").ToList();
-        OpenRestaurant();
+        //OpenRestaurant();
     }
 
     public void OpenRestaurant()
