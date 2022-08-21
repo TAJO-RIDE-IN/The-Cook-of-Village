@@ -30,7 +30,8 @@ public class FridgeUI : MonoBehaviour
 
     public void InputRefrigerator(int id, int amount)
     {
-        ItemData.Instance.ChangeAmount(id, amount++);
+        ItemData.Instance.ChangeAmount(id, ItemData.Instance.ItemInfos(id).Amount+amount);
+        LoadSlotData();
     }
 
     public void OpenUI()
