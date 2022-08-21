@@ -60,14 +60,20 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         }
     }
 
+    private Transform SitPosition(GuestNPC.Guest who)//앉는 위치
+    {
+        Transform chair = (who == GuestNPC.Guest.General) ? UseChair.transform.GetChild(0) : UseChair.transform.GetChild(1);
+        transform.position = chair.position;
+        return chair;
+    }
+
     private void NPCState(string destination_name) //도착지에 따른 NPC상태 변화
    {
         switch (destination_name)
         {
             case "Chair":
-                Transform chair = UseChair.transform.GetChild(0);
-                Vector3 table = new Vector3(UseChair.transform.parent.position.x, chair.transform.position.y, UseChair.transform.parent.position.z);
-                transform.position = chair.position;
+                Transform chair = SitPosition(guest.currentNPC);
+                Vector3 table = new Vector3(UseChair.transform.parent.position.x, chair.transform.position.y, UseChair.transform.parent.position.z);               
                 transform.LookAt(table);
                 guest.ChangeState(GuestNPC.State.Sit);
                 break;

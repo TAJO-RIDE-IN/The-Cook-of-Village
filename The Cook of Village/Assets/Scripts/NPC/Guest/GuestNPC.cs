@@ -27,6 +27,8 @@ public class GuestNPC : MonoBehaviour, IGuestOb
 {
     IGuestDI guest;
     private List<IObserver<GuestNPC>> _observers = new List<IObserver<GuestNPC>>(); //ObserverList
+    public enum Guest { General, Villge }
+    public Guest currentNPC;
     public enum State { Idle, Walk, Eat, Sit, StandUP, ChaseUP, Pay, GoOut }
     [SerializeField]
     private State currentState;
