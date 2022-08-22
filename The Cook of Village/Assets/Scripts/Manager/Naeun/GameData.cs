@@ -114,6 +114,7 @@ public class GameData : DataManager, IGameDataOb
             Today = (int)value % 7;
             gameInfos.Month = value / 14 % 4 + 1;
             ShopCount.ResetShopCount();
+            Potion.Instance.ResetPotion();
             NotifyObserver();
             SaveDataTime();
         }

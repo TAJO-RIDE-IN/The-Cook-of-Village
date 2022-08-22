@@ -18,6 +18,8 @@ public class Potion : MonoBehaviour
     public bool Green = false;
     public bool Brown = false;
 
+    public bool PotionReset = false;
+
     private float RedTime = 0;
     private float OrangeTime = 0;
 
@@ -66,6 +68,7 @@ public class Potion : MonoBehaviour
         {
             VillagePlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonGravity>();
             VillagePlayer.speed = VillagePlayer.OriginSpeed;
+            UseBrownPotion(Brown);
         }
         if (GameManager.Instance.CurrentSceneIndex == 3)
         {
@@ -77,19 +80,21 @@ public class Potion : MonoBehaviour
                 Tool.Add(tool.GetComponent<CookingTool>()); //CookingTool 리스트에 추가
             } 
             RestaurantPlayer.speed = RestaurantPlayer.OriginSpeed;
+            if(PotionReset) { ResetPotion(); }
         }
         if (Red) { UseRedPotion(RedEffectNum); }
     }
     public void ResetPotion() //하루지나면 포션 효과 제거
     {
+        PotionReset = true;
         Red = false; Orange = false; Green = false; Brown = false;
         RedTime = 0; OrangeTime = 0;
         UseRedPotion(1);
-        Counter.PayMultiple = 1f;
-        ChocolateShop.SetActive(false);
-        foreach (var CookingTool in Tool)
+        if(GameManager.Instance.CurrentSceneIndex == 3)
         {
-            CookingTool.GreenPotionEffect = 1;
+            UseOrangePotion(1f);
+            UseGreenPotion(1f);
+            PotionReset = false;
         }
     }
     #region Potion Effect
@@ -112,7 +117,7 @@ public class Potion : MonoBehaviour
                 break;
             case "GreenPotion":
                 Green = true;
-                UseGreenPotion();
+                UseGreenPotion(GreenEffectNum);
                 break;
             case "BrownPotion":
                 Brown = true;
@@ -169,13 +174,13 @@ public class Potion : MonoBehaviour
             Counter.PayMultiple = effect;
         }
     }
-    private void UseGreenPotion() //조리시간 감소
+    private void UseGreenPotion(float effect) //조리시간 감소
     {
         if(Tool != null)
         {
             foreach (var CookingTool in Tool)
             {
-                CookingTool.GreenPotionEffect = GreenEffectNum;
+                CookingTool.GreenPotionEffect = effect;
             }
         }
     }
