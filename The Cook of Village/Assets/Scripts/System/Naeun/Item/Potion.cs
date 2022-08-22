@@ -23,6 +23,7 @@ public class Potion : MonoBehaviour
 
     private ThirdPersonGravity VillagePlayer;
     private ThirdPersonMovement RestaurantPlayer;
+    private GameObject ChocolateShop;
     private CounterQueue Counter;
     private List<CookingTool> Tool = new List<CookingTool>();
 
@@ -54,27 +55,12 @@ public class Potion : MonoBehaviour
         }
     }
     #endregion
-    #region OnSceneLoaded
+
     private void Start()
     {
         LoadObject();
     }
-    void OnEnable()
-    {
-        // 델리게이트 체인 추가
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    void OnDisable()
-    {
-        // 델리게이트 체인 제거
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        LoadObject();
-    }
-    private void LoadObject()
+    public void LoadObject()
     {
         if (GameManager.Instance.CurrentSceneIndex == 2)
         {
@@ -92,55 +78,45 @@ public class Potion : MonoBehaviour
             } 
             RestaurantPlayer.speed = RestaurantPlayer.OriginSpeed;
         }
-        if (Red) {StopCoroutine(RunningRed); StartCoroutine(UseRedPotion()); }
+        if (Red) { UseRedPotion(RedEffectNum); }
     }
-    #endregion
     public void ResetPotion() //하루지나면 포션 효과 제거
     {
         Red = false; Orange = false; Green = false; Brown = false;
         RedTime = 0; OrangeTime = 0;
-        RedPlayerSpeed(1);
+        UseRedPotion(1);
         Counter.PayMultiple = 1f;
+        ChocolateShop.SetActive(false);
         foreach (var CookingTool in Tool)
         {
             CookingTool.GreenPotionEffect = 1;
         }
     }
-    public bool CanUsePotion(string potion)
-    {
-        switch (potion)
-        {
-            case "OrangePotion":
-                return (GameManager.Instance.CurrentSceneIndex == 3); //레스토랑
-            case "GreenPotion":
-                return (GameManager.Instance.CurrentSceneIndex == 3 && !Green); //레스토랑
-            case "BrownPotion":
-                return (GameManager.Instance.CurrentSceneIndex == 2 && !Brown); //마을
-            default: //Red, Rainbow 씬 상관없음
-                return true;
-        }
-    } //정해진 씬에서만 사용가능, 사용 유무 확인
-
     #region Potion Effect
     public void UsePotion(string potion)
     {
         switch (potion)
         {
             case "RedPotion":
+                Red = true;
                 RedTime += RedDuration;
-                if (Red == true) { StopCoroutine(RunningRed);} //코루틴 중복방지
-                RunningRed = StartCoroutine(UseRedPotion());
+                if (RunningRed != null) { StopCoroutine(RunningRed); }//코루틴 중복방지
+                RunningRed = StartCoroutine(UseRedTime());
+                UseRedPotion(RedEffectNum);
                 break;
             case "OrangePotion":
+                Orange = true;
                 OrangeTime += OrangeDuration;
-                if (Orange == true) { StopCoroutine(RunningOrange); } //코루틴 중복방지
-                RunningOrange = StartCoroutine(UseOrangePotion());
+                if (RunningOrange != null) { StopCoroutine(RunningOrange); }//코루틴 중복방지
+                RunningOrange = StartCoroutine(UseOrangeTime());
                 break;
             case "GreenPotion":
+                Green = true;
                 UseGreenPotion();
                 break;
             case "BrownPotion":
-                UseBrownPotion();
+                Brown = true;
+                UseBrownPotion(Brown);
                 break;
             case "RainbowPotion":
                 UseRainbowPotion();
@@ -148,59 +124,67 @@ public class Potion : MonoBehaviour
         }
     }
     #region RedPotion
-    private IEnumerator UseRedPotion() //이동속도 증가
+    private IEnumerator UseRedTime()
     {
-        Red = true;
-        RedPlayerSpeed(RedEffectNum);
         while (RedTime > 0)
         {
             RedTime -= Time.deltaTime;
-            if(RedTime <= 0) //지속시간 종료
+            if (RedTime <= 0) //지속시간 종료
             {
                 Red = false;
-                RedPlayerSpeed(1);
+                UseRedPotion(1);
             }
             yield return null;
         }
     }
-    private void RedPlayerSpeed(float speed) //플레이어 속도 변경
+    private void UseRedPotion(float speed) //플레이어 속도 변경
     {
-        if (GameManager.Instance.CurrentSceneIndex == 2)
+        if (VillagePlayer != null)
         {
             VillagePlayer.speed = VillagePlayer.OriginSpeed * speed;
         }
-        else if (GameManager.Instance.CurrentSceneIndex == 3)
+        else if (RestaurantPlayer != null)
         {
             RestaurantPlayer.speed = RestaurantPlayer.OriginSpeed * speed;
-            Debug.Log(RestaurantPlayer.speed);
         }
     }
     #endregion
-    private IEnumerator UseOrangePotion() //계산 가격 증가
+    private IEnumerator UseOrangeTime()
     {
-        Orange = true;
-        Counter.PayMultiple = 1.5f;
         while (OrangeTime > 0)
         {
             OrangeTime -= Time.deltaTime;
             if (OrangeTime <= 0) //지속시간 종료
             {
-                Counter.PayMultiple = 1f;
+                UseOrangePotion(1f);
                 Orange = false;
             }
             yield return null;
         }
     }
-    private void UseGreenPotion() //조리시간 감소
+    private void UseOrangePotion(float effect) //계산 가격 증가
     {
-        foreach (var CookingTool in Tool)
+        if(Counter != null)
         {
-            CookingTool.GreenPotionEffect = GreenEffectNum;
+            Counter.PayMultiple = effect;
         }
     }
-    private void UseBrownPotion() //초콜릿 상인 소환
+    private void UseGreenPotion() //조리시간 감소
     {
-
+        if(Tool != null)
+        {
+            foreach (var CookingTool in Tool)
+            {
+                CookingTool.GreenPotionEffect = GreenEffectNum;
+            }
+        }
+    }
+    private void UseBrownPotion(bool state) //초콜릿 상인 소환
+    {
+        if(ChocolateShop != null)
+        {
+            ChocolateShop.SetActive(state);
+        }
     }
     private void UseRainbowPotion() //인벤토리 해금
     {

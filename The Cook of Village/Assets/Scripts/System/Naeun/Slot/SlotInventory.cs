@@ -55,7 +55,7 @@ public class SlotInventory : Slot<ItemInfos>
         switch (Infos.type) //아이템 타입에 따라 호출 함수 달라짐
         {
             case (ItemType.Type.Potion):
-                Potion.Instance.UsePotion(Infos.Name);
+                Potion.Instance.UsePotion(Infos.Name);          
                 break;
             case (ItemType.Type.CookingTool):
                 break;

@@ -59,27 +59,7 @@ public class GameData : DataManager, IGameDataOb
         }
     }
     #endregion
-    #region OnSceneLoaded
-    private void Start()
-    {
-        LoadObject();
-    }
-    void OnEnable()
-    {
-        // 델리게이트 체인 추가
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    void OnDisable()
-    {
-        // 델리게이트 체인 제거
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        LoadObject();
-    }
-    private void LoadObject()
+    public void LoadObject()
     {
         _observers.Clear();
         UIDisplay = GameObject.Find("DisplayUI");
@@ -94,7 +74,6 @@ public class GameData : DataManager, IGameDataOb
 
         runningCoroutine = StartCoroutine(UpdateTime());
     }
-    #endregion
     private IEnumerator UpdateTime()
     {
         while (UIDisplay != null)
