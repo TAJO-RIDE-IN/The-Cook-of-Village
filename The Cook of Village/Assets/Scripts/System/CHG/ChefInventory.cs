@@ -94,7 +94,7 @@ public class ChefInventory : MonoBehaviour
         _cookingCharacter = GameObject.FindGameObjectWithTag("Player").GetComponent<CookingCharacter>();
 
     }
-    private void ExtensionInventory()
+    public void ExtensionInventory()
     {
         //UI 바꿈
         //버튼 Interactable 켜주기
@@ -168,7 +168,6 @@ public class ChefInventory : MonoBehaviour
                     if (_cookingCharacter.isFridgeCollider)
                     {
                         fridgeUI.InputRefrigerator(EdibleItems[i]._ingredientsInfos.ID, 1);
-                        Debug.Log("냉장고재료");
                         EdibleItems[i]._ingredientsInfos = null;
                         isUsed[i] = false;
                         chefSlotManager.itemslots[i].changeSlotUI(chefSlotManager.emptySlot);
