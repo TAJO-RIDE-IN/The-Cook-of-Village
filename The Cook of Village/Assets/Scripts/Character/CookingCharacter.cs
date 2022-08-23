@@ -33,6 +33,7 @@ public class CookingCharacter : MonoBehaviour
 
     void Start()
     {
+        isSpace = false;
         fridge = GameObject.FindGameObjectWithTag("Fridge").GetComponent<Fridge>();
         animatorOverrideController = new AnimatorOverrideController(charAnimator.runtimeAnimatorController);
         charAnimator.runtimeAnimatorController = animatorOverrideController;
@@ -40,7 +41,6 @@ public class CookingCharacter : MonoBehaviour
 
     private void Update()
     {
-
         if (isObjectCollider || isToolCollider || isGuestCollider || isFridgeCollider)
         {
             WhenKeyDown();
@@ -235,6 +235,7 @@ public class CookingCharacter : MonoBehaviour
         
         if (other.tag == "Fridge")
         {
+            isSpace = false;
             fridge.CloseRefrigerator();
             isFridgeCollider = false;
             return;
