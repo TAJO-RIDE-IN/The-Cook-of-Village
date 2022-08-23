@@ -29,6 +29,7 @@ public class GameData : DataManager, IGameDataOb
     private List<IObserver<GameData>> _observers = new List<IObserver<GameData>>();
     private GameObject UIDisplay;
     private GameObject DayNightClycle;
+    private GameObject NPCContainer;
     private GameObject[] Shop;
     private Coroutine runningCoroutine = null;
 
@@ -58,52 +59,21 @@ public class GameData : DataManager, IGameDataOb
         }
     }
     #endregion
-    #region OnSceneLoaded
-    private void Start()
-    {
-        LoadObject();
-    }
-    void OnEnable()
-    {
-        // 델리게이트 체인 추가
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    void OnDisable()
-    {
-        // 델리게이트 체인 제거
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        LoadObject();
-    }
-    private void LoadObject()
+    public void LoadObject()
     {
         _observers.Clear();
         UIDisplay = GameObject.Find("DisplayUI");
         DayNightClycle = GameObject.Find("DayNightClycle");
+        NPCContainer = GameObject.Find("NPCContainer");
         Shop = GameObject.FindGameObjectsWithTag("Shop");
-        foreach(GameObject obj in Shop)
-        {
-            obj.GetComponent<ShopNPC>().AddObserver(this);
-        }
-        if (UIDisplay != null)
-        {
-            UIDisplay.GetComponent<DisplayUI>().AddObserver(this);
-        }
+        foreach(GameObject obj in Shop) { obj.GetComponent<ShopNPC>().AddObserver(this);}
+        if (UIDisplay != null) { UIDisplay.GetComponent<DisplayUI>().AddObserver(this);}
+        if (DayNightClycle != null) { DayNightClycle.GetComponent<LightingManager>().AddObserver(this);}
+        if (NPCContainer != null) { NPCContainer.GetComponent<NPCPooling>().AddObserver(this);}       
+        if (runningCoroutine != null) { StopCoroutine(runningCoroutine); }//한 개의 코루틴만 실행
 
-        if (DayNightClycle != null)
-        {
-            DayNightClycle.GetComponent<LightingManager>().AddObserver(this);
-        }
-        if (runningCoroutine != null) //한 개의 코루틴만 실행
-        {
-            StopCoroutine(runningCoroutine);
-        }
         runningCoroutine = StartCoroutine(UpdateTime());
     }
-    #endregion
     private IEnumerator UpdateTime()
     {
         while (UIDisplay != null)
@@ -144,6 +114,7 @@ public class GameData : DataManager, IGameDataOb
             Today = (int)value % 7;
             gameInfos.Month = value / 14 % 4 + 1;
             ShopCount.ResetShopCount();
+            Potion.Instance.ResetPotion();
             NotifyObserver();
             SaveDataTime();
         }

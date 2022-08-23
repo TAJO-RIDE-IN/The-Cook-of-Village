@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
         if(null == instance)
         {
             instance = this;
-            LoadObject();
+            CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
             CurosrControl(true);
             DontDestroyOnLoad(this.gameObject);
         }
@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviour
     private void LoadObject()
     {
         CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        Potion.Instance.LoadObject();
+        GameData.Instance.LoadObject();
     }
     #endregion
     private void CurosrControl(bool value)

@@ -22,7 +22,7 @@ public class ShopUI : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    private bool PotionState(ItemInfos info)
+    private bool LoadState(ItemInfos info)
     {
         if (shop == ItemType.Type.Potion )
         {
@@ -36,6 +36,7 @@ public class ShopUI : MonoBehaviour
                 return true;
             }
         }
+        if(shop == ItemType.Type.Other && info.ID == 40) { return false; }
         return true;
     }
 
@@ -45,7 +46,7 @@ public class ShopUI : MonoBehaviour
 
         foreach (var info in infos.Select((value, index) => (value, index)))
         {
-            if(PotionState(info.value))
+            if(LoadState(info.value))
             {
                 slot[info.index].Infos = info.value;
                 slot[info.index].gameObject.SetActive(true);
