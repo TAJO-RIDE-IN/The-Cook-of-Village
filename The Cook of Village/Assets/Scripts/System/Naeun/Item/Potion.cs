@@ -81,6 +81,7 @@ public class Potion : MonoBehaviour
             } 
             RestaurantPlayer.speed = RestaurantPlayer.OriginSpeed;
             if(PotionReset) { ResetPotion(); }
+            if(!Orange) { UseOrangePotion(1f); }
         }
         if (Red) { UseRedPotion(RedEffectNum); }
     }
