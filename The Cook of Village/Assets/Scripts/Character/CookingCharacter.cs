@@ -41,11 +41,6 @@ public class CookingCharacter : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("스페이스바 그냥 클릭");
-        }
-
         if (isObjectCollider || isToolCollider || isGuestCollider || isFridgeCollider)
         {
             WhenKeyDown();
