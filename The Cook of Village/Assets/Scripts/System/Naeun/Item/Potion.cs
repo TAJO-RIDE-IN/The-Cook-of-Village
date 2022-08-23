@@ -198,7 +198,7 @@ public class Potion : MonoBehaviour
         int count = GameData.Instance.RainbowDrinking;
         if (count%5 == 0)
         {
-            //해금
+            //ChefInventory.Instance.ExtensionInventory();
         }
     }
     #endregion
