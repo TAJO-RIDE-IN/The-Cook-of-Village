@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class LightingManager : MonoBehaviour, IObserver<GameData>
 {
@@ -41,14 +41,22 @@ public class LightingManager : MonoBehaviour, IObserver<GameData>
             }
         }
     }
-    public void AddObserver(IGameDataOb o)
+    private void Start()
     {
-        GameData.Instance.AddObserver(this);
+        AddObserver(GameData.Instance);
+    }
+    private void OnDisable()
+    {
+        RemoveObserver(GameData.Instance);
     }
 
+    public void AddObserver(IGameDataOb o)
+    {
+        o.AddObserver(this);
+    }
     public void RemoveObserver(IGameDataOb o)
     {
-        GameData.Instance.RemoveObserver(this);
+        o.RemoveObserver(this);
     }
 
     public void Change(GameData obj)

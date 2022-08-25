@@ -28,9 +28,6 @@ public class GameData : DataManager, IGameDataOb
 {
     private List<IObserver<GameData>> _observers = new List<IObserver<GameData>>();
     private GameObject UIDisplay;
-    private GameObject DayNightClycle;
-    private GameObject NPCContainer;
-    private GameObject[] Shop;
     private Coroutine runningCoroutine = null;
 
     #region 싱글톤
@@ -63,15 +60,7 @@ public class GameData : DataManager, IGameDataOb
     {
         _observers.Clear();
         UIDisplay = GameObject.Find("DisplayUI");
-        DayNightClycle = GameObject.Find("DayNightClycle");
-        NPCContainer = GameObject.Find("NPCContainer");
-        Shop = GameObject.FindGameObjectsWithTag("Shop");
-        foreach(GameObject obj in Shop) { obj.GetComponent<ShopNPC>().AddObserver(this);}
-        if (UIDisplay != null) { UIDisplay.GetComponent<DisplayUI>().AddObserver(this);}
-        if (DayNightClycle != null) { DayNightClycle.GetComponent<LightingManager>().AddObserver(this);}
-        if (NPCContainer != null) { NPCContainer.GetComponent<NPCPooling>().AddObserver(this);}       
         if (runningCoroutine != null) { StopCoroutine(runningCoroutine); }//한 개의 코루틴만 실행
-
         runningCoroutine = StartCoroutine(UpdateTime());
     }
     private IEnumerator UpdateTime()

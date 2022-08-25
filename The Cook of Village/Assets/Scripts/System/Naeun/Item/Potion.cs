@@ -4,7 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Potion : MonoBehaviour
+public interface IPotionOb
+{
+    void AddObserver(IObserver<Potion> o);
+    void RemoveObserver(IObserver<Potion> o);
+    void NotifyObserver();
+}
+
+public class Potion : MonoBehaviour, IPotionOb
 {
     public float RedDuration = 60f;
     public float RedEffectNum = 1.5f;
@@ -20,8 +27,8 @@ public class Potion : MonoBehaviour
 
     public bool PotionReset = false;
 
-    private float RedTime = 0;
-    private float OrangeTime = 0;
+    public float RedTime = 0;
+    public float OrangeTime = 0;
 
     private ThirdPersonGravity VillagePlayer;
     private ThirdPersonMovement RestaurantPlayer;
@@ -31,6 +38,8 @@ public class Potion : MonoBehaviour
 
     private Coroutine RunningRed;
     private Coroutine RunningOrange;
+
+    private List<IObserver<Potion>> _observers = new List<IObserver<Potion>>();
     #region 싱글톤
     private static Potion instance = null;
     private void Awake() //씬 시작될때 인스턴스 초기화
@@ -84,6 +93,7 @@ public class Potion : MonoBehaviour
             if(!Orange) { UseOrangePotion(1f); }
         }
         if (Red) { UseRedPotion(RedEffectNum); }
+        NotifyObserver();
     }
     public void ResetPotion() //하루지나면 포션 효과 제거
     {
@@ -97,6 +107,7 @@ public class Potion : MonoBehaviour
             UseGreenPotion(1f);
             PotionReset = false;
         }
+        NotifyObserver();
     }
     #region Potion Effect
     public void UsePotion(string potion)
@@ -128,6 +139,7 @@ public class Potion : MonoBehaviour
                 UseRainbowPotion();
                 break;
         }
+        NotifyObserver();
     }
     #region RedPotion
     private IEnumerator UseRedTime()
@@ -140,6 +152,7 @@ public class Potion : MonoBehaviour
                 Red = false;
                 UseRedPotion(1);
             }
+            NotifyObserver();
             yield return null;
         }
     }
@@ -165,6 +178,7 @@ public class Potion : MonoBehaviour
                 UseOrangePotion(1f);
                 Orange = false;
             }
+            NotifyObserver();
             yield return null;
         }
     }
@@ -202,4 +216,20 @@ public class Potion : MonoBehaviour
         }
     }
     #endregion
+
+    public void AddObserver(IObserver<Potion> o)
+    {
+        _observers.Add(o);
+    }
+    public void RemoveObserver(IObserver<Potion> o)
+    {
+        _observers.Remove(o);
+    }
+    public void NotifyObserver() //observer에 값 전달
+    {
+        foreach (var observer in _observers)
+        {
+            observer.Change(this);
+        }
+    }
 }
