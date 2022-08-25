@@ -14,16 +14,11 @@ public class PotionUI : MonoBehaviour, IObserver<Potion>
     [SerializeField] private GameObject GreenPotion;
     [SerializeField] private GameObject BrownPotion;
     
+    private void PotionTime(float Duration, float CurrentTime, Text text, Image image)
+    {
+        text.text = ((int)CurrentTime).ToString();
+        image.fillAmount = 1 - CurrentTime / Duration;
 
-    private void RedTime(float RedDuration, float CurrentRedTime)
-    {
-        RedPotionText.text = ((int)CurrentRedTime).ToString();
-        RedPotionTime.fillAmount = 1 - CurrentRedTime / RedDuration;
-    }
-    private void OrangeTime(float OrangeDuration, float CurrentOrangeTime)
-    {
-        OrangePotionText.text = ((int)CurrentOrangeTime).ToString();
-        OrangePotionTime.fillAmount = 1 - CurrentOrangeTime / OrangeDuration;
     }
     #region observer
     private void Start()
@@ -51,8 +46,8 @@ public class PotionUI : MonoBehaviour, IObserver<Potion>
         {
             var potion = obj;
 
-            RedTime(potion.RedDuration, potion.RedTime);
-            OrangeTime(potion.OrangeDuration, potion.OrangeTime);
+            PotionTime(potion.RedDuration, potion.RedTime, RedPotionText, RedPotionTime);
+            PotionTime(potion.OrangeDuration, potion.OrangeTime, OrangePotionText, OrangePotionTime);
             RedPotion.SetActive(potion.Red);
             OrangePotion.SetActive(potion.Orange);
             GreenPotion.SetActive(potion.Green);

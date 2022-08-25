@@ -58,6 +58,7 @@ public class GameData : DataManager, IGameDataOb
     #endregion
     public void LoadObject()
     {
+        TipCount = 0;
         _observers.Clear();
         UIDisplay = GameObject.Find("DisplayUI");
         if (runningCoroutine != null) { StopCoroutine(runningCoroutine); }//한 개의 코루틴만 실행
@@ -128,6 +129,8 @@ public class GameData : DataManager, IGameDataOb
             NotifyObserver();
         }
     }
+    public float TipMoney;
+    public float TipCount;
 
     public int RainbowDrinking
     {
