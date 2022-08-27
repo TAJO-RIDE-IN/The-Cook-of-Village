@@ -75,6 +75,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             if (time <= 0)
             {
                 currentOrderUI.OrderAnimation(false);
+                GameData.Instance.TipCount = 0;
                 EndOrder();
             }
             yield return null;
@@ -109,6 +110,10 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => EndEat())); //일정 시간 후 다 먹음
             return Receive;
         }
+        else
+        {
+            GameData.Instance.TipCount = 0;
+        }
         return Receive;
     }
  
@@ -122,7 +127,12 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     public void PayFood(float multiple) //계산
     {
+        GameData.Instance.TipCount++;
         GameData.Instance.Money += foodInfos.Price * multiple;
+        if(GameData.Instance.TipCount >= 5)
+        {
+            GameData.Instance.Money += GameData.Instance.TipMoney;
+        }
         foodInfos = null;
         guest.ChangeState(GuestNPC.State.Pay);
     }

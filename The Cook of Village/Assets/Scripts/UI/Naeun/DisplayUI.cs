@@ -15,6 +15,7 @@ public class DisplayUI : MonoBehaviour, IObserver<GameData>
         {1, "MON" }, {2, "TUE" }, {3, "WED" }, {4, "THU"}, {5, "FRI"}, {6, "SAT"}, {0, "SUN"}
     };
 
+
     private int[] Time(float currentTime)
     {
         int[] time = new int[2];
@@ -31,15 +32,23 @@ public class DisplayUI : MonoBehaviour, IObserver<GameData>
         Money.text = money.ToString();
         TodayText.text = Today[today];
     }
+    private void Start()
+    {
+        AddObserver(GameData.Instance);
+    }
+    private void OnDisable()
+    {
+        RemoveObserver(GameData.Instance);
+    }
 
     public void AddObserver(IGameDataOb o)
     {
-        GameData.Instance.AddObserver(this);
+        o.AddObserver(this);
     }
 
     public void RemoveObserver(IGameDataOb o)
     {
-        GameData.Instance.RemoveObserver(this);
+        o.RemoveObserver(this);
     }
 
     public void Change(GameData obj)

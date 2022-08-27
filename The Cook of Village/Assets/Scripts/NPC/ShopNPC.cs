@@ -28,6 +28,7 @@ public class ShopNPC : MonoBehaviour, IObserver<GameData>
     public int CloseDay;
     private void Start()
     {
+        AddObserver(GameData.Instance);
         ani = this.gameObject.GetComponent<Animator>();
     }
     public void OnTriggerEnter(Collider other)
@@ -90,17 +91,22 @@ public class ShopNPC : MonoBehaviour, IObserver<GameData>
     private void currentShop()
     {
         shopUI.shop = type;
-    }    
+    }
 
     #region observer
+    private void OnDisable()
+    {
+        RemoveObserver(GameData.Instance);
+    }
+
     public void AddObserver(IGameDataOb o)
     {
-        GameData.Instance.AddObserver(this);
+        o.AddObserver(this);
     }
 
     public void RemoveObserver(IGameDataOb o)
     {
-        GameData.Instance.RemoveObserver(this);
+        o.RemoveObserver(this);
     }
 
     public void Change(GameData obj)
