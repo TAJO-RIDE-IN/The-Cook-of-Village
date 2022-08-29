@@ -105,4 +105,16 @@ public class FoodData : DataManager
     {
         SaveArrayData<FoodTool>(ref foodTool, "FoodData");
     }
+
+    public FoodInfos Foodinfos(int id)
+    {
+        int dataIndex;
+        dataIndex = foodTool[FoodType(id)].foodInfos.FindIndex(m => m.ID == id);
+        return foodTool[FoodType(id)].foodInfos[dataIndex];
+    }
+
+    private int FoodType(int id)
+    {
+        return id / 10;
+    }
 }
