@@ -57,7 +57,6 @@ public class ItemData : DataManager
         }
     }
     #endregion
-    public int MaxMaterialCount = 99;
     [SerializeField]
     public ItemType[] ItemType;
 

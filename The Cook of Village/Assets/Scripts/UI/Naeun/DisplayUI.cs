@@ -48,7 +48,7 @@ public class DisplayUI : MonoBehaviour, IObserver<GameData>
 
     public void RemoveObserver(IGameDataOb o)
     {
-        o.RemoveObserver(this);
+        if(o != null) { o.RemoveObserver(this); }
     }
 
     public void Change(GameData obj)
