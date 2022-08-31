@@ -43,7 +43,7 @@ public class CameraMovement : MonoBehaviour
             //cameraPosition.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
             cinemachine.m_XAxis.Value += Input.GetAxis("Mouse X");
             cameraPosition.transform.rotation = Quaternion.Euler(0,flatCamera.transform.eulerAngles.y,0);
-            Debug.Log(flatCamera.transform.rotation.y);
+            //Debug.Log(flatCamera.transform.rotation.y);
         }
         else
         {
