@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
 {
-    [SerializeField]
-    private GameObject ChairContainer;
     [SerializeField] private List<VillageGuest> VillgeNPC = new List<VillageGuest>();
     public List<GameObject> WaitChair = new List<GameObject>();
 
@@ -84,7 +82,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     }
     public void RemoveObserver(IGameDataOb o)
     {
-        o.RemoveObserver(this);
+        if(o != null) { o.RemoveObserver(this); }
     }
 
     public void Change(GameData obj)

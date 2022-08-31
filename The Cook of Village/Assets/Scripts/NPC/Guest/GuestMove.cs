@@ -21,7 +21,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         chairContainer = this.gameObject.transform.parent.GetComponent<NPCPooling>();
         agent = this.gameObject.GetComponent<NavMeshAgent>();
         guest = this.gameObject.GetComponent<GuestNPC>();
-        guest.AddGuestNPC(new Guest());
+        AddObserver(guest);
     }
     private void OnEnable()
     {
@@ -140,9 +140,9 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     }
 
 
-    public void AddObserver() //MonoBehaviour 때문에 new 사용불가
+    public void AddObserver(IGuestOb o)
     {
-        guest.AddObserver(this);
+        o.AddObserver(this);
     }
 
     public void Change(GuestNPC obj) //observer 바뀐 값 받음

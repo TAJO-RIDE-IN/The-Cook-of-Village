@@ -5,16 +5,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IGuestDI
-{
-    void State(GuestNPC.State state);
-}
-
-public class Guest : IGuestDI
-{
-    public void State(GuestNPC.State state) { }
-}
-
 public interface IGuestOb
 {
     void AddObserver(IObserver<GuestNPC> o);
@@ -25,7 +15,6 @@ public interface IGuestOb
 
 public class GuestNPC : MonoBehaviour, IGuestOb
 {
-    IGuestDI guest;
     private List<IObserver<GuestNPC>> _observers = new List<IObserver<GuestNPC>>(); //ObserverList
     public enum Guest { General, Villge }
     public Guest currentNPC;
@@ -41,12 +30,10 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     [SerializeField]
     private GameObject[] Models;
     private GameObject CurrentModel;
-    private BoxCollider col;
+    private BoxCollider collider;
     private void Start()
     {
-        this.gameObject.GetComponent<GuestMove>().AddObserver();
-        this.gameObject.GetComponent<FoodOrder>().AddObserver();
-        col = this.gameObject.GetComponent<BoxCollider>();
+        collider = this.gameObject.GetComponent<BoxCollider>();
     }
     #region Model 변경
     private void OnEnable()
@@ -84,14 +71,14 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 ModelsAni.SetBool("isEat", true);
                 break;
             case State.Sit:
-                col.enabled = true;
+                collider.enabled = true;
                 ModelsAni.SetBool("isWalk", false);
                 ModelsAni.SetTrigger("Sit");
                 ModelsAni.SetTrigger("SitIdle");
                 //StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.FoodWaitingTime, () => ChangeState(State.ChaseUP)));
                 break;
             case State.StandUP:
-                col.enabled = false;
+                collider.enabled = false;
                 ModelsAni.SetBool("isEat", false);
                 ModelsAni.SetTrigger("StandUp");
                 break;
@@ -106,13 +93,9 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 break;
         }
     }
-    public void AddGuestNPC(IGuestDI guest_) //MonoBehaviour 때문에 new 사용불가
-    {
-        guest = guest_;
-    }
+
     public void ChangeState(State state)
     {
-        guest.State(state);
         CurrentState = state;
         NPCAction(); // NPC상태에 따른 행동
         NotifyObserver(); //observer 전달     

@@ -43,10 +43,10 @@ public class OrderUI : MonoBehaviour
     }
     private void MateiralState()
     {
-        for(int i = 0; i < foodInfos.Recipe.Count; i++)
+        for(int i = 0; i < food.Recipe.Count; i++)
         {
             MaterialObject[i].SetActive(true);
-            MaterialImage[i].sprite = ItemData.Instance.ItemInfos(foodInfos.Recipe[i]).ImageUI;
+            MaterialImage[i].sprite = ItemData.Instance.ItemInfos(food.Recipe[i]).ImageUI;
         }
     }
     private void ChangeImage(Sprite food, Sprite tool)

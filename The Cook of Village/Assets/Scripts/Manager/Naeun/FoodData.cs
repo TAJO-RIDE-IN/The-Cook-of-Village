@@ -85,7 +85,6 @@ public class FoodData : DataManager
     }
     #endregion
     public float OrderTime = 5f;
-    public float FoodWaitingTime = 20f;
     public float PayWaitingTime = 20f;
     public float ChaseUPTime = 20f;
     public float EatTime = 10f;
@@ -105,5 +104,17 @@ public class FoodData : DataManager
     public override void SaveDataTime()
     {
         SaveArrayData<FoodTool>(ref foodTool, "FoodData");
+    }
+
+    public FoodInfos Foodinfos(int id)
+    {
+        int dataIndex;
+        dataIndex = foodTool[FoodType(id)].foodInfos.FindIndex(m => m.ID == id);
+        return foodTool[FoodType(id)].foodInfos[dataIndex];
+    }
+
+    private int FoodType(int id)
+    {
+        return id / 10;
     }
 }

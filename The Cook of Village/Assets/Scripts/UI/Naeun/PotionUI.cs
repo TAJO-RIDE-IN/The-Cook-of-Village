@@ -37,7 +37,7 @@ public class PotionUI : MonoBehaviour, IObserver<Potion>
 
     public void RemoveObserver(IPotionOb o)
     {
-        o.RemoveObserver(this);
+        if(o != null)  { o.RemoveObserver(this); }
     }
 
     public void Change(Potion obj)

@@ -21,9 +21,9 @@ public class ShopSelect : MonoBehaviour
         set
         {
             currentCount = value;
+            BuyMaxCount = shop.Infos.ShopCount - ShopCount.ShopCountDictionary[shop.Infos.Name];
             CountSlider.value = 0;
-            CountSlider.maxValue = shop.Infos.ShopCount - ShopCount.ShopCountDictionary[shop.Infos.Name];
-            BuyMaxCount = ItemData.Instance.MaxMaterialCount - currentCount;
+            CountSlider.maxValue = BuyMaxCount;
             MoneyMaxCount = (int)GameData.Instance.Money / shop.Infos.Price;
         }
     }
