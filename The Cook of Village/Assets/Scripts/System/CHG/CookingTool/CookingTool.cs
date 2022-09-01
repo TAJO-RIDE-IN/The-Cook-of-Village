@@ -157,10 +157,13 @@ public class CookingTool : MonoBehaviour
         }
         isBeforeCooking = true;
         currentValue = 0;
-        StartCoroutine(burntCoroutine);
         isCooked = true;
         food.sprite = FoodInfos.ImageUI;
         foodBig.sprite = FoodInfos.ImageUI;
+        if (FoodInfos.ID != 100000)
+        {
+            StartCoroutine(burntCoroutine);
+        }
     }
 
     IEnumerator BurntFood()
@@ -174,9 +177,9 @@ public class CookingTool : MonoBehaviour
             yield return null;
         }
         currentValue = 0;
-        food.sprite = FoodData.Instance.foodTool[4].foodInfos[1].ImageUI;
-        foodBig.sprite = FoodData.Instance.foodTool[4].foodInfos[1].ImageUI;
-        FoodInfos = FoodData.Instance.foodTool[4].foodInfos[1];
+        food.sprite = FoodData.Instance.foodTool[6].foodInfos[1].ImageUI;
+        foodBig.sprite = FoodData.Instance.foodTool[6].foodInfos[1].ImageUI;
+        FoodInfos = FoodData.Instance.foodTool[6].foodInfos[1];
         
 
     }
