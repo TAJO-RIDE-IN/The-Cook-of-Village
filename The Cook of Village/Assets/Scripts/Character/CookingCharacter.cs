@@ -28,7 +28,8 @@ public class CookingCharacter : MonoBehaviour
     public bool isSpace;
     
     private bool isDestroy;
-    [HideInInspector]public string objectName;
+    //[HideInInspector]
+    public string objectName;
 
 
     void Start()
