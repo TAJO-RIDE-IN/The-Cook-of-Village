@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour
 {
-    public enum SceneToGo { Intro = 0, SceneLoad = 1, Village = 2, Restaurant = 3 }
+    public enum SceneToGo { Intro, SceneLoad, Village, Restaurant }
     public SceneToGo sceneToGo;
     public void OnTriggerEnter(Collider other)
     {

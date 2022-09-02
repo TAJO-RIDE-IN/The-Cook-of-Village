@@ -5,9 +5,11 @@ using UnityEngine.UI;
 public class LoadingScene : MonoBehaviour
 {
     public Slider LoadingBarFill;
-    private void Start()
+    public Text TipText;
+    private void Awake()
     {
         StartCoroutine(LoadSceneAsync(GameManager.Instance.NextSceneIndex));
+        TipText.text = Explanation.LoadingTip[Random.Range(0, Explanation.LoadingTip.Count-1)];
     }
  
     private IEnumerator LoadSceneAsync(int sceneID)
