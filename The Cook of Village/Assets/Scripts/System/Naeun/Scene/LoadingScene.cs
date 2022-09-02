@@ -2,10 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 public class LoadingScene : MonoBehaviour
 {
     public Slider LoadingBarFill;
     public Text TipText;
+    private float LoadingTime = 2f;
     private void Awake()
     {
         StartCoroutine(LoadSceneAsync(GameManager.Instance.NextSceneIndex));
@@ -16,9 +18,11 @@ public class LoadingScene : MonoBehaviour
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
         operation.allowSceneActivation = false;
-        while (!operation.isDone)
+        float time = 0;
+        while (time < LoadingTime)
         {
-            float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
+            time += Time.deltaTime;
+            float progressValue = Mathf.Clamp01(time / LoadingTime);
             LoadingBarFill.value = progressValue;
             if(LoadingBarFill.value == 1f) { operation.allowSceneActivation = true; }
             yield return null;
