@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour
 {
@@ -9,11 +10,13 @@ public class ShopUI : MonoBehaviour
     public SlotShop[] slot;
     [SerializeField]
     public ItemType.Type shop;
+    public Scrollbar Scroll;
 
     public void OpenUI()
     {
         GameManager.Instance.IsUI = true;
         this.gameObject.SetActive(true);
+        Scroll.value = 0;
         LoadSlotData();
     }
     public void CloseUI()
