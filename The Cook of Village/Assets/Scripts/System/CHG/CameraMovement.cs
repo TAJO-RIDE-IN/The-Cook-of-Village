@@ -24,6 +24,7 @@ public class CameraMovement : MonoBehaviour
     private Vector3 upDirection;
     private Vector3 rightDirection;
     private float preAngle;
+    private float preOuterDown;
 
     private bool isAngle = true;
     
@@ -55,24 +56,33 @@ public class CameraMovement : MonoBehaviour
             }
             cinemachine.m_XAxis.m_MaxSpeed = 0;
         }
-        distance = Input.GetAxis("Mouse ScrollWheel");
+        
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            if (zoomValue < 3)
+            preOuterDown = cameraPosition.transform.position.z;
+            distance = Input.GetAxis("Mouse ScrollWheel");
+            if (zoomValue < 2)
             {
                 cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
                 zoomValue += distance;
-                outerDown += Mathf.Abs(distance);
+                //outerDown += Mathf.Abs(distance);
+                outerDown += Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+                outerUp += Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+
             }
 
         }
         else
         {
-            if (zoomValue > -5)
+            preOuterDown = cameraPosition.transform.position.z;
+            distance = Input.GetAxis("Mouse ScrollWheel");
+            if (zoomValue > -2)
             {
                 cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
                 zoomValue += distance;
-                outerDown -= Mathf.Abs(distance);
+                //outerDown -= Mathf.Abs(distance);
+                outerDown -= Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+                outerUp -= Math.Abs(preOuterDown - cameraPosition.transform.position.z);
             }
         }
     }
@@ -99,7 +109,7 @@ public class CameraMovement : MonoBehaviour
 
     }
 
-    public void CameraPosition()
+    private void CameraPosition()
     {
         if (cameraPosition.transform.position.x < outerLeft)
         {
@@ -126,7 +136,7 @@ public class CameraMovement : MonoBehaviour
             StartCoroutine(SetCameraPosition());
         }
     }
-    public IEnumerator SetCameraPosition()
+    private IEnumerator SetCameraPosition()
     {
         //yield return new WaitForSeconds(1f);
         
