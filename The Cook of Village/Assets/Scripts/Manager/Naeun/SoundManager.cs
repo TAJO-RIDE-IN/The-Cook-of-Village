@@ -30,7 +30,7 @@ public class SoundManager : MonoBehaviour
 {
     [ArrayElementTitle("soundtype")]
     [SerializeField]
-    public List<SoundData> soundType = new List<SoundData>();
+    public List<SoundData> SoundData = new List<SoundData>();
     private static SoundManager instance = null;
     #region singleton
     private void Awake() //씬 시작될때 인스턴스 초기화
@@ -64,7 +64,7 @@ public class SoundManager : MonoBehaviour
 
     private void AudioDictionary()
     {
-        foreach(var _soundType in soundType)
+        foreach(var _soundType in SoundData)
         {
             foreach(var _sounds in _soundType.soundtype)
             {
@@ -93,7 +93,7 @@ public class SoundManager : MonoBehaviour
                 go.transform.parent = root.transform;
             }
 
-            _audioSources[(int)SoundData.Type.Bgm].loop = true; // bgm 재생기는 무한 반복 재생
+            _audioSources[(int)global::SoundData.Type.Bgm].loop = true; // bgm 재생기는 무한 반복 재생
         }
         Play(_audioClips["RestuarantBackground"]);
     }
@@ -103,9 +103,9 @@ public class SoundManager : MonoBehaviour
         if (sound == null)
             return;
 
-        if (sound.type == SoundData.Type.Bgm) // BGM 배경음악 재생
+        if (sound.type == global::SoundData.Type.Bgm) // BGM 배경음악 재생
         {
-            AudioSource audioSource = _audioSources[(int)SoundData.Type.Bgm];
+            var audioSource = _audioSources[(int)global::SoundData.Type.Bgm];
             if (audioSource.isPlaying)
                 audioSource.Stop();
 
@@ -115,7 +115,7 @@ public class SoundManager : MonoBehaviour
         }
         else // Effect 효과음 재생
         {
-            AudioSource audioSource = _audioSources[(int)SoundData.Type.Effect];
+            var audioSource = _audioSources[(int)global::SoundData.Type.Effect];
             audioSource.pitch = pitch;
             audioSource.PlayOneShot(sound.audio);
         }
