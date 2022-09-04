@@ -33,6 +33,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private bool isInstall = false;
+
+    public bool IsInstall
+    {
+        get { return isInstall; }
+        set 
+        {
+            isInstall = value;
+        }
+    }
+
     private bool isUI = false;
     public bool IsUI
     {
