@@ -43,6 +43,15 @@ public class CookingTool : MonoBehaviour
     static void FirstLoad(){
         
     }*/
+    private void Update()
+    {
+        /*transform.GetChild(0).transform
+            .LookAt(transform.GetChild(0).transform.position + Camera.main.transform.rotation * Vector3.forward,
+                Camera.main.transform.rotation * Vector3.up);*/
+        transform.GetChild(0).transform
+            .LookAt(transform.GetChild(0).transform.position + Camera.main.transform.rotation * Vector3.forward,
+                Camera.main.transform.rotation * Vector3.up);
+    }
     
     private void Start()
     {
@@ -134,7 +143,6 @@ public class CookingTool : MonoBehaviour
         {
             Ing[i].sprite = cookSlotManager.emptySlot;
         }
-
     }
 
     public void CloseUI()
