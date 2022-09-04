@@ -160,7 +160,10 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     {
         o.AddObserver(this);
     }
-
+    public void RemoveObserver(IGuestOb o)
+    {
+        o.RemoveObserver(this);
+    }
     public void Change(GuestNPC obj)
     {
         if (obj is GuestNPC)
