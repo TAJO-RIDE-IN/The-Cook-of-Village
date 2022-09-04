@@ -18,8 +18,8 @@ public class Option : MonoBehaviour
     }
     public void Init()
     {
-        BgmSlider.value = SoundManager.Instance._audioSources[(int)SoundType.Type.Bgm].volume;
-        EffectSlider.value = SoundManager.Instance._audioSources[(int)SoundType.Type.Effect].volume;
+        BgmSlider.value = SoundManager.Instance._audioSources[(int)SoundData.Type.Bgm].volume;
+        EffectSlider.value = SoundManager.Instance._audioSources[(int)SoundData.Type.Effect].volume;
 
         resolutions = Screen.resolutions;
         ResolutionDrop.options.Clear();
@@ -44,11 +44,11 @@ public class Option : MonoBehaviour
     }
     public void ChangeBGMSound()
     {
-        SoundManager.Instance._audioSources[(int)SoundType.Type.Bgm].volume = BgmSlider.value;
+        SoundManager.Instance._audioSources[(int)SoundData.Type.Bgm].volume = BgmSlider.value;
     }
 
     public void ChangeEffectSound()
     {
-        SoundManager.Instance._audioSources[(int)SoundType.Type.Effect].volume = EffectSlider.value;
+        SoundManager.Instance._audioSources[(int)SoundData.Type.Effect].volume = EffectSlider.value;
     }
 }
