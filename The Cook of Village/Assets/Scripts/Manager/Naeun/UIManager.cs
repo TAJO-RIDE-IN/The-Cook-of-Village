@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class UIManager : MonoBehaviour
         if (null == instance)
         {
             instance = this;
+
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -30,6 +32,11 @@ public class UIManager : MonoBehaviour
             return instance;
         }
     }
+
+    private void Init()
+    {
+        UIObject = GameObject.FindGameObjectsWithTag("UI").ToList();
+    }    
     #endregion
     [SerializeField] private List<GameObject> UIObject = new List<GameObject>();
 
