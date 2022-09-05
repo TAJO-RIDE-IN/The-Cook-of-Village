@@ -50,8 +50,8 @@ MonoBehaviour:
   charAnimator: {fileID: 4995481545487291031}
   _camera: {fileID: 0}
   controller: {fileID: 466699733000371447}
-  speed: 80
-  OriginSpeed: 80
+  speed: 160
+  OriginSpeed: 160
   turnSmoothTime: 0.1
 --- !u!143 &466699733000371447
 CharacterController:
@@ -64,13 +64,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.83
+  m_Height: 1.71
   m_Radius: 0.23
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: -0.07, y: 0.91, z: 0.04}
+  m_Center: {x: -0.01, y: 0.91, z: -0.05}
 --- !u!114 &3637440575944271666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,27 +85,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charAnimator: {fileID: 4995481545487291031}
   HandPosition: {fileID: 4928002929507418811}
-  currentIngredient:
-    type: 0
-    ID: 0
-    Name: 
-    Explanation: 
-    Price: 0
-    Amount: 0
-    ItemPrefab: {fileID: 0}
-    ImageUI: {fileID: 0}
-  currentFood:
-    Type: 0
-    ID: 0
-    Name: 
-    Explanation: 
-    MakeTime: 0
-    BurntTime: 0
-    Price: 0
-    OrderProbability: 0
-    Recipe: 
-    PrefabFood: {fileID: 0}
-    ImageUI: {fileID: 0}
   _cookingTool: {fileID: 0}
   _foodOrder: {fileID: 0}
   Idle:
