@@ -71,6 +71,18 @@ public class ItemData : DataManager
         dataIndex = ItemType[IngredientType(id)].ItemInfos.FindIndex(m => m.ID == id);
         return ItemType[IngredientType(id)].ItemInfos[dataIndex];
     }
+    public List<ItemInfos> IngredientList()
+    {
+        List<ItemInfos> _itemInfos = new List<ItemInfos>();
+        for(int i = 1; i < 4; i++)
+        {
+            foreach(var infos in ItemType[i].ItemInfos)
+            {
+                _itemInfos.Add(infos);
+            }
+        }
+        return _itemInfos;
+    }
     private int IngredientType(int id)
     {
         return id / 10;
