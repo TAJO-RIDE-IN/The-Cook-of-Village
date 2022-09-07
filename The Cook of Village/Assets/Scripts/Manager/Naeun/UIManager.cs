@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+public interface IUIObject
+{
+    public void AddUIList();
+    public void RemoveUIList();
+}
 public class UIManager : MonoBehaviour
 {
     #region singleton
@@ -12,7 +16,6 @@ public class UIManager : MonoBehaviour
         if (null == instance)
         {
             instance = this;
-
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -32,13 +35,21 @@ public class UIManager : MonoBehaviour
             return instance;
         }
     }
-
-    private void Init()
-    {
-        UIObject = GameObject.FindGameObjectsWithTag("UI").ToList();
-    }    
+ 
     #endregion
-    [SerializeField] private List<GameObject> UIObject = new List<GameObject>();
+    [SerializeField] private List<GameObject> _UIObject = new List<GameObject>();
+    public List<GameObject> UIObject
+    {
+        get { return _UIObject; }
+        set
+        {
+            _UIObject = value;
+            if(_UIObject.Count >= 2)
+            {
+                _UIObject[0].SetActive(false);
+            }
+        }
+    }
 
 
 }
