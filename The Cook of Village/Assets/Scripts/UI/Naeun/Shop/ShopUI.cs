@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopUI : MonoBehaviour
+public class ShopUI : UIController
 {
     public GameObject SlotContent;
     public SlotShop[] slot;
@@ -14,14 +14,12 @@ public class ShopUI : MonoBehaviour
 
     public void OpenUI()
     {
-        GameManager.Instance.IsUI = true;
         this.gameObject.SetActive(true);
         Scroll.value = 0;
         LoadSlotData();
     }
     public void CloseUI()
     {
-        GameManager.Instance.IsUI = false;
         this.gameObject.SetActive(false);
     }
 

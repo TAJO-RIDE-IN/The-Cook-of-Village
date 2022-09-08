@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUI : UIController
 {
     [SerializeField]
     private ItemType.Type tab;
@@ -22,12 +22,6 @@ public class InventoryUI : MonoBehaviour
     private GameObject ItemExplanation;
     [SerializeField]
     private SlotInventory[] slotInventory;
-    private void OnEnable()
-    {
-        CurrentTab = ItemType.Type.Fruit;
-        ResetInventory();
-        LoadInventorySlot();
-    }
 
     public void TabClick(int _tab)
     {
@@ -37,7 +31,11 @@ public class InventoryUI : MonoBehaviour
     public void InventoryButton()
     {
         this.gameObject.SetActive(!this.gameObject.activeSelf);
-        GameManager.Instance.IsUI = this.gameObject.activeSelf;
+        if(this.gameObject.activeSelf)
+        {
+            CurrentTab = ItemType.Type.Fruit;
+            LoadInventorySlot();
+        }
     }
 
     private void ResetInventory()
