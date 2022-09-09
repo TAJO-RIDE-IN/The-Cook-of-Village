@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseUI : MonoBehaviour
+public class PauseUI : UIController
 {
     public GameObject pauseUI;
     public GameObject OptionUI;
@@ -11,6 +11,8 @@ public class PauseUI : MonoBehaviour
     {
         GameManager.Instance.Pause();
         pauseUI.SetActive(!pauseUI.activeSelf);
+        OptionUI.SetActive(false);
+        ExitUI.SetActive(false);
     }
     public void OptionButtonClick()
     {
