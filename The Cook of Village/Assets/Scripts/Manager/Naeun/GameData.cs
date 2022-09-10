@@ -19,8 +19,10 @@ public class GameInfos
 {
     public int Day;
     public int Month;
-    public float Money;
-    public float Turnover;
+    public int Money;
+    public int BankMoney;
+    public float BankInterest;
+    public int Turnover;
     public int RainbowDrinking;
 }
 
@@ -116,7 +118,7 @@ public class GameData : DataManager, IGameDataOb
         Day++;
     }
 
-    public float Money
+    public int Money
     {
         get { return gameInfos.Money; }
         set
@@ -129,8 +131,16 @@ public class GameData : DataManager, IGameDataOb
             NotifyObserver();
         }
     }
-    public float TipMoney;
-    public float TipCount;
+    public int BankMoney
+    {
+        get { return gameInfos.BankMoney; }
+        set
+        {
+            gameInfos.BankMoney = value;
+        }
+    }
+    public int TipMoney;
+    public int TipCount;
 
     public int RainbowDrinking
     {
