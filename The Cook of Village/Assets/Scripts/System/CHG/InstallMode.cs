@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InstallMode : MonoBehaviour
 {
+    public GameObject InstallUI;
     void Start()
     {
         
@@ -18,5 +19,6 @@ public class InstallMode : MonoBehaviour
     {
         GameManager.Instance.IsInstall = true;
         GameManager.Instance.Pause();
+        InstallUI.SetActive(true);
     }
 }

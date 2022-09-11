@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class ToolButton : MonoBehaviour
 {
-    public enum Type { Blender, Pot, Frypan, Plate, Failure }
-    [SerializeField]
-    public Type type;
+    public FoodTool.Type type;
     public RecipeUI recipeUI;
     public void ClickToolButton()
     {

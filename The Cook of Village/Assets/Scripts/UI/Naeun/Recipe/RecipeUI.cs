@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class RecipeUI : MonoBehaviour
+public class RecipeUI : UIController
 {
     public List<SlotRecipe> FoodSlot = new List<SlotRecipe>();
 

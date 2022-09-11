@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUI : UIController
 {
     [SerializeField]
     private ItemType.Type tab;
@@ -16,18 +16,12 @@ public class InventoryUI : MonoBehaviour
             tab = value;
             ResetInventory();
             LoadInventorySlot();
-
         }
     }
     [SerializeField]
     private GameObject ItemExplanation;
     [SerializeField]
     private SlotInventory[] slotInventory;
-    private void OnEnable()
-    {
-        ResetInventory();
-        LoadInventorySlot();
-    }
 
     public void TabClick(int _tab)
     {
@@ -37,7 +31,11 @@ public class InventoryUI : MonoBehaviour
     public void InventoryButton()
     {
         this.gameObject.SetActive(!this.gameObject.activeSelf);
-        GameManager.Instance.IsUI = this.gameObject.activeSelf;
+        if(this.gameObject.activeSelf)
+        {
+            CurrentTab = ItemType.Type.Fruit;
+            LoadInventorySlot();
+        }
     }
 
     private void ResetInventory()
@@ -53,8 +51,12 @@ public class InventoryUI : MonoBehaviour
     {
         ResetInventory();
         int slotIndex = 0;
-        List <ItemInfos> Iteminfos = ItemData.Instance.ItemType[(int)CurrentTab].ItemInfos;
-        foreach (var infos in Iteminfos.Select((value, index) => (value, index)))
+        List <ItemInfos> _iteminfos = ItemData.Instance.ItemType[(int)CurrentTab].ItemInfos;
+        if((int)tab == 1)
+        {
+            _iteminfos = ItemData.Instance.IngredientList();
+        }
+        foreach (var infos in _iteminfos.Select((value, index) => (value, index)))
         {
             if (infos.value.Amount != 0)
             {
