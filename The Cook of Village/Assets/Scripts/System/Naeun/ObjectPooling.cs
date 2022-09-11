@@ -29,6 +29,7 @@ public class ObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
         ObjectContatiner = this.gameObject;
         Initialize(objectpoolCount);
     }
+    
 
     private T CreateNewObject()
     {
