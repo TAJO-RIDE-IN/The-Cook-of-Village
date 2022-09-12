@@ -10,4 +10,8 @@ public class ShopNPC : VillageNPC
     {
         shopUI.shop = type;
     }
+    public override void UIState(bool state)
+    {
+        shopUI.UIState(state);
+    }
 }

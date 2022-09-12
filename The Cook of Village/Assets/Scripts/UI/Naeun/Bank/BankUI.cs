@@ -10,14 +10,10 @@ public class BankUI : UIController
     [SerializeField] private State CurrentState;
     public InputField InputMoneyText;
 
-    public void OpenUI()
+    public void UIState(bool state)
     {
-        this.gameObject.SetActive(true);
-        LoadData();
-    }
-    public void CloseUI()
-    {
-        this.gameObject.SetActive(false);
+        this.gameObject.SetActive(state);
+        if (state) { LoadData(); }
     }
 
     public void BankButtonClick()

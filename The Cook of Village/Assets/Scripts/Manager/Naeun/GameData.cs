@@ -107,6 +107,7 @@ public class GameData : DataManager, IGameDataOb
             gameInfos.Month = value / 14 % 4 + 1;
             ShopCount.ResetShopCount();
             Potion.Instance.ResetPotion();
+            ChangeBank();
             NotifyObserver();
             SaveDataTime();
         }
@@ -138,6 +139,22 @@ public class GameData : DataManager, IGameDataOb
         {
             gameInfos.BankMoney = value;
         }
+    }
+    public float BankInterest
+    {
+        get { return gameInfos.BankInterest; }
+        set
+        {
+            gameInfos.BankInterest = value;
+        }
+    }
+    private void ChangeBank()
+    {
+        if(Day % 3 == 0)
+        {
+            BankInterest = Random.Range(0.01f, 0.03f);
+        }
+        BankMoney = (int)(BankMoney* (1 + BankInterest));
     }
     public int TipMoney;
     public int TipCount;

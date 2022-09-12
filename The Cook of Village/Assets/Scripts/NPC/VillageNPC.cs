@@ -18,9 +18,9 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
     }
     private Animator ani;
     public bool isOpen;
-    public int OpenTime;
-    public int CloseTime;
-    public int CloseDay;
+    [SerializeField] protected int OpenTime;
+    [SerializeField] protected int CloseTime;
+    [SerializeField] protected int CloseDay;
     private void Start()
     {
         AddObserver(GameData.Instance);
@@ -44,7 +44,7 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
             CurrentState = State.Greet;
         }
     }
-    private bool TodayShopOpen(float time, bool open)
+    protected bool TodayShopOpen(float time, bool open)
     {
         if (time >= OpenTime && time <= CloseTime)
         {
@@ -77,8 +77,8 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
                 break;
         }
     }
-
-    private void ShopState(bool state)
+    public abstract void UIState(bool state);
+    protected void ShopState(bool state)
     {
         this.gameObject.SetActive(state);
         this.gameObject.GetComponent<Collider>().enabled = state;
@@ -101,7 +101,7 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
         if (o != null) { o.RemoveObserver(this); }
     }
 
-    public virtual void Change(GameData obj)
+    public void Change(GameData obj)
     {
         if (obj is GameData)
         {
