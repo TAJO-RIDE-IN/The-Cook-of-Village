@@ -16,15 +16,14 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
             NPCAnimation();
         }
     }
-    private Animator ani;
     public bool isOpen;
     [SerializeField] protected int OpenTime;
     [SerializeField] protected int CloseTime;
     [SerializeField] protected int CloseDay;
+    [SerializeField] private Animator ani;
     private void Start()
     {
         AddObserver(GameData.Instance);
-        ani = this.gameObject.GetComponent<Animator>();
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -86,19 +85,10 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
     public abstract void EnterShop();
 
     #region observer
-    private void OnDisable()
-    {
-        RemoveObserver(GameData.Instance);
-    }
 
     public void AddObserver(IGameDataOb o)
     {
         o.AddObserver(this);
-    }
-
-    public void RemoveObserver(IGameDataOb o)
-    {
-        if (o != null) { o.RemoveObserver(this); }
     }
 
     public void Change(GameData obj)

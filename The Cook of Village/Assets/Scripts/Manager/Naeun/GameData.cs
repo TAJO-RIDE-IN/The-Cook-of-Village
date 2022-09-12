@@ -39,7 +39,6 @@ public class GameData : DataManager, IGameDataOb
         if (null == instance)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -60,8 +59,8 @@ public class GameData : DataManager, IGameDataOb
     #endregion
     public void LoadObject()
     {
-        TipCount = 0;
         _observers.Clear();
+        TipCount = 0;
         UIDisplay = GameObject.Find("DisplayUI");
         if (runningCoroutine != null) { StopCoroutine(runningCoroutine); }//한 개의 코루틴만 실행
         runningCoroutine = StartCoroutine(UpdateTime());
@@ -175,7 +174,6 @@ public class GameData : DataManager, IGameDataOb
         FoodData.Instance.SaveDataTime();
     }
     #region observer
-
     public void AddObserver(IObserver<GameData> o)
     {
         _observers.Add(o);
@@ -186,7 +184,7 @@ public class GameData : DataManager, IGameDataOb
     }
     public void NotifyObserver() //observer에 값 전달
     {
-        foreach (var observer in _observers)
+        foreach(var observer in _observers)
         {
             observer.Change(this);
         }
