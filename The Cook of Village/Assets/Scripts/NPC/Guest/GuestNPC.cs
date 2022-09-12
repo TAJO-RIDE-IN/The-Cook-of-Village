@@ -26,15 +26,11 @@ public class GuestNPC : MonoBehaviour, IGuestOb
         get { return currentState; }
         set { currentState = value; }
     }
-    public Animator ModelsAni;
-    [SerializeField]
-    private GameObject[] Models;
+
+    [SerializeField] private GameObject[] Models;
     private GameObject CurrentModel;
-    private BoxCollider collider;
-    private void Start()
-    {
-        collider = this.gameObject.GetComponent<BoxCollider>();
-    }
+    public Animator ModelsAni;
+    public new BoxCollider collider;
     #region Model 변경
     private void OnEnable()
     {

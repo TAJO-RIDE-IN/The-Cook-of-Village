@@ -361,13 +361,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2206319415878973155}
+  - component: {fileID: 2468958859432895715}
   - component: {fileID: 5223690705435536537}
   - component: {fileID: 2781668665291607337}
   - component: {fileID: 2848749559543529876}
   - component: {fileID: 3888475760647715853}
   - component: {fileID: 5666555884518581996}
   - component: {fileID: 4562565581536691067}
-  - component: {fileID: 2468958859432895715}
   m_Layer: 0
   m_Name: GuestElephant
   m_TagString: Untagged
@@ -393,6 +393,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!65 &2468958859432895715
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573369791156268121}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 1, z: 0.9}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &5223690705435536537
 Animator:
   serializedVersion: 3
@@ -448,9 +461,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentNPC: 1
   currentState: 0
-  ModelsAni: {fileID: 5223690705435536537}
   Models:
   - {fileID: 1573369791156268121}
+  ModelsAni: {fileID: 5223690705435536537}
+  collider: {fileID: 2468958859432895715}
 --- !u!114 &3888475760647715853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,19 +526,6 @@ MonoBehaviour:
   villageNPC: 1
   Holiday: 5
   FavoriteFoodID: 0
---- !u!65 &2468958859432895715
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1573369791156268121}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.9, y: 1, z: 0.9}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1590283248956788482
 GameObject:
   m_ObjectHideFlags: 0

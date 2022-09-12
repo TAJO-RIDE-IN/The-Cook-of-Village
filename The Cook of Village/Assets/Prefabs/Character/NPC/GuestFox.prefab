@@ -1815,13 +1815,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7669804092652907716}
+  - component: {fileID: 7585753726614882834}
   - component: {fileID: 4364184830331860670}
   - component: {fileID: 7756447871641311467}
   - component: {fileID: 8621478118158215873}
   - component: {fileID: 6821936155496496807}
   - component: {fileID: 6240092874077254360}
   - component: {fileID: 892212340897941817}
-  - component: {fileID: 7585753726614882834}
   m_Layer: 0
   m_Name: GuestFox
   m_TagString: Untagged
@@ -1847,6 +1847,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!65 &7585753726614882834
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7006279970084992638}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 1, z: 0.9}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &4364184830331860670
 Animator:
   serializedVersion: 3
@@ -1902,9 +1915,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentNPC: 1
   currentState: 0
-  ModelsAni: {fileID: 4364184830331860670}
   Models:
   - {fileID: 7006279970084992638}
+  ModelsAni: {fileID: 4364184830331860670}
+  collider: {fileID: 7585753726614882834}
 --- !u!114 &6821936155496496807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1966,19 +1980,6 @@ MonoBehaviour:
   villageNPC: 2
   Holiday: 4
   FavoriteFoodID: 0
---- !u!65 &7585753726614882834
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7006279970084992638}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.9, y: 1, z: 0.9}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7133464101865936165
 GameObject:
   m_ObjectHideFlags: 0
