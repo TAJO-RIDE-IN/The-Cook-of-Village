@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Unity.VisualStudio.Editor;
@@ -19,6 +20,7 @@ public class ItemSlot : MonoBehaviour
     protected UnityEngine.UI.Image slotUI;
 
     public virtual void SlotClick() { }
+
 
 
     public void changeSlotUI(Sprite sprite)
