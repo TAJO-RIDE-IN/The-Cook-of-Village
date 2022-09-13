@@ -19,7 +19,7 @@ public class BankUI : UIController
     public InputField MoneyInputField;
     public Text BankServiceButtonText;
     public Text BankMoneyText;
-
+    public Text BankInterestText;
     public void UIState(bool state)
     {
         this.gameObject.SetActive(state);
@@ -35,6 +35,7 @@ public class BankUI : UIController
     private void LoadData()
     {
         BankMoneyText.text = MoneyText(GameData.Instance.BankMoney) + "원";
+        BankInterestText.text = (GameData.Instance.BankInterest * 100).ToString() + "%";
         MoneyInputField.text = "";
         switch (CurrentService)
         {
