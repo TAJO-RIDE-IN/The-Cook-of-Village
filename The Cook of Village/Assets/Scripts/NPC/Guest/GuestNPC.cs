@@ -12,7 +12,13 @@ public interface IGuestOb
     void NotifyObserver();
 }
 
-
+[System.Serializable]
+public class NPCUIImage
+{
+    public Sprite OrderWaitImage;
+    public ParticleSystem ReceiveParticle;
+    public ParticleSystem MoneyParticle;
+}
 public class GuestNPC : MonoBehaviour, IGuestOb
 {
     private List<IObserver<GuestNPC>> _observers = new List<IObserver<GuestNPC>>(); //ObserverList
@@ -28,6 +34,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     }
 
     [SerializeField] private GameObject[] Models;
+    public NPCUIImage NPCImage;
     private GameObject CurrentModel;
     public Animator ModelsAni;
     public new BoxCollider collider;
