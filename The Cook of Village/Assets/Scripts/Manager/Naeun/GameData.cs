@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -149,9 +150,10 @@ public class GameData : DataManager, IGameDataOb
     }
     private void ChangeBank()
     {
-        if(Day % 3 == 0)
+        if(Day % 3 == 0) //3일마다 이자변경
         {
-            BankInterest = Random.Range(0.01f, 0.03f);
+            float _interest = UnityEngine.Random.Range(0.01f, 0.03f);
+            BankInterest = (float)Math.Round(_interest, 3);
         }
         BankMoney = (int)(BankMoney* (1 + BankInterest));
     }
