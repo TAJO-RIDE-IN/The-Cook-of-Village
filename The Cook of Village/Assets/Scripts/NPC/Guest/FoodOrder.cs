@@ -112,6 +112,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             Receive = true;
             ReceiveFoodObject = Instantiate(foodInfos.PrefabFood, FoodPosition);
             VillageEatCount++;
+            guest.NPCImage.ReceiveParticle.Play();
             guest.ChangeState(GuestNPC.State.Eat);
             EndOrder();
             if (Village && VillageEatCount == 1)
