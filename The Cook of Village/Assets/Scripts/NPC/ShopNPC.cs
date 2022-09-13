@@ -9,6 +9,7 @@ public class ShopNPC : VillageNPC
     public override void EnterShop()
     {
         shopUI.shop = type;
+        shopUI.shopNPC = this;
     }
     public override void UIState(bool state)
     {

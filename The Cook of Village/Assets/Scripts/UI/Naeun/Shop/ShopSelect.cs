@@ -13,8 +13,9 @@ public class ShopSelect : MonoBehaviour
     public Image SelectImage;
     public Slider CountSlider;
     public SlotShop shop;
+    public ShopNPC NPC;
     private int currentCount;
-    private GameObject[] NPC;
+
     public int CurrentCount
     {
         get { return currentCount; }
@@ -30,10 +31,6 @@ public class ShopSelect : MonoBehaviour
     
     private int BuyMaxCount;
     private int MoneyMaxCount;
-    private void Start()
-    {
-        NPC = GameObject.FindGameObjectsWithTag("Shop");
-    }
     private void OnDisable()
     {
         CloseSelcetSlot();
@@ -73,17 +70,13 @@ public class ShopSelect : MonoBehaviour
     }
     public void BuyMaterial()
     {
-        foreach(GameObject Shop in NPC)
+        if (CountSlider.value != 0)
         {
-            ShopNPC npc = Shop.GetComponent<ShopNPC>();
-            if (npc.isOpen)
-            {
-                npc.CurrentState = ShopNPC.State.Sell;
-            }
+            NPC.CurrentState = ShopNPC.State.Sell;
+            ShopCount.ShopCountDictionary[shop.Infos.Name] += (int)CountSlider.value;
+            ItemData.Instance.ChangeAmount(shop.Infos.ID, CurrentAmount());
+            GameData.Instance.Money -= Int32.Parse(TotalPrice.text);
+            CurrentCount = CurrentAmount();
         }
-        ShopCount.ShopCountDictionary[shop.Infos.Name] += (int)CountSlider.value;
-        ItemData.Instance.ChangeAmount(shop.Infos.ID, CurrentAmount());
-        GameData.Instance.Money -= Int32.Parse(TotalPrice.text);
-        CurrentCount = CurrentAmount();
     }
 }

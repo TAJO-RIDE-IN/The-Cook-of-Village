@@ -8,8 +8,10 @@ public class ShopUI : UIController
 {
     public GameObject SlotContent;
     public SlotShop[] slot;
-    [SerializeField]
-    public ItemType.Type shop;
+    [SerializeField] public ItemType.Type shop;
+    public ShopNPC shopNPC;
+    public ShopSelect shopSelect;
+
     public Scrollbar Scroll;
 
     public void UIState(bool state)
@@ -40,7 +42,7 @@ public class ShopUI : UIController
     public void LoadSlotData()
     {
         List <ItemInfos> infos = ItemData.Instance.ItemType[(int)shop].ItemInfos;
-
+        shopSelect.NPC = shopNPC;
         foreach (var info in infos.Select((value, index) => (value, index)))
         {
             if(LoadState(info.value))
