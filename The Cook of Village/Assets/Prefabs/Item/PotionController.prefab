@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8324179356783834480}
   - component: {fileID: 8324179356783834481}
   m_Layer: 0
-  m_Name: Potion
+  m_Name: PotionController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8324179356783834482}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40.663895, y: -32.86265, z: -25.673512}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -44,11 +44,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RedDuration: 60
-  RedMutiple: 1.5
+  RedEffectNum: 1.5
   OrangeDuration: 180
-  OrangeMutiple: 1.5
-  GreenReduction: 2
+  OrangeEffectNum: 1.5
+  GreenEffectNum: 2
   Red: 0
   Orange: 0
   Green: 0
   Brown: 0
+  PotionReset: 0
+  RedTime: 0
+  OrangeTime: 0
