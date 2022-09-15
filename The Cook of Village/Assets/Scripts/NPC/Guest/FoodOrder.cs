@@ -29,6 +29,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     private VillageGuest VillageNPC;
     private bool Village = false;
     private int VillageEatCount = 0;
+    private int PayMoney;
     private void Awake()
     {
         guest = this.gameObject.GetComponent<GuestNPC>();
@@ -47,6 +48,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     private void OnEnable()
     {
+        PayMoney = 0;
         RemainingTimeImage.fillAmount = 0;
         Receive = false; //Receive bool 초기화
         foodInfos = null; // Food 정보 초기화
@@ -113,6 +115,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         {
             Receive = true;
             ReceiveFoodObject = Instantiate(foodInfos.PrefabFood, FoodPosition);
+            PayMoney += foodInfos.Price;
             VillageEatCount++;
             guest.ChangeState(GuestNPC.State.Eat);
             EndOrder();
@@ -148,7 +151,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     public void PayFood(float multiple) //계산
     {
         GameData.Instance.TipCount++;
-        GameData.Instance.Money += (int)(foodInfos.Price * multiple);
+        GameData.Instance.Money += (int)(PayMoney * multiple);
         if(GameData.Instance.TipCount >= 5)
         {
             GameData.Instance.Money += GameData.Instance.TipMoney;
