@@ -37,7 +37,6 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     public NPCUIImage NPCImage;
     private GameObject CurrentModel;
     public Animator ModelsAni;
-    public new BoxCollider collider;
     #region Model 변경
     private void OnEnable()
     {
@@ -79,14 +78,12 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 NPCImage.AngryParticle.Stop();
                 break;
             case State.Sit:
-                collider.enabled = true;
                 ModelsAni.SetBool("isWalk", false);
                 ModelsAni.SetTrigger("Sit");
                 ModelsAni.SetTrigger("SitIdle");
                 NPCImage.AngryParticle.Stop();
                 break;
             case State.StandUP:
-                collider.enabled = false;
                 ModelsAni.SetBool("isEat", false);
                 ModelsAni.SetTrigger("StandUp");
                 break;
@@ -111,6 +108,12 @@ public class GuestNPC : MonoBehaviour, IGuestOb
         NPCAction(); // NPC상태에 따른 행동
         NotifyObserver(); //observer 전달     
     }
+
+    public void ChangeLayer(int _layer)
+    {
+        this.gameObject.layer = _layer;
+    }
+
     #region Observer
     public void AddObserver(IObserver<GuestNPC> o) //ObserverList에 추가
     {
@@ -128,4 +131,16 @@ public class GuestNPC : MonoBehaviour, IGuestOb
         }
     }
     #endregion
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "SecondFloor")
+        {
+            ChangeLayer(7);
+        }
+        else if (other.gameObject.name == "FirstFloor")
+        {
+            ChangeLayer(0);
+        }
+    }
 }

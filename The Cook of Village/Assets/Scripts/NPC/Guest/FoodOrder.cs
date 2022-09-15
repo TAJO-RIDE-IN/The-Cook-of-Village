@@ -23,7 +23,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     private new Transform camera;
     private Coroutine WaitingOrderCoroutine;
     private bool Receive = false;
-    private bool CanReceive = false;
+    public bool CanReceive = false;
 
     //마을 주민
     private VillageGuest VillageNPC;
@@ -113,6 +113,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     {
         if (ReceiveFood == foodInfos.ID && CanReceive) 
         {
+            CanReceive = false;
             Receive = true;
             ReceiveFoodObject = Instantiate(foodInfos.PrefabFood, FoodPosition);
             PayMoney += foodInfos.Price;
@@ -129,6 +130,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         }
         else
         {
+            CanReceive = false;
             GameData.Instance.TipCount = 0;
         }
         return Receive;
@@ -142,6 +144,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         }
         NPCUI.SetActive(true);
         Receive = false;
+        CanReceive = true;
         foodInfos = infos;
         OrderFoodImage.sprite = foodInfos.ImageUI;
         currentOrderUI = ObjectPooling<OrderUI>.GetObject(); //화면 상단 주문서 표시
@@ -179,20 +182,6 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
                 NPCUI.SetActive(true);
                 OrderFoodImage.sprite = guest.NPCImage.OrderWaitImage;
             }
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Player")
-        {
-            CanReceive = true;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            CanReceive = false;
         }
     }
 }
