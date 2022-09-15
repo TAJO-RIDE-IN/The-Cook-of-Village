@@ -18,9 +18,7 @@ public class ChangeScene : MonoBehaviour
     }
     public void SceneButtonClick()
     {
-            GameManager.Instance.NextSceneIndex = (int)sceneToGo;
-            SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        GameManager.Instance.NextSceneIndex = (int)sceneToGo;
+        SceneManager.LoadSceneAsync(1);
     }
-
-
 }
