@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
-public class ToolPooling : ObjectPooling<CookingTool>
+public class ToolPooling : MultipleObjectPooling<CookingTool>
 {
     // Start is called before the first frame update
     public Transform[] transforms;
@@ -68,6 +68,7 @@ public class ToolPooling : ObjectPooling<CookingTool>
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
         
         for (int i = 0; i < _toolBox.Length; i++)
