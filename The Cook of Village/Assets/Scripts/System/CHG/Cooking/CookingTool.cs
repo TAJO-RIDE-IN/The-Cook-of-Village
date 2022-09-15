@@ -67,6 +67,7 @@ public class CookingTool : MonoBehaviour
         {
             if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemInfos(cookSlotManager.itemslots[i].ingridientId)))
             {
+                cookSlotManager.itemslots[i].isUsed = false;
                 Ing[i].sprite = cookSlotManager.emptySlot;
                 ingredientList.Remove(cookSlotManager.itemslots[i].ingridientId);
                 cookSlotManager.itemslots[i].changeSlotUI(cookSlotManager.emptySlot);
@@ -79,12 +80,13 @@ public class CookingTool : MonoBehaviour
     {
         for (int i = 0; i < cookSlotManager.ChildSlotCount; i++) //일단 레시피에 들어가는 최대 재료 개수가 3개라고 했을 때
         {
-            if (ingredientList.Count == i)
+            if (!cookSlotManager.itemslots[i].isUsed)
             {
                 _animation.Play(
                     type.ToString());
                 //Debug.Log("애니메이션실행!");
                 ingredientList.Add(id);
+                cookSlotManager.itemslots[i].isUsed = true;
                 cookSlotManager.itemslots[i].changeSlotUI(sprite);
                 cookSlotManager.itemslots[i].ingridientId = id;
                 if (type != Type.Trash)

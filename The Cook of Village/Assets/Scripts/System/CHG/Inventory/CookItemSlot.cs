@@ -12,6 +12,7 @@ public class CookItemSlot : ItemSlot
 
     public CookItemSlotManager itemSlotManager;
 
+    public bool isUsed = false;
     public int ingridientId;
     // Start is called before the first frame update
     private void Awake()
