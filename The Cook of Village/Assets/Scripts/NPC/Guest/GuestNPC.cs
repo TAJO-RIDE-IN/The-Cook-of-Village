@@ -66,18 +66,22 @@ public class GuestNPC : MonoBehaviour, IGuestOb
         {
             case State.Idle:
                 ModelsAni.SetBool("isWalk", false);
+                NPCImage.AngryParticle.Stop();
                 break;
             case State.Walk:
                 ModelsAni.SetBool("isWalk", true);
                 break;
             case State.Eat:
                 ModelsAni.SetBool("isEat", true);
+                NPCImage.ReceiveParticle.Play();
+                NPCImage.AngryParticle.Stop();
                 break;
             case State.Sit:
                 collider.enabled = true;
                 ModelsAni.SetBool("isWalk", false);
                 ModelsAni.SetTrigger("Sit");
                 ModelsAni.SetTrigger("SitIdle");
+                NPCImage.AngryParticle.Stop();
                 //StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.FoodWaitingTime, () => ChangeState(State.ChaseUP)));
                 break;
             case State.StandUP:
@@ -86,10 +90,12 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 ModelsAni.SetTrigger("StandUp");
                 break;
             case State.ChaseUP:
+                NPCImage.AngryParticle.Play();
                 ModelsAni.SetTrigger("ChaseUp");
                 break;
             case State.Pay:
                 ModelsAni.SetTrigger("Pay");
+                NPCImage.AngryParticle.Stop();
                 break;
             case State.GoOut:
                 ObjectPooling<GuestNPC>.ReturnObject(this);

@@ -77,6 +77,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             if (ratio <= 0.4)
             {
                 currentOrderUI.OrderAnimation(true);
+                guest.ChangeState(GuestNPC.State.ChaseUP);
             }
             if (time <= 0)
             {
@@ -95,6 +96,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         if(Receive == false)
         {
             guest.ChangeState(GuestNPC.State.StandUP);
+            guest.ChangeState(GuestNPC.State.ChaseUP);
         }
     }
     private void EndEat() //음식 다 먹음
@@ -112,7 +114,6 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             Receive = true;
             ReceiveFoodObject = Instantiate(foodInfos.PrefabFood, FoodPosition);
             VillageEatCount++;
-            guest.NPCImage.ReceiveParticle.Play();
             guest.ChangeState(GuestNPC.State.Eat);
             EndOrder();
             if (Village && VillageEatCount == 1)
