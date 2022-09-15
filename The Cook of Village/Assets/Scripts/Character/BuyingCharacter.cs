@@ -47,7 +47,7 @@ public class BuyingCharacter : MonoBehaviour
     {
         if (other.tag == "Shop")
         {
-            _shopNpc.shopUI.CloseUI();
+            _shopNpc.UIState(false);
         }
         isShopCollider = false;
     }
@@ -56,7 +56,7 @@ public class BuyingCharacter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _shopNpc.shopUI.OpenUI();
+            _shopNpc.UIState(true);
         }
     }
 

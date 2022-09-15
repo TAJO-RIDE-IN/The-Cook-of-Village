@@ -64,6 +64,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
                     {
                         EnterNPC().gameObject.SetActive(true);
                         NPCEnter = true;
+                        yield return new WaitForSeconds(Random.Range(CallTime - 4, CallTime + 4));
                     }
                 }
                 GetObject();
@@ -71,25 +72,29 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
             yield return new WaitForSeconds(Random.Range(CallTime-4, CallTime+4));
         }
     }
-    private void OnDisable()
-    {
-        RemoveObserver(GameData.Instance);
-    }
+
 
     public void AddObserver(IGameDataOb o)
     {
         o.AddObserver(this);
     }
-    public void RemoveObserver(IGameDataOb o)
+/*    public void RemoveObserver(IGameDataOb o)
     {
         if(o != null) { o.RemoveObserver(this); }
     }
-
+    private void OnDisable()
+    {
+        RemoveObserver(GameData.Instance);
+    }*/
     public void Change(GameData obj)
     {
         if (obj is GameData)
         {
             var GameData = obj;
+            if(obj.TimeOfDay >= 1320)
+            {
+                CloseRestaurant();
+            }
             if(open && !NPCEnter)
             {
                 callVillageNPC = (GameData.TimeOfDay >= VillageNPCTime) ? true : false;

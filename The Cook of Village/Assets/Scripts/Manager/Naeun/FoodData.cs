@@ -65,7 +65,6 @@ public class FoodData : DataManager
         {
             instance = this;
             //LoadData<FoodTool>(ref food, "FoodData"); //data 완성 되었을때 다시 활성화
-            DontDestroyOnLoad(this.gameObject);
         }
         else
         {

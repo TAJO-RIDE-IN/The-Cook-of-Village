@@ -9,6 +9,13 @@ public class MenuUI : MonoBehaviour
     public Animator SubMenuAni;
     public Button Recipe;
     public Button Storage;
+
+    public void ButtonDisable()
+    {
+        this.GetComponent<Button>().enabled = false;
+        Recipe.enabled = false;
+        Storage.enabled = false;
+    }
     public void ClickMenu()
     {
         onMenu = !onMenu;

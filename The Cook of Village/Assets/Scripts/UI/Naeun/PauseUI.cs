@@ -7,9 +7,11 @@ public class PauseUI : UIController
     public GameObject pauseUI;
     public GameObject OptionUI;
     public GameObject ExitUI;
+    public MenuUI menuUI;
     public void Pause()
     {
         GameManager.Instance.Pause();
+        menuUI.ButtonDisable();
         pauseUI.SetActive(!pauseUI.activeSelf);
         OptionUI.SetActive(false);
         ExitUI.SetActive(false);

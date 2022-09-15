@@ -6,13 +6,16 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance = null;
-    
+    [SerializeField] private GameData gameData;
+    [SerializeField] private SoundManager soundManager;
+    [SerializeField] private Potion potionController;
     private void Awake() //씬 시작될때 인스턴스 초기화
     {
         if(null == instance)
         {
             instance = this;
             CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            LoadObject();
             CurosrControl(true);
             DontDestroyOnLoad(this.gameObject);
         }
@@ -58,10 +61,6 @@ public class GameManager : MonoBehaviour
     public int CurrentSceneIndex;
 
     #region OnSceneLoaded
-    private void Start()
-    {
-        LoadObject();
-    }
     void OnEnable()
     {
         // 델리게이트 체인 추가
@@ -80,8 +79,8 @@ public class GameManager : MonoBehaviour
     private void LoadObject()
     {
         CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        Potion.Instance.LoadObject();
-        GameData.Instance.LoadObject();
+        potionController.LoadObject();
+        gameData.LoadObject();
     }
     #endregion
     private void CurosrControl(bool value)
