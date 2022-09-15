@@ -152,7 +152,7 @@ public class GameData : DataManager, IGameDataOb
     {
         if(Day % 3 == 0) //3일마다 이자변경
         {
-            float _interest = UnityEngine.Random.Range(0.01f, 0.03f);
+            float _interest = UnityEngine.Random.Range(0.08f, 0.20f);
             BankInterest = (float)Math.Round(_interest, 3);
         }
         BankMoney = (int)(BankMoney* (1 + BankInterest));

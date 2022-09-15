@@ -17,7 +17,7 @@ public class NPCUIImage
 {
     public Sprite OrderWaitImage;
     public ParticleSystem ReceiveParticle;
-    public ParticleSystem MoneyParticle;
+    public ParticleSystem AngryParticle;
 }
 public class GuestNPC : MonoBehaviour, IGuestOb
 {
