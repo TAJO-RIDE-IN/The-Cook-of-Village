@@ -23,12 +23,13 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     private new Transform camera;
     private Coroutine WaitingOrderCoroutine;
     private bool Receive = false;
-    private bool CanReceive = false;
+    public bool CanReceive = false;
 
     //마을 주민
     private VillageGuest VillageNPC;
     private bool Village = false;
     private int VillageEatCount = 0;
+    private int PayMoney;
     private void Awake()
     {
         guest = this.gameObject.GetComponent<GuestNPC>();
@@ -47,6 +48,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     private void OnEnable()
     {
+        PayMoney = 0;
         RemainingTimeImage.fillAmount = 0;
         Receive = false; //Receive bool 초기화
         foodInfos = null; // Food 정보 초기화
@@ -77,6 +79,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             if (ratio <= 0.4)
             {
                 currentOrderUI.OrderAnimation(true);
+                guest.ChangeState(GuestNPC.State.ChaseUP);
             }
             if (time <= 0)
             {
@@ -95,6 +98,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         if(Receive == false)
         {
             guest.ChangeState(GuestNPC.State.StandUP);
+            guest.ChangeState(GuestNPC.State.ChaseUP);
         }
     }
     private void EndEat() //음식 다 먹음
@@ -109,10 +113,11 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     {
         if (ReceiveFood == foodInfos.ID && CanReceive) 
         {
+            CanReceive = false;
             Receive = true;
             ReceiveFoodObject = Instantiate(foodInfos.PrefabFood, FoodPosition);
+            PayMoney += foodInfos.Price;
             VillageEatCount++;
-            guest.NPCImage.ReceiveParticle.Play();
             guest.ChangeState(GuestNPC.State.Eat);
             EndOrder();
             if (Village && VillageEatCount == 1)
@@ -125,6 +130,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         }
         else
         {
+            CanReceive = false;
             GameData.Instance.TipCount = 0;
         }
         return Receive;
@@ -138,6 +144,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         }
         NPCUI.SetActive(true);
         Receive = false;
+        CanReceive = true;
         foodInfos = infos;
         OrderFoodImage.sprite = foodInfos.ImageUI;
         currentOrderUI = ObjectPooling<OrderUI>.GetObject(); //화면 상단 주문서 표시
@@ -147,7 +154,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     public void PayFood(float multiple) //계산
     {
         GameData.Instance.TipCount++;
-        GameData.Instance.Money += (int)(foodInfos.Price * multiple);
+        GameData.Instance.Money += (int)(PayMoney * multiple);
         if(GameData.Instance.TipCount >= 5)
         {
             GameData.Instance.Money += GameData.Instance.TipMoney;
@@ -175,20 +182,6 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
                 NPCUI.SetActive(true);
                 OrderFoodImage.sprite = guest.NPCImage.OrderWaitImage;
             }
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Player")
-        {
-            CanReceive = true;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            CanReceive = false;
         }
     }
 }
