@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,7 +40,6 @@ public class GameData : DataManager, IGameDataOb
         if (null == instance)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -60,8 +60,8 @@ public class GameData : DataManager, IGameDataOb
     #endregion
     public void LoadObject()
     {
-        TipCount = 0;
         _observers.Clear();
+        TipCount = 0;
         UIDisplay = GameObject.Find("DisplayUI");
         if (runningCoroutine != null) { StopCoroutine(runningCoroutine); }//한 개의 코루틴만 실행
         runningCoroutine = StartCoroutine(UpdateTime());
@@ -107,6 +107,7 @@ public class GameData : DataManager, IGameDataOb
             gameInfos.Month = value / 14 % 4 + 1;
             ShopCount.ResetShopCount();
             Potion.Instance.ResetPotion();
+            ChangeBank();
             NotifyObserver();
             SaveDataTime();
         }
@@ -139,6 +140,23 @@ public class GameData : DataManager, IGameDataOb
             gameInfos.BankMoney = value;
         }
     }
+    public float BankInterest
+    {
+        get { return gameInfos.BankInterest; }
+        set
+        {
+            gameInfos.BankInterest = value;
+        }
+    }
+    private void ChangeBank()
+    {
+        if(Day % 3 == 0) //3일마다 이자변경
+        {
+            float _interest = UnityEngine.Random.Range(0.08f, 0.20f);
+            BankInterest = (float)Math.Round(_interest, 3);
+        }
+        BankMoney = (int)(BankMoney* (1 + BankInterest));
+    }
     public int TipMoney;
     public int TipCount;
 
@@ -158,7 +176,6 @@ public class GameData : DataManager, IGameDataOb
         FoodData.Instance.SaveDataTime();
     }
     #region observer
-
     public void AddObserver(IObserver<GameData> o)
     {
         _observers.Add(o);
@@ -169,7 +186,7 @@ public class GameData : DataManager, IGameDataOb
     }
     public void NotifyObserver() //observer에 값 전달
     {
-        foreach (var observer in _observers)
+        foreach(var observer in _observers)
         {
             observer.Change(this);
         }

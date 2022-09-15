@@ -12,7 +12,13 @@ public interface IGuestOb
     void NotifyObserver();
 }
 
-
+[System.Serializable]
+public class NPCUIImage
+{
+    public Sprite OrderWaitImage;
+    public ParticleSystem ReceiveParticle;
+    public ParticleSystem AngryParticle;
+}
 public class GuestNPC : MonoBehaviour, IGuestOb
 {
     private List<IObserver<GuestNPC>> _observers = new List<IObserver<GuestNPC>>(); //ObserverList
@@ -26,15 +32,12 @@ public class GuestNPC : MonoBehaviour, IGuestOb
         get { return currentState; }
         set { currentState = value; }
     }
-    public Animator ModelsAni;
-    [SerializeField]
-    private GameObject[] Models;
+
+    [SerializeField] private GameObject[] Models;
+    public NPCUIImage NPCImage;
     private GameObject CurrentModel;
-    private BoxCollider collider;
-    private void Start()
-    {
-        collider = this.gameObject.GetComponent<BoxCollider>();
-    }
+    public Animator ModelsAni;
+    public new BoxCollider collider;
     #region Model 변경
     private void OnEnable()
     {

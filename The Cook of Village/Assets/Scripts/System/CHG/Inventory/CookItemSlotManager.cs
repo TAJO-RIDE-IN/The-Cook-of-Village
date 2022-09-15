@@ -14,6 +14,7 @@ public class CookItemSlotManager : ItemSlotManager
         for (int i = 0; i < ChildSlotCount; i++)//이 작업을 나중에 함수 만들어서 게임 시작할 때 한번에 호출해주자
         {
             itemslots[i].Index = i;
+            //itemslots[i].itemSlotManager = this;
         }
     }
 

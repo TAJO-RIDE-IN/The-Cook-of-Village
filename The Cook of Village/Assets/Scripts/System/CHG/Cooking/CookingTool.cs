@@ -32,7 +32,7 @@ public class CookingTool : MonoBehaviour
     public float GreenPotionEffect = 1f;
     private IEnumerator burntCoroutine;
     
-    public List<int> ingredientList = new List<int>();
+    public List<int> ingredientList = new List<int>();//이건 요리할 때만 사용, 인덱스가 필요한 ID는 CookItemSlot에 저장
     public FoodInfos FoodInfos { get; set;}//foodInfos가 바뀌면 해줄 일,즉 UI코루틴 끝났을때 할 일 set에 적자
     
     [HideInInspector]public bool isBeforeCooking = true;//요리를 시작하면 false가 되고, 요리가 끝나면 true가 된다.
@@ -65,8 +65,10 @@ public class CookingTool : MonoBehaviour
     {
         if (ingredientList.Count > 0)
         {
-            if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemInfos(ingredientList[i])))
+            if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemInfos(cookSlotManager.itemslots[i].ingridientId)))
             {
+                Ing[i].sprite = cookSlotManager.emptySlot;
+                ingredientList.Remove(cookSlotManager.itemslots[i].ingridientId);
                 cookSlotManager.itemslots[i].changeSlotUI(cookSlotManager.emptySlot);
             }
             
@@ -84,6 +86,7 @@ public class CookingTool : MonoBehaviour
                 //Debug.Log("애니메이션실행!");
                 ingredientList.Add(id);
                 cookSlotManager.itemslots[i].changeSlotUI(sprite);
+                cookSlotManager.itemslots[i].ingridientId = id;
                 if (type != Type.Trash)
                 {
                     Ing[i].sprite = sprite;
@@ -93,6 +96,7 @@ public class CookingTool : MonoBehaviour
             }
             
         }
+        cookSlotManager.ShowWarning();
         //도구에 재료 꽉찼는데 넣으려고할때 행동
         return false;
     }
