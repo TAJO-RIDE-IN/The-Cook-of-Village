@@ -12,6 +12,7 @@ public class CookItemSlot : ItemSlot
 
     public CookItemSlotManager itemSlotManager;
 
+    public int ingridientId;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -27,14 +28,14 @@ public class CookItemSlot : ItemSlot
     public void FoodSlotClick()
     {
         
-        Debug.Log("요리 호출");
+        //Debug.Log("요리 호출");
         if (itemSlotManager.cookingTool.isCooked)
         {
-            Debug.Log("요리 완료");
+            //Debug.Log("요리 완료");
             if (ChefInventory.Instance.AddFood(itemSlotManager.cookingTool.FoodInfos))
             {
                 //itemSlotManager.cookingTool.toolBeforeCook
-                Debug.Log("요리 추가 완료");
+                //Debug.Log("요리 추가 완료");
                 changeSlotUI(itemSlotManager.cookingTool.toolBeforeCook);
                 itemSlotManager.cookingTool.RemoveFood();
             }
@@ -42,6 +43,7 @@ public class CookItemSlot : ItemSlot
         }
         itemSlotManager.cookingTool.Cook();
     }
+    
 
 
     public void changeSlotUI(Sprite sprite)

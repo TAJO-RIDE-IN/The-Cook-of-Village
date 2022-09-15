@@ -36,6 +36,7 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             charAnimator.SetBool("isWalk",false);
         }
+        
     }
 
     

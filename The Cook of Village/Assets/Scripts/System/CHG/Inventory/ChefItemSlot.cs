@@ -13,4 +13,5 @@ public class ChefItemSlot : ItemSlot
     {
         ChefInventory.Instance.SendItem(index);
     }
+
 }
