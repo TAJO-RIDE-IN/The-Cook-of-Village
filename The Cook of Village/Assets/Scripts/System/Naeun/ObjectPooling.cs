@@ -6,7 +6,7 @@ public class ObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
 {
     [SerializeField]
     public T PoolObject;
-    private static GameObject ObjectContatiner;
+    private static GameObject ObjectContainer;
     private Queue<T> poolQueue = new Queue<T>();
     public int objectpoolCount = 8;
 
@@ -26,7 +26,7 @@ public class ObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
             return;
         }
         instance = this;
-        ObjectContatiner = this.gameObject;
+        ObjectContainer = this.gameObject;
         Initialize(objectpoolCount);
     }
     
@@ -51,7 +51,7 @@ public class ObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
             var obj = Instance.poolQueue.Dequeue();
             if (obj.gameObject.activeSelf == false)
             {
-                obj.transform.SetParent(ObjectContatiner.transform);
+                obj.transform.SetParent(ObjectContainer.transform);
                 obj.gameObject.SetActive(true);
                 return obj;
             }
@@ -63,15 +63,15 @@ public class ObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
         else
         {
             var newObj = Instance.CreateNewObject();
-            newObj.transform.SetParent(ObjectContatiner.transform);
+            newObj.transform.SetParent(ObjectContainer.transform);
             newObj.gameObject.SetActive(true);
             return newObj;
         }
     }
-    public static void ReturnObject(T obejct)
+    public static void ReturnObject(T _object)
     {
-        obejct.transform.SetParent(Instance.transform);
-        Instance.poolQueue.Enqueue(obejct);
-        obejct.gameObject.SetActive(false);
+        _object.transform.SetParent(Instance.transform);
+        Instance.poolQueue.Enqueue(_object);
+        _object.gameObject.SetActive(false);
     }
 }
