@@ -75,10 +75,7 @@ public class ItemData : DataManager
         List<ItemInfos> _itemInfos = new List<ItemInfos>();
         for(int i = 1; i < 5; i++)
         {
-            foreach(var infos in ItemType[i].ItemInfos)
-            {
-                _itemInfos.Add(infos);
-            }
+            _itemInfos.AddRange(ItemType[i].ItemInfos);
         }
         return _itemInfos;
     }
