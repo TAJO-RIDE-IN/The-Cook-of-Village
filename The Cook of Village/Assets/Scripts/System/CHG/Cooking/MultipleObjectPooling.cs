@@ -13,9 +13,10 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
         public T poolObject;
         public Queue<T> objectQueue = new Queue<T>();
         public GameObject objectContatiner;
+        public float installY;
     }
     public List<PoolObjectData> poolObjectData;
-    public PoolObjectData FindePoolObjectData(String value)
+    public PoolObjectData FindPoolObjectData(String value)
     {
         int index = poolObjectData.FindIndex(data => data.name == value);
         return poolObjectData[index];
@@ -58,7 +59,7 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual T CreateNewObject(string value)
     {
-        var newObj = Instantiate(FindePoolObjectData(value).poolObject, FindePoolObjectData(value).objectContatiner.transform);
+        var newObj = Instantiate(FindPoolObjectData(value).poolObject, FindPoolObjectData(value).objectContatiner.transform);
         newObj.gameObject.SetActive(false);
         return newObj;
     }
@@ -74,9 +75,9 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
     }
     public T GetObject(string name)
     {
-        if (FindePoolObjectData(name).objectQueue.Count > 0)
+        if (FindPoolObjectData(name).objectQueue.Count > 0)
         {
-            var obj = FindePoolObjectData(name).objectQueue.Dequeue();
+            var obj = FindPoolObjectData(name).objectQueue.Dequeue();
             if (obj.gameObject.activeSelf == false)
             {
                 //obj.transform.SetParent(ObjectContatiner.transform);이건 처음부터 저 트랜스폼 자식으로 생성하니까 필요없지않나?
@@ -91,7 +92,7 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
         else
         {
             var newObj = Instance.CreateNewObject(name);
-            newObj.transform.SetParent(FindePoolObjectData(name).objectContatiner.transform);
+            newObj.transform.SetParent(FindPoolObjectData(name).objectContatiner.transform);
             newObj.gameObject.SetActive(true);
             return newObj;
         }
@@ -99,8 +100,8 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
     public void ReturnObject(T returnObject, String name)
     {
         
-        returnObject.transform.SetParent(FindePoolObjectData(name).objectContatiner.transform);
-        FindePoolObjectData(name).objectQueue.Enqueue(returnObject);
+        returnObject.transform.SetParent(FindPoolObjectData(name).objectContatiner.transform);
+        FindPoolObjectData(name).objectQueue.Enqueue(returnObject);
         returnObject.gameObject.SetActive(false);
     }
 }

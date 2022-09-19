@@ -87,17 +87,25 @@ public class CookingCharacter : MonoBehaviour
             {
                 if(isSpace)
                 {
-                    uiMovement.CloseUI();
-                    isSpace = false;
-                    //UI 띄우기
-                    return;
+                    if (!_foodOrder.CanReceive)
+                    {
+                        uiMovement.CloseUI();
+                        isSpace = false;
+                        //UI 띄우기
+                        return;
+                    }
+                    
                 }
                 else
                 {
-                    uiMovement.ShowUI();
-                    isSpace = true;
-                    //UI 끄기
-                    return;
+                    if (_foodOrder.CanReceive)
+                    {
+                        uiMovement.ShowUI();
+                        isSpace = true;
+                        //UI 끄기
+                        return;
+                    }
+                    
                 }
             }
             if (isFridgeCollider)
@@ -254,6 +262,7 @@ public class CookingCharacter : MonoBehaviour
             uiMovement.CloseUI();
             isSpace = false;
             isGuestCollider = false;
+            
         }
         else
         {
