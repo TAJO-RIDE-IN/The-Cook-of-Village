@@ -20,6 +20,18 @@ public class ShopUI : UIController
         Scroll.value = 0;
         if (state) { LoadSlotData(); }
     }
+    private List<ItemInfos> ShopInfos()
+    {
+        List<ItemInfos> infos = new List<ItemInfos>();
+        if((int)shop == 6 || (int)shop == 7)
+        {
+            infos.AddRange(ItemData.Instance.ItemType[6].ItemInfos);
+            infos.AddRange(ItemData.Instance.ItemType[7].ItemInfos);
+            return infos;
+        }
+        infos = ItemData.Instance.ItemType[(int)shop].ItemInfos;
+        return infos;
+    }
 
     private bool LoadState(ItemInfos info)
     {
@@ -41,9 +53,8 @@ public class ShopUI : UIController
 
     public void LoadSlotData()
     {
-        List <ItemInfos> infos = ItemData.Instance.ItemType[(int)shop].ItemInfos;
         shopSelect.NPC = shopNPC;
-        foreach (var info in infos.Select((value, index) => (value, index)))
+        foreach (var info in ShopInfos().Select((value, index) => (value, index)))
         {
             if(LoadState(info.value))
             {
