@@ -7,12 +7,17 @@ public class ThirdPersonMovement : MonoBehaviour
 {
 
     public Animator charAnimator;
-    public Transform _camera;
+    private Transform _camera;
     public CharacterController controller;
     public float speed = 80f;
     public float OriginSpeed = 80f;
     public float turnSmoothTime = 0.1f;
     private float turnSmoothVelocity;
+
+    private void Start()
+    {
+        _camera = Camera.main.transform;
+    }
 
     // Update is called once per frame
     void FixedUpdate()

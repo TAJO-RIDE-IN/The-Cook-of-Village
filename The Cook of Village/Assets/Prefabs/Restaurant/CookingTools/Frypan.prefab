@@ -98,8 +98,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 199087456427876834}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.4}
+  m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
+  m_LocalPosition: {x: 0, y: 0, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 199087456637699989}
@@ -108,10 +108,10 @@ RectTransform:
   - {fileID: 4822088886309424029}
   m_Father: {fileID: 4822088886695159350}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.086}
+  m_AnchoredPosition: {x: 0, y: 0.2}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &199087456637699990
@@ -941,6 +941,8 @@ MonoBehaviour:
   index: 0
   _type: 0
   itemSlotManager: {fileID: 7563630484450392222}
+  isUsed: 0
+  ingridientId: 0
 --- !u!114 &3802677148579230275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1499,7 +1501,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4822088887639786249}
   m_LocalRotation: {x: -0.000000029802315, y: 0.000000028388401, z: -0.000000008355142, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.002}
+  m_LocalPosition: {x: 0, y: 0, z: -0.001999855}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5799508326414656788}
@@ -1507,7 +1509,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.003, y: -0.001}
+  m_AnchoredPosition: {x: 0.003, y: -0.0009999871}
   m_SizeDelta: {x: 0.55, y: 0.55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4822088887639786244
@@ -1728,6 +1730,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5799508326414656788}
+  - component: {fileID: 2788680164658613788}
   m_Layer: 5
   m_Name: FryPanFood
   m_TagString: Untagged
@@ -1742,7 +1745,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5799508326414656791}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1758,6 +1761,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0.57000005}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2788680164658613788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5799508326414656791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb7ff0432a16a86468fe4aa8b624fa69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5799508326951275611
 GameObject:
   m_ObjectHideFlags: 0
@@ -2425,6 +2440,8 @@ MonoBehaviour:
   index: 0
   _type: 0
   itemSlotManager: {fileID: 7563630484450392222}
+  isUsed: 0
+  ingridientId: 0
 --- !u!114 &8367923263936326472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2574,6 +2591,8 @@ MonoBehaviour:
   index: 0
   _type: 0
   itemSlotManager: {fileID: 7563630484450392222}
+  isUsed: 0
+  ingridientId: 0
 --- !u!114 &8367923263956849205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2725,6 +2744,8 @@ MonoBehaviour:
   index: 0
   _type: 1
   itemSlotManager: {fileID: 7563630484450392222}
+  isUsed: 0
+  ingridientId: 0
 --- !u!114 &8367923264105380013
 MonoBehaviour:
   m_ObjectHideFlags: 0
