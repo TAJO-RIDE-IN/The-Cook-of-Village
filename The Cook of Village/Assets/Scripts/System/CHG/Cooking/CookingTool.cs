@@ -30,7 +30,8 @@ public class CookingTool : MonoBehaviour
     private Animation _animation;
     private float currentValue;
     public float GreenPotionEffect = 1f;
-    private IEnumerator burntCoroutine;
+    private IEnumerator _burntCoroutine;
+    private Vector3 cameraVector;
     
     public List<int> ingredientList = new List<int>();//이건 요리할 때만 사용, 인덱스가 필요한 ID는 CookItemSlot에 저장
     public FoodInfos FoodInfos { get; set;}//foodInfos가 바뀌면 해줄 일,즉 UI코루틴 끝났을때 할 일 set에 적자
@@ -43,21 +44,12 @@ public class CookingTool : MonoBehaviour
     static void FirstLoad(){
         
     }*/
-    private void Update()
-    {
-        /*transform.GetChild(0).transform
-            .LookAt(transform.GetChild(0).transform.position + Camera.main.transform.rotation * Vector3.forward,
-                Camera.main.transform.rotation * Vector3.up);*/
-        transform.GetChild(0).transform
-            .LookAt(transform.GetChild(0).transform.position + Camera.main.transform.rotation * Vector3.forward,
-                Camera.main.transform.rotation * Vector3.up);
-    }
     
     private void Start()
     {
         //InventoryBig.SetActive(false);
         _animation = transform.GetComponent<Animation>();
-        burntCoroutine = BurntFood();
+        _burntCoroutine = BurntFood();
     }
 
     
@@ -78,28 +70,33 @@ public class CookingTool : MonoBehaviour
 
     public bool PutIngredient(int id, Sprite sprite) //이걸 현재 들고있는게 null이 아닐때만 실행시켜주면 되는데 혹시몰라서 한번 더 조건문 넣음
     {
-        for (int i = 0; i < cookSlotManager.ChildSlotCount; i++) //일단 레시피에 들어가는 최대 재료 개수가 3개라고 했을 때
+        if (isBeforeCooking)
         {
-            if (!cookSlotManager.itemslots[i].isUsed)
+            if (!isCooked)
             {
-                _animation.Play(
-                    type.ToString());
-                //Debug.Log("애니메이션실행!");
-                ingredientList.Add(id);
-                cookSlotManager.itemslots[i].isUsed = true;
-                cookSlotManager.itemslots[i].changeSlotUI(sprite);
-                cookSlotManager.itemslots[i].ingridientId = id;
-                if (type != Type.Trash)
+                for (int i = 0; i < cookSlotManager.ChildSlotCount; i++) //일단 레시피에 들어가는 최대 재료 개수가 3개라고 했을 때
                 {
-                    Ing[i].sprite = sprite;
-                    IngredientInven.SetActive(true);
-                }
-                return true;
-            }
+                    if (!cookSlotManager.itemslots[i].isUsed)
+                    {
+                        _animation.Play(
+                            type.ToString());
+                        //Debug.Log("애니메이션실행!");
+                        ingredientList.Add(id);
+                        cookSlotManager.itemslots[i].isUsed = true;
+                        cookSlotManager.itemslots[i].changeSlotUI(sprite);
+                        cookSlotManager.itemslots[i].ingridientId = id;
+                        if (type != Type.Trash)
+                        {
+                            Ing[i].sprite = sprite;
+                            IngredientInven.SetActive(true);
+                        }
+                        return true;
+                    }
             
+                }
+                cookSlotManager.ShowWarning();
+            }
         }
-        cookSlotManager.ShowWarning();
-        //도구에 재료 꽉찼는데 넣으려고할때 행동
         return false;
     }
 
@@ -140,7 +137,7 @@ public class CookingTool : MonoBehaviour
         blackCircleBig.fillAmount = 0;
         isCooked = false;
         food.sprite = toolBeforeCook;
-        StopCoroutine(burntCoroutine);
+        StopCoroutine(_burntCoroutine);
     }
 
     public void RemoveIngSlot()
@@ -159,7 +156,6 @@ public class CookingTool : MonoBehaviour
     
     IEnumerator CookingGauge() //LoadingBar.fillAmount이 1이 될때까지 점점 게이지를 추가해줌
     {
-        Debug.Log(blackCircle.fillAmount);
         while (blackCircle.fillAmount < 1)
         {
             currentValue += Time.deltaTime;
@@ -176,7 +172,7 @@ public class CookingTool : MonoBehaviour
         foodBig.sprite = FoodInfos.ImageUI;
         if (FoodInfos.ID != 100000)
         {
-            StartCoroutine(burntCoroutine);
+            StartCoroutine(_burntCoroutine);
         }
     }
 

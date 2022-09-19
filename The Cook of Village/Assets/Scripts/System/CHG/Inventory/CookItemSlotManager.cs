@@ -23,6 +23,7 @@ public class CookItemSlotManager : ItemSlotManager
         for (int i = 0; i < ChildSlotCount; i++)
         {
             itemslots[i].changeSlotUI(emptySlot);
+            itemslots[i].isUsed = false;
         }
     }
 
