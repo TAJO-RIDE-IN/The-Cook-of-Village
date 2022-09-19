@@ -150,18 +150,14 @@ public class ChefInventory : MonoBehaviour
                 {
                     if (_cookingCharacter.isToolCollider) //스페이스바를 냉장고안이나에서 누른건 아닌지 확인 => 스위치로 변경
                     {
-                        if (_cookingCharacter._cookingTool.isBeforeCooking)//요리하기 전이 맞는지 확인
+                        if (_cookingCharacter._cookingTool.PutIngredient(EdibleItems[i]._ingredientsInfos.ID,
+                            EdibleItems[i]._ingredientsInfos.ImageUI))
                         {
-                            if (_cookingCharacter._cookingTool.PutIngredient(EdibleItems[i]._ingredientsInfos.ID,
-                                EdibleItems[i]._ingredientsInfos.ImageUI))
-                            {
-                                EdibleItems[i]._ingredientsInfos = null;
-                                isUsed[i] = false;
-                                chefSlotManager.itemslots[i].changeSlotUI(chefSlotManager.emptySlot);
-                                return;
-                            };
-                        
-                        }
+                            EdibleItems[i]._ingredientsInfos = null;
+                            isUsed[i] = false;
+                            chefSlotManager.itemslots[i].changeSlotUI(chefSlotManager.emptySlot);
+                            return;
+                        };
                     }
 
                     if (_cookingCharacter.isFridgeCollider)

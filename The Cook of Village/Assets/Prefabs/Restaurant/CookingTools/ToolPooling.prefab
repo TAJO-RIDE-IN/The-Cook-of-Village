@@ -27,12 +27,13 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4614266634291031706}
+  - {fileID: 9011962321165400128}
   - {fileID: 4614266634077823508}
   - {fileID: 4614266633265291059}
   - {fileID: 4614266633808945536}
   - {fileID: 4614266634115726266}
   - {fileID: 4614266633745604329}
+  - {fileID: 9011962320821983425}
   m_Father: {fileID: 4614266633301319170}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -90,7 +91,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4614266633265291068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.353, y: 0.066, z: 2.943}
+  m_LocalPosition: {x: -9.353, y: -0.185, z: 2.943}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4614266633035321081}
@@ -149,19 +150,34 @@ MonoBehaviour:
   - name: Blender
     poolObject: {fileID: 0}
     objectContatiner: {fileID: 4614266634089423344}
+    installY: -0.185
   - name: FryPan
     poolObject: {fileID: 0}
     objectContatiner: {fileID: 4614266633966597044}
+    installY: -0.065
   - name: Pot
     poolObject: {fileID: 0}
     objectContatiner: {fileID: 4614266634052733490}
+    installY: -0.065
   - name: Oven
     poolObject: {fileID: 0}
     objectContatiner: {fileID: 4614266633820496911}
+    installY: -0.243
   - name: Whipper
     poolObject: {fileID: 0}
     objectContatiner: {fileID: 4614266633249757730}
+    installY: -0.185
   initObjectCount: 3
+  toolPosition: []
+  toolPositionUI:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  availableToolCount: 6
+  _selectedPositionIndex: 0
 --- !u!1 &4614266633745604330
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +202,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4614266633745604330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.331, y: 0.066, z: 0.447}
+  m_LocalPosition: {x: -7.331, y: -0.185, z: 0.447}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4614266633035321081}
@@ -216,7 +232,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4614266633808945537}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.353, y: 0.066, z: 1.826}
+  m_LocalPosition: {x: -9.353, y: -0.185, z: 1.826}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4614266633035321081}
@@ -336,7 +352,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4614266634077823509}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.742, y: 0.104, z: 5.72}
+  m_LocalPosition: {x: -7.742, y: -0.185, z: 5.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4614266633035321081}
@@ -396,13 +412,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4614266634115726267}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.359, y: 0.066, z: 0.48}
+  m_LocalPosition: {x: -8.359, y: -0.185, z: 0.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4614266633035321081}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4614266634291031707
+--- !u!1 &9011962320821983454
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -410,7 +426,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4614266634291031706}
+  - component: {fileID: 9011962320821983425}
+  m_Layer: 0
+  m_Name: StoveToolPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9011962320821983425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9011962320821983454}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.065, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4614266633035321081}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9011962321165400129
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9011962321165400128}
   m_Layer: 0
   m_Name: TablePosition
   m_TagString: Untagged
@@ -418,15 +464,15 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4614266634291031706
+--- !u!4 &9011962321165400128
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4614266634291031707}
+  m_GameObject: {fileID: 9011962321165400129}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.624, y: 0.104, z: 5.72}
+  m_LocalPosition: {x: -6.624, y: -0.185, z: 5.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4614266633035321081}
