@@ -109,9 +109,13 @@ public class GuestNPC : MonoBehaviour, IGuestOb
         NotifyObserver(); //observer 전달     
     }
 
-    public void ChangeLayer(int _layer)
+    public void ChangeLayer(Transform trans ,int _layer)
     {
-        this.gameObject.layer = _layer;
+        trans.gameObject.layer = _layer;
+        foreach(Transform child in trans)
+        {
+            ChangeLayer(child, _layer);
+        } 
     }
 
     #region Observer
@@ -136,11 +140,11 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     {
         if (other.gameObject.name == "SecondFloor")
         {
-            ChangeLayer(7);
+            ChangeLayer(this.transform, 7);
         }
         else if (other.gameObject.name == "FirstFloor")
         {
-            ChangeLayer(0);
+            ChangeLayer(this.transform, 0);
         }
     }
 }
