@@ -27,7 +27,6 @@ public class VillageTeleport : MonoBehaviour
     public enum Gate { PotionShop, PotionShopOut, InteriorShop, InteriorShopOut, Bank, BankOut};
     private void PlayMoveEffect()
     {
-        MoveEffect.gameObject.SetActive(true);
         MoveEffect.Play();
     }
 
