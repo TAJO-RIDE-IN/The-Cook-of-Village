@@ -18,6 +18,7 @@ public interface IObserver<T>
 [System.Serializable]
 public class GameInfos
 {
+    public string RestaurantName;
     public int Day;
     public int Month;
     public int Money;
@@ -84,6 +85,16 @@ public class GameData : DataManager, IGameDataOb
     private GameInfos gameInfos;
 
     #region 변수
+    public string RestaurantName
+    {
+        get { return gameInfos.RestaurantName; }
+        set
+        {
+            gameInfos.RestaurantName = value;
+            NotifyObserver();
+        }
+    }
+
     [SerializeField, Range(0, 1440)] //24시간 => 1440분
     private float timeOfDay;
     public float TimeOfDay 
