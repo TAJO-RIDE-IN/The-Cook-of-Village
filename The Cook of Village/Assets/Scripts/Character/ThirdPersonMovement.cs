@@ -22,25 +22,29 @@ public class ThirdPersonMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertival = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertival).normalized;
+        if (!GameManager.Instance.IsUI)
+        {
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertival = Input.GetAxisRaw("Vertical");
+            Vector3 direction = new Vector3(horizontal, 0f, vertival).normalized;
 
-        if (direction.magnitude >= 0.1f)
-        {
-            charAnimator.SetBool("isWalk",true);
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
-                turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            if (direction.magnitude >= 0.1f)
+            {
+                charAnimator.SetBool("isWalk",true);
+                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
+                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
+                    turnSmoothTime);
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             
-            controller.SimpleMove(moveDir.normalized * speed * Time.deltaTime);
+                controller.SimpleMove(moveDir.normalized * speed * Time.deltaTime);
+            }
+            else
+            {
+                charAnimator.SetBool("isWalk",false);
+            }
         }
-        else
-        {
-            charAnimator.SetBool("isWalk",false);
-        }
+        
         
     }
 
