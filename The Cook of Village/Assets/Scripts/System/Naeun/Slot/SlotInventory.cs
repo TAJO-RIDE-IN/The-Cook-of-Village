@@ -14,7 +14,7 @@ public class SlotInventory : Slot<ItemInfos>
             ModifySlot();
         }
     }
-    [SerializeField] private InventoryUI inventoryUI;
+    public InventoryUI inventoryUI;
     [SerializeField] private GameObject ItemExplanation;
     [SerializeField] private Image ItemImage;
     [SerializeField] private Text ItemCount;
@@ -58,7 +58,7 @@ public class SlotInventory : Slot<ItemInfos>
                 Potion.Instance.UsePotion(Infos.Name);          
                 break;
             case (ItemType.Type.CookingTool):
-                ToolPooling.Instance.ReceiveToolName(Infos.Name);
+
                 break;
             case (ItemType.Type.Furniture):
                 break;

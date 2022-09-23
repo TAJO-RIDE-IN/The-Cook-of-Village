@@ -28,7 +28,7 @@ public class InventoryUI : UIController
         CurrentTab = (ItemType.Type)_tab;
     }
 
-    public void InventoryButton()
+    public void InventoryState()
     {
         this.gameObject.SetActive(!this.gameObject.activeSelf);
         if(this.gameObject.activeSelf)
