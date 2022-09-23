@@ -19,7 +19,6 @@ public class ChefInventory : MonoBehaviour
         if (null == instance)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -80,8 +79,8 @@ public class ChefInventory : MonoBehaviour
     [SerializeField] private EdibleItem[] EdibleItems = new EdibleItem[6];
 
     public bool[] isUsed = Enumerable.Repeat(false, 6).ToArray();
-        
-        
+
+
         //= new List<EdibleItem>()
 
     private void Start()
@@ -91,7 +90,6 @@ public class ChefInventory : MonoBehaviour
             EdibleItems[i]._itemType = EdibleItem.ItemType.Ingredient;
         }
         _cookingCharacter = GameObject.FindGameObjectWithTag("Player").GetComponent<CookingCharacter>();
-
     }
     public void ExtensionInventory()
     {

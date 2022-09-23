@@ -58,6 +58,7 @@ public class SlotInventory : Slot<ItemInfos>
                 Potion.Instance.UsePotion(Infos.Name);          
                 break;
             case (ItemType.Type.CookingTool):
+                ToolPooling.Instance.ReceiveToolName(Infos.Name);
                 break;
             case (ItemType.Type.Furniture):
                 break;

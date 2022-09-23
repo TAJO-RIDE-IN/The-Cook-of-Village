@@ -13,7 +13,7 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
         public T poolObject;
         public Queue<T> objectQueue = new Queue<T>();
         public GameObject objectContatiner;
-        public float installY;
+        public int initCount;
     }
     public List<PoolObjectData> poolObjectData;
     public PoolObjectData FindPoolObjectData(String value)
@@ -23,37 +23,11 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
     }
     
     //protected static GameObject[] ObjectContatiner;
-    public int initObjectCount = 3;
 
-    private static MultipleObjectPooling<T> instance;
-    public static MultipleObjectPooling<T> Instance
-    {
-        get
-        {
-            return instance;
-        }
-        set
-        {
-            instance = value;
-        }
-    }
+    
     protected virtual void Awake()
     {
-        
-        if (instance)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
-        /*ObjectContatiner = new GameObject[poolObjectData.Count];
-        for (int i = 0; i < poolObjectData.Count; i++)
-        {
-            ObjectContatiner[i] = transform.GetChild(i).gameObject;
-        }*/
-        Debug.Log(poolObjectData[0].name);
-        Initialize(initObjectCount);
-        
+        Initialize();
     }
     
 
@@ -63,11 +37,11 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
         newObj.gameObject.SetActive(false);
         return newObj;
     }
-    protected virtual void Initialize(int count)
+    protected virtual void Initialize()
     {
         for (int i = 0; i < poolObjectData.Count; i++)
         {
-            for (int j = 0; j < count; j++)
+            for (int j = 0; j < poolObjectData[i].initCount; j++)
             {
                 poolObjectData[i].objectQueue.Enqueue(CreateNewObject(poolObjectData[i].name));
             }
@@ -91,7 +65,7 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
         }
         else
         {
-            var newObj = Instance.CreateNewObject(name);
+            var newObj = CreateNewObject(name);
             newObj.transform.SetParent(FindPoolObjectData(name).objectContatiner.transform);
             newObj.gameObject.SetActive(true);
             return newObj;
