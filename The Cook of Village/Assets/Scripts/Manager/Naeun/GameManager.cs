@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
             instance = this;
             CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
             LoadObject();
-            CurosrControl(true);
+            CurosrControl(false);
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         set 
         {
             isUI = value;
-            //CurosrControl(value);
+            CurosrControl(value);
         }
     }
     public int NextSceneIndex = 2;
@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
     private void CurosrControl(bool value)
     {
         Cursor.visible = value;
-        Cursor.lockState = (value) ?  CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.lockState = (value) ? CursorLockMode.Confined :  CursorLockMode.Locked;
     }
     public void Pause() // Game Pause
     {
