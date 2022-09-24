@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
     private void LoadObject()
     {
         CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        Pause(false);
         potionController.LoadObject();
         gameData.LoadObject();
     }
