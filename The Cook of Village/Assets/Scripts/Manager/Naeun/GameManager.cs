@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
             instance = this;
             CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
             LoadObject();
-            CurosrControl(false);
+            //CurosrControl(false);
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         set 
         {
             isUI = value;
-            CurosrControl(value);
+            //CurosrControl(value);
         }
     }
     public int NextSceneIndex = 2;
