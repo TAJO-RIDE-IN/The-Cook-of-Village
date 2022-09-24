@@ -42,11 +42,23 @@ public class SlotInventory : Slot<ItemInfos>
         ItemCount.text = Infos.Amount.ToString();
         ItemImage.sprite = Infos.ImageUI;
     }
+    public bool UseButtonState()
+    {
+        if(Infos.type == ItemType.Type.Potion)
+        {
+            return true;
+        }
+        else if(Infos.type == ItemType.Type.CookingTool || Infos.type == ItemType.Type.Furniture)
+        {
+            return GameManager.Instance.CurrentSceneIndex == 3;
+        }
+        return false;
+    }
     public override void SelectSlot() //슬롯 클릭
     {
         UseItemButton.onClick.RemoveAllListeners();
         UseItemButton.onClick.AddListener(UseItem); 
-        UseItemButton.gameObject.SetActive(Infos.type == ItemType.Type.Potion);
+        UseItemButton.gameObject.SetActive(UseButtonState());
         ItemExplanation.SetActive(true);
         ExplanationText.text = Infos.Explanation;
     }
