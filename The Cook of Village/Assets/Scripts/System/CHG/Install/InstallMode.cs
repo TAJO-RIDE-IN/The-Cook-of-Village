@@ -14,7 +14,7 @@ public class InstallMode : MonoBehaviour
     private bool isList;
     private bool[] isUsed;
     private CookingTool[] _cookingTools;
-    private bool isDirectChange;
+    [HideInInspector] public bool isDirectChange;
     private List<int> receivedToolPosition = new List<int>();
     private Image _image;
 
@@ -31,7 +31,6 @@ public class InstallMode : MonoBehaviour
 
     public void ReceivePositionIndex(int x)//UI 클릭에 할당
     {
-        Debug.Log("인덱스받음");
         if (receivedToolPosition.Count == 0)
         {
             receivedToolPosition.Add(x);
@@ -68,21 +67,28 @@ public class InstallMode : MonoBehaviour
         }
     }
 
-    public void DirectChange()
+    public void DirectChange()//indexToChange를 여기서 바꾸면 깔끔할텐데
     {
+        Debug.Log("다이렉트");
         isDirectChange = true;
-        inventoryUI.InventoryButton();
+        inventoryUI.InventoryState();
         inventoryUI.TabClick(6);
     }
-    public void UseTool()
+    public void UseTool(string name)
     {
         if (isDirectChange)
         {
-            
+            Debug.Log(_cookingTools[ToolPooling.Instance.indexToChange].type.ToString());
+            ToolPooling.Instance.ReturnObject(_cookingTools[ToolPooling.Instance.indexToChange],
+                _cookingTools[ToolPooling.Instance.indexToChange].type.ToString());
+            _cookingTools[ToolPooling.Instance.indexToChange] = ToolPooling.Instance.GetObject(name);
+            isDirectChange = false;
+            return;
         }
         else
         {
             StartInstall();
+            ToolPooling.Instance.SelectedToolName = name;
         }
     }
     public void GoInstall()//UI만 꺼주기
@@ -95,6 +101,7 @@ public class InstallMode : MonoBehaviour
                 ToolPooling.Instance.SelectedPositionIndex = index;
                 _cookingTools[index] = ToolPooling.Instance.GetObject(ToolPooling.Instance.SelectedToolName);
                 _cookingTools[index].transform.position = ToolPooling.Instance.toolPosition[index].position;
+                _cookingTools[index].index = index;
             }
         }
         for (int i = 0; i < availableToolCount; i++)
@@ -105,6 +112,7 @@ public class InstallMode : MonoBehaviour
         goInstallUI.SetActive(false);
         isDirectChange = false;
         GameManager.Instance.IsInstall = false;
+        receivedToolPosition.Clear();
         //GameManager.Instance.Pause();
     }
 

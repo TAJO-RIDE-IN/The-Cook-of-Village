@@ -45,7 +45,7 @@ public class SlotInventory : Slot<ItemInfos>
     public override void SelectSlot() //슬롯 클릭
     {
         UseItemButton.onClick.RemoveAllListeners();
-        UseItemButton.onClick.AddListener(UseItem);
+        UseItemButton.onClick.AddListener(UseItem); 
         UseItemButton.gameObject.SetActive(Infos.type == ItemType.Type.Potion);
         ItemExplanation.SetActive(true);
         ExplanationText.text = Infos.Explanation;
@@ -58,7 +58,7 @@ public class SlotInventory : Slot<ItemInfos>
                 Potion.Instance.UsePotion(Infos.Name);          
                 break;
             case (ItemType.Type.CookingTool):
-
+                ToolPooling.Instance.installMode.UseTool(Infos.Name);
                 break;
             case (ItemType.Type.Furniture):
                 break;

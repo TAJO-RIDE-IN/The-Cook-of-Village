@@ -9,7 +9,9 @@ public class ToolPooling : MultipleObjectPooling<CookingTool>
 {
     //private Dictionary<String, List<PoolObjectData>> pooledObjects = new Dictionary<String, List<PoolObjectData>>();
     public Transform[] toolPosition;
-    
+    public InstallMode installMode;
+
+    [HideInInspector] public int indexToChange;
 
     private String selectedToolName;
     public String SelectedToolName
@@ -58,19 +60,20 @@ public class ToolPooling : MultipleObjectPooling<CookingTool>
             return;
         }
         instance = this;
+        selectedPositionIndex = -1;
         
     }
 
     private void Start()
     {
-        selectedPositionIndex = -1;
+        
+    }
+    
+    public void FalseDirect()
+    {
+        installMode.isDirectChange = false;
     }
 
-    public void ReceiveToolName(String name)//조리도구 사용한다에 할당
-    {
-        SelectedToolName = name;
-        //StartInstall();
-    }
 
     
 

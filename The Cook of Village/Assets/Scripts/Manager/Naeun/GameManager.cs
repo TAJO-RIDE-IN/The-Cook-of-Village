@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
             instance = this;
             CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
             LoadObject();
-            CurosrControl(false);
+            CurosrControl(true);
             DontDestroyOnLoad(this.gameObject);
         }
         else

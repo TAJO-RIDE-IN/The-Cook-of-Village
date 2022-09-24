@@ -332,6 +332,7 @@ MonoBehaviour:
   ingredientList: 
   isBeforeCooking: 1
   isCooked: 0
+  index: 0
 --- !u!65 &1746790350224459442
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2918,7 +2919,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -2938,7 +2939,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2329382359584794232}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1746790350224459445}
+        m_TargetAssemblyTypeName: CookingTool, Assembly-CSharp
+        m_MethodName: Direct
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1746790350224459445}
+        m_TargetAssemblyTypeName: CookingTool, Assembly-CSharp
+        m_MethodName: DeliverIndex
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &7409183035728903009
 PrefabInstance:
   m_ObjectHideFlags: 0
