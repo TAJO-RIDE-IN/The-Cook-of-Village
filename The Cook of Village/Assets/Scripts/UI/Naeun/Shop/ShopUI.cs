@@ -11,13 +11,14 @@ public class ShopUI : UIController
     [SerializeField] public ItemType.Type shop;
     public ShopNPC shopNPC;
     public ShopSelect shopSelect;
+    public Text ShopName;
 
     public Scrollbar Scroll;
 
     public void UIState(bool state)
     {
         this.gameObject.SetActive(state);
-        Scroll.value = 0;
+        if(Scroll != null) { Scroll.value = 0; }
         if (state) { LoadSlotData(); }
     }
     private List<ItemInfos> ShopInfos()
@@ -60,6 +61,48 @@ public class ShopUI : UIController
             {
                 slot[info.index].Infos = info.value;
                 slot[info.index].gameObject.SetActive(true);
+            }
+        }
+        ChangeSelectSlotData();
+        ChangeShopName();
+    }
+
+    private void ChangeShopName()
+    {
+        string name = "상점";
+        switch(shop)
+        {
+            case ItemType.Type.Fruit:
+                name = "과일 상점";
+                break;
+            case ItemType.Type.Vegetable:
+                name = "채소 상점";
+                break;
+            case ItemType.Type.Meat:
+                name = "고기 상점";
+                break;
+            case ItemType.Type.Other:
+                name = "초콜렛 상점";
+                break;
+            case ItemType.Type.Potion:
+                name = "포션 상점";
+                break;
+            case ItemType.Type.CookingTool:
+                name = "인테리어 상점";
+                break;
+
+        }
+        ShopName.text = name;
+    }
+
+    private void ChangeSelectSlotData()
+    {
+        foreach (var _slot in slot)
+        {
+            if(_slot.gameObject.activeSelf == true)
+            {
+                shopSelect.Infos = _slot.Infos;
+                break;
             }
         }
     }

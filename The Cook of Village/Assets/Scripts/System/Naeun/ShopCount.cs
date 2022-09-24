@@ -50,7 +50,7 @@ public static class ShopCount
         {"Egg", ShopEggCount }, {"Chicken", ShopChickenCount }, {"Beef", ShopBeefCount }, {"Bacon", ShopBaconCount },
         {"Chocolate", ShopChocolateCount },
         {"RedPotion", ShopRedPotionCount }, {"OrangePotion", ShopOrangePotionCount }, {"GreenPotion", ShopGreenPotionCount }, {"BrownPotion", ShopBrownPotionCount }, {"RainbowPotion", ShopRainbowPotionCount },
-        {"Blender", ShopBlenderCount }, {"Pot", ShopPotCount }, {"Frypan", ShopFrypanCount }, {"WhippingMachine", ShopWhippingMachineCount }, {"Oven", ShopOvenCount },
+        {"Blender", ShopBlenderCount }, {"Pot", ShopPotCount }, {"FryPan", ShopFrypanCount }, {"WhippingMachine", ShopWhippingMachineCount }, {"Oven", ShopOvenCount },
         {"WoodTable", ShopTableCount }, {"WoodChair", ShopChairCount }, {"WoodBackrestChair", ShopBackrestChairCount },{"PlantPot", ShopPlantCount },{"OrchidPlantPot", ShopOrchidCount }
     };
     public static void ResetShopCount()

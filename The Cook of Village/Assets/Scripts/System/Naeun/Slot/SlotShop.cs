@@ -21,16 +21,13 @@ public class SlotShop : Slot<ItemInfos>
     }
     public override void SelectSlot()
     {
-        SelectSlotObject.gameObject.SetActive(true);
-        SelectSlotObject.shop = this;
-        SelectSlotObject.CurrentCount = Infos.Amount;
-        SelectSlotObject.ModifySlot(Localization.GetLocalizedString("Ingredient", Infos.Name), Infos.ImageUI);
+        SelectSlotObject.Infos = Infos;
     }
 
     public override void ModifySlot()
     {
-        PriceText.text = Infos.Price.ToString();
-        SlotImage.sprite = Infos.ImageUI;
         SlotText.text = Localization.GetLocalizedString("Ingredient", Infos.Name);
+        SlotImage.sprite = Infos.ImageUI;
+        PriceText.text = Infos.Price.ToString();
     }
 }
