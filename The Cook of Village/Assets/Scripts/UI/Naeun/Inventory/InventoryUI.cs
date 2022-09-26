@@ -37,6 +37,15 @@ public class InventoryUI : UIController
             LoadInventorySlot();
         }
     }
+    public void InventoryStateBool(bool state)
+    {
+        this.gameObject.SetActive(state);
+        if (state)
+        {
+            CurrentTab = ItemType.Type.Fruit;
+            LoadInventorySlot();
+        }
+    }
 
     private void ResetInventory()
     {
