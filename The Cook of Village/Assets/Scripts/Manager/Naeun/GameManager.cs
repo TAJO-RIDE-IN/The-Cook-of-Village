@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
     private void CurosrControl(bool value)
     {
         Cursor.visible = value;
-        Cursor.lockState = (value) ? CursorLockMode.Confined :  CursorLockMode.Locked;
+        Cursor.lockState = (value) ? CursorLockMode.None :  CursorLockMode.Locked;
     }
     public void Pause(bool state) // Game Pause
     {
