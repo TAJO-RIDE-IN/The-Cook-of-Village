@@ -59,7 +59,7 @@ public class ShopUI : UIController
         {
             if(LoadState(info.value))
             {
-                slot[info.index].Infos = info.value;
+                slot[info.index].itemInfos = info.value;
                 slot[info.index].gameObject.SetActive(true);
             }
         }
