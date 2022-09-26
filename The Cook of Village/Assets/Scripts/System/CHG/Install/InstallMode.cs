@@ -141,12 +141,10 @@ public class InstallMode : MonoBehaviour
         {
             toolPositionUI[i].SetActive(false);
         }
+        
         cancelInstallUI.SetActive(false);
         goInstallUI.SetActive(false);
         isDirectChange = false;
         GameManager.Instance.IsInstall = false;
     }
-
-    
-
 }
