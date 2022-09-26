@@ -71,6 +71,7 @@ public class SlotInventory : Slot<ItemInfos>
                 break;
             case (ItemType.Type.CookingTool):
                 ToolPooling.Instance.installMode.UseTool(Infos.Name);
+                inventoryUI.InventoryState();
                 break;
             case (ItemType.Type.Furniture):
                 break;
