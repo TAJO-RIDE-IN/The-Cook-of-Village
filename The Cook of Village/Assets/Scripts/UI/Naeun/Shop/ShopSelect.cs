@@ -29,6 +29,7 @@ public class ShopSelect : MonoBehaviour
     public Image SelectImage;
     public Slider CountSlider;
     public ShopNPC NPC;
+    public ShopUI shopUI;
     
     private int BuyMaxCount;
     private int MoneyMaxCount;
@@ -85,6 +86,7 @@ public class ShopSelect : MonoBehaviour
             ShopCount.ShopCountDictionary[Infos.Name] += (int)CountSlider.value;
             ItemData.Instance.ChangeAmount(Infos.ID, CurrentAmount());
             GameData.Instance.Money -= Int32.Parse(TotalPrice.text);
+            shopUI.LoadSlotData();
             Init();
         }
     }

@@ -5,6 +5,15 @@ using UnityEngine.UI;
 
 public class SlotShop : Slot<ItemInfos>
 {
+    public ItemInfos itemInfos
+    {
+        get { return Infos; }
+        set 
+        { 
+            Infos = value;
+            ModifySlot();
+        }
+    }
     public Text SlotText;
     public Text PriceText;
     public Image SlotImage;
@@ -28,6 +37,7 @@ public class SlotShop : Slot<ItemInfos>
     {
         SlotText.text = Localization.GetLocalizedString("Ingredient", Infos.Name);
         SlotImage.sprite = Infos.ImageUI;
-        PriceText.text = Infos.Price.ToString();
+        string price = Infos.Price.ToString();
+        PriceText.text = (Infos.Price > GameData.Instance.Money)? "<color=#ff0000>" + price + "</color>" : " <color=#000000ff>" + price + "</color>";
     }
 }
