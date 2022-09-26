@@ -8,6 +8,7 @@ public interface IGameDataOb
 {
     void AddObserver(IObserver<GameData> o);
     void RemoveObserver(IObserver<GameData> o);
+    void DayNotifyObserver();
     void NotifyObserver();
 }
 public interface IObserver<T>
@@ -31,6 +32,7 @@ public class GameInfos
 public class GameData : DataManager, IGameDataOb
 {
     private List<IObserver<GameData>> _observers = new List<IObserver<GameData>>();
+    private List<IObserver<GameData>> DayObservers = new List<IObserver<GameData>>();
     private GameObject UIDisplay;
     private Coroutine runningCoroutine = null;
 
@@ -196,6 +198,13 @@ public class GameData : DataManager, IGameDataOb
         _observers.Remove(o);
     }
     public void NotifyObserver() //observer에 값 전달
+    {
+        foreach(var observer in _observers)
+        {
+            observer.Change(this);
+        }
+    } 
+    public void DayNotifyObserver() //observer에 값 전달
     {
         foreach(var observer in _observers)
         {
