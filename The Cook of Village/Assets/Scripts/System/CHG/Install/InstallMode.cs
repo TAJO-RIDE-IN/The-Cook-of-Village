@@ -8,17 +8,15 @@ public class InstallMode : MonoBehaviour
 {
     public GameObject goInstallUI;
     public GameObject cancelInstallUI;
-    
     public GameObject[] toolPositionUI;
 
     private bool isList;
     private bool[] isUsed;
-    private CookingTool[] _cookingTools;
+    public CookingTool[] _cookingTools;
     [HideInInspector] public bool isDirectChange;
     private List<int> receivedToolPosition = new List<int>();
     private Image _image;
 
-    
     public int availableToolCount;
     public InventoryUI inventoryUI;
     
@@ -28,6 +26,7 @@ public class InstallMode : MonoBehaviour
         _cookingTools = new CookingTool[availableToolCount];
         ToolPooling.Instance.SelectedToolName = "Pot";
     }
+    
 
     public void ReceivePositionIndex(int x)//UI 클릭에 할당
     {
