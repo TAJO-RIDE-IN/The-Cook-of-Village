@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public interface IGameDataOb
 {
     void AddObserver(IObserver<GameData> o);
+    void AddDayObserver(IObserver<GameData> o);
     void RemoveObserver(IObserver<GameData> o);
     void DayNotifyObserver();
     void NotifyObserver();
@@ -21,7 +22,6 @@ public class GameInfos
 {
     public string RestaurantName;
     public int Day;
-    public int Month;
     public int Money;
     public int BankMoney;
     public float BankInterest;
@@ -116,16 +116,32 @@ public class GameData : DataManager, IGameDataOb
         set
         {
             gameInfos.Day = value;
-            Today = (int)value % 7;
-            gameInfos.Month = value / 14 % 4 + 1;
             ShopCount.ResetShopCount();
             Potion.Instance.ResetPotion();
             ChangeBank();
+            MonthDateCalculation();
+            DayNotifyObserver();
             NotifyObserver();
             SaveDataTime();
         }
     }
     public int Today = 1;
+    public int Date = 1;
+    public int Month = 0;
+    private void MonthDateCalculation()
+    {
+        Today = (int)Day % 7;
+        Date = (int)Day % 14;
+        if(Day%14 == 0)
+        {
+            Date = 14;
+        }
+        if(Day%14 == 1) 
+        { 
+            Month++;
+        }
+    }
+
     public void SetTimeMorning()
     {
         timeOfDay = 480;
@@ -192,6 +208,10 @@ public class GameData : DataManager, IGameDataOb
     public void AddObserver(IObserver<GameData> o)
     {
         _observers.Add(o);
+    }
+    public void AddDayObserver(IObserver<GameData> o)
+    {
+        DayObservers.Add(o);
     }
     public void RemoveObserver(IObserver<GameData> o)
     {
