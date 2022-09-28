@@ -9,7 +9,7 @@ public class NPCInfos
     public string Name;
     public int OpenTime;
     public int CloseTime;
-    public int HoliDay;
+    public int Holiday;
     public int likeability;
     public Sprite ProfileImage;
     public GameObject NPCModel;
