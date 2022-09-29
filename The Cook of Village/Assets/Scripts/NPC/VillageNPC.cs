@@ -19,7 +19,7 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
     public bool isOpen;
     [SerializeField] protected int OpenTime;
     [SerializeField] protected int CloseTime;
-    [SerializeField] protected int CloseDay;
+    public int CloseDay;
     [SerializeField] private Animator ani;
     private void Start()
     {
