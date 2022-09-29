@@ -11,7 +11,8 @@ public class ToolPooling : MultipleObjectPooling<CookingTool>
     public Transform[] toolPosition;
     public InstallMode installMode;
 
-    [HideInInspector] public int indexToChange;
+    //[HideInInspector] 
+    public int indexToChange;
 
     private String selectedToolName;
     public String SelectedToolName

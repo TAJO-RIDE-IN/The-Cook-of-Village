@@ -13,7 +13,8 @@ public class InstallMode : MonoBehaviour
     private bool isList;
     private bool[] isUsed;
     public CookingTool[] _cookingTools;
-    [HideInInspector] public bool isDirectChange;
+    //[HideInInspector] 
+    public bool isDirectChange;
     private List<int> receivedToolPosition = new List<int>();
     private Image _image;
 
@@ -68,19 +69,21 @@ public class InstallMode : MonoBehaviour
 
     public void DirectChange()//indexToChange를 여기서 바꾸면 깔끔할텐데
     {
-        Debug.Log("다이렉트");
         isDirectChange = true;
         inventoryUI.InventoryState();
         inventoryUI.TabClick(6);
     }
     public void UseTool(string name)
     {
+        
         if (isDirectChange)
         {
-            Debug.Log(_cookingTools[ToolPooling.Instance.indexToChange].type.ToString());
+            
             ToolPooling.Instance.ReturnObject(_cookingTools[ToolPooling.Instance.indexToChange],
                 _cookingTools[ToolPooling.Instance.indexToChange].type.ToString());
             _cookingTools[ToolPooling.Instance.indexToChange] = ToolPooling.Instance.GetObject(name);
+            _cookingTools[ToolPooling.Instance.indexToChange].transform.position = ToolPooling.Instance.toolPosition[ToolPooling.Instance.indexToChange].position;
+            _cookingTools[ToolPooling.Instance.indexToChange].transform.rotation = ToolPooling.Instance.toolPosition[ToolPooling.Instance.indexToChange].rotation;
             isDirectChange = false;
             return;
         }
@@ -100,6 +103,7 @@ public class InstallMode : MonoBehaviour
                 ToolPooling.Instance.SelectedPositionIndex = index;
                 _cookingTools[index] = ToolPooling.Instance.GetObject(ToolPooling.Instance.SelectedToolName);
                 _cookingTools[index].transform.position = ToolPooling.Instance.toolPosition[index].position;
+                _cookingTools[index].transform.rotation = ToolPooling.Instance.toolPosition[index].rotation;
                 _cookingTools[index].index = index;
             }
         }
