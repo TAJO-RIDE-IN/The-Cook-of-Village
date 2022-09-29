@@ -71,7 +71,7 @@ public class SlotInventory : Slot<ItemInfos>
                 break;
             case (ItemType.Type.CookingTool):
                 ToolPooling.Instance.installMode.UseTool(Infos.Name);
-                inventoryUI.InventoryState();
+                
                 break;
             case (ItemType.Type.Furniture):
                 break;
@@ -82,5 +82,6 @@ public class SlotInventory : Slot<ItemInfos>
         {
             inventoryUI.LoadInventorySlot(); //인벤토리 재정렬
         }
+        inventoryUI.InventoryState();
     }
 }

@@ -19,21 +19,22 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
     public PoolObjectData FindPoolObjectData(String value)
     {
         int index = poolObjectData.FindIndex(data => data.name == value);
+        Debug.Log(index); 
         return poolObjectData[index];
     }
-    
-    //protected static GameObject[] ObjectContatiner;
 
+    private PoolObjectData _poolObjectData;
+    //protected static GameObject[] ObjectContatiner;
     
     protected virtual void Awake()
     {
         Initialize();
     }
     
-
     protected virtual T CreateNewObject(string value)
     {
-        var newObj = Instantiate(FindPoolObjectData(value).poolObject, FindPoolObjectData(value).objectContatiner.transform);
+        _poolObjectData = FindPoolObjectData(value);
+        var newObj = Instantiate(_poolObjectData.poolObject, _poolObjectData.objectContatiner.transform);
         newObj.gameObject.SetActive(false);
         return newObj;
     }
@@ -49,9 +50,10 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
     }
     public T GetObject(string name)
     {
-        if (FindPoolObjectData(name).objectQueue.Count > 0)
+        _poolObjectData = FindPoolObjectData(name);
+        if (_poolObjectData.objectQueue.Count > 0)
         {
-            var obj = FindPoolObjectData(name).objectQueue.Dequeue();
+            var obj = _poolObjectData.objectQueue.Dequeue();
             if (obj.gameObject.activeSelf == false)
             {
                 //obj.transform.SetParent(ObjectContatiner.transform);이건 처음부터 저 트랜스폼 자식으로 생성하니까 필요없지않나?
@@ -66,16 +68,16 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
         else
         {
             var newObj = CreateNewObject(name);
-            newObj.transform.SetParent(FindPoolObjectData(name).objectContatiner.transform);
+            newObj.transform.SetParent(_poolObjectData.objectContatiner.transform);
             newObj.gameObject.SetActive(true);
             return newObj;
         }
     }
     public void ReturnObject(T returnObject, String name)
     {
-        
-        returnObject.transform.SetParent(FindPoolObjectData(name).objectContatiner.transform);
-        FindPoolObjectData(name).objectQueue.Enqueue(returnObject);
+        _poolObjectData = FindPoolObjectData(name);
+        returnObject.transform.SetParent(_poolObjectData.objectContatiner.transform);
+        _poolObjectData.objectQueue.Enqueue(returnObject);
         returnObject.gameObject.SetActive(false);
     }
 }
