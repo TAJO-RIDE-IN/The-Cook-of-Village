@@ -203,6 +203,7 @@ public class GameData : DataManager, IGameDataOb
         SaveData<GameInfos>(ref gameInfos, "GameData");
         ItemData.Instance.SaveDataTime();
         FoodData.Instance.SaveDataTime();
+        NPCData.Instance.SaveDataTime();
     }
     #region observer
     public void AddObserver(IObserver<GameData> o)
@@ -226,7 +227,7 @@ public class GameData : DataManager, IGameDataOb
     } 
     public void DayNotifyObserver() //observer에 값 전달
     {
-        foreach(var observer in _observers)
+        foreach(var observer in DayObservers)
         {
             observer.Change(this);
         }

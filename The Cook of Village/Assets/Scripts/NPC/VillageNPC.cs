@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
 {
+    public NPCInfos npcInfos;
     public enum State { Idle, Walk, Sell, Greet }
     [SerializeField]
     private State NPCState;
@@ -17,12 +18,10 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
         }
     }
     public bool isOpen;
-    [SerializeField] protected int OpenTime;
-    [SerializeField] protected int CloseTime;
-    public int CloseDay;
     [SerializeField] private Animator ani;
     private void Start()
     {
+        npcInfos = NPCData.Instance.npcInfos[(int)npcInfos.work];
         AddObserver(GameData.Instance);
     }
     public void OnTriggerEnter(Collider other)
@@ -45,7 +44,7 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
     }
     protected bool TodayShopOpen(float time, bool open)
     {
-        if (time >= OpenTime && time <= CloseTime)
+        if (time >= npcInfos.OpenTime && time <= npcInfos.CloseTime)
         {
             if (open) return true;
             return false;
@@ -90,13 +89,16 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
     {
         o.AddObserver(this);
     }
-
+    public void RemoveObserver(IGameDataOb o)
+    {
+        o.RemoveObserver(this);
+    }
     public void Change(GameData obj)
     {
         if (obj is GameData)
         {
             var GameData = obj;
-            bool open = (GameData.Today == CloseDay) ? false : true;
+            bool open = (GameData.Today == npcInfos.Holiday) ? false : true;
             ShopState(TodayShopOpen(obj.TimeOfDay, open));
         }
     }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Calendar : MonoBehaviour, IObserver<GameData>
 {
     public Image[] DayImage;
-    public VillageNPC[] NPCHoliday;
+    public NPCInfos[] NPCHoliday;
 
     private void Start()
     {
@@ -14,15 +14,9 @@ public class Calendar : MonoBehaviour, IObserver<GameData>
     }
 
 
-    private void ChangeImage(int date)
+    private void Dayhighlight(int date)
     {
-        foreach(var npc in NPCHoliday)
-        {
-            if(date == npc.CloseDay)
-            {
-                break;
-            }
-        }
+        DayImage[date - 1].gameObject.SetActive(true);
     }
     public void AddObserver(IGameDataOb o)
     {
@@ -33,7 +27,7 @@ public class Calendar : MonoBehaviour, IObserver<GameData>
     {
         if(obj is GameData)
         {
-            ChangeImage(obj.Date);
+            Dayhighlight(obj.Date);
         }    
     }
 }
