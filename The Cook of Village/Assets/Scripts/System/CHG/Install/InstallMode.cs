@@ -1,34 +1,54 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
 public class InstallMode : MonoBehaviour
 {
+
+
+    public InstallData installData;
+    
     public GameObject goInstallUI;
     public GameObject cancelInstallUI;
     public GameObject[] toolPositionUI;
-
+    public CookingTool[] _cookingTools;
+    [HideInInspector] public bool isDirectChange;
+    
+    private List<int> receivedToolPosition = new List<int>();
     private bool isList;
     private bool[] isUsed;
-    public CookingTool[] _cookingTools;
-    //[HideInInspector] 
-    public bool isDirectChange;
-    private List<int> receivedToolPosition = new List<int>();
-    private Image _image;
+    
+    
 
     public int availableToolCount;
     public InventoryUI inventoryUI;
-    
+
     private void Start()
     {
         isUsed = new bool[availableToolCount];
         _cookingTools = new CookingTool[availableToolCount];
-        ToolPooling.Instance.SelectedToolName = "Pot";
+        
+        
+        for (int i = 0; i < installData.toolData._indexNames.Count; i++)
+        {
+            GetAndPosition(installData.toolData._indexNames[i].index, installData.toolData._indexNames[i].name);
+        }
     }
+
+    
     
 
+    /// <summary>
+    /// 설치할 위치의 인덱스 받아옴.
+    /// </summary>
+    /// <param name="x"></param>
     public void ReceivePositionIndex(int x)//UI 클릭에 할당
     {
         if (receivedToolPosition.Count == 0)
@@ -73,6 +93,13 @@ public class InstallMode : MonoBehaviour
         inventoryUI.InventoryState();
         inventoryUI.TabClick(6);
     }
+
+    void GetAndPosition(int index, string name)
+    {
+        _cookingTools[index] = ToolPooling.Instance.GetObject(name);
+        _cookingTools[index].transform.position = ToolPooling.Instance.toolPosition[index].position;
+        _cookingTools[index].transform.rotation = ToolPooling.Instance.toolPosition[index].rotation;
+    }
     public void UseTool(string name)
     {
         
@@ -81,9 +108,8 @@ public class InstallMode : MonoBehaviour
             
             ToolPooling.Instance.ReturnObject(_cookingTools[ToolPooling.Instance.indexToChange],
                 _cookingTools[ToolPooling.Instance.indexToChange].type.ToString());
-            _cookingTools[ToolPooling.Instance.indexToChange] = ToolPooling.Instance.GetObject(name);
-            _cookingTools[ToolPooling.Instance.indexToChange].transform.position = ToolPooling.Instance.toolPosition[ToolPooling.Instance.indexToChange].position;
-            _cookingTools[ToolPooling.Instance.indexToChange].transform.rotation = ToolPooling.Instance.toolPosition[ToolPooling.Instance.indexToChange].rotation;
+            GetAndPosition(ToolPooling.Instance.indexToChange, name);
+            installData.SaveData(ToolPooling.Instance.indexToChange, name);
             isDirectChange = false;
             return;
         }
@@ -101,9 +127,8 @@ public class InstallMode : MonoBehaviour
             {
                 isUsed[index] = true;
                 ToolPooling.Instance.SelectedPositionIndex = index;
-                _cookingTools[index] = ToolPooling.Instance.GetObject(ToolPooling.Instance.SelectedToolName);
-                _cookingTools[index].transform.position = ToolPooling.Instance.toolPosition[index].position;
-                _cookingTools[index].transform.rotation = ToolPooling.Instance.toolPosition[index].rotation;
+                GetAndPosition(index, ToolPooling.Instance.SelectedToolName);
+                installData.SaveData(index, ToolPooling.Instance.SelectedToolName);
                 _cookingTools[index].index = index;
             }
         }

@@ -19,12 +19,12 @@ public class NPCData : DataManager
 {
     #region Singleton, LoadData
     private static NPCData instance = null;
-    private void Awake() //¾À ½ÃÀÛµÉ¶§ ÀÎ½ºÅÏ½º ÃÊ±âÈ­
+    private void Awake() //ì”¬ ì‹œì‘ë ë•Œ ì¸ìŠ¤í„´ìŠ¤ ì´ˆê¸°í™”
     {
         if (null == instance)
         {
             instance = this;
-            //LoadData<NPCInfos>(ref npcInfos, "NPCData"); //data ¿Ï¼º µÇ¾úÀ»¶§ ´Ù½Ã È°¼ºÈ­
+            //LoadData<NPCInfos>(ref npcInfos, "NPCData"); //data ì™„ì„± ë˜ì—ˆì„ë•Œ ë‹¤ì‹œ í™œì„±í™”
         }
         else
         {
