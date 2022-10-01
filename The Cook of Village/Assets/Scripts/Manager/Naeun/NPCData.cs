@@ -49,4 +49,11 @@ public class NPCData : DataManager
     {
         SaveArrayData<NPCInfos>(ref npcInfos, "NPCData");
     }
+
+    public Dictionary<NPCInfos.Work, ItemType.Type> WorkItemType = new Dictionary<NPCInfos.Work, ItemType.Type>()
+    {
+        {NPCInfos.Work.FruitShop, ItemType.Type.Fruit}, {NPCInfos.Work.VegetableShop, ItemType.Type.Vegetable}, {NPCInfos.Work.MeetShop, ItemType.Type.Meat},
+        {NPCInfos.Work.ChocolateShop, ItemType.Type.Other},
+        {NPCInfos.Work.PotionShop, ItemType.Type.Potion}, {NPCInfos.Work.interiorShop, ItemType.Type.CookingTool}
+    };
 }
