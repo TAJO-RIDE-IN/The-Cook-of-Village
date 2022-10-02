@@ -9,7 +9,7 @@ public class BuyingCharacter : MonoBehaviour
     private bool isShopCollider;
     public CinemachineFreeLook cinemachine;
 
-    private ShopNPC _shopNpc;
+    private VillageNPC _npc;
 
     private void Start()
     {
@@ -36,18 +36,18 @@ public class BuyingCharacter : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         
-        if (other.CompareTag("Shop"))
+        if (other.CompareTag("VillageNPC"))
         {
             isShopCollider = true;
-            _shopNpc = other.transform.GetComponent<ShopNPC>();
+            _npc = other.transform.GetComponent<VillageNPC>();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Shop")
+        if (other.tag == "VillageNPC")
         {
-            _shopNpc.UIState(false);
+            _npc.UIState(false);
         }
         isShopCollider = false;
     }
@@ -56,7 +56,7 @@ public class BuyingCharacter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _shopNpc.UIState(true);
+            _npc.UIState(true);
         }
     }
 

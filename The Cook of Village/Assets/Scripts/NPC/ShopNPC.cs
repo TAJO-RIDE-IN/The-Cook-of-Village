@@ -5,10 +5,9 @@ using UnityEngine;
 public class ShopNPC : VillageNPC
 {
     public ShopUI shopUI;
-    public ItemType.Type type;
     public override void EnterShop()
     {
-        shopUI.shop = type;
+        shopUI.shop = NPCData.Instance.WorkDataType[npcInfos.work];
         shopUI.shopNPC = this;
     }
     public override void UIState(bool state)
