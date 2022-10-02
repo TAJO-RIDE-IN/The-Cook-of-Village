@@ -69,11 +69,12 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     private IEnumerator WaitingOrder() //주문 기다림
     {
-        float time = foodInfos.MakeTime * 3f;
+        float time = FoodData.Instance.DefaultWaitingTime + foodInfos.MakeTime * 2f;
+        float Waitingtime = time;
         while(time > 0)
         {
             time -= Time.deltaTime;
-            float ratio = time / (foodInfos.MakeTime * 3f);
+            float ratio = time / Waitingtime;
             RemainingTimeImage.fillAmount = 1 - ratio;
             currentOrderUI.TimeBar.fillAmount = 1 - ratio;
             if (ratio <= 0.4)

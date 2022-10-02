@@ -84,6 +84,7 @@ public class FoodData : DataManager
     }
     #endregion
     public float OrderTime = 5f;
+    public float DefaultWaitingTime = 30f;
     public float PayWaitingTime = 20f;
     public float ChaseUPTime = 20f;
     public float EatTime = 10f;
