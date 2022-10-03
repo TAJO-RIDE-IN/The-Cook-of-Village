@@ -42,9 +42,6 @@ public class InstallMode : MonoBehaviour
         }
     }
 
-    
-    
-
     /// <summary>
     /// 설치할 위치의 인덱스 받아옴.
     /// </summary>
