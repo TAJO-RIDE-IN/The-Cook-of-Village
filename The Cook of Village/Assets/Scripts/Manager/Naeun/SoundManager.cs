@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Sound
@@ -26,7 +28,7 @@ public class SoundData
     public List<SoundType> soundtype = new List<SoundType>();
 }
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : MonoBehaviour,IPointerClickHandler
 {
     [ArrayElementTitle("soundtype")]
     [SerializeField]
@@ -135,5 +137,14 @@ public class SoundManager : MonoBehaviour
         }
         // 효과음 Dictionary 비우기
         _audioClips.Clear();
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("1");
+        Play(_audioClips["ButtonClickSound"]);
+/*        if (eventData.lastPress.GetComponent<Button>() != null)
+        {
+
+        }*/
     }
 }
