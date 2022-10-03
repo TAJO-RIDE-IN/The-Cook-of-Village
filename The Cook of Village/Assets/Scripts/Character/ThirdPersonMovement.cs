@@ -14,6 +14,11 @@ public class ThirdPersonMovement : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     private float turnSmoothVelocity;
 
+    private void Awake()
+    {
+        charAnimator.SetBool("isWalk",false);
+    }
+
     private void Start()
     {
         _camera = Camera.main.transform;

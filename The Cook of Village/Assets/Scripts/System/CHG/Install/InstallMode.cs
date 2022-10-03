@@ -35,10 +35,10 @@ public class InstallMode : MonoBehaviour
         isUsed = new bool[availableToolCount];
         _cookingTools = new CookingTool[availableToolCount];
         
-        
-        for (int i = 0; i < installData.toolData._indexNames.Count; i++)
+        Debug.Log(InstallData.toolData._indexNames.Count);
+        for (int i = 0; i < InstallData.toolData._indexNames.Count; i++)
         {
-            GetAndPosition(installData.toolData._indexNames[i].index, installData.toolData._indexNames[i].name);
+            GetAndPosition(InstallData.toolData._indexNames[i].index, InstallData.toolData._indexNames[i].name);
         }
     }
 
@@ -109,7 +109,7 @@ public class InstallMode : MonoBehaviour
             ToolPooling.Instance.ReturnObject(_cookingTools[ToolPooling.Instance.indexToChange],
                 _cookingTools[ToolPooling.Instance.indexToChange].type.ToString());
             GetAndPosition(ToolPooling.Instance.indexToChange, name);
-            installData.SaveData(ToolPooling.Instance.indexToChange, name);
+            InstallData.SaveData(ToolPooling.Instance.indexToChange, name);
             isDirectChange = false;
             return;
         }
@@ -128,7 +128,7 @@ public class InstallMode : MonoBehaviour
                 isUsed[index] = true;
                 ToolPooling.Instance.SelectedPositionIndex = index;
                 GetAndPosition(index, ToolPooling.Instance.SelectedToolName);
-                installData.SaveData(index, ToolPooling.Instance.SelectedToolName);
+                InstallData.SaveData(index, ToolPooling.Instance.SelectedToolName);
                 _cookingTools[index].index = index;
             }
         }
