@@ -70,8 +70,8 @@ public class SlotInventory : Slot<ItemInfos>
                 Potion.Instance.UsePotion(Infos.Name);          
                 break;
             case (ItemType.Type.CookingTool):
-                ToolPooling.Instance.installMode.UseTool(Infos.Name);
-                
+                ToolPooling.Instance.installMode.UseTool(Infos.Name, Infos.Amount);
+                ToolPooling.Instance.SelectedToolIndex = Infos.ID;
                 break;
             case (ItemType.Type.Furniture):
                 break;
