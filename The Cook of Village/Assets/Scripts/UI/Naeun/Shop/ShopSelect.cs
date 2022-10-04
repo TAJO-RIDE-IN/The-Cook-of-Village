@@ -62,6 +62,7 @@ public class ShopSelect : MonoBehaviour
     }
     public void ModifySlot(string name, Sprite slotImage)
     {
+        NameText.fontSize = (name.Length > 7) ? 18 : 23;
         NameText.text = name;
         SelectImage.sprite = slotImage;
     }

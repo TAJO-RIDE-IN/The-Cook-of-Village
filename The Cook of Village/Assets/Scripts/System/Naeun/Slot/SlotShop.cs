@@ -35,7 +35,9 @@ public class SlotShop : Slot<ItemInfos>
 
     public override void ModifySlot()
     {
-        SlotText.text = Localization.GetLocalizedString("Ingredient", Infos.Name);
+        string _text = Localization.GetLocalizedString("Ingredient", Infos.Name);
+        SlotText.fontSize = (_text.Length > 7) ? 18 : 23;
+        SlotText.text = _text;
         SlotImage.sprite = Infos.ImageUI;
         string price = Infos.Price.ToString();
         PriceText.text = (Infos.Price > GameData.Instance.Money)? "<color=#ff0000>" + price + "</color>" : " <color=#000000ff>" + price + "</color>";
