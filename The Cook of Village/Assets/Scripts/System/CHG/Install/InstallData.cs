@@ -23,30 +23,25 @@ public class ToolData
     public List<IndexName> _indexNames = new List<IndexName>();
 }
 
-public class InstallData : MonoBehaviour
+public class InstallData
 {
-    public ToolData toolData;
+    public static ToolData toolData = new ToolData();
     
-    private string jsonData;
-    private string path;
+    private static string jsonData;
+    private static string path = Application.persistentDataPath + "ToolData.json";
+    
     void Awake()
     {
-        path = Application.dataPath + "/Resources" + "/Data" + "/ToolData.json";
+        Debug.Log(path);
         jsonData = File.ReadAllText(path);
         toolData = JsonUtility.FromJson<ToolData>(jsonData);
-        
     }
     
-    public void SaveData(int index, string name)
+    public static void SaveData(int index, string name)
     {
         toolData._indexNames.Add(new IndexName(index, name));
-        Debug.Log(toolData._indexNames[0].index);
         jsonData = JsonUtility.ToJson(toolData, true);
         File.WriteAllText(path, jsonData);
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
