@@ -11,6 +11,7 @@ public class NPCInfos
     public int CloseTime;
     public int Holiday;
     public int likeability;
+    public int FavoriteFood;
     public Sprite ProfileImage;
     public GameObject NPCModel;
 }
