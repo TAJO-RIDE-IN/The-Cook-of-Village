@@ -37,8 +37,11 @@ public class ToolPooling : MultipleObjectPooling<CookingTool>
         set
         {
             selectedPositionIndex = value;
+            
         }
     }
+
+    public int SelectedToolIndex;
 
     private static ToolPooling instance;
     public static ToolPooling Instance

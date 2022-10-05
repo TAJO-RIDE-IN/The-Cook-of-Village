@@ -112,6 +112,12 @@ public class FoodData : DataManager
         dataIndex = foodTool[FoodType(id)].foodInfos.FindIndex(m => m.ID == id);
         return foodTool[FoodType(id)].foodInfos[dataIndex];
     }
+    public FoodTool FindFoodTool(int id)
+    {
+        int dataIndex;
+        dataIndex = foodTool[FoodType(id)].foodInfos.FindIndex(m => m.ID == id);
+        return foodTool[FoodType(id)];
+    }
 
     private int FoodType(int id)
     {

@@ -43,5 +43,10 @@ public class InstallData
         jsonData = JsonUtility.ToJson(toolData, true);
         File.WriteAllText(path, jsonData);
     }
+
+    public static void DeleteData(int index, string name)
+    {
+        
+    }
     
 }
