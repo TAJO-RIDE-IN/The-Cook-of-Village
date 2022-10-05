@@ -85,7 +85,10 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             if (time <= 0)
             {
                 currentOrderUI.OrderAnimation(false);
-                GameData.Instance.TipCount = 0;
+                if(Village && VillageEatCount != 1)
+                {
+                    GameData.Instance.TipCount = 0;
+                }
                 EndOrder();
             }
             yield return null;
@@ -123,7 +126,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             EndOrder();
             if (Village && VillageEatCount == 1)
             {
-                StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => Order(FoodData.Instance.Foodinfos(VillageNPC.FavoriteFoodID))));
+                StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => Order(FoodData.Instance.Foodinfos(VillageNPC.npcInfos.FavoriteFood))));
                 return Receive;
             }
             StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => EndEat())); //일정 시간 후 다 먹음

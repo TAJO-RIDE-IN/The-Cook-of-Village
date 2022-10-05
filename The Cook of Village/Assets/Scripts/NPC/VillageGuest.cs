@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class VillageGuest : MonoBehaviour
 {
-    private enum VillageNPC {Cow, Elephant, Fox}
-    [SerializeField]private VillageNPC villageNPC;
-
-    public int Holiday;
-    public int FavoriteFoodID;
+    public NPCInfos npcInfos;
+    public void Awake()
+    {
+        npcInfos = NPCData.Instance.npcInfos[(int)npcInfos.work];
+    }
 }

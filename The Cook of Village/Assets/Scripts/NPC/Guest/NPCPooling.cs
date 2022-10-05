@@ -44,7 +44,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     {
         foreach (var npc in VillgeNPC)
         {
-            if(npc.Holiday == GameData.Instance.Today)
+            if(npc.npcInfos.Holiday == GameData.Instance.Today)
             {
                 return npc;
             }
