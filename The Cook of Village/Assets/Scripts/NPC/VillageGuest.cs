@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VillageGuest : MonoBehaviour
+public class VillageGuest : GuestNPC
 {
     public NPCInfos npcInfos;
     public void Awake()
