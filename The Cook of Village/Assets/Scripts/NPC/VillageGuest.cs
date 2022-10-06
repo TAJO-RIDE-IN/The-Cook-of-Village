@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VillageGuest : MonoBehaviour
+public class VillageGuest : GuestNPC
 {
-    private enum VillageNPC {Cow, Elephant, Fox}
-    [SerializeField]private VillageNPC villageNPC;
-
-    public int Holiday;
-    public int FavoriteFoodID;
+    public NPCInfos npcInfos;
+    public void Awake()
+    {
+        npcInfos = NPCData.Instance.npcInfos[(int)npcInfos.work];
+    }
 }

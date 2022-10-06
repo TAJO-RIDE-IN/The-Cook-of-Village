@@ -1818,10 +1818,9 @@ GameObject:
   - component: {fileID: 7585753726614882834}
   - component: {fileID: 4364184830331860670}
   - component: {fileID: 7756447871641311467}
-  - component: {fileID: 8621478118158215873}
+  - component: {fileID: 892212340897941817}
   - component: {fileID: 6821936155496496807}
   - component: {fileID: 6240092874077254360}
-  - component: {fileID: 892212340897941817}
   m_Layer: 0
   m_Name: GuestFox
   m_TagString: Guest
@@ -1902,7 +1901,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8621478118158215873
+--- !u!114 &892212340897941817
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1911,7 +1910,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7006279970084992638}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f933e8d86ffd49841888219da8b057bc, type: 3}
+  m_Script: {fileID: 11500000, guid: c18a3f1108f35e4408d698e4ec1c457b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentNPC: 1
@@ -1919,10 +1918,20 @@ MonoBehaviour:
   Models:
   - {fileID: 7006279970084992638}
   NPCImage:
-    OrderWaitImage: {fileID: 21300000, guid: 12f3adf28ae267042ba5c65d456a84f9, type: 3}
+    OrderWaitImage: {fileID: 0}
     ReceiveParticle: {fileID: 1575924467314840269}
     AngryParticle: {fileID: 7043673447497193577}
   ModelsAni: {fileID: 4364184830331860670}
+  npcInfos:
+    work: 4
+    Name: 
+    OpenTime: 0
+    CloseTime: 0
+    Holiday: 0
+    likeability: 0
+    FavoriteFood: 0
+    ProfileImage: {fileID: 0}
+    NPCModel: {fileID: 0}
 --- !u!114 &6821936155496496807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1967,21 +1976,6 @@ MonoBehaviour:
   RemainingTimeImage: {fileID: 2545670468324324978}
   OrderFoodImage: {fileID: 2545670467722693166}
   CanReceive: 0
---- !u!114 &892212340897941817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7006279970084992638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18a3f1108f35e4408d698e4ec1c457b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  villageNPC: 2
-  Holiday: 4
-  FavoriteFoodID: 0
 --- !u!1 &7133464101865936165
 GameObject:
   m_ObjectHideFlags: 0

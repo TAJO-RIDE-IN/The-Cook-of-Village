@@ -231,7 +231,6 @@ GameObject:
   - component: {fileID: 4159759577444574125}
   - component: {fileID: 4781292478313886444}
   - component: {fileID: 4450268594473960659}
-  - component: {fileID: 1788158180812935263}
   - component: {fileID: 1531429878981391108}
   - component: {fileID: 8908563786562773595}
   - component: {fileID: 7401886509079043323}
@@ -315,27 +314,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1788158180812935263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2301739997543854636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f933e8d86ffd49841888219da8b057bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentNPC: 1
-  currentState: 0
-  Models:
-  - {fileID: 2301739997543854636}
-  NPCImage:
-    OrderWaitImage: {fileID: 21300000, guid: 12f3adf28ae267042ba5c65d456a84f9, type: 3}
-    ReceiveParticle: {fileID: 8943693472108140852}
-    AngryParticle: {fileID: 576610877050082192}
-  ModelsAni: {fileID: 4781292478313886444}
 --- !u!114 &1531429878981391108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,9 +370,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18a3f1108f35e4408d698e4ec1c457b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  villageNPC: 0
-  Holiday: 6
-  FavoriteFoodID: 0
+  currentNPC: 1
+  currentState: 0
+  Models:
+  - {fileID: 2301739997543854636}
+  NPCImage:
+    OrderWaitImage: {fileID: 0}
+    ReceiveParticle: {fileID: 8943693472108140852}
+    AngryParticle: {fileID: 576610877050082192}
+  ModelsAni: {fileID: 4781292478313886444}
+  npcInfos:
+    work: 1
+    Name: 
+    OpenTime: 0
+    CloseTime: 0
+    Holiday: 0
+    likeability: 0
+    FavoriteFood: 0
+    ProfileImage: {fileID: 0}
+    NPCModel: {fileID: 0}
 --- !u!1 &2385173234870746484
 GameObject:
   m_ObjectHideFlags: 0
