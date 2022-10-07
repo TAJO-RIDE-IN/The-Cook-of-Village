@@ -40,6 +40,7 @@ public class InstallMode : MonoBehaviour
         _cookingTools = new CookingTool[installableToolCount];
         
         Debug.Log(InstallData.toolData._indexNames.Count);
+        
         for (int i = 0; i < InstallData.toolData._indexNames.Count; i++)
         {
             GetAndPosition(InstallData.toolData._indexNames[i].index, InstallData.toolData._indexNames[i].name);
@@ -101,9 +102,6 @@ public class InstallMode : MonoBehaviour
             toolPositionUI[x].GetComponent<Image>().color = new Color32(250,250,250, 143);
             receivedToolPosition.Remove(x);
         }
-        
-
-        
     }
 
     public void DirectChange()//indexToChange를 여기서 바꾸면 깔끔할텐데
@@ -189,8 +187,10 @@ public class InstallMode : MonoBehaviour
     }
 
     
-
-    public void StartInstall()//UI키고, 요리도구 UI 끄기,사용한다에 넣어주기
+    /// <summary>
+    /// UI키고, 요리도구 UI 끄기, 사용한다에 넣을 것
+    /// </summary>
+    public void StartInstall()
     {
         for (int i = 0; i < installableToolCount; i++)
         {
@@ -203,14 +203,17 @@ public class InstallMode : MonoBehaviour
                 
             }
         }
+        ReturnColor();
         GameManager.Instance.IsInstall = true;
         //GameManager.Instance.Pause();
         cancelInstallUI.SetActive(true);
     }
 
     
-
-    public void CancelInstall()//Direct가 아닐때만 취소할 수 있도록
+    /// <summary>
+    /// Direct가 아닐때만 취소할 수 있도록
+    /// </summary>
+    public void CancelInstall()
     {
         for (int i = 0; i < installableToolCount; i++)
         {
@@ -221,7 +224,16 @@ public class InstallMode : MonoBehaviour
         ItemData.Instance.ItemInfos(ToolPooling.Instance.SelectedToolIndex).Amount++;
         cancelInstallUI.SetActive(false);
         goInstallUI.SetActive(false);
+        ReturnColor();
         isDirectChange = false;
         GameManager.Instance.IsInstall = false;
+    }
+
+    private void ReturnColor()
+    {
+        for (int i = 0; i < installableToolCount; i++)
+        {
+            toolPositionUI[i].GetComponent<Image>().color = new Color32(250,250,250, 143);
+        }
     }
 }

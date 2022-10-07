@@ -23,17 +23,16 @@ public class ToolData
     public List<IndexName> _indexNames = new List<IndexName>();
 }
 
-public class InstallData
+public class InstallData : MonoBehaviour
 {
     public static ToolData toolData = new ToolData();
     
-    private static string jsonData;
-    private static string path = Application.persistentDataPath + "ToolData.json";
     
-    void Awake()
+    private static string path = Application.persistentDataPath + "ToolData.json";
+    private static string jsonData = File.ReadAllText(path);
+
+    static InstallData()
     {
-        Debug.Log(path);
-        jsonData = File.ReadAllText(path);
         toolData = JsonUtility.FromJson<ToolData>(jsonData);
     }
     
