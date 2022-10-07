@@ -46,6 +46,11 @@ MonoBehaviour:
   SoundData:
   - type: 0
     soundtype:
+    - Name: VillageBGM
+      sound:
+      - type: 0
+        SoundName: RestuarantBackground
+        audio: {fileID: 0}
     - Name: RestuarantBGM
       sound:
       - type: 0
@@ -54,9 +59,33 @@ MonoBehaviour:
   - type: 1
     soundtype:
     - Name: Guest
-      sound: []
+      sound:
+      - type: 1
+        SoundName: NPCWalkSound
+        audio: {fileID: 0}
+      - type: 1
+        SoundName: EatSound
+        audio: {fileID: 0}
+      - type: 1
+        SoundName: TalkSound
+        audio: {fileID: 0}
+      - type: 1
+        SoundName: PaySound
+        audio: {fileID: 0}
+      - type: 1
+        SoundName: AngrySound
+        audio: {fileID: 0}
+      - type: 1
+        SoundName: HappySound
+        audio: {fileID: 0}
     - Name: VillageNPC
-      sound: []
+      sound:
+      - type: 1
+        SoundName: SellSound
+        audio: {fileID: 0}
+      - type: 1
+        SoundName: GreetSound
+        audio: {fileID: 0}
     - Name: Player
       sound: []
     - Name: Food
@@ -66,6 +95,11 @@ MonoBehaviour:
       - type: 1
         SoundName: ButtonClickSound
         audio: {fileID: 8300000, guid: 595d9bb3372b6004c9681d0d000a4498, type: 3}
+    - Name: Other
+      sound:
+      - type: 1
+        SoundName: bellSound
+        audio: {fileID: 0}
   _audioSources:
   - {fileID: 0}
   - {fileID: 0}
