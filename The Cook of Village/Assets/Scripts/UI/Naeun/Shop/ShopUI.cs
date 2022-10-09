@@ -13,12 +13,9 @@ public class ShopUI : UIController
     public ShopSelect shopSelect;
     public Text ShopName;
 
-    public Scrollbar Scroll;
-
     public void UIState(bool state)
     {
         this.gameObject.SetActive(state);
-        if(Scroll != null) { Scroll.value = 0; }
         if (state) { LoadSlotData(); }
     }
     private List<ItemInfos> ShopInfos()

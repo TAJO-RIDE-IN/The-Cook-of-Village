@@ -28,9 +28,8 @@ public class SoundData
     public List<SoundType> soundtype = new List<SoundType>();
 }
 
-public class SoundManager : MonoBehaviour,IPointerClickHandler
+public class SoundManager : MonoBehaviour
 {
-    [ArrayElementTitle("soundtype")]
     [SerializeField]
     public List<SoundData> SoundData = new List<SoundData>();
     private static SoundManager instance = null;
@@ -61,7 +60,7 @@ public class SoundManager : MonoBehaviour,IPointerClickHandler
     }
     #endregion singleton
     public AudioSource[] _audioSources = new AudioSource[System.Enum.GetValues(typeof(SoundData.Type)).Length];
-    Dictionary<string, Sound> _audioClips = new Dictionary<string, Sound>();
+    public Dictionary<string, Sound> _audioClips = new Dictionary<string, Sound>();
 
     private void AudioDictionary()
     {
@@ -137,14 +136,5 @@ public class SoundManager : MonoBehaviour,IPointerClickHandler
         }
         // 효과음 Dictionary 비우기
         _audioClips.Clear();
-    }
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log("1");
-        Play(_audioClips["ButtonClickSound"]);
-/*        if (eventData.lastPress.GetComponent<Button>() != null)
-        {
-
-        }*/
     }
 }

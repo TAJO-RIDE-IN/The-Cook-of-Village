@@ -36,6 +36,10 @@ public class GameData : DataManager, IGameDataOb
     private GameObject UIDisplay;
     private Coroutine runningCoroutine = null;
 
+    [SerializeField] private ItemData itemData;
+    [SerializeField] private FoodData foodData;
+    [SerializeField] private NPCData npcData;
+
     #region 싱글톤
     private static GameData instance = null;
     private void Awake() //씬 시작될때 인스턴스 초기화
@@ -43,6 +47,8 @@ public class GameData : DataManager, IGameDataOb
         if (null == instance)
         {
             instance = this;
+            SaveDataTime();
+            LoadDataTime();
         }
         else
         {
@@ -201,9 +207,16 @@ public class GameData : DataManager, IGameDataOb
     public override void SaveDataTime()
     {
         SaveData<GameInfos>(ref gameInfos, "GameData");
-        ItemData.Instance.SaveDataTime();
-        FoodData.Instance.SaveDataTime();
-        NPCData.Instance.SaveDataTime();
+        itemData.SaveDataTime();
+        foodData.SaveDataTime();
+        npcData.SaveDataTime();
+    }
+    public void LoadDataTime()
+    {
+        LoadData<GameInfos>(ref gameInfos, "GameData");
+        LoadArrayData<ItemType>(ref itemData.ItemType, "ItemData");
+        LoadArrayData<FoodTool>(ref foodData.foodTool, "FoodData");
+        LoadArrayData<NPCInfos>(ref npcData.npcInfos, "NPCData");
     }
     #region observer
     public void AddObserver(IObserver<GameData> o)

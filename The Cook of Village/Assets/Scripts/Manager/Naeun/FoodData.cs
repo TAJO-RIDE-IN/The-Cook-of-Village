@@ -64,7 +64,6 @@ public class FoodData : DataManager
         if (null == instance)
         {
             instance = this;
-            //LoadData<FoodTool>(ref food, "FoodData"); //data 완성 되었을때 다시 활성화
         }
         else
         {

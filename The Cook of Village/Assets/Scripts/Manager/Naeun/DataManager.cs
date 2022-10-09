@@ -18,7 +18,13 @@ public abstract class DataManager : MonoBehaviour
         string toJson = JsonHelper.arrayToJson(source, prettyPrint: true);
         File.WriteAllText(Application.persistentDataPath + "/"+ FileName + ".json", toJson);
     }
-    protected void LoadData<T>(ref T[] source, string FileName)
+    protected void LoadData<T>(ref T source, string FileName)
+    {
+        string DataPath = Application.persistentDataPath + "/" + FileName + ".json";
+        string json = File.ReadAllText(DataPath);
+        source = JsonUtility.FromJson<T>(json);
+    }
+    protected void LoadArrayData<T>(ref T[] source, string FileName)
     {
         string DataPath = Application.persistentDataPath + "/" + FileName + ".json";
         string json = File.ReadAllText(DataPath);
