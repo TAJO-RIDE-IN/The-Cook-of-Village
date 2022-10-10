@@ -47,7 +47,6 @@ public class GameData : DataManager, IGameDataOb
         if (null == instance)
         {
             instance = this;
-            SaveDataTime();
             LoadDataTime();
         }
         else
@@ -213,10 +212,17 @@ public class GameData : DataManager, IGameDataOb
     }
     public void LoadDataTime()
     {
-        LoadData<GameInfos>(ref gameInfos, "GameData");
-        LoadArrayData<ItemType>(ref itemData.ItemType, "ItemData");
-        LoadArrayData<FoodTool>(ref foodData.foodTool, "FoodData");
-        LoadArrayData<NPCInfos>(ref npcData.npcInfos, "NPCData");
+        if(!FileExists("GameData"))
+        {
+            SaveDataTime();
+        }
+        else
+        {
+            LoadData<GameInfos>(ref gameInfos, "GameData");
+            LoadArrayData<ItemType>(ref itemData.ItemType, "ItemData");
+            LoadArrayData<FoodTool>(ref foodData.foodTool, "FoodData");
+            LoadArrayData<NPCInfos>(ref npcData.npcInfos, "NPCData");
+        }
     }
     #region observer
     public void AddObserver(IObserver<GameData> o)

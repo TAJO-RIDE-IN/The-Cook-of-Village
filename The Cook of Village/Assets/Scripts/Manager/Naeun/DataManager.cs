@@ -30,4 +30,10 @@ public abstract class DataManager : MonoBehaviour
         string json = File.ReadAllText(DataPath);
         source = JsonHelper.getJsonArray<T>(json);
     }
+    protected bool FileExists(string FileName)
+    {
+        string DataPath = Application.persistentDataPath + "/" + FileName + ".json";
+        FileInfo File = new FileInfo(DataPath);
+        return File.Exists;
+    }
 }
