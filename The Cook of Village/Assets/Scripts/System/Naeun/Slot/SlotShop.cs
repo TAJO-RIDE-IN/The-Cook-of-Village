@@ -19,10 +19,6 @@ public class SlotShop : Slot<ItemInfos>
     public Image SlotImage;
     public ShopSelect SelectSlotObject;
 
-    private void OnEnable()
-    {
-        ModifySlot();
-    }
     private void OnDisable()
     {
         this.gameObject.SetActive(false);
@@ -36,6 +32,7 @@ public class SlotShop : Slot<ItemInfos>
     public override void ModifySlot()
     {
         string _text = Localization.GetLocalizedString("Ingredient", Infos.Name);
+        Debug.Log(_text);
         SlotText.fontSize = (_text.Length > 7) ? 18 : 23;
         SlotText.text = _text;
         SlotImage.sprite = Infos.ImageUI;
