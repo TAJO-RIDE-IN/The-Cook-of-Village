@@ -12,6 +12,8 @@ public class NPCInfos
     public int Holiday;
     public int likeability;
     public int FavoriteFood;
+    public bool EatFavriteFood;
+    public bool VisitRestaurant;
     public Sprite ProfileImage;
     public GameObject NPCModel;
 }
@@ -50,7 +52,6 @@ public class NPCData : DataManager
     {
         SaveArrayData<NPCInfos>(ref npcInfos, "NPCData");
     }
-
     public static Dictionary<NPCInfos.Work, ItemType.Type> WorkDataType = new Dictionary<NPCInfos.Work, ItemType.Type>()
     {
         {NPCInfos.Work.FruitShop, ItemType.Type.Fruit}, {NPCInfos.Work.VegetableShop, ItemType.Type.Vegetable}, {NPCInfos.Work.MeetShop, ItemType.Type.Meat},

@@ -84,7 +84,6 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
     public abstract void EnterShop();
 
     #region observer
-
     public void AddObserver(IGameDataOb o)
     {
         o.AddObserver(this);

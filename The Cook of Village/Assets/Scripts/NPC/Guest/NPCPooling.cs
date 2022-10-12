@@ -12,7 +12,6 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     private float CallTime = 10f;
     private bool open = false;
     private bool callVillageNPC = false;
-    private bool NPCEnter = false;
     private Coroutine _callNPC;
     private float VillageNPCTime;
     private float OpenTime;
@@ -36,7 +35,6 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     {
         open = false;
         callVillageNPC = false;
-        NPCEnter = false;
         StopCoroutine(_callNPC);
     }
 
@@ -58,12 +56,12 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
         {
             if (WaitChair.Count != 0)
             {
-                if (callVillageNPC && !NPCEnter) 
+                if (callVillageNPC)
                 {
-                    if(EnterNPC() != null)
+                    if (!EnterNPC().RestaurantVisit)
                     {
                         EnterNPC().gameObject.SetActive(true);
-                        NPCEnter = true;
+                        EnterNPC().RestaurantVisit = true;
                         yield return new WaitForSeconds(Random.Range(CallTime - 4, CallTime + 4));
                     }
                 }
@@ -73,19 +71,10 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
         }
     }
 
-
     public void AddObserver(IGameDataOb o)
     {
         o.AddObserver(this);
     }
-/*    public void RemoveObserver(IGameDataOb o)
-    {
-        if(o != null) { o.RemoveObserver(this); }
-    }
-    private void OnDisable()
-    {
-        RemoveObserver(GameData.Instance);
-    }*/
     public void Change(GameData obj)
     {
         if (obj is GameData)
@@ -95,7 +84,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
             {
                 CloseRestaurant();
             }
-            if(open && !NPCEnter)
+            if(open)
             {
                 callVillageNPC = (GameData.TimeOfDay >= VillageNPCTime) ? true : false;
             }

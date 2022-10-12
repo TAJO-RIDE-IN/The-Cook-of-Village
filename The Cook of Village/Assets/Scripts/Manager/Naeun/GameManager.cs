@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private bool isUI = false;
+    [SerializeField] private bool isUI = false;
     public bool IsUI
     {
         get { return isUI; }
@@ -55,6 +55,15 @@ public class GameManager : MonoBehaviour
         {
             isUI = value;
             //CurosrControl(value);
+        }
+    }
+    [SerializeField] private int guestCount;
+    public int GuestCount
+    {
+        get { return guestCount; }
+        set
+        {
+            guestCount = value;
         }
     }
     public int NextSceneIndex = 2;
@@ -82,6 +91,11 @@ public class GameManager : MonoBehaviour
         Pause(false);
         potionController.LoadObject();
         gameData.LoadObject();
+        if(GuestCount != 0)
+        {
+            //명성 하락
+        }
+        GuestCount = 0;
     }
     #endregion
     private void CurosrControl(bool value)
