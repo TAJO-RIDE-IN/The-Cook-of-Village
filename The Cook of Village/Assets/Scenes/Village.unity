@@ -55259,6 +55259,8 @@ MonoBehaviour:
     Holiday: 0
     likeability: 0
     FavoriteFood: 0
+    EatFavriteFood: 0
+    VisitRestaurant: 0
     ProfileImage: {fileID: 0}
     NPCModel: {fileID: 0}
   NPCState: 0
@@ -55411,6 +55413,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1584513642 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7634998147935358416, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
+  m_PrefabInstance: {fileID: 3079373238880203001}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b9612fa249a209499784aa9241b4ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1610712072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71014,11 +71027,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6970712227835587490, guid: d7b79714848ebec439aed3b64c8b72a1, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.15786943
+      value: 0.15786941
       objectReference: {fileID: 0}
     - target: {fileID: 6970712227835587490, guid: d7b79714848ebec439aed3b64c8b72a1, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.002159834
+      value: 0.0021598637
       objectReference: {fileID: 0}
     - target: {fileID: 6970712227835587490, guid: d7b79714848ebec439aed3b64c8b72a1, type: 3}
       propertyPath: m_LocalRotation.z
@@ -71042,7 +71055,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6970712227907585435, guid: d7b79714848ebec439aed3b64c8b72a1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0000014305115
+      value: 0.0000023841858
       objectReference: {fileID: 0}
     - target: {fileID: 6970712227907585435, guid: d7b79714848ebec439aed3b64c8b72a1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -71050,7 +71063,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6970712227907585435, guid: d7b79714848ebec439aed3b64c8b72a1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0000076293945
+      value: -0.000015258789
       objectReference: {fileID: 0}
     - target: {fileID: 6970712227907585435, guid: d7b79714848ebec439aed3b64c8b72a1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -71102,7 +71115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6970712228500243147, guid: d7b79714848ebec439aed3b64c8b72a1, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.21130788
+      value: 0.21130791
       objectReference: {fileID: 0}
     - target: {fileID: 6970712228500243147, guid: d7b79714848ebec439aed3b64c8b72a1, type: 3}
       propertyPath: m_LocalRotation.y
@@ -91381,6 +91394,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 773.4845
       objectReference: {fileID: 0}
+    - target: {fileID: 2250133110932063277, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000045776367
+      objectReference: {fileID: 0}
     - target: {fileID: 2250133111364316114, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -92443,7 +92460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8143698216361343897, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 93.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8143698216361343897, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -92605,6 +92622,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 201370972}
+    - target: {fileID: 9118430488094737342, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1584513642}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
 --- !u!1 &3079373238880203002 stripped

@@ -47,7 +47,7 @@ public class GameData : DataManager, IGameDataOb
         if (null == instance)
         {
             instance = this;
-            LoadDataTime();
+            //LoadDataTime();
         }
         else
         {
