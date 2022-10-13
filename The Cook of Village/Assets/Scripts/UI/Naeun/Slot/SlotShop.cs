@@ -32,7 +32,7 @@ public class SlotShop : Slot<ItemInfos>
     public override void ModifySlot()
     {
         string _text = Localization.GetLocalizedString("Ingredient", Infos.Name);
-        SlotText.fontSize = (_text.Length > 7) ? 18 : 23;
+        SlotText.fontSize = (_text.Length > 7) ? 18 : 22;
         SlotText.text = _text;
         SlotImage.sprite = Infos.ImageUI;
         string price = Infos.Price.ToString();
