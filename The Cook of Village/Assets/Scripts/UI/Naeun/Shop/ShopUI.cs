@@ -47,7 +47,11 @@ public class ShopUI : UIController
     public void UIState(bool state)
     {
         this.gameObject.SetActive(state);
-        if (state) { LoadSlotData(); }
+        if (state) 
+        {
+            ChangeSelectSlotData();
+            LoadSlotData(); 
+        }
     }
     private List<ItemInfos> ShopInfos()
     {
@@ -91,7 +95,6 @@ public class ShopUI : UIController
                 slot[info.index].gameObject.SetActive(true);
             }
         }
-        ChangeSelectSlotData();
         ChangeShopUI();
     }
     private void ChangeUI(int index)
