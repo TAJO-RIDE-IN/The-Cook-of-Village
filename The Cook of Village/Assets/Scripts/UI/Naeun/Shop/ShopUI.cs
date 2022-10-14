@@ -4,15 +4,46 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class ShopImageContainer
+{
+    [SerializeField] public NPCInfos.Work shop;
+    public Sprite BackGoundImage;
+    public Sprite SlotContainerImage;
+    public Sprite SlotImage;
+    public Sprite SelectSlotBackGoundImage;
+    public Sprite BuyButtonImage;
+    public Sprite ExitButtonImage;
+}
+[System.Serializable]
+public class ShopUIContainer
+{
+    public Image BackGoundImage;
+    public Image SlotContainerImage;
+    public Image SelectSlotBackGoundImage;
+    public Image BuyButtonImage;
+    public Image ExitButtonImage;
+}
 public class ShopUI : UIController
 {
-    public GameObject SlotContent;
+    [SerializeField] public ShopImageContainer[] ImageContainer;
+    [SerializeField] public ShopUIContainer UIContainer;
     public SlotShop[] slot;
-    [SerializeField] public ItemType.Type shop;
+    [SerializeField] public ItemType.Type CurrentShop;
+    public GameObject SlotContent;
     public ShopNPC shopNPC;
     public ShopSelect shopSelect;
     public Text ShopName;
-
+    public Dictionary<ItemType.Type, string> DicShopName = new Dictionary<ItemType.Type, string>()
+    {
+        { ItemType.Type.Fruit, "과일" }, {ItemType.Type.Vegetable, "야채"}, {ItemType.Type.Meat, "고기"},
+        { ItemType.Type.Other, "초콜렛" }, { ItemType.Type.Potion, "포션" }, { ItemType.Type.CookingTool, "인테리어" }
+    };
+    public Dictionary<ItemType.Type, int> DicShopImageIndex = new Dictionary<ItemType.Type, int>()
+    {
+        { ItemType.Type.Fruit, 0 }, {ItemType.Type.Vegetable, 0}, {ItemType.Type.Meat, 0},
+        { ItemType.Type.Other, 0}, { ItemType.Type.Potion, 1 }, { ItemType.Type.CookingTool, 2}
+    };
     public void UIState(bool state)
     {
         this.gameObject.SetActive(state);
@@ -21,19 +52,19 @@ public class ShopUI : UIController
     private List<ItemInfos> ShopInfos()
     {
         List<ItemInfos> infos = new List<ItemInfos>();
-        if((int)shop == 6 || (int)shop == 7)
+        if((int)CurrentShop == 6 || (int)CurrentShop == 7)
         {
             infos.AddRange(ItemData.Instance.ItemType[6].ItemInfos);
             infos.AddRange(ItemData.Instance.ItemType[7].ItemInfos);
             return infos;
         }
-        infos = ItemData.Instance.ItemType[(int)shop].ItemInfos;
+        infos = ItemData.Instance.ItemType[(int)CurrentShop].ItemInfos;
         return infos;
     }
 
     private bool LoadState(ItemInfos info)
     {
-        if (shop == ItemType.Type.Potion )
+        if (CurrentShop == ItemType.Type.Potion )
         {
             if(GameData.Instance.Today == 5)
             {
@@ -45,7 +76,7 @@ public class ShopUI : UIController
                 return true;
             }
         }
-        if(shop == ItemType.Type.Other && info.ID == 40) { return false; }
+        if(CurrentShop == ItemType.Type.Other && info.ID == 40) { return false; }
         return true;
     }
 
@@ -61,35 +92,26 @@ public class ShopUI : UIController
             }
         }
         ChangeSelectSlotData();
-        ChangeShopName();
+        ChangeShopUI();
     }
+    private void ChangeUI(int index)
+    {
+        UIContainer.BackGoundImage.sprite = ImageContainer[index].BackGoundImage;
+        UIContainer.SlotContainerImage.sprite = ImageContainer[index].SlotContainerImage;
+        UIContainer.SelectSlotBackGoundImage.sprite = ImageContainer[index].SelectSlotBackGoundImage;
+        UIContainer.BuyButtonImage.sprite = ImageContainer[index].BuyButtonImage;
+        UIContainer.ExitButtonImage.sprite = ImageContainer[index].ExitButtonImage;
 
-    private void ChangeShopName()
+        foreach(var image in slot)
+        {
+            image.GetComponent<Image>().sprite = ImageContainer[index].SlotImage;
+        }
+    }
+    private void ChangeShopUI()
     {
         string name = "상점";
-        switch(shop)
-        {
-            case ItemType.Type.Fruit:
-                name = "과일 상점";
-                break;
-            case ItemType.Type.Vegetable:
-                name = "채소 상점";
-                break;
-            case ItemType.Type.Meat:
-                name = "고기 상점";
-                break;
-            case ItemType.Type.Other:
-                name = "초콜렛 상점";
-                break;
-            case ItemType.Type.Potion:
-                name = "포션 상점";
-                break;
-            case ItemType.Type.CookingTool:
-                name = "인테리어 상점";
-                break;
-
-        }
-        ShopName.text = name;
+        ShopName.text = DicShopName[CurrentShop] + " " + name;
+        ChangeUI(DicShopImageIndex[CurrentShop]);
     }
 
     private void ChangeSelectSlotData()
