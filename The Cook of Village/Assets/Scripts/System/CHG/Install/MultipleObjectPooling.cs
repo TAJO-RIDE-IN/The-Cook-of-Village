@@ -73,6 +73,11 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
             return newObj;
         }
     }
+    /// <summary>
+    /// return 시 초기화 해줘야 하는 값들...
+    /// </summary>
+    /// <param name="returnObject"></param>
+    /// <param name="name"></param>
     public void ReturnObject(T returnObject, String name)
     {
         _poolObjectData = FindPoolObjectData(name);
