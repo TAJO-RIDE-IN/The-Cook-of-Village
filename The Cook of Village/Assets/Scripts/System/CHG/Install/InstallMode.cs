@@ -53,9 +53,9 @@ public class InstallMode : MonoBehaviour
     /// <param name="x"></param>
     public void ReceivePositionIndex(int x)//UI 클릭에 할당
     {
-        if (receivedToolPosition.Count == 0)
+        if (receivedToolPosition.Count == 0)//원래 0이였을 때는 바로 return
         {
-            if (toolItemInfosAmount > selectedToolAmount)
+            if (toolItemInfosAmount > selectedToolAmount)//데이터에 있는 개수만큼만 UI 활성화
             {
                 selectedToolAmount++;
                 receivedToolPosition.Add(x);
@@ -72,19 +72,19 @@ public class InstallMode : MonoBehaviour
         for (int i = 0; i < receivedToolPosition.Count; i++)
         {
             
-            if (receivedToolPosition[i] == x)
+            if (receivedToolPosition[i] == x)//리스트에 새로 받은 값(x)과 같은 게 없다면 빼줘야 하므로 false
             {
                 isList = false;
                 break;
             }
-            else if(receivedToolPosition[i] != x)
+            else if(receivedToolPosition[i] != x)//리스트에 새로 받은 값(x)과 같은 게 없다면 넣어도 되므로 true
             {
                 isList = true;
             }
         }
         if (isList)
         {
-            if (toolItemInfosAmount > selectedToolAmount)
+            if (toolItemInfosAmount > selectedToolAmount)// = 이라면 이미 개수만큼 다 선택한 것이므로
             {
                 selectedToolAmount++;
                 receivedToolPosition.Add(x);
@@ -137,12 +137,11 @@ public class InstallMode : MonoBehaviour
         }
         isDirectChange = false;
     }
-    public void UseTool2(string name)
+    public void DeleteTool(string name)
     {
         if (isDirectChange)
         {
-            ToolPooling.Instance.ReturnObject(_cookingTools[ToolPooling.Instance.indexToChange],
-                _cookingTools[ToolPooling.Instance.indexToChange].type.ToString());
+            ReturnTool();
             GetAndPosition(ToolPooling.Instance.indexToChange, name);
             InstallData.SaveData(ToolPooling.Instance.indexToChange, name);
             FoodData.Instance.FindFoodTool(ToolPooling.Instance.SelectedToolIndex).Amount++;
@@ -156,6 +155,14 @@ public class InstallMode : MonoBehaviour
             ToolPooling.Instance.SelectedToolName = name;
         }
         isDirectChange = false;
+    }
+
+    private void ReturnTool()
+    {
+        //_cookingTools[ToolPooling.Instance.indexToChange]
+        ToolPooling.Instance.ReturnObject(_cookingTools[ToolPooling.Instance.indexToChange],
+            _cookingTools[ToolPooling.Instance.indexToChange].type.ToString());
+        
     }
     public void GoInstall()//UI만 꺼주기
     {
@@ -175,7 +182,7 @@ public class InstallMode : MonoBehaviour
         {
             toolPositionUI[i].SetActive(false);
         }
-        ItemData.Instance.ItemInfos(ToolPooling.Instance.SelectedToolIndex).Amount -= selectedToolAmount - 1;
+        ItemData.Instance.ItemInfos(ToolPooling.Instance.SelectedToolIndex).Amount -= selectedToolAmount - 1;//나은이 함수에서 한번 --해주기 때문. (SlotInventory.UseItem)
         toolItemInfosAmount = 0;
         selectedToolAmount = 0;
         cancelInstallUI.SetActive(false);
@@ -221,7 +228,7 @@ public class InstallMode : MonoBehaviour
         }
         toolItemInfosAmount = 0;
         selectedToolAmount = 0;
-        ItemData.Instance.ItemInfos(ToolPooling.Instance.SelectedToolIndex).Amount++;
+        ItemData.Instance.ItemInfos(ToolPooling.Instance.SelectedToolIndex).Amount++;//SlotInventory.UseItem 에서 -- 해주기 때문
         cancelInstallUI.SetActive(false);
         goInstallUI.SetActive(false);
         ReturnColor();

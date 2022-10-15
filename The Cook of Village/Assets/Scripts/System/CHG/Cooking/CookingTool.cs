@@ -162,6 +162,12 @@ public class CookingTool : MonoBehaviour
         ToolPooling.Instance.indexToChange = index;
         CloseUI();
     }
+
+    public void WhenReturn()
+    {
+        RemoveIngSlot();
+        ingredientList.Clear();
+    }
     
     IEnumerator CookingGauge() //LoadingBar.fillAmount이 1이 될때까지 점점 게이지를 추가해줌
     {
