@@ -43,6 +43,7 @@ public class InstallData : MonoBehaviour
         File.WriteAllText(path, jsonData);
     }
 
+    //public void RestoreHealth(int amount) => health += amount;
     public static void DeleteData(int index, string name)
     {
         
