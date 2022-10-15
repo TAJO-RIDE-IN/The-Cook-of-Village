@@ -19,7 +19,6 @@ public class SlotShop : Slot<ItemInfos>
     public Text PriceText;
     public Image SlotImage;
     public ShopSelect SelectSlotObject;
-
     private void OnDisable()
     {
         this.gameObject.SetActive(false);
@@ -34,7 +33,7 @@ public class SlotShop : Slot<ItemInfos>
     {
         SlotImage.sprite = Infos.ImageUI;
         string price = Infos.Price.ToString();
-        string _name = Localization.GetLocalizedString("Item", Infos.Name);
+        string _name = Infos.KoreanName;
         SlotText.fontSize = (_name.Length > 7) ? 18 : 22;
         SlotText.text = _name;
         PriceText.text = (Infos.Price > GameData.Instance.Money)? "<color=#ff0000>" + price + "</color>" : " <color=#000000ff>" + price + "</color>";

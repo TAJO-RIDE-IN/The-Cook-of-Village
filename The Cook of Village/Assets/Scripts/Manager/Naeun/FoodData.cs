@@ -15,6 +15,7 @@ public class FoodInfos
     public int Type;
     public int ID;
     public string Name;
+    public string KoreanName;
     [Multiline]
     public string Explanation;
     public float MakeTime;

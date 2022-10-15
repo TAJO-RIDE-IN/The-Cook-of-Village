@@ -41,7 +41,7 @@ public class ShopSelect : MonoBehaviour
     {
         BuyMaxCount = Infos.ShopCount - ShopCount.ShopCountDictionary[Infos.Name];
         MoneyMaxCount = (int)GameData.Instance.Money / Infos.Price;
-        ModifySlot(Localization.GetLocalizedString("Item", Infos.Name), Infos.ImageUI);
+        ModifySlot(Infos.KoreanName, Infos.ImageUI);
         CountSlider.value = 0;
         CountSlider.maxValue = BuyMaxCount;
     }
