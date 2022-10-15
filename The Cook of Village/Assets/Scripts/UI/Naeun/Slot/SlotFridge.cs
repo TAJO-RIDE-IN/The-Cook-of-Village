@@ -34,7 +34,7 @@ public class SlotFridge : Slot<ItemInfos>
     public override void ModifySlot()
     {
         CountText.text = "X" + SlotCount;
-        IngredientName.text = Localization.GetLocalizedString("Ingredient", Infos.Name);
+        IngredientName.text = Localization.GetLocalizedString("Item", Infos.Name);
         IngredientImage.sprite = Infos.ImageUI;
     }
     public override void SelectSlot()

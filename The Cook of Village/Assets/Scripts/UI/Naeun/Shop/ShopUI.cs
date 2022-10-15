@@ -49,8 +49,8 @@ public class ShopUI : UIController
         this.gameObject.SetActive(state);
         if (state) 
         {
+            LoadSlotData();
             ChangeSelectSlotData();
-            LoadSlotData(); 
         }
     }
     private List<ItemInfos> ShopInfos()
@@ -83,19 +83,26 @@ public class ShopUI : UIController
         if(CurrentShop == ItemType.Type.Other && info.ID == 40) { return false; }
         return true;
     }
-
+    public void Init()
+    {
+        foreach (var _slot in slot)
+        {
+            _slot.gameObject.SetActive(false);
+        }
+    }
     public void LoadSlotData()
     {
+        Init();
+        ChangeShopUI();
         shopSelect.NPC = shopNPC;
         foreach (var info in ShopInfos().Select((value, index) => (value, index)))
         {
             if(LoadState(info.value))
             {
-                slot[info.index].itemInfos = info.value;
                 slot[info.index].gameObject.SetActive(true);
+                slot[info.index].itemInfos = info.value;
             }
         }
-        ChangeShopUI();
     }
     private void ChangeUI(int index)
     {

@@ -20,17 +20,23 @@ public class BuyingCharacter : MonoBehaviour
     {
         if (isShopCollider)//상점말고 esc메뉴 눌렀을때도 화면 움직이면 안되니깐 isUI 넣기로함
         {
-            InTheShop();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _npc.UIState(true);
+            }
         }
 
-        if (GameManager.Instance.IsUI)
+        if(GameManager.Instance != null)
         {
-            StopMovingXYAxis();
-        }
-        else
-        {
-            MovingXYAxis();
-        }
+            if (GameManager.Instance.IsUI)
+            {
+                StopMovingXYAxis();
+            }
+            else
+            {
+                MovingXYAxis();
+            }
+        }    
     }
 
     private void OnTriggerStay(Collider other)

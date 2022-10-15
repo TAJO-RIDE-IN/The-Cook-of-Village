@@ -41,7 +41,7 @@ public class ShopSelect : MonoBehaviour
     {
         BuyMaxCount = Infos.ShopCount - ShopCount.ShopCountDictionary[Infos.Name];
         MoneyMaxCount = (int)GameData.Instance.Money / Infos.Price;
-        ModifySlot(Localization.GetLocalizedString("Ingredient", Infos.Name), Infos.ImageUI);
+        ModifySlot(Localization.GetLocalizedString("Item", Infos.Name), Infos.ImageUI);
         CountSlider.value = 0;
         CountSlider.maxValue = BuyMaxCount;
     }
@@ -64,6 +64,7 @@ public class ShopSelect : MonoBehaviour
     {
         NameText.fontSize = (name.Length > 7) ? 18 : 23;
         NameText.text = name;
+        ExplanationText.text = infos.Explanation;
         SelectImage.sprite = slotImage;
     }
     public void ChangeSelctText()

@@ -11,6 +11,7 @@ public class SlotShop : Slot<ItemInfos>
         set 
         { 
             Infos = value;
+            this.gameObject.SetActive(true);
             ModifySlot();
         }
     }
@@ -31,11 +32,11 @@ public class SlotShop : Slot<ItemInfos>
 
     public override void ModifySlot()
     {
-        string _text = Localization.GetLocalizedString("Ingredient", Infos.Name);
-        SlotText.fontSize = (_text.Length > 7) ? 18 : 22;
-        SlotText.text = _text;
         SlotImage.sprite = Infos.ImageUI;
         string price = Infos.Price.ToString();
+        string _name = Localization.GetLocalizedString("Item", Infos.Name);
+        SlotText.fontSize = (_name.Length > 7) ? 18 : 22;
+        SlotText.text = _name;
         PriceText.text = (Infos.Price > GameData.Instance.Money)? "<color=#ff0000>" + price + "</color>" : " <color=#000000ff>" + price + "</color>";
     }
 }

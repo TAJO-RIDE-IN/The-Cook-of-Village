@@ -26,6 +26,7 @@ public class RecipeUI : UIController
         {
             FoodSlot[food.index].foodInfos = food.value;
         }
+        FoodSlot[0].SelectSlot();
     }
 
     public void RecipeButton()
