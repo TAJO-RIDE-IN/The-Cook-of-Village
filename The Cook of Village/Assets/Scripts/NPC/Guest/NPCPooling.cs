@@ -7,9 +7,11 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
 {
     [SerializeField] private List<VillageGuest> VillgeNPC = new List<VillageGuest>();
     public List<GameObject> WaitChair = new List<GameObject>();
+    public List<GameObject> UseChair = new List<GameObject>();
 
     [SerializeField]
     private float CallTime = 10f;
+    private float DefaultCallTime = 10f;
     private bool open = false;
     private bool callVillageNPC = false;
     private Coroutine _callNPC;
@@ -53,7 +55,8 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     {
         while(open)
         {
-            WaitChair = GameObject.FindGameObjectsWithTag("Chair").ToList();
+            AvailableChair();
+            ChangeCallTime();
             if (WaitChair.Count != 0)
             {
                 if (callVillageNPC)
@@ -68,6 +71,20 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
                 GetObject();
             }
             yield return new WaitForSeconds(Random.Range(CallTime-4, CallTime+4));
+        }
+    }
+
+    private void AvailableChair()
+    {
+        WaitChair = GameObject.FindGameObjectsWithTag("Chair").ToList();
+        WaitChair = WaitChair.Except(UseChair).ToList();
+    }
+
+    private void ChangeCallTime()
+    {
+        if(GameData.Instance.Fame > 0)
+        {
+            CallTime = DefaultCallTime - GameData.Instance.Fame / 100;
         }
     }
 

@@ -165,6 +165,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     public void PayFood(float multiple) //계산
     {
+        GameData.Instance.ChangeFame(+5);
         GameData.Instance.TipCount++;
         GameData.Instance.Money += (int)(PayMoney * multiple);
         if(GameData.Instance.TipCount >= 5)

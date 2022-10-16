@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
         gameData.LoadObject();
         if(GuestCount != 0)
         {
-            //명성 하락
+            GameData.Instance.ChangeFame(-3 * GuestCount);
         }
         GuestCount = 0;
     }

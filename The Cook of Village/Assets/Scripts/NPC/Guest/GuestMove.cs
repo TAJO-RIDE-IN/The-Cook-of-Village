@@ -27,9 +27,9 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     {
         StartCoroutine(NPCMove(ChairPosition(), "Chair"));
     }
-    private void ChangeChairState()
+    private void OutChair()
     {
-        chairContainer.WaitChair.Add(UseChair);
+        chairContainer.UseChair.Remove(UseChair);
         UseChair = null;
     }
 
@@ -38,7 +38,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         int chairNum = Random.Range(0, chairContainer.WaitChair.Count);
         Vector3 destination = chairContainer.WaitChair[chairNum].transform.position;
         UseChair = chairContainer.WaitChair[chairNum];
-        chairContainer.WaitChair.RemoveAt(chairNum);
+        chairContainer.UseChair.Add(UseChair);
         return (destination);
     }
 
@@ -98,7 +98,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
                 if(NPCEat) { GoCounter(); }
                 else { StartCoroutine(WaitAnimation("StandUp", Door.position, "Door", 0.8f)); }
                 NPCEat = false;
-                ChangeChairState();                                
+                OutChair();                                
                 break;
             case GuestNPC.State.Pay:
                 counter.OutGuest(this.gameObject);
