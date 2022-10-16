@@ -19,7 +19,6 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     private void Start()
     {
         AddObserver(GameData.Instance);
-        WaitChair = GameObject.FindGameObjectsWithTag("Chair").ToList();
         OpenRestaurant();
     }
 
@@ -54,11 +53,12 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     {
         while(open)
         {
+            WaitChair = GameObject.FindGameObjectsWithTag("Chair").ToList();
             if (WaitChair.Count != 0)
             {
                 if (callVillageNPC)
                 {
-                    if (!EnterNPC().RestaurantVisit)
+                    if (EnterNPC() != null  && !EnterNPC().RestaurantVisit)
                     {
                         EnterNPC().gameObject.SetActive(true);
                         EnterNPC().RestaurantVisit = true;

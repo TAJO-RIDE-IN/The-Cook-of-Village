@@ -7,6 +7,7 @@ public class NPCInfos
     public enum Work { FruitShop, VegetableShop, MeetShop, ChocolateShop, PotionShop, interiorShop, Bank}
     [SerializeField] public Work work;
     public string Name;
+    public string KoreanName;
     public int OpenTime;
     public int CloseTime;
     public int Holiday;

@@ -10,6 +10,7 @@ public class ItemInfos
     public ItemType.Type type;
     public int ID;
     public string Name;
+    public string KoreanName;
     [Multiline]
     public string Explanation;
     public int Price;

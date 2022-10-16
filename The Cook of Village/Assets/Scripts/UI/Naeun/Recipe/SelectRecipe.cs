@@ -25,7 +25,7 @@ public class SelectRecipe : MonoBehaviour
         int count = 0;
         FoodImage.sprite = foodInfos.ImageUI;
         FoodExplanation.text = foodInfos.Explanation;
-        FoodText.text = Localization.GetLocalizedString("Food", foodInfos.Name);
+        FoodText.text = foodInfos.KoreanName;
         foreach(int ingredientID in foodInfos.Recipe)
         {
             ItemInfos infos = ItemData.Instance.ItemInfos(ingredientID);
