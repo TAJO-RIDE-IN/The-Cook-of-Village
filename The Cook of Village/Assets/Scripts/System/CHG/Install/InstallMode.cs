@@ -119,8 +119,9 @@ public class InstallMode : MonoBehaviour
     {
         if (isDirectChange)
         {
-            ToolPooling.Instance.ReturnObject(_cookingTools[ToolPooling.Instance.indexToChange],
-                _cookingTools[ToolPooling.Instance.indexToChange].type.ToString());
+            
+            _cookingTools[ToolPooling.Instance.indexToChange].DeleteTool();
+            ReturnTool();
             GetAndPosition(ToolPooling.Instance.indexToChange, name);
             InstallData.SaveData(ToolPooling.Instance.indexToChange, name);
             FoodData.Instance.FindFoodTool(ToolPooling.Instance.SelectedToolIndex).Amount++;
@@ -135,29 +136,9 @@ public class InstallMode : MonoBehaviour
         }
         isDirectChange = false;
     }
-    public void DeleteTool(string name)
-    {
-        if (isDirectChange)
-        {
-            ReturnTool();
-            GetAndPosition(ToolPooling.Instance.indexToChange, name);
-            InstallData.SaveData(ToolPooling.Instance.indexToChange, name);
-            FoodData.Instance.FindFoodTool(ToolPooling.Instance.SelectedToolIndex).Amount++;
-            isDirectChange = false;
-            return;
-        }
-        else
-        {
-            //availableToolAmount = amount;
-            StartInstall();
-            ToolPooling.Instance.SelectedToolName = name;
-        }
-        isDirectChange = false;
-    }
 
     private void ReturnTool()
     {
-        //_cookingTools[ToolPooling.Instance.indexToChange]
         ToolPooling.Instance.ReturnObject(_cookingTools[ToolPooling.Instance.indexToChange],
             _cookingTools[ToolPooling.Instance.indexToChange].type.ToString());
         

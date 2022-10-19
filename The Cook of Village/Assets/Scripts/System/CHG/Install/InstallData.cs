@@ -44,9 +44,17 @@ public class InstallData : MonoBehaviour
     }
 
     //public void RestoreHealth(int amount) => health += amount;
-    public static void DeleteData(int index, string name)
+    public static void DeleteData(int deleteIndex)
     {
-        
+        for (int i = 0; i < toolData._indexNames.Count; i++)
+        {
+            if (toolData._indexNames[i].index == deleteIndex)
+            {
+                toolData._indexNames.RemoveAt(i);
+                jsonData = JsonUtility.ToJson(toolData, true);
+                File.WriteAllText(path, jsonData);
+            }
+        }
     }
     
 }

@@ -10,7 +10,6 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
 
     [SerializeField]
     private float CallTime = 10f;
-    private bool open = false;
     private bool callVillageNPC = false;
     private Coroutine _callNPC;
     private float VillageNPCTime;
@@ -19,12 +18,11 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     private void Start()
     {
         AddObserver(GameData.Instance);
-        OpenRestaurant();
     }
 
     public void OpenRestaurant()
     {
-        open = true;
+        GameManager.Instance.IsOpen = true;
         OpenTime = GameData.Instance.TimeOfDay;
         VillageNPCTime = OpenTime + Random.Range(60, 181); // 마을 주민 오는시간 -> 오픈 후 1시간~3시간 사이
         _callNPC = StartCoroutine(CallNPC());
@@ -32,7 +30,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
 
     public void CloseRestaurant()
     {
-        open = false;
+        GameManager.Instance.IsOpen = false;
         callVillageNPC = false;
         StopCoroutine(_callNPC);
     }
@@ -51,7 +49,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
 
     private IEnumerator CallNPC()
     {
-        while(open)
+        while(GameManager.Instance.IsOpen)
         {
             WaitChair = GameObject.FindGameObjectsWithTag("Chair").ToList();
             if (WaitChair.Count != 0)
@@ -84,7 +82,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
             {
                 CloseRestaurant();
             }
-            if(open)
+            if(GameManager.Instance.IsOpen)
             {
                 callVillageNPC = (GameData.TimeOfDay >= VillageNPCTime) ? true : false;
             }

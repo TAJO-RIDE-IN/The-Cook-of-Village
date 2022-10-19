@@ -36,6 +36,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private bool isOpen = false;
+    public bool IsOpen
+    {
+        get { return isOpen; }
+        set 
+        {
+            isOpen = value;
+        }
+    }
+    
     private bool isInstall = false;
 
     public bool IsInstall
