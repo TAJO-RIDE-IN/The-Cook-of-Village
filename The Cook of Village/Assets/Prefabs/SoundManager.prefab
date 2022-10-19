@@ -1,5 +1,291 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3254708324497607936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2919767710209323813}
+  - component: {fileID: 3739899540496604456}
+  m_Layer: 0
+  m_Name: Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2919767710209323813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3254708324497607936}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1465702672285892751}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &3739899540496604456
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3254708324497607936}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!1 &4634454100875806292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1465702672285892751}
+  m_Layer: 0
+  m_Name: Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1465702672285892751
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4634454100875806292}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5136098859582067628}
+  - {fileID: 2919767710209323813}
+  m_Father: {fileID: 7770203365810823867}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5799829800004301444
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5136098859582067628}
+  - component: {fileID: 1642527585454659157}
+  m_Layer: 0
+  m_Name: BGM
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5136098859582067628
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5799829800004301444}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1465702672285892751}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1642527585454659157
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5799829800004301444}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7770203365810823865
 GameObject:
   m_ObjectHideFlags: 0
@@ -27,7 +313,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.3081193, y: 1.0815047, z: 3.655889}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1465702672285892751}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -43,63 +330,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 795358f421ec57b4f8f8bc8d18f74c81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoundData:
+  _soundData:
   - type: 0
     soundtype:
-    - Name: VillageBGM
+    - Name: Loading
+      sound:
+      - type: 0
+        SoundName: LoadingBGM
+        _audio: {fileID: 8300000, guid: bce7edbf794aca445903efd5849492da, type: 3}
+    - Name: Village
       sound:
       - type: 0
         SoundName: VillageBGM
-        audio: {fileID: 0}
-    - Name: RestuarantBGM
+        _audio: {fileID: 8300000, guid: 34758f7cdba241842abf2dfa6d7f7799, type: 3}
+    - Name: Restaurant
       sound:
       - type: 0
-        SoundName: RestuarantBackground
-        audio: {fileID: 8300000, guid: 06bec91733ccb2341b9cc16887383c11, type: 3}
+        SoundName: RestaurantBGM
+        _audio: {fileID: 8300000, guid: 06bec91733ccb2341b9cc16887383c11, type: 3}
   - type: 1
     soundtype:
-    - Name: Guest
-      sound:
-      - type: 1
-        SoundName: NPCWalkSound
-        audio: {fileID: 0}
-      - type: 1
-        SoundName: EatSound
-        audio: {fileID: 0}
-      - type: 1
-        SoundName: TalkSound
-        audio: {fileID: 0}
-      - type: 1
-        SoundName: PaySound
-        audio: {fileID: 0}
-      - type: 1
-        SoundName: AngrySound
-        audio: {fileID: 0}
-      - type: 1
-        SoundName: HappySound
-        audio: {fileID: 0}
-    - Name: VillageNPC
-      sound:
-      - type: 1
-        SoundName: SellSound
-        audio: {fileID: 0}
-      - type: 1
-        SoundName: GreetSound
-        audio: {fileID: 0}
-    - Name: Player
-      sound: []
-    - Name: Food
-      sound: []
     - Name: UI
       sound:
       - type: 1
-        SoundName: ButtonClickSound
-        audio: {fileID: 8300000, guid: 595d9bb3372b6004c9681d0d000a4498, type: 3}
-    - Name: Other
+        SoundName: ButtonClick
+        _audio: {fileID: 0}
+    - Name: GuestNPC
       sound:
+      - type: 2
+        SoundName: GuestNPCWalk
+        _audio: {fileID: 8300000, guid: cb9aa4db4b3a12147bf2fe3d88fee270, type: 3}
+      - type: 2
+        SoundName: Eat
+        _audio: {fileID: 8300000, guid: 305ac59b002581d4189247c98f1343c2, type: 3}
+      - type: 2
+        SoundName: Drink
+        _audio: {fileID: 0}
       - type: 1
-        SoundName: bellSound
-        audio: {fileID: 0}
-  _audioSources:
-  - {fileID: 0}
-  - {fileID: 0}
+        SoundName: Pay
+        _audio: {fileID: 8300000, guid: ab1e1ba4fb343e04f86bd9d6344b8cc6, type: 3}
+      - type: 2
+        SoundName: Angry
+        _audio: {fileID: 8300000, guid: 0a265d009700ad949b5c77be5416cc71, type: 3}
+      - type: 2
+        SoundName: Happy
+        _audio: {fileID: 0}
+      - type: 2
+        SoundName: Talk
+        _audio: {fileID: 0}
+    - Name: VillageNPC
+      sound:
+      - type: 2
+        SoundName: VillageNPCWalk
+        _audio: {fileID: 8300000, guid: 38cb68a2a49e89c46bea091d75b27976, type: 3}
+      - type: 2
+        SoundName: Sell
+        _audio: {fileID: 0}
+      - type: 2
+        SoundName: Greet
+        _audio: {fileID: 0}
+    - Name: Player
+      sound: []
+  audioSources:
+  - type: 0
+    audioSources:
+    - {fileID: 1642527585454659157}
+  - type: 1
+    audioSources:
+    - {fileID: 3739899540496604456}
+  - type: 2
+    audioSources: []
