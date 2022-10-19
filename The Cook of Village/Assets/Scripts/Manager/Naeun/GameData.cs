@@ -26,6 +26,7 @@ public class GameInfos
     public int BankMoney;
     public float BankInterest;
     public int Turnover;
+    public int Fame;
     public int RainbowDrinking;
 }
 
@@ -193,7 +194,21 @@ public class GameData : DataManager, IGameDataOb
     }
     public int TipMoney;
     public int TipCount;
-
+    public int Fame
+    {
+        get { return gameInfos.Fame; }
+        set
+        {
+            if (value <= 500)
+            {
+                gameInfos.Fame = value;
+            }
+        }
+    }
+    public void ChangeFame(int value)
+    {
+        Fame += value;
+    }
     public int RainbowDrinking
     {
         get { return gameInfos.RainbowDrinking; }

@@ -124,7 +124,11 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             VillageEatCount++;
             guest.ChangeState(GuestNPC.State.Eat);
             EndOrder();
-            if(VillageReceive()) { return Receive; }
+            if(Village) 
+            {
+                VillageReceive();
+                return Receive; 
+            }
             StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => EndEat())); //일정 시간 후 다 먹음
             return Receive;
         }
@@ -136,7 +140,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         return Receive;
     }
     
-    private bool VillageReceive()
+    private void VillageReceive()
     {
         if (Village && VillageEatCount == 1)
         {
@@ -146,7 +150,6 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         {
             VillageNPC.npcInfos.EatFavriteFood = true;
         }
-        return Receive;
     }
     private void Order(FoodInfos infos) //음식주문
     {
@@ -165,6 +168,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     public void PayFood(float multiple) //계산
     {
+        GameData.Instance.ChangeFame(+5);
         GameData.Instance.TipCount++;
         GameData.Instance.Money += (int)(PayMoney * multiple);
         if(GameData.Instance.TipCount >= 5)

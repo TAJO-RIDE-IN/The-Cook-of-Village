@@ -10,7 +10,7 @@ public class Sound
 {
     public SoundData.Type type = SoundData.Type.Effect;
     public string SoundName;
-    public AudioClip audio;
+    public AudioClip _audio;
 }
 [System.Serializable]
 public class SoundType
@@ -23,15 +23,21 @@ public class SoundType
 public class SoundData
 {
     [SerializeField]
-    public enum Type { Bgm, Effect }
+    public enum Type { Bgm, Effect, Effect3D }
     public Type type = Type.Effect;
     public List<SoundType> soundtype = new List<SoundType>();
+}
+[System.Serializable]
+public class AudioSourecs
+{
+    [SerializeField] public SoundData.Type type = SoundData.Type.Bgm;
+    public List<AudioSource> audioSources = new List<AudioSource>();
 }
 
 public class SoundManager : MonoBehaviour
 {
     [SerializeField]
-    public List<SoundData> SoundData = new List<SoundData>();
+    public List<SoundData> _soundData = new List<SoundData>();
     private static SoundManager instance = null;
     #region singleton
     private void Awake() //씬 시작될때 인스턴스 초기화
@@ -39,7 +45,6 @@ public class SoundManager : MonoBehaviour
         if (null == instance)
         {
             instance = this;
-            Init();
         }
         else
         {
@@ -59,12 +64,18 @@ public class SoundManager : MonoBehaviour
         }
     }
     #endregion singleton
-    public AudioSource[] _audioSources = new AudioSource[System.Enum.GetValues(typeof(SoundData.Type)).Length];
+    [SerializeField]public AudioSourecs[] audioSources;
     public Dictionary<string, Sound> _audioClips = new Dictionary<string, Sound>();
+    public Dictionary<GameObject, AudioSource> _3DAudio = new Dictionary<GameObject, AudioSource>();
+
+    private void Start()
+    {
+        Init();
+    }
 
     private void AudioDictionary()
     {
-        foreach(var _soundType in SoundData)
+        foreach(var _soundType in _soundData)
         {
             foreach(var _sounds in _soundType.soundtype)
             {
@@ -75,64 +86,93 @@ public class SoundManager : MonoBehaviour
             }
         }
     }
-
+    private void Audio3DDictionary()
+    {
+        var audio3D = GameObject.FindGameObjectsWithTag("Effect3D");
+        foreach (var audio in audio3D)
+        {
+            if (audio != null)
+            {
+                audioSources[(int)SoundData.Type.Effect3D].audioSources.Add(audio.GetComponent<AudioSource>());
+                _3DAudio.Add(audio.transform.parent.gameObject, audio.GetComponent<AudioSource>());
+            }
+        }
+    }
     public void Init()
     {
         AudioDictionary();
-        GameObject root = GameObject.Find("Sound");
-        if (root == null)
-        {
-            root = new GameObject { name = "Sound" };
-            DontDestroyOnLoad(root);
+        SceneLoadSound(GameManager.Instance.CurrentSceneName);
+    }
 
-            string[] soundNames = System.Enum.GetNames(typeof(SoundData.Type)); // "Bgm", "Effect"
-            for (int i = 0; i < soundNames.Length; i++)
-            {
-                GameObject go = new GameObject { name = soundNames[i] };
-                _audioSources[i] = go.AddComponent<AudioSource>();
-                go.transform.parent = root.transform;
-            }
-
-            _audioSources[(int)global::SoundData.Type.Bgm].loop = true; // bgm 재생기는 무한 반복 재생
-        }
-        Play(_audioClips["RestuarantBackground"]);
+    public void SceneLoadSound(string SceneName)
+    {
+        Debug.Log(SceneName);
+        string name = SceneName + "BGM";
+        Audio3DDictionary();
+        Play(_audioClips[name]);
     }
 
     public void Play(Sound sound, float pitch = 1.0f)
     {
         if (sound == null)
             return;
+        var audioSource = audioSources[(int)sound.type].audioSources[0];
+        audioSource.pitch = pitch;
+        audioSource.clip = sound._audio;
 
-        if (sound.type == global::SoundData.Type.Bgm) // BGM 배경음악 재생
+        switch (sound.type)
         {
-            var audioSource = _audioSources[(int)global::SoundData.Type.Bgm];
-            if (audioSource.isPlaying)
-                audioSource.Stop();
+            case SoundData.Type.Bgm:
+                if (audioSource.isPlaying)
+                    audioSource.Stop();
+                audioSource.Play();
 
-            audioSource.pitch = pitch;
-            audioSource.clip = sound.audio;
-            audioSource.Play();
-        }
-        else // Effect 효과음 재생
-        {
-            var audioSource = _audioSources[(int)global::SoundData.Type.Effect];
-            audioSource.pitch = pitch;
-            audioSource.PlayOneShot(sound.audio);
+                break;
+            case SoundData.Type.Effect:
+                audioSource.PlayOneShot(sound._audio);
+                break;
         }
     }
-
+    public void PlayEffect3D(Sound sound, GameObject _object, bool isloop , float pitch = 1.0f) // true = loop, false = OneShot;
+    {
+        var audioSource = _object.transform.Find("Sound").GetComponent<AudioSource>();
+        audioSource.loop = isloop;
+        audioSource.pitch = pitch;
+        audioSource.clip = sound._audio;
+        audioSource.PlayOneShot(sound._audio);
+    }
+    public void StopEffect3D(Sound sound, GameObject _object, bool isloop, float pitch = 1.0f) // true = loop, false = OneShot;
+    {
+        var audioSource = _object.transform.Find("Sound").GetComponent<AudioSource>();
+        audioSource.Stop();
+    }
     public void AudioVolume(SoundData.Type type, float vloume)
     {
-        _audioSources[(int)type].volume = vloume;
+        foreach (var audioType in audioSources)
+        {
+            if(audioType.type == type)
+            {
+                foreach (var audio in audioType.audioSources)
+                {
+                    if(audio != null)
+                    {
+                        audio.volume = vloume;
+                    }
+                }
+            }
+        }
     }
 
     public void Clear()
     {
         // 재생기 전부 재생 스탑, 음반 빼기
-        foreach (AudioSource audioSource in _audioSources)
+        foreach (var audioType in audioSources)
         {
-            audioSource.clip = null;
-            audioSource.Stop();
+            foreach(var audio in audioType.audioSources)
+            {
+                audio.clip = null;
+                audio.Stop();
+            }
         }
         // 효과음 Dictionary 비우기
         _audioClips.Clear();

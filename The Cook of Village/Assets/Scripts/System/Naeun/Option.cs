@@ -18,9 +18,8 @@ public class Option : MonoBehaviour
     }
     public void Init()
     {
-        BgmSlider.value = SoundManager.Instance._audioSources[(int)SoundData.Type.Bgm].volume;
-        EffectSlider.value = SoundManager.Instance._audioSources[(int)SoundData.Type.Effect].volume;
-
+        BgmSlider.value = SoundManager.Instance.audioSources[(int)SoundData.Type.Bgm].audioSources[0].volume;
+        EffectSlider.value = SoundManager.Instance.audioSources[(int)SoundData.Type.Effect].audioSources[0].volume;
         resolutions = Screen.resolutions;
         ResolutionDrop.options.Clear();
         foreach(Resolution res in resolutions)
@@ -44,11 +43,12 @@ public class Option : MonoBehaviour
     }
     public void ChangeBGMSound()
     {
-        SoundManager.Instance._audioSources[(int)SoundData.Type.Bgm].volume = BgmSlider.value;
+        SoundManager.Instance.AudioVolume(SoundData.Type.Bgm, BgmSlider.value);
     }
 
     public void ChangeEffectSound()
     {
-        SoundManager.Instance._audioSources[(int)SoundData.Type.Effect].volume = EffectSlider.value;
+        SoundManager.Instance.AudioVolume(SoundData.Type.Effect, EffectSlider.value);
+        SoundManager.Instance.AudioVolume(SoundData.Type.Effect3D, EffectSlider.value);
     }
 }
