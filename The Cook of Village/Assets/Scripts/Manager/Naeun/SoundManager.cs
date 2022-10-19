@@ -45,7 +45,6 @@ public class SoundManager : MonoBehaviour
         if (null == instance)
         {
             instance = this;
-            Init();
         }
         else
         {
@@ -67,6 +66,12 @@ public class SoundManager : MonoBehaviour
     #endregion singleton
     [SerializeField]public AudioSourecs[] audioSources;
     public Dictionary<string, Sound> _audioClips = new Dictionary<string, Sound>();
+    public Dictionary<GameObject, AudioSource> _3DAudio = new Dictionary<GameObject, AudioSource>();
+
+    private void Start()
+    {
+        Init();
+    }
 
     private void AudioDictionary()
     {
@@ -81,19 +86,30 @@ public class SoundManager : MonoBehaviour
             }
         }
     }
-
+    private void Audio3DDictionary()
+    {
+        var audio3D = GameObject.FindGameObjectsWithTag("Effect3D");
+        foreach (var audio in audio3D)
+        {
+            if (audio != null)
+            {
+                audioSources[(int)SoundData.Type.Effect3D].audioSources.Add(audio.GetComponent<AudioSource>());
+                _3DAudio.Add(audio.transform.parent.gameObject, audio.GetComponent<AudioSource>());
+            }
+        }
+    }
     public void Init()
     {
         AudioDictionary();
-        var audio3D = GameObject.FindGameObjectsWithTag("Effect3D");
-        foreach(var audio in audio3D)
-        {
-            if(audio != null)
-            {
-                audioSources[(int)SoundData.Type.Effect3D].audioSources.Add(audio.GetComponent<AudioSource>());
-            }
-        }
-        Play(_audioClips["VillageBGM"]);
+        SceneLoadSound(GameManager.Instance.CurrentSceneName);
+    }
+
+    public void SceneLoadSound(string SceneName)
+    {
+        Debug.Log(SceneName);
+        string name = SceneName + "BGM";
+        Audio3DDictionary();
+        Play(_audioClips[name]);
     }
 
     public void Play(Sound sound, float pitch = 1.0f)
@@ -119,7 +135,7 @@ public class SoundManager : MonoBehaviour
     }
     public void PlayEffect3D(Sound sound, GameObject _object, bool isloop , float pitch = 1.0f) // true = loop, false = OneShot;
     {
-        var audioSource = _object.transform.Find("Sound").gameObject.GetComponent<AudioSource>();
+        var audioSource = _object.transform.Find("Sound").GetComponent<AudioSource>();
         audioSource.loop = isloop;
         audioSource.pitch = pitch;
         audioSource.clip = sound._audio;
@@ -127,7 +143,7 @@ public class SoundManager : MonoBehaviour
     }
     public void StopEffect3D(Sound sound, GameObject _object, bool isloop, float pitch = 1.0f) // true = loop, false = OneShot;
     {
-        var audioSource = _object.transform.Find("Sound").gameObject.GetComponent<AudioSource>();
+        var audioSource = _object.transform.Find("Sound").GetComponent<AudioSource>();
         audioSource.Stop();
     }
     public void AudioVolume(SoundData.Type type, float vloume)

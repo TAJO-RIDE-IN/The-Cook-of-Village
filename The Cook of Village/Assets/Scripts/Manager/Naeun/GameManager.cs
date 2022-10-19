@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            CurrentSceneName = SceneManager.GetActiveScene().name;
             LoadObject();
             //CurosrControl(true);
             DontDestroyOnLoad(this.gameObject);
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
     }
     public int NextSceneIndex = 2;
     public int CurrentSceneIndex;
+    public string CurrentSceneName;
 
     #region OnSceneLoaded
     void OnEnable()
@@ -88,10 +90,15 @@ public class GameManager : MonoBehaviour
     private void LoadObject()
     {
         CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        CurrentSceneName = SceneManager.GetActiveScene().name;
         Pause(false);
         potionController.LoadObject();
         gameData.LoadObject();
-        if(GuestCount != 0)
+        if(soundManager._audioClips.Count != 0)
+        {
+            soundManager.SceneLoadSound(CurrentSceneName);
+        }
+        if (GuestCount != 0)
         {
             GameData.Instance.ChangeFame(-3 * GuestCount);
         }
