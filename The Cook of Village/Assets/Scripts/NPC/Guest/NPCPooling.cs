@@ -27,6 +27,11 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
         GameManager.Instance.IsOpen = true;
         OpenTime = GameData.Instance.TimeOfDay;
         VillageNPCTime = OpenTime + Random.Range(60, 181); // 마을 주민 오는시간 -> 오픈 후 1시간~3시간 사이
+
+        if(_callNPC != null)
+        {
+            StopCoroutine(_callNPC);
+        }
         _callNPC = StartCoroutine(CallNPC());
     }
 
