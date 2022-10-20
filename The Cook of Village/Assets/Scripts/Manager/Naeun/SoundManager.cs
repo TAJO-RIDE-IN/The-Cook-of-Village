@@ -45,6 +45,7 @@ public class SoundManager : MonoBehaviour
         if (null == instance)
         {
             instance = this;
+            AudioDictionary();
         }
         else
         {
@@ -106,7 +107,6 @@ public class SoundManager : MonoBehaviour
 
     public void SceneLoadSound(string SceneName)
     {
-        Debug.Log(SceneName);
         string name = SceneName + "BGM";
         Audio3DDictionary();
         Play(_audioClips[name]);
@@ -135,7 +135,13 @@ public class SoundManager : MonoBehaviour
     }
     public void PlayEffect3D(Sound sound, GameObject _object, bool isloop , float pitch = 1.0f) // true = loop, false = OneShot;
     {
-        var audioSource = _object.transform.Find("Sound").GetComponent<AudioSource>();
+        if (_object.transform.Find("Sound") == null)
+        {
+            GameObject _sound = new GameObject { name = " Sound"};
+            _sound.transform.parent = _object.transform;
+            _sound.AddComponent<AudioSource>();
+        }
+        var audioSource = _object.transform.Find("Sound").gameObject.GetComponent<AudioSource>();
         audioSource.loop = isloop;
         audioSource.pitch = pitch;
         audioSource.clip = sound._audio;

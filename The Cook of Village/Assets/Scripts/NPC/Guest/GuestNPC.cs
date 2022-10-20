@@ -72,14 +72,14 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 break;
             case State.Walk:
                 ModelsAni.SetBool("isWalk", true);
-                //SoundManager.Instance.PlayEffect3D(SoundManager.Instance._audioClips["GuestNPCWalk"], this.gameObject, true);
+                NPCSound("GuestNPCWalk", true, false);
                 break;
             case State.Eat:
                 ModelsAni.SetBool("isEat", true);
                 ModelsAni.SetBool("ChaseUp", false);
                 NPCImage.ReceiveParticle.Play();
                 NPCImage.AngryParticle.Stop();
-                SoundManager.Instance.PlayEffect3D(SoundManager.Instance._audioClips["Eat"], this.gameObject, true);
+                NPCSound("Eat", true, false);
                 break;
             case State.Sit:
                 ModelsAni.SetBool("isWalk", false);
@@ -94,13 +94,14 @@ public class GuestNPC : MonoBehaviour, IGuestOb
             case State.ChaseUP:
                 NPCImage.AngryParticle.Play();
                 ModelsAni.SetBool("isChaseUp", true);
-                SoundManager.Instance.PlayEffect3D(SoundManager.Instance._audioClips["Angry"], this.gameObject, false);
+                NPCSound("Angry", false, false);
                 break;
             case State.Pay:
                 ModelsAni.SetTrigger("Pay");
                 ModelsAni.SetBool("isChaseUp", false);
                 NPCImage.AngryParticle.Stop();
-                SoundManager.Instance.Play(SoundManager.Instance._audioClips["Pay"]);
+                NPCSound("Pay", false, true);
+
                 break;
             case State.GoOut:
                 ObjectPooling<GuestNPC>.ReturnObject(this);
@@ -108,6 +109,20 @@ public class GuestNPC : MonoBehaviour, IGuestOb
         }
     }
 
+    private void NPCSound(string _sound, bool _loop, bool _global)
+    {
+        if(SoundManager.Instance != null && SoundManager.Instance._audioClips.Count != 0)
+        {
+            if(_global)
+            {
+                SoundManager.Instance.Play(SoundManager.Instance._audioClips[_sound]);
+            }
+            else
+            {
+                SoundManager.Instance.PlayEffect3D(SoundManager.Instance._audioClips[_sound], this.gameObject, _loop);
+            }
+        }
+    }
     public void ChangeState(State state)
     {
         CurrentState = state;
