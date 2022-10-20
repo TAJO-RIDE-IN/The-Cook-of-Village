@@ -151,20 +151,29 @@ public class CookingTool : MonoBehaviour
     {
         InventoryBig.SetActive(false);
     }
-
-    public void Direct()
+    /// <summary>
+    /// 바로 요리도구를 없애고 설치하기 위한 설정
+    /// </summary>
+    public void DirectSetUp()
     {
         ToolPooling.Instance.installMode.DirectChange();
-    }
-
-    public void DeliverIndex()
-    {
         ToolPooling.Instance.indexToChange = index;
         CloseUI();
     }
 
-    public void WhenReturn()
+    public void DeleteTool()
     {
+        ToolPooling.Instance.indexToChange = index;
+        WhenReturn();
+        InstallData.DeleteData(index);
+        ToolPooling.Instance.ReturnObject(this, type.ToString());
+        
+    }
+
+    private void WhenReturn()
+    {
+        InventoryBig.SetActive(false);
+        IngredientInven.SetActive(false);
         RemoveIngSlot();
         ingredientList.Clear();
     }
