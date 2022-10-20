@@ -86,10 +86,12 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 ModelsAni.SetTrigger("Sit");
                 ModelsAni.SetTrigger("SitIdle");
                 NPCImage.AngryParticle.Stop();
+                SoundManager.Instance.StopEffect3D(this.gameObject);
                 break;
             case State.StandUP:
                 ModelsAni.SetBool("isEat", false);
                 ModelsAni.SetTrigger("StandUp");
+                SoundManager.Instance.StopEffect3D(this.gameObject);
                 break;
             case State.ChaseUP:
                 NPCImage.AngryParticle.Play();
