@@ -9,6 +9,7 @@ public class ToolPooling : MultipleObjectPooling<CookingTool>
     //private Dictionary<String, List<PoolObjectData>> pooledObjects = new Dictionary<String, List<PoolObjectData>>();
     public Transform[] toolPosition;
     public InstallMode installMode;
+    
 
     //[HideInInspector] 
     public int indexToChange;

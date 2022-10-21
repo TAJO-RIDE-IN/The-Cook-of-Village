@@ -1,24 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 
-public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
+public class MultipleObjectPoolingNo : MonoBehaviour
 {
-    [Serializable]
     public class PoolObjectData
     {
         public String name;
-        public T poolObject;
-        public Queue<T> objectQueue = new Queue<T>();
+        public GameObject poolObject;
+        public Queue<GameObject> objectQueue = new Queue<GameObject>();
         public GameObject objectContatiner;
         public int initCount;
     }
-
-    public int CountToInstall;
-    public T[] pooledObject;
-    
     public List<PoolObjectData> poolObjectData;
     public PoolObjectData FindPoolObjectData(String value)
     {
@@ -33,10 +27,9 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
     protected virtual void Awake()
     {
         Initialize();
-        pooledObject = new T[CountToInstall];
     }
     
-    protected virtual T CreateNewObject(string value)
+    protected virtual GameObject CreateNewObject(string value)
     {
         _poolObjectData = FindPoolObjectData(value);
         var newObj = Instantiate(_poolObjectData.poolObject, _poolObjectData.objectContatiner.transform);
@@ -53,7 +46,7 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
             }
         }
     }
-    public T GetObject(string name)
+    public GameObject GetObject(string name)
     {
         _poolObjectData = FindPoolObjectData(name);
         if (_poolObjectData.objectQueue.Count > 0)
@@ -83,7 +76,7 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
     /// </summary>
     /// <param name="returnObject"></param>
     /// <param name="name"></param>
-    public void ReturnObject(T returnObject, String name)
+    public void ReturnObject(GameObject returnObject, String name)
     {
         _poolObjectData = FindPoolObjectData(name);
         returnObject.transform.SetParent(_poolObjectData.objectContatiner.transform);

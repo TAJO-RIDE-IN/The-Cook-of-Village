@@ -111,16 +111,16 @@ public class InstallMode : MonoBehaviour
 
     void GetAndPosition(int index, string name)
     {
-        _cookingTools[index] = ToolPooling.Instance.GetObject(name);
-        _cookingTools[index].transform.position = ToolPooling.Instance.toolPosition[index].position;
-        _cookingTools[index].transform.rotation = ToolPooling.Instance.toolPosition[index].rotation;
+        ToolPooling.Instance.pooledObject[index] = ToolPooling.Instance.GetObject(name);
+        ToolPooling.Instance.pooledObject[index].transform.position = ToolPooling.Instance.toolPosition[index].position;
+        ToolPooling.Instance.pooledObject[index].transform.rotation = ToolPooling.Instance.toolPosition[index].rotation;
     }
     public void UseTool(string name, int amount)
     {
         if (isDirectChange)
         {
             
-            _cookingTools[ToolPooling.Instance.indexToChange].DeleteTool();
+            ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange].DeleteTool();
             ReturnTool();
             GetAndPosition(ToolPooling.Instance.indexToChange, name);
             InstallData.SaveData(ToolPooling.Instance.indexToChange, name);
@@ -139,8 +139,8 @@ public class InstallMode : MonoBehaviour
 
     private void ReturnTool()
     {
-        ToolPooling.Instance.ReturnObject(_cookingTools[ToolPooling.Instance.indexToChange],
-            _cookingTools[ToolPooling.Instance.indexToChange].type.ToString());
+        ToolPooling.Instance.ReturnObject(ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange],
+            ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange].type.ToString());
         
     }
     public void GoInstall()//UI만 꺼주기
@@ -154,7 +154,7 @@ public class InstallMode : MonoBehaviour
                 GetAndPosition(index, ToolPooling.Instance.SelectedToolName);
                 InstallData.SaveData(index, ToolPooling.Instance.SelectedToolName);
                 FoodData.Instance.FindFoodTool(ToolPooling.Instance.SelectedToolIndex).Amount++;
-                _cookingTools[index].index = index;
+                ToolPooling.Instance.pooledObject[index].index = index;
             }
         }
         for (int i = 0; i < installableToolCount; i++)
