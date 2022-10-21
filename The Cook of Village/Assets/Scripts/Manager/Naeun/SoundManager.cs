@@ -45,6 +45,7 @@ public class SoundManager : MonoBehaviour
         if (null == instance)
         {
             instance = this;
+            Init();
         }
         else
         {
@@ -67,11 +68,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField]public AudioSourecs[] audioSources;
     public Dictionary<string, Sound> _audioClips = new Dictionary<string, Sound>();
     public Dictionary<GameObject, AudioSource> _3DAudio = new Dictionary<GameObject, AudioSource>();
-
-    private void Start()
-    {
-        Init();
-    }
 
     private void AudioDictionary()
     {
@@ -101,12 +97,10 @@ public class SoundManager : MonoBehaviour
     public void Init()
     {
         AudioDictionary();
-        SceneLoadSound(GameManager.Instance.CurrentSceneName);
     }
 
     public void SceneLoadSound(string SceneName)
     {
-        Debug.Log(SceneName);
         string name = SceneName + "BGM";
         Audio3DDictionary();
         Play(_audioClips[name]);
@@ -135,13 +129,19 @@ public class SoundManager : MonoBehaviour
     }
     public void PlayEffect3D(Sound sound, GameObject _object, bool isloop , float pitch = 1.0f) // true = loop, false = OneShot;
     {
-        var audioSource = _object.transform.Find("Sound").GetComponent<AudioSource>();
+        if (_object.transform.Find("Sound") == null)
+        {
+            GameObject _sound = new GameObject { name = "Sound"};
+            _sound.transform.parent = _object.transform;
+            _sound.AddComponent<AudioSource>();
+        }
+        var audioSource = _object.transform.Find("Sound").gameObject.GetComponent<AudioSource>();
         audioSource.loop = isloop;
         audioSource.pitch = pitch;
         audioSource.clip = sound._audio;
-        audioSource.PlayOneShot(sound._audio);
+        audioSource.Play();
     }
-    public void StopEffect3D(Sound sound, GameObject _object, bool isloop, float pitch = 1.0f) // true = loop, false = OneShot;
+    public void StopEffect3D(GameObject _object)
     {
         var audioSource = _object.transform.Find("Sound").GetComponent<AudioSource>();
         audioSource.Stop();
