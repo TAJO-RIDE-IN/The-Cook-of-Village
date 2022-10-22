@@ -45,7 +45,7 @@ public class SoundManager : MonoBehaviour
         if (null == instance)
         {
             instance = this;
-            Init();
+            AudioDictionary();
         }
         else
         {
@@ -94,15 +94,10 @@ public class SoundManager : MonoBehaviour
             }
         }
     }
-    public void Init()
-    {
-        AudioDictionary();
-    }
 
     public void SceneLoadSound(string SceneName)
     {
         string name = SceneName + "BGM";
-        Audio3DDictionary();
         Play(_audioClips[name]);
     }
 
