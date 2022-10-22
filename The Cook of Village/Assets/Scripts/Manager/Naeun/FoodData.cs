@@ -119,6 +119,11 @@ public class FoodData : DataManager
         return foodTool[FoodType(id)];
     }
 
+    public bool DrinkFood(int type)
+    {
+        return type == 0;
+    }
+
     private int FoodType(int id)
     {
         return id / 10;
