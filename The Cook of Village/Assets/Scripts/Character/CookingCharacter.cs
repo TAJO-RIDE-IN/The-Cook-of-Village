@@ -124,31 +124,36 @@ public class CookingCharacter : MonoBehaviour
                 }
                 
             }
-            if (objectName == "Ladder")
-            {
-                GameData.Instance.SetTimeMorning();
-                Debug.Log("아침으로 변경");
-                return;
-            }
 
-            if (objectName == "Flour")
+            if (isObjectCollider)
             {
-                if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemType[0]
-                    .ItemInfos[0]))
+                if (objectName == "Ladder")
                 {
+                    GameData.Instance.SetTimeMorning();
+                    Debug.Log("아침으로 변경");
                     return;
-                    //쟁반에 밀가루 생성
+                }
+
+                if (objectName == "Flour")
+                {
+                    if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemType[0]
+                        .ItemInfos[0]))
+                    {
+                        return;
+                        //쟁반에 밀가루 생성
+                    }
+                }
+                if (objectName == "Sugar")
+                {
+                    if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemType[0]
+                        .ItemInfos[1]))
+                    {
+                        return;
+                        //쟁반에 밀가루 생성
+                    }
                 }
             }
-            if (objectName == "Sugar")
-            {
-                if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemType[0]
-                    .ItemInfos[1]))
-                {
-                    return;
-                    //쟁반에 밀가루 생성
-                }
-            }
+            
             
         }
         
