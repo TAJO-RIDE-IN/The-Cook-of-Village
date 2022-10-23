@@ -38,6 +38,7 @@ public class SoundManager : MonoBehaviour
 {
     [SerializeField]
     public List<SoundData> _soundData = new List<SoundData>();
+    public bool EffectMute;
     private static SoundManager instance = null;
     #region singleton
     private void Awake() //씬 시작될때 인스턴스 초기화
@@ -82,21 +83,23 @@ public class SoundManager : MonoBehaviour
             }
         }
     }
-    private void Audio3DDictionary()
+    private void Audio3DList()
     {
+        _3DAudio.Clear();
         var audio3D = GameObject.FindGameObjectsWithTag("Effect3D");
         foreach (var audio in audio3D)
         {
             if (audio != null)
             {
                 audioSources[(int)SoundData.Type.Effect3D].audioSources.Add(audio.GetComponent<AudioSource>());
-                _3DAudio.Add(audio.transform.parent.gameObject, audio.GetComponent<AudioSource>());
+                //_3DAudio.Add(audio.transform.parent.gameObject, audio.GetComponent<AudioSource>());
             }
         }
     }
 
     public void SceneLoadSound(string SceneName)
     {
+        Audio3DList();
         string name = SceneName + "BGM";
         Play(_audioClips[name]);
     }
@@ -129,6 +132,7 @@ public class SoundManager : MonoBehaviour
             GameObject _sound = new GameObject { name = "Sound"};
             _sound.transform.parent = _object.transform;
             _sound.AddComponent<AudioSource>();
+            audioSources[(int)SoundData.Type.Effect3D].audioSources.Add(_sound.GetComponent<AudioSource>());
         }
         var audioSource = _object.transform.Find("Sound").gameObject.GetComponent<AudioSource>();
         audioSource.loop = isloop;
@@ -141,19 +145,24 @@ public class SoundManager : MonoBehaviour
         var audioSource = _object.transform.Find("Sound").GetComponent<AudioSource>();
         audioSource.Stop();
     }
-    public void AudioVolume(SoundData.Type type, float vloume)
+    public void AudioVolume(int type, float vloume)
     {
-        foreach (var audioType in audioSources)
+        foreach (var audio in audioSources[type].audioSources)
         {
-            if(audioType.type == type)
+            if (audio != null)
             {
-                foreach (var audio in audioType.audioSources)
-                {
-                    if(audio != null)
-                    {
-                        audio.volume = vloume;
-                    }
-                }
+                audio.volume = vloume;
+            }
+        }
+    }
+
+    public void MuteSound(int type, bool _mute)
+    {
+        foreach (var audio in audioSources[type].audioSources)
+        {
+            if (audio != null)
+            {
+                audio.mute = _mute;
             }
         }
     }

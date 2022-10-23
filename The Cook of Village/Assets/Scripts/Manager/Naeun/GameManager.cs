@@ -123,6 +123,16 @@ public class GameManager : MonoBehaviour
     public void Pause(bool state) // Game Pause
     {
         Time.timeScale = state ? 0.0f : 1.0f;
+        if(state)
+        {
+            soundManager.MuteSound(1, true);
+            soundManager.MuteSound(2, true);
+        }
+        else
+        {
+            soundManager.MuteSound(1, soundManager.EffectMute);
+            soundManager.MuteSound(2, soundManager.EffectMute);
+        }
     }
 
     public void GameQuit()

@@ -8,6 +8,8 @@ public class Option : MonoBehaviour
     private Resolution[] resolutions;
     public Dropdown ResolutionDrop;
     public Toggle WindowToggle;
+    public Toggle BgmToggle;
+    public Toggle EffectToggle;
     public Slider BgmSlider;
     public Slider EffectSlider;
 
@@ -41,14 +43,22 @@ public class Option : MonoBehaviour
         int _height = resolutions[ResolutionDrop.value].height;
         Screen.SetResolution(_width, _height, WindowToggle.isOn);
     }
-    public void ChangeBGMSound()
+
+    public void MuteSound(int type)
     {
-        SoundManager.Instance.AudioVolume(SoundData.Type.Bgm, BgmSlider.value);
+        if(type == 0)
+        {
+            SoundManager.Instance.MuteSound(type, BgmToggle.isOn);
+        }
+        else
+        {
+            SoundManager.Instance.EffectMute = EffectToggle.isOn;
+        }
     }
 
-    public void ChangeEffectSound()
+    public void ChangeSound(int type)
     {
-        SoundManager.Instance.AudioVolume(SoundData.Type.Effect, EffectSlider.value);
-        SoundManager.Instance.AudioVolume(SoundData.Type.Effect3D, EffectSlider.value);
+        float _value = (type == 0) ? BgmSlider.value : EffectSlider.value;
+        SoundManager.Instance.AudioVolume(type, _value);
     }
 }
