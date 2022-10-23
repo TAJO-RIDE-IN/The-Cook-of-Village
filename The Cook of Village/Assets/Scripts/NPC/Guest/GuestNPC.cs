@@ -37,6 +37,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     public NPCUIImage NPCImage;
     private GameObject CurrentModel;
     public Animator ModelsAni;
+    public bool isDrink;
     #region Model 변경
     private void OnEnable()
     {
@@ -79,7 +80,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 ModelsAni.SetBool("ChaseUp", false);
                 NPCImage.ReceiveParticle.Play();
                 NPCImage.AngryParticle.Stop();
-                NPCSound("Eat", true, false);
+                EatSound();
                 break;
             case State.Sit:
                 ModelsAni.SetBool("isWalk", false);
@@ -109,6 +110,12 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 ObjectPooling<GuestNPC>.ReturnObject(this);
                 break;
         }
+    }
+
+    private void EatSound()
+    {
+        string sound = (isDrink) ? "Drink" : "Eat";
+        NPCSound(sound, true, false);
     }
 
     private void NPCSound(string _sound, bool _loop, bool _global)

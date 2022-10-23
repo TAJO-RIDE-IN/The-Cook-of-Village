@@ -122,6 +122,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             ReceiveFoodObject = Instantiate(foodInfos.PrefabFood, FoodPosition);
             PayMoney += foodInfos.Price;
             VillageEatCount++;
+            guest.isDrink = FoodData.Instance.DrinkFood((int)foodInfos.Type);
             guest.ChangeState(GuestNPC.State.Eat);
             EndOrder();
             if(Village) 
