@@ -86,10 +86,11 @@ public class SoundManager : MonoBehaviour
     private void Audio3DList()
     {
         _3DAudio.Clear();
-        var audio3D = GameObject.FindGameObjectsWithTag("Effect3D");
+        audioSources[(int)SoundData.Type.Effect3D].audioSources.Clear();
+        var audio3D = GameObject.FindObjectsOfType<AudioSource>(true);
         foreach (var audio in audio3D)
         {
-            if (audio != null)
+            if (audio != null && audio.gameObject.tag == "Effect3D")
             {
                 audioSources[(int)SoundData.Type.Effect3D].audioSources.Add(audio.GetComponent<AudioSource>());
                 //_3DAudio.Add(audio.transform.parent.gameObject, audio.GetComponent<AudioSource>());
