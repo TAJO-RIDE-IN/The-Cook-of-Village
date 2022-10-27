@@ -11,7 +11,7 @@ public class ChefInventory : MonoBehaviour
     
     private void Awake()
     {
-        for (int i = 0; i < MaxInven; i++)
+        for (int i = 0; i < AvailableInven; i++)
         {
             EdibleItems[i] = new EdibleItem()
                 {_itemType = EdibleItem.ItemType.Ingredient, _ingredientsInfos = null, _foodInfos = null};
@@ -39,26 +39,24 @@ public class ChefInventory : MonoBehaviour
 
     public FridgeUI fridgeUI;
     public ChefItemSlotManager chefSlotManager;
-    private int maxInven = 2;//이 값이 바뀌면 인벤토리 잠금을 해제할거니깐 초기화도 게임데이터에서 하면 좋을듯
+    private int _availableInven = 2;//이 값이 바뀌면 인벤토리 잠금을 해제할거니깐 초기화도 게임데이터에서 하면 좋을듯
     [HideInInspector]public CookingCharacter _cookingCharacter;
 
-    public int MaxInven
+    public int AvailableInven
     {
-        get { return maxInven;}
+        get { return _availableInven;}
         set
         {
-            maxInven = value;
-            ExtensionInventory();
+            _availableInven = value;
         }
     }
-    private int wholeInven = 6;//이건 나중에 하자..
-    public int WholeInven
+    private int _maxInven = 6;//이 수에 따라서 UI 바뀌는건 나중에 해서 포폴 넣자
+    public int MaxInven
     {
-        get { return maxInven;}
+        get { return _maxInven;}
         set
         {
-            maxInven = value;
-            ExtensionInventory();
+            _maxInven = value;
         }
     }
     
@@ -85,7 +83,7 @@ public class ChefInventory : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < MaxInven; i++)
+        for (int i = 0; i < AvailableInven; i++)
         {
             EdibleItems[i]._itemType = EdibleItem.ItemType.Ingredient;
         }
@@ -93,13 +91,17 @@ public class ChefInventory : MonoBehaviour
     }
     public void ExtensionInventory()
     {
-        //UI 바꿈
-        //버튼 Interactable 켜주기
+        if (_availableInven != _maxInven)
+        {
+            _availableInven++;
+        }
+        chefSlotManager.itemslots[_availableInven - 1].changeSlotUI(chefSlotManager.emptySlot);
+
     }
 
     public bool AddIngredient(ItemInfos ingredient)
     {
-        for (int i = 0; i < MaxInven; i++)
+        for (int i = 0; i < AvailableInven; i++)
         {
             //Debug.Log(i+"번째 슬롯 진입");
             if (isUsed[i] == false)
@@ -119,7 +121,7 @@ public class ChefInventory : MonoBehaviour
     }
     public bool AddFood(FoodInfos food)
     {
-        for (int i = 0; i < MaxInven; i++)
+        for (int i = 0; i < AvailableInven; i++)
         {
             if (isUsed[i] == false)
             {

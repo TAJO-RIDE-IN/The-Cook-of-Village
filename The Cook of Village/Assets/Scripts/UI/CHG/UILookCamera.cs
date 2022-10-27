@@ -7,6 +7,6 @@ public class UILookCamera : MonoBehaviour
     
     void FixedUpdate()
     {
-        transform.rotation = Quaternion.Euler(30, Camera.main.transform.eulerAngles.y, 0);
+        transform.rotation = Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0);
     }
 }

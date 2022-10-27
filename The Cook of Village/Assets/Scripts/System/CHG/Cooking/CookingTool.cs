@@ -79,9 +79,7 @@ public class CookingTool : MonoBehaviour
                 {
                     if (!cookSlotManager.itemslots[i].isUsed)
                     {
-                        _animation.Play(
-                            type.ToString());
-                        //Debug.Log("애니메이션실행!");
+                        _animation.Play(type.ToString());
                         ingredientList.Add(id);
                         cookSlotManager.itemslots[i].isUsed = true;
                         cookSlotManager.itemslots[i].changeSlotUI(sprite);
