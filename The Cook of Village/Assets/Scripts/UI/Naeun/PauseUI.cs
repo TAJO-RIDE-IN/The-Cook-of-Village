@@ -10,7 +10,7 @@ public class PauseUI : UIController
     public MenuUI menuUI;
     public void Pause()
     {
-        menuUI.ButtonDisable();
+        menuUI.MenuUIDisable();
         pauseUI.SetActive(!pauseUI.activeSelf);
         OptionUI.SetActive(false);
         ExitUI.SetActive(false);

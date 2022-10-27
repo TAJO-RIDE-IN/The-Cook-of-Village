@@ -29,7 +29,7 @@ public class RecipeUI : UIController
         FoodSlot[0].SelectSlot();
     }
 
-    public void RecipeButton()
+    public void RecipeUIState()
     {
         this.gameObject.SetActive(!this.gameObject.activeSelf);
         GameManager.Instance.IsUI = this.gameObject.activeSelf;

@@ -97,7 +97,15 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
         if (obj is GameData)
         {
             var GameData = obj;
-            bool open = (GameData.Today == npcInfos.Holiday) ? false : true;
+            bool open;
+            if (npcInfos.work == NPCInfos.Work.ChocolateShop)
+            {
+                open = (GameData.Today == npcInfos.Holiday) ? true : false;
+            }
+            else
+            {
+                open = (GameData.Today == npcInfos.Holiday) ? false : true;
+            }
             ShopState(TodayShopOpen(obj.TimeOfDay, open));
         }
     }
