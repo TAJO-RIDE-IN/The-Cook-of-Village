@@ -10,11 +10,16 @@ public class UIController : MonoBehaviour
     protected void OnDisable()
     {
         RemoveList();
+        Disable();
     }
     protected void OnEnable()
     {
         AddList();
+        Enable();
     }
+
+    protected virtual void Enable() {    }
+    protected virtual void Disable() {    }
     private void UIState()
     {
         if (UIObject.Count >= 2)

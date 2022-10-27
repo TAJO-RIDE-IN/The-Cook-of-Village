@@ -18,10 +18,8 @@ public class InventoryUI : UIController
             LoadInventorySlot();
         }
     }
-    [SerializeField]
-    private GameObject ItemExplanation;
-    [SerializeField]
-    private SlotInventory[] slotInventory;
+    [SerializeField] private GameObject ItemExplanation;
+    [SerializeField] private SlotInventory[] slotInventory;
 
     public void TabClick(int _tab)
     {
