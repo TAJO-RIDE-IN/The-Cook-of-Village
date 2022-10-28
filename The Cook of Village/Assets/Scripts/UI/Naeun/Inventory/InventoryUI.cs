@@ -36,7 +36,6 @@ public class InventoryUI : UIController
             LoadInventorySlot();
         }
         toggleControl.ResetToggle(1);
-        toggleControl.MenuToggleState(1, this.gameObject.activeSelf);
     }
     public void InventoryStateBool(bool state)
     {

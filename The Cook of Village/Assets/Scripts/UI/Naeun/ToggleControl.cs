@@ -13,7 +13,6 @@ public class ToggleType
 public class ToggleControl : MonoBehaviour
 {
     [SerializeField] public ToggleType[] toggleType;
-    public Toggle[] MenuToggle;
     public void ResetToggle(int index)
     {
         toggleType[index].toggleGroup.SetAllTogglesOff();
@@ -22,9 +21,9 @@ public class ToggleControl : MonoBehaviour
             toggleType[index].toggles[0].isOn = true;
         }
     }
-
-    public void MenuToggleState(int index, bool state)
+/*
+    public void MenuButtonState(int index, bool state)
     {
-        MenuToggle[index].isOn = state;
-    }
+
+    }*/
 }

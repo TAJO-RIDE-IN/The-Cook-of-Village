@@ -27,7 +27,6 @@ public class RecipeUI : UIController
             LoadRecipeSlot();
         }
         toggleControl.ResetToggle(0);
-        toggleControl.MenuToggleState(0, this.gameObject.activeSelf);
     }
 
     public void ResetSlot()
