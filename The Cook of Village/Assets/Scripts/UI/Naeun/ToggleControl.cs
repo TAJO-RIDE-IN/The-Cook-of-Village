@@ -16,7 +16,7 @@ public class ToggleControl : MonoBehaviour
     public void ResetToggle(int index)
     {
         toggleType[index].toggleGroup.SetAllTogglesOff();
-        if (toggleType[index].toggleGroup.allowSwitchOff)
+        if (!toggleType[index].toggleGroup.allowSwitchOff)
         {
             toggleType[index].toggles[0].isOn = true;
         }
