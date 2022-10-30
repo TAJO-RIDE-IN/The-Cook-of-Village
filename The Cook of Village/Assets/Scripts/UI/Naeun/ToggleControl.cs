@@ -21,9 +21,4 @@ public class ToggleControl : MonoBehaviour
             toggleType[index].toggles[0].isOn = true;
         }
     }
-/*
-    public void MenuButtonState(int index, bool state)
-    {
-
-    }*/
 }
