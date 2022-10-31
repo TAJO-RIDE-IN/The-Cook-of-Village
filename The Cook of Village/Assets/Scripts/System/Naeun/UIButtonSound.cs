@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UISoundControl : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
+public class UIButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
 {
     public void OnPointerEnter(PointerEventData eventData) 
     {
