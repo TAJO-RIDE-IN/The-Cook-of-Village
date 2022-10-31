@@ -5,12 +5,31 @@ using UnityEngine;
 public class RecipeUI : UIController
 {
     public List<SlotRecipe> FoodSlot = new List<SlotRecipe>();
-
-    private void Start()
+    [SerializeField]
+    private FoodTool.Type type;
+    public FoodTool.Type CurrentTool
     {
-        LoadRecipeSlot(0); //첫 페이지 믹서기
+        get { return type; }
+        set
+        {
+            type = value;
+            LoadRecipeSlot();
+        }
     }
-    public void Init()
+    public ToggleControl toggleControl;
+
+    public void RecipeUIState()
+    {
+        this.gameObject.SetActive(!this.gameObject.activeSelf);
+        if (this.gameObject.activeSelf)
+        {
+            CurrentTool = FoodTool.Type.Blender;
+            LoadRecipeSlot();
+        }
+        toggleControl.ResetToggle(0);
+    }
+
+    public void ResetSlot()
     {
         foreach(SlotRecipe slot in FoodSlot)
         {
@@ -18,20 +37,19 @@ public class RecipeUI : UIController
         }
     }
 
-    public void LoadRecipeSlot(int ToolID)
+    public void ClickToolToggle(int type)
     {
-        Init();
-        List<FoodInfos> infos = FoodData.Instance.foodTool[ToolID].foodInfos;
+        CurrentTool = (FoodTool.Type)type;
+    }
+
+    public void LoadRecipeSlot()
+    {
+        ResetSlot();
+        List<FoodInfos> infos = FoodData.Instance.foodTool[(int)CurrentTool].foodInfos;
         foreach (var food in infos.Select((value, index) => (value, index)))
         {
             FoodSlot[food.index].foodInfos = food.value;
         }
         FoodSlot[0].SelectSlot();
-    }
-
-    public void RecipeUIState()
-    {
-        this.gameObject.SetActive(!this.gameObject.activeSelf);
-        GameManager.Instance.IsUI = this.gameObject.activeSelf;
     }
 }

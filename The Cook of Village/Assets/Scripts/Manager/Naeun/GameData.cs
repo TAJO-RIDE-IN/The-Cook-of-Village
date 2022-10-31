@@ -22,11 +22,12 @@ public class GameInfos
 {
     public string RestaurantName;
     public int Day;
-    public int Money;
-    public int BankMoney;
-    public float BankInterest;
-    public int Turnover;
-    public int Fame;
+    public int Money; //소지하고 있는 돈
+    public int BankMoney; //은행에 넣은 돈
+    public float BankInterest; //은행 이자
+    public int Turnover; //매출액
+    public int Consumption; //소비
+    public int Fame; //명성
     public int RainbowDrinking;
 }
 
@@ -162,6 +163,10 @@ public class GameData : DataManager, IGameDataOb
             if(gameInfos.Money < value)
             {
                 gameInfos.Turnover += value - gameInfos.Money;
+            }
+            else
+            {
+                gameInfos.Consumption += gameInfos.Money - value;
             }
             gameInfos.Money = value;
             NotifyObserver();

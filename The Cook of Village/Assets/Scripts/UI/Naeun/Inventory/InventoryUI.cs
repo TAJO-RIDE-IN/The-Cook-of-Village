@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InventoryUI : UIController
 {
+    [SerializeField] private SlotInventory[] slotInventory;
     [SerializeField]
     private ItemType.Type tab;
     public ItemType.Type CurrentTab
@@ -19,7 +20,7 @@ public class InventoryUI : UIController
         }
     }
     [SerializeField] private GameObject ItemExplanation;
-    [SerializeField] private SlotInventory[] slotInventory;
+    public ToggleControl toggleControl;
 
     public void TabClick(int _tab)
     {
@@ -34,6 +35,7 @@ public class InventoryUI : UIController
             CurrentTab = ItemType.Type.Fruit;
             LoadInventorySlot();
         }
+        toggleControl.ResetToggle(1);
     }
     public void InventoryStateBool(bool state)
     {
