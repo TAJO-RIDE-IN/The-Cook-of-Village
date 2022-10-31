@@ -23,24 +23,41 @@ public class ToolData
     public List<IndexName> _indexNames = new List<IndexName>();
 }
 
-public class InstallData : MonoBehaviour
+[System.Serializable]
+public class FurnitureData
 {
+    public List<IndexName> _indexNames = new List<IndexName>();
+}
+
+public class InstallData
+{
+    public enum SortOfInstall
+    {
+        Tool,
+        Furnitue
+    };
+    
     public static ToolData toolData = new ToolData();
+    public static FurnitureData furnitureData = new FurnitureData();
     
     
-    private static string path = Application.persistentDataPath + "ToolData.json";
-    private static string jsonData = File.ReadAllText(path);
+    
+    private static string toolPath = Application.persistentDataPath + "ToolData.json";
+    private static string toolJsonData = File.ReadAllText(toolPath);
+    
+    private static string furniturePath = Application.persistentDataPath + "ToolData.json";
+    private static string furnitureJsonData = File.ReadAllText(furniturePath);
 
     static InstallData()
     {
-        toolData = JsonUtility.FromJson<ToolData>(jsonData);
+        toolData = JsonUtility.FromJson<ToolData>(toolJsonData);
     }
     
-    public static void SaveData(int index, string name)
+    public static void SaveData(int index, string name, SortOfInstall sortOfInstall)
     {
         toolData._indexNames.Add(new IndexName(index, name));
-        jsonData = JsonUtility.ToJson(toolData, true);
-        File.WriteAllText(path, jsonData);
+        toolJsonData = JsonUtility.ToJson(toolData, true);
+        File.WriteAllText(toolPath, toolJsonData);
     }
 
     //public void RestoreHealth(int amount) => health += amount;
@@ -51,8 +68,8 @@ public class InstallData : MonoBehaviour
             if (toolData._indexNames[i].index == deleteIndex)
             {
                 toolData._indexNames.RemoveAt(i);
-                jsonData = JsonUtility.ToJson(toolData, true);
-                File.WriteAllText(path, jsonData);
+                toolJsonData = JsonUtility.ToJson(toolData, true);
+                File.WriteAllText(toolPath, toolJsonData);
             }
         }
     }

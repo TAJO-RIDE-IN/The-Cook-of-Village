@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 스크립트없는 오브젝트 풀링
+/// </summary>
 public class MultipleObjectPoolingNo : MonoBehaviour
 {
     public class PoolObjectData

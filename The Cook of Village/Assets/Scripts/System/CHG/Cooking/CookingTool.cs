@@ -154,7 +154,7 @@ public class CookingTool : MonoBehaviour
     /// </summary>
     public void DirectSetUp()
     {
-        ToolPooling.Instance.installMode.DirectChange();
+        ToolPooling.Instance.toolInstallMode.DirectChange();
         ToolPooling.Instance.indexToChange = index;
         CloseUI();
     }

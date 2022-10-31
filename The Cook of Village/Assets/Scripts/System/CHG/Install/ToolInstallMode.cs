@@ -7,37 +7,18 @@ using UnityEngine.UI;
 
 
 
-public class InstallMode : MonoBehaviour
+public class ToolInstallMode : InstallMode
 {
-    public GameObject goInstallUI;
-    public GameObject cancelInstallUI;
-    public GameObject[] toolPositionUI;
-    public CookingTool[] _cookingTools;
-    [HideInInspector] public bool isDirectChange;
-    
-    public List<int> receivedToolPosition = new List<int>();
-    /// <summary>
-    /// 이 값을 리스트에 넣어도 되는지
-    /// </summary>
-    private bool isList;
-    private bool[] isUsed;
-    public int toolItemInfosAmount;
-    /// <summary>
-    /// 설치하고 싶은 자리의 선택된 개수
-    /// </summary>
-    public int selectedToolAmount;
-    
-    
-
     public int installableToolCount;
-    public InventoryUI inventoryUI;
+    
+    [HideInInspector] public bool isDirectChange;
+    private bool[] isUsed;
 
     private void Start()
     {
         isUsed = new bool[installableToolCount];
-        _cookingTools = new CookingTool[installableToolCount];
         
-        Debug.Log(InstallData.toolData._indexNames.Count);
+        //Debug.Log(InstallData.toolData._indexNames.Count);
         
         for (int i = 0; i < InstallData.toolData._indexNames.Count; i++)
         {
@@ -49,14 +30,14 @@ public class InstallMode : MonoBehaviour
     /// 설치할 위치의 인덱스 받아옴.
     /// </summary>
     /// <param name="x"></param>
-    public void ReceivePositionIndex(int x)//UI 클릭에 할당
+    public override void ReceivePositionIndex(int x)//UI 클릭에 할당
     {
-        if (receivedToolPosition.Count == 0)//원래 0이였을 때는 바로 return
+        if (receivedPositionList.Count == 0)//원래 0이였을 때는 바로 return
         {
             if (toolItemInfosAmount > selectedToolAmount)//데이터에 있는 개수만큼만 UI 활성화
             {
                 selectedToolAmount++;
-                receivedToolPosition.Add(x);
+                receivedPositionList.Add(x);
                 toolPositionUI[x].GetComponent<Image>().color = new Color32(40,40,40, 143);
                 goInstallUI.SetActive(true);
                 return;
@@ -67,15 +48,15 @@ public class InstallMode : MonoBehaviour
             }
             return;
         }
-        for (int i = 0; i < receivedToolPosition.Count; i++)
+        for (int i = 0; i < receivedPositionList.Count; i++)
         {
             
-            if (receivedToolPosition[i] == x)//리스트에 새로 받은 값(x)과 같은 게 없다면 빼줘야 하므로 false
+            if (receivedPositionList[i] == x)//리스트에 새로 받은 값(x)과 같은 게 없다면 빼줘야 하므로 false
             {
                 isList = false;
                 break;
             }
-            else if(receivedToolPosition[i] != x)//리스트에 새로 받은 값(x)과 같은 게 없다면 넣어도 되므로 true
+            else if(receivedPositionList[i] != x)//리스트에 새로 받은 값(x)과 같은 게 없다면 넣어도 되므로 true
             {
                 isList = true;
             }
@@ -85,7 +66,7 @@ public class InstallMode : MonoBehaviour
             if (toolItemInfosAmount > selectedToolAmount)// = 이라면 이미 개수만큼 다 선택한 것이므로
             {
                 selectedToolAmount++;
-                receivedToolPosition.Add(x);
+                receivedPositionList.Add(x);
                 toolPositionUI[x].GetComponent<Image>().color = new Color32(40,40,40, 143);
                 goInstallUI.SetActive(true);
             }
@@ -98,7 +79,7 @@ public class InstallMode : MonoBehaviour
         {
             selectedToolAmount--;
             toolPositionUI[x].GetComponent<Image>().color = new Color32(250,250,250, 143);
-            receivedToolPosition.Remove(x);
+            receivedPositionList.Remove(x);
         }
     }
 
@@ -109,21 +90,21 @@ public class InstallMode : MonoBehaviour
         inventoryUI.TabClick(6);
     }
 
-    void GetAndPosition(int index, string name)
+    public override void GetAndPosition(int index, string name)
     {
         ToolPooling.Instance.pooledObject[index] = ToolPooling.Instance.GetObject(name);
         ToolPooling.Instance.pooledObject[index].transform.position = ToolPooling.Instance.toolPosition[index].position;
         ToolPooling.Instance.pooledObject[index].transform.rotation = ToolPooling.Instance.toolPosition[index].rotation;
     }
-    public void UseTool(string name, int amount)
+    public override void Use(string name, int amount)
     {
         if (isDirectChange)
         {
             
             ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange].DeleteTool();
-            ReturnTool();
+            Return();
             GetAndPosition(ToolPooling.Instance.indexToChange, name);
-            InstallData.SaveData(ToolPooling.Instance.indexToChange, name);
+            InstallData.SaveData(ToolPooling.Instance.indexToChange, name, InstallData.SortOfInstall.Tool);
             FoodData.Instance.FindFoodTool(ToolPooling.Instance.SelectedToolIndex).Amount++;
             isDirectChange = false;
             return;
@@ -137,22 +118,22 @@ public class InstallMode : MonoBehaviour
         isDirectChange = false;
     }
 
-    private void ReturnTool()
+    protected override void Return()
     {
         ToolPooling.Instance.ReturnObject(ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange],
             ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange].type.ToString());
         
     }
-    public void GoInstall()//UI만 꺼주기
+    public override void GoInstall()//UI만 꺼주기
     {
-        foreach (var index in receivedToolPosition)
+        foreach (var index in receivedPositionList)
         {
-            if (!isUsed[index])
+            if (! isUsed[index])
             {
                 isUsed[index] = true;
                 ToolPooling.Instance.SelectedPositionIndex = index;
                 GetAndPosition(index, ToolPooling.Instance.SelectedToolName);
-                InstallData.SaveData(index, ToolPooling.Instance.SelectedToolName);
+                InstallData.SaveData(index, ToolPooling.Instance.SelectedToolName, InstallData.SortOfInstall.Tool);
                 FoodData.Instance.FindFoodTool(ToolPooling.Instance.SelectedToolIndex).Amount++;
                 ToolPooling.Instance.pooledObject[index].index = index;
             }
@@ -168,7 +149,7 @@ public class InstallMode : MonoBehaviour
         goInstallUI.SetActive(false);
         isDirectChange = false;
         GameManager.Instance.IsInstall = false;
-        receivedToolPosition.Clear();
+        receivedPositionList.Clear();
         //GameManager.Instance.Pause();
     }
 
@@ -176,7 +157,7 @@ public class InstallMode : MonoBehaviour
     /// <summary>
     /// UI키고, 요리도구 UI 끄기, 사용한다에 넣을 것
     /// </summary>
-    public void StartInstall()
+    protected override void StartInstall()
     {
         for (int i = 0; i < installableToolCount; i++)
         {
@@ -199,7 +180,7 @@ public class InstallMode : MonoBehaviour
     /// <summary>
     /// Direct가 아닐때만 취소할 수 있도록
     /// </summary>
-    public void CancelInstall()
+    public override void CancelInstall()
     {
         for (int i = 0; i < installableToolCount; i++)
         {

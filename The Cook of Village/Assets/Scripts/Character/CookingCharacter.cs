@@ -152,6 +152,15 @@ public class CookingCharacter : MonoBehaviour
                         //쟁반에 밀가루 생성
                     }
                 }
+                if (objectName == "Cabinet")
+                {
+                    if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemType[0]
+                        .ItemInfos[1]))
+                    {
+                        return;
+                        //쟁반에 밀가루 생성
+                    }
+                }
             }
             
             

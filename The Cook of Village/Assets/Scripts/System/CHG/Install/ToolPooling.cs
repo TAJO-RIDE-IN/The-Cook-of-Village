@@ -8,7 +8,7 @@ public class ToolPooling : MultipleObjectPooling<CookingTool>
 {
     //private Dictionary<String, List<PoolObjectData>> pooledObjects = new Dictionary<String, List<PoolObjectData>>();
     public Transform[] toolPosition;
-    public InstallMode installMode;
+    public ToolInstallMode toolInstallMode;
     
 
     //[HideInInspector] 
@@ -75,7 +75,7 @@ public class ToolPooling : MultipleObjectPooling<CookingTool>
     
     public void FalseDirect()
     {
-        installMode.isDirectChange = false;
+        toolInstallMode.isDirectChange = false;
     }
 
 
