@@ -163,7 +163,7 @@ public class CookingTool : MonoBehaviour
     {
         ToolPooling.Instance.indexToChange = index;
         WhenReturn();
-        InstallData.DeleteData(index);
+        InstallData.DeleteData(index, InstallData.SortOfInstall.Tool);
         ToolPooling.Instance.ReturnObject(this, type.ToString());
         
     }
