@@ -172,10 +172,6 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         GameData.Instance.ChangeFame(+5);
         GameData.Instance.TipCount++;
         GameData.Instance.Money += (int)(PayMoney * multiple);
-        if(GameData.Instance.TipCount >= 5)
-        {
-            GameData.Instance.Money += GameData.Instance.TipMoney;
-        }
         foodInfos = null;
         guest.ChangeState(GuestNPC.State.Pay);
     }

@@ -22,15 +22,27 @@ public class GameInfos
 {
     public string RestaurantName;
     public int Day;
-    public int Money; //소지하고 있는 돈
-    public int BankMoney; //은행에 넣은 돈
-    public float BankInterest; //은행 이자
-    public int Turnover; //매출액
-    public int Consumption; //소비
     public int Fame; //명성
     public int RainbowDrinking;
 }
+[System.Serializable]
+public class Proceeds
+{
+    public int SalesProceeds;
+    public int TipMoney;
+}
 
+[System.Serializable]
+public class MoneyInfos
+{
+    public int Money; //소지하고 있는 돈
+    public int BankMoney; //은행에 넣은 돈
+    public float BankInterest; //은행 이자
+    public int TotalProceeds; //매출액
+    public int TotalConsumption; //소비
+    public List<Proceeds> Proceeds = new List<Proceeds>();
+    public List<int> Consumption = new List<int>();
+}
 public class GameData : DataManager, IGameDataOb
 {
     private List<IObserver<GameData>> _observers = new List<IObserver<GameData>>();
@@ -89,9 +101,8 @@ public class GameData : DataManager, IGameDataOb
             yield return null;
         }
     }
-
-    [SerializeField]
-    private GameInfos gameInfos;
+    [SerializeField]  private GameInfos gameInfos;
+    [SerializeField]  private MoneyInfos moneyInfos;
 
     #region 변수
     public string RestaurantName
@@ -130,6 +141,8 @@ public class GameData : DataManager, IGameDataOb
             DayNotifyObserver();
             NotifyObserver();
             SaveDataTime();
+            moneyInfos.Proceeds.Add(new Proceeds());
+            moneyInfos.Consumption.Add(0);
         }
     }
     public int Today = 1;
@@ -157,37 +170,51 @@ public class GameData : DataManager, IGameDataOb
 
     public int Money
     {
-        get { return gameInfos.Money; }
+        get { return moneyInfos.Money; }
         set
         {
-            if(gameInfos.Money < value)
+            if (TipCount >= 5)
             {
-                gameInfos.Turnover += value - gameInfos.Money;
+                value += TipMoney;
+                moneyInfos.Proceeds[Day - 1].TipMoney += TipMoney;
             }
-            else
-            {
-                gameInfos.Consumption += gameInfos.Money - value;
-            }
-            gameInfos.Money = value;
+            ChangeMoneyData(value);
+            moneyInfos.Money = value;
             NotifyObserver();
+        }
+    }
+    private void ChangeMoneyData(int value)
+    {
+        if (moneyInfos.Money < value)
+        {
+            int money = value - moneyInfos.Money;
+            moneyInfos.TotalProceeds += money;
+            moneyInfos.Proceeds[Day - 1].SalesProceeds += money;
+        }
+        else
+        {
+            int money = moneyInfos.Money - value;
+            moneyInfos.TotalConsumption += money;
+            moneyInfos.Consumption[Day - 1] += money;
         }
     }
     public int BankMoney
     {
-        get { return gameInfos.BankMoney; }
+        get { return moneyInfos.BankMoney; }
         set
         {
-            gameInfos.BankMoney = value;
+            moneyInfos.BankMoney = value;
         }
     }
     public float BankInterest
     {
-        get { return gameInfos.BankInterest; }
+        get { return moneyInfos.BankInterest; }
         set
         {
-            gameInfos.BankInterest = value;
+            moneyInfos.BankInterest = value;
         }
     }
+
     private void ChangeBank()
     {
         if(Day % 3 == 0) //3일마다 이자변경
@@ -226,6 +253,7 @@ public class GameData : DataManager, IGameDataOb
     public override void SaveDataTime()
     {
         SaveData<GameInfos>(ref gameInfos, "GameData");
+        SaveData<MoneyInfos>(ref moneyInfos, "MoneyData");
         itemData.SaveDataTime();
         foodData.SaveDataTime();
         npcData.SaveDataTime();
@@ -239,6 +267,7 @@ public class GameData : DataManager, IGameDataOb
         else
         {
             LoadData<GameInfos>(ref gameInfos, "GameData");
+            LoadData<MoneyInfos>(ref moneyInfos, "MoneyData");
             LoadArrayData<ItemType>(ref itemData.ItemType, "ItemData");
             LoadArrayData<FoodTool>(ref foodData.foodTool, "FoodData");
             LoadArrayData<NPCInfos>(ref npcData.npcInfos, "NPCData");
