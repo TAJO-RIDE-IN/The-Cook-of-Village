@@ -34,8 +34,8 @@ public class BankUI : UIController
     }
     private void LoadData()
     {
-        BankMoneyText.text = MoneyText(GameData.Instance.BankMoney) + "원";
-        BankInterestText.text = (GameData.Instance.BankInterest * 100).ToString() + "%";
+        BankMoneyText.text = MoneyText(MoneyData.Instance.BankMoney) + "원";
+        BankInterestText.text = (MoneyData.Instance.BankInterest * 100).ToString() + "%";
         MoneyInputField.text = "";
         switch (CurrentService)
         {
@@ -54,8 +54,8 @@ public class BankUI : UIController
 
     public void BankButtonClick()
     {
-        GameData.Instance.Money += MoneyValue();
-        GameData.Instance.BankMoney -= MoneyValue();
+        MoneyData.Instance.Money += MoneyValue();
+        MoneyData.Instance.BankMoney -= MoneyValue();
         LoadData();
     }
 
@@ -87,7 +87,7 @@ public class BankUI : UIController
     }
     private int MaxMoney() //최대 금액
     {
-        int MaxMoney = (CurrentService == Service.Deposit) ? GameData.Instance.Money : GameData.Instance.BankMoney;
+        int MaxMoney = (CurrentService == Service.Deposit) ? MoneyData.Instance.Money : MoneyData.Instance.BankMoney;
         return MaxMoney;
     }
 }

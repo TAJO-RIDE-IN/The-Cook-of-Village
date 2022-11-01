@@ -24,12 +24,12 @@ public class DisplayUI : MonoBehaviour, IObserver<GameData>
         return time;
     }
 
-    public void ChangeDisplay(float time, float day, int today, float money)
+    public void ChangeDisplay(float time, float day, int today)
     {
         string min = Time(time)[1].ToString();
         TimeText.text = string.Format("{0:00} : ", Time(time)[0]) + min.PadRight(2, '0');
         DayText.text = "Day" + day.ToString();
-        Money.text = money.ToString();
+        Money.text = MoneyData.Instance.Money.ToString();
         TodayText.text = Today[today];
     }
     private void Start()
@@ -56,7 +56,7 @@ public class DisplayUI : MonoBehaviour, IObserver<GameData>
         if (obj is GameData)
         {
             var GameData = obj;
-            ChangeDisplay(GameData.TimeOfDay, GameData.Day, GameData.Today, GameData.Money);
+            ChangeDisplay(GameData.TimeOfDay, GameData.Day, GameData.Today);
         }
     }
 }
