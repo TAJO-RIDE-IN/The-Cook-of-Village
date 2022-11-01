@@ -25,24 +25,7 @@ public class GameInfos
     public int Fame; //명성
     public int RainbowDrinking;
 }
-[System.Serializable]
-public class Proceeds
-{
-    public int SalesProceeds;
-    public int TipMoney;
-}
 
-[System.Serializable]
-public class MoneyInfos
-{
-    public int Money; //소지하고 있는 돈
-    public int BankMoney; //은행에 넣은 돈
-    public float BankInterest; //은행 이자
-    public int TotalProceeds; //매출액
-    public int TotalConsumption; //소비
-    public List<Proceeds> Proceeds = new List<Proceeds>();
-    public List<int> Consumption = new List<int>();
-}
 public class GameData : DataManager, IGameDataOb
 {
     private List<IObserver<GameData>> _observers = new List<IObserver<GameData>>();
@@ -53,7 +36,7 @@ public class GameData : DataManager, IGameDataOb
     [SerializeField] private ItemData itemData;
     [SerializeField] private FoodData foodData;
     [SerializeField] private NPCData npcData;
-
+    [SerializeField] private MoneyData moneyData;
     #region 싱글톤
     private static GameData instance = null;
     private void Awake() //씬 시작될때 인스턴스 초기화
@@ -83,7 +66,7 @@ public class GameData : DataManager, IGameDataOb
     public void LoadObject()
     {
         _observers.Clear();
-        TipCount = 0;
+        moneyData.TipCount = 0;
         UIDisplay = GameObject.Find("DisplayUI");
         if (runningCoroutine != null) { StopCoroutine(runningCoroutine); }//한 개의 코루틴만 실행
         runningCoroutine = StartCoroutine(UpdateTime());
@@ -102,7 +85,6 @@ public class GameData : DataManager, IGameDataOb
         }
     }
     [SerializeField]  private GameInfos gameInfos;
-    [SerializeField]  private MoneyInfos moneyInfos;
 
     #region 변수
     public string RestaurantName
@@ -136,13 +118,12 @@ public class GameData : DataManager, IGameDataOb
             gameInfos.Day = value;
             ShopCount.ResetShopCount();
             Potion.Instance.ResetPotion();
-            ChangeBank();
+            moneyData.ChangeBank();
             MonthDateCalculation();
             DayNotifyObserver();
             NotifyObserver();
             SaveDataTime();
-            moneyInfos.Proceeds.Add(new Proceeds());
-            moneyInfos.Consumption.Add(0);
+            moneyData.AddMoneyList();
         }
     }
     public int Today = 1;
@@ -168,64 +149,6 @@ public class GameData : DataManager, IGameDataOb
         Day++;
     }
 
-    public int Money
-    {
-        get { return moneyInfos.Money; }
-        set
-        {
-            if (TipCount >= 5)
-            {
-                value += TipMoney;
-                moneyInfos.Proceeds[Day - 1].TipMoney += TipMoney;
-            }
-            ChangeMoneyData(value);
-            moneyInfos.Money = value;
-            NotifyObserver();
-        }
-    }
-    private void ChangeMoneyData(int value)
-    {
-        if (moneyInfos.Money < value)
-        {
-            int money = value - moneyInfos.Money;
-            moneyInfos.TotalProceeds += money;
-            moneyInfos.Proceeds[Day - 1].SalesProceeds += money;
-        }
-        else
-        {
-            int money = moneyInfos.Money - value;
-            moneyInfos.TotalConsumption += money;
-            moneyInfos.Consumption[Day - 1] += money;
-        }
-    }
-    public int BankMoney
-    {
-        get { return moneyInfos.BankMoney; }
-        set
-        {
-            moneyInfos.BankMoney = value;
-        }
-    }
-    public float BankInterest
-    {
-        get { return moneyInfos.BankInterest; }
-        set
-        {
-            moneyInfos.BankInterest = value;
-        }
-    }
-
-    private void ChangeBank()
-    {
-        if(Day % 3 == 0) //3일마다 이자변경
-        {
-            float _interest = UnityEngine.Random.Range(0.08f, 0.20f);
-            BankInterest = (float)Math.Round(_interest, 3);
-        }
-        BankMoney = (int)(BankMoney* (1 + BankInterest));
-    }
-    public int TipMoney;
-    public int TipCount;
     public int Fame
     {
         get { return gameInfos.Fame; }
@@ -253,7 +176,7 @@ public class GameData : DataManager, IGameDataOb
     public override void SaveDataTime()
     {
         SaveData<GameInfos>(ref gameInfos, "GameData");
-        SaveData<MoneyInfos>(ref moneyInfos, "MoneyData");
+
         itemData.SaveDataTime();
         foodData.SaveDataTime();
         npcData.SaveDataTime();
@@ -267,7 +190,7 @@ public class GameData : DataManager, IGameDataOb
         else
         {
             LoadData<GameInfos>(ref gameInfos, "GameData");
-            LoadData<MoneyInfos>(ref moneyInfos, "MoneyData");
+            LoadData<MoneyInfos>(ref moneyData.moneyInfos, "MoneyData");
             LoadArrayData<ItemType>(ref itemData.ItemType, "ItemData");
             LoadArrayData<FoodTool>(ref foodData.foodTool, "FoodData");
             LoadArrayData<NPCInfos>(ref npcData.npcInfos, "NPCData");

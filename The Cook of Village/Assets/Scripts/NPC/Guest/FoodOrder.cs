@@ -87,7 +87,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
                 currentOrderUI.OrderAnimation(false);
                 if(Village && VillageEatCount != 1)
                 {
-                    GameData.Instance.TipCount = 0;
+                    MoneyData.Instance.TipCount = 0;
                 }
                 EndOrder();
             }
@@ -136,7 +136,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         else
         {
             CanReceive = false;
-            GameData.Instance.TipCount = 0;
+            MoneyData.Instance.TipCount = 0;
         }
         return Receive;
     }
@@ -170,8 +170,8 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     public void PayFood(float multiple) //계산
     {
         GameData.Instance.ChangeFame(+5);
-        GameData.Instance.TipCount++;
-        GameData.Instance.Money += (int)(PayMoney * multiple);
+        MoneyData.Instance.TipCount++;
+        MoneyData.Instance.Money += (int)(PayMoney * multiple);
         foodInfos = null;
         guest.ChangeState(GuestNPC.State.Pay);
     }

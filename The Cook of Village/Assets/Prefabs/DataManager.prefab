@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3015593445119753491}
   - component: {fileID: 2754297000416015866}
   - component: {fileID: 3307610199849571922}
+  - component: {fileID: 1727613458586631584}
   - component: {fileID: 1069157777528172281}
   m_Layer: 0
   m_Name: DataManager
@@ -791,6 +792,30 @@ MonoBehaviour:
     VisitRestaurant: 0
     ProfileImage: {fileID: 0}
     NPCModel: {fileID: 0}
+--- !u!114 &1727613458586631584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7616927221443922528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe5f6701669989469f88ca678e14bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyInfos:
+    Money: 5000
+    BankMoney: 0
+    BankInterest: 0.08
+    TotalProceeds: 0
+    TotalConsumption: 0
+    Proceeds:
+    - SalesProceeds: 0
+      TipMoney: 0
+    Consumption: 00000000
+  TipMoney: 0
+  TipCount: 0
 --- !u!114 &1069157777528172281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -811,20 +836,9 @@ MonoBehaviour:
     Day: 1
     Fame: 0
     RainbowDrinking: 0
-  moneyInfos:
-    Money: 5000
-    BankMoney: 0
-    BankInterest: 0.08
-    TotalProceeds: 0
-    TotalConsumption: 0
-    Proceeds:
-    - SalesProceeds: 0
-      TipMoney: 0
-    Consumption: 00000000
+  moneyData: {fileID: 1727613458586631584}
   timeOfDay: 754
   orbitSpeed: 2
   Today: 1
   Date: 1
   Month: 0
-  TipMoney: 100
-  TipCount: 0

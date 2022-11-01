@@ -36,6 +36,6 @@ public class SlotShop : Slot<ItemInfos>
         string _name = Infos.KoreanName;
         SlotText.fontSize = (_name.Length > 7) ? 18 : 22;
         SlotText.text = _name;
-        PriceText.text = (Infos.Price > GameData.Instance.Money)? "<color=#ff0000>" + price + "</color>" : " <color=#000000ff>" + price + "</color>";
+        PriceText.text = (Infos.Price > MoneyData.Instance.Money)? "<color=#ff0000>" + price + "</color>" : " <color=#000000ff>" + price + "</color>";
     }
 }

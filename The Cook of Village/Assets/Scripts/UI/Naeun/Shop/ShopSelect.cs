@@ -40,7 +40,7 @@ public class ShopSelect : MonoBehaviour
     private void Init()
     {
         BuyMaxCount = Infos.ShopCount - ShopCount.ShopCountDictionary[Infos.Name];
-        MoneyMaxCount = (int)GameData.Instance.Money / Infos.Price;
+        MoneyMaxCount = (int)MoneyData.Instance.Money / Infos.Price;
         ModifySlot(Infos.KoreanName, Infos.ImageUI);
         CountSlider.value = 0;
         CountSlider.maxValue = BuyMaxCount;
@@ -87,7 +87,7 @@ public class ShopSelect : MonoBehaviour
             NPC.CurrentState = ShopNPC.State.Sell;
             ShopCount.ShopCountDictionary[Infos.Name] += (int)CountSlider.value;
             ItemData.Instance.ChangeAmount(Infos.ID, CurrentAmount());
-            GameData.Instance.Money -= Int32.Parse(TotalPrice.text);
+            MoneyData.Instance.Money -= Int32.Parse(TotalPrice.text);
             shopUI.LoadSlotData();
             Init();
         }
