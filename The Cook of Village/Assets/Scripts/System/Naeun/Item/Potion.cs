@@ -82,7 +82,7 @@ public class Potion : MonoBehaviour, IPotionOb
         {
             Tool.Clear();
             RestaurantPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonMovement>();
-            Counter = GameObject.FindGameObjectWithTag("Counter").GetComponent<CounterQueue>();
+            Counter = GameObject.FindObjectOfType<CounterQueue>();
             GameObject[] CookTool = GameObject.FindGameObjectsWithTag("CookingTools");
             foreach(var tool in CookTool) {
                 Tool.Add(tool.GetComponent<CookingTool>()); //CookingTool 리스트에 추가
