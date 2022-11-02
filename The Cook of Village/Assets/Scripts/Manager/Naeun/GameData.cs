@@ -24,6 +24,9 @@ public class GameInfos
     public int Day;
     public int Fame; //명성
     public int RainbowDrinking;
+    public List<int> TotalGuest;
+    public List<int> SuccedGuest;
+    public List<int> FailGuest;
 }
 
 public class GameData : DataManager, IGameDataOb
@@ -170,6 +173,31 @@ public class GameData : DataManager, IGameDataOb
         set
         {
             gameInfos.RainbowDrinking = value;
+        }
+    }
+
+    [SerializeField] private int guestCount;
+    public int GuestCount
+    {
+        get { return guestCount; }
+        set
+        {
+            if (guestCount < value)
+            {
+                gameInfos.TotalGuest[Day - 1]++;
+            }
+            guestCount = value;
+        }
+    }
+    public void GuestCountData(int count)
+    {
+        if(count > 0)
+        {
+            gameInfos.SuccedGuest[Day - 1]++;
+        }
+        else
+        {
+            gameInfos.FailGuest[Day - 1]++;
         }
     }
     #endregion

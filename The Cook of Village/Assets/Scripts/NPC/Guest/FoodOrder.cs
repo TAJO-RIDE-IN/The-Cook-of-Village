@@ -103,6 +103,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         {
             guest.ChangeState(GuestNPC.State.StandUP);
             guest.ChangeState(GuestNPC.State.ChaseUP);
+            GameData.Instance.GuestCountData(-1);
         }
     }
     private void EndEat() //음식 다 먹음
@@ -124,6 +125,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             VillageEatCount++;
             guest.isDrink = FoodData.Instance.DrinkFood((int)foodInfos.Type);
             guest.ChangeState(GuestNPC.State.Eat);
+            GameData.Instance.GuestCountData(1);
             EndOrder();
             if(Village) 
             {

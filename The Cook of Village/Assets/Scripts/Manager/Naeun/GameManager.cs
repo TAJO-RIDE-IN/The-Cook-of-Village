@@ -68,15 +68,7 @@ public class GameManager : MonoBehaviour
             //CurosrControl(value);
         }
     }
-    [SerializeField] private int guestCount;
-    public int GuestCount
-    {
-        get { return guestCount; }
-        set
-        {
-            guestCount = value;
-        }
-    }
+
     public int NextSceneIndex = 2;
     public int CurrentSceneIndex;
     public string CurrentSceneName;
@@ -108,11 +100,11 @@ public class GameManager : MonoBehaviour
         {
             soundManager.SceneLoadSound(CurrentSceneName);
         }
-        if (GuestCount != 0)
+        if (gameData.GuestCount != 0)
         {
-            GameData.Instance.ChangeFame(-3 * GuestCount);
+            gameData.ChangeFame(-3 * gameData.GuestCount);
         }
-        GuestCount = 0;
+        gameData.GuestCount = 0;
     }
     #endregion
     private void CurosrControl(bool value)
