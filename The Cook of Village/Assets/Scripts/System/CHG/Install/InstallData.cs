@@ -55,13 +55,28 @@ public class InstallData
     
     public static void SaveData(int index, string name, SortOfInstall sortOfInstall)
     {
-        toolData._indexNames.Add(new IndexName(index, name));
-        toolJsonData = JsonUtility.ToJson(toolData, true);
-        File.WriteAllText(toolPath, toolJsonData);
+        switch (sortOfInstall)
+        {
+            case SortOfInstall.Furnitue:
+            {
+                toolData._indexNames.Add(new IndexName(index, name));
+                toolJsonData = JsonUtility.ToJson(furnitureData, true);
+                File.WriteAllText(furniturePath, furnitureJsonData);
+                break;
+            }
+            case SortOfInstall.Tool:
+            {
+                toolData._indexNames.Add(new IndexName(index, name));
+                toolJsonData = JsonUtility.ToJson(toolData, true);
+                File.WriteAllText(toolPath, toolJsonData);
+                break;
+            }
+        }
+        
     }
 
     //public void RestoreHealth(int amount) => health += amount;
-    public static void DeleteData(int deleteIndex)
+    public static void DeleteData(int deleteIndex, SortOfInstall sortOfInstall)
     {
         for (int i = 0; i < toolData._indexNames.Count; i++)
         {
