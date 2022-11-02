@@ -50,33 +50,36 @@ public class MoneyData : DataManager
     #endregion
     [SerializeField]public MoneyInfos moneyInfos;
 
+
+    public int Money
+    {
+        get { return moneyInfos.Money; }
+        set
+        {
+            ChangeMoneyData(value);
+            if (TipCount >= 5)
+            {
+                value += TipMoney;
+                moneyInfos.TotalProceeds += TipMoney;
+                moneyInfos.Proceeds[GameData.Instance.Day - 1].TipMoney += TipMoney;
+            }
+            moneyInfos.Money = value;
+        }
+    }
+
     public void ChangeMoneyData(int value)
     {
         if (moneyInfos.Money < value)
         {
             int money = value - moneyInfos.Money;
             moneyInfos.TotalProceeds += money;
-            moneyInfos.Proceeds[GameData.Instance.Day - 1].SalesProceeds += money;
+            moneyInfos.Proceeds[GameData.Instance.Day - 1].SalesProceeds += (value - TipMoney);
         }
         else
         {
             int money = moneyInfos.Money - value;
             moneyInfos.TotalConsumption += money;
             moneyInfos.Consumption[GameData.Instance.Day - 1] += money;
-        }
-    }
-    public int Money
-    {
-        get { return moneyInfos.Money; }
-        set
-        {
-            if (TipCount >= 5)
-            {
-                value += TipMoney;
-                moneyInfos.Proceeds[GameData.Instance.Day - 1].TipMoney += TipMoney;
-            }
-            ChangeMoneyData(value);
-            moneyInfos.Money = value;
         }
     }
     public int BankMoney
