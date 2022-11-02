@@ -125,7 +125,6 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             VillageEatCount++;
             guest.isDrink = FoodData.Instance.DrinkFood((int)foodInfos.Type);
             guest.ChangeState(GuestNPC.State.Eat);
-            GameData.Instance.GuestCountData(1);
             EndOrder();
             if(Village) 
             {
@@ -172,6 +171,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     public void PayFood(float multiple) //계산
     {
         GameData.Instance.ChangeFame(+5);
+        GameData.Instance.GuestCountData(1);
         MoneyData.Instance.TipCount++;
         MoneyData.Instance.Money += (int)(PayMoney * multiple);
         foodInfos = null;

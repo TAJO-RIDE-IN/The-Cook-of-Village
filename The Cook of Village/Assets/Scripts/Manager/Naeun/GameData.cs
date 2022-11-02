@@ -126,9 +126,16 @@ public class GameData : DataManager, IGameDataOb
             DayNotifyObserver();
             NotifyObserver();
             SaveDataTime();
-            moneyData.AddMoneyList();
+            AddDataList();
         }
     }
+    private void AddDataList()
+    {
+        moneyData.AddMoneyList();
+        gameInfos.TotalGuest.Add(0);
+        gameInfos.SuccedGuest.Add(0);
+        gameInfos.FailGuest.Add(0);
+}
     public int Today = 1;
     public int Date = 1;
     public int Month = 0;
