@@ -33,7 +33,7 @@ RectTransform:
   - {fileID: 457354681433345412}
   - {fileID: 3214229769377024876}
   m_Father: {fileID: 1343788026442751634}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -143,7 +143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4045056104324409173
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1895,8 +1895,8 @@ RectTransform:
   - {fileID: 1343788026817370552}
   - {fileID: 1343788027324355843}
   - {fileID: 1343788027476421786}
-  - {fileID: 1343788027040580052}
   - {fileID: 3748837297626084761}
+  - {fileID: 1343788027040580052}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1970,8 +1970,9 @@ MonoBehaviour:
     TipText: {fileID: 1343788026471501080}
     ConsumptionText: {fileID: 1343788027660306105}
     TotalMoneyText: {fileID: 1343788026790687003}
-  PlusColor: {r: 0, g: 0.16078432, b: 1, a: 0}
-  MinusColor: {r: 1, g: 0, b: 0, a: 0}
+  PlusColor: {r: 0, g: 0.16078432, b: 1, a: 1}
+  MinusColor: {r: 1, g: 0, b: 0, a: 1}
+  ZeroColor: {r: 0.22745098, g: 0.22745098, b: 0.22745098, a: 1}
 --- !u!1 &1343788026471501082
 GameObject:
   m_ObjectHideFlags: 0
@@ -2807,7 +2808,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1343788026442751634}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -2895,7 +2896,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1343788027040580050}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5102020292999706614}
+        m_TargetAssemblyTypeName: StateUI, Assembly-CSharp
+        m_MethodName: StateUIState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1343788027104231310
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,16 +7,14 @@ public class MenuUI : MonoBehaviour
 {
     private bool onMenu = false;
     public Animator SubMenuAni;
-    public Button Recipe;
-    public Button Storage;
-    public Button Likeability;
+    public Button[] MenuButton;
 
     public void MenuUIState(bool state)
     {
-        this.GetComponent<Button>().enabled = state;
-        Recipe.enabled = state;
-        Storage.enabled = state;
-        Likeability.enabled = state;
+        foreach(var _button in MenuButton)
+        {
+            _button.enabled = state;
+        }    
     }
     public void ClickMenu()
     {

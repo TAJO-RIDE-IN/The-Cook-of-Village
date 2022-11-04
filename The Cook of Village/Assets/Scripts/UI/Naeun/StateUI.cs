@@ -19,6 +19,7 @@ public class StateUI : UIController
     [SerializeField] public MoneyText moneyText;
     public Color PlusColor;
     public Color MinusColor;
+    public Color ZeroColor;
 
     private GameData gameData;
     private MoneyData moneyData;
@@ -37,6 +38,7 @@ public class StateUI : UIController
         FameToggleState();
         GuestState();
         MoneyState();
+
     }
 
     private void MoneyState()
@@ -46,8 +48,21 @@ public class StateUI : UIController
         moneyText.SellText.text = infos.Proceeds[day - 1].SalesProceeds.ToString();
         moneyText.TipText.text = infos.Proceeds[day - 1].TipMoney.ToString();
         moneyText.ConsumptionText.text = infos.Consumption[day - 1].ToString();
-        moneyText.TotalMoneyText.text = (total > 0) ? "+ " + total : "- " + total;
-        moneyText.TotalMoneyText.color = (total > 0) ? PlusColor : MinusColor;
+        string _text = total.ToString();
+        if(total > 0)
+        {
+            _text = "+ " + total;
+            moneyText.TotalMoneyText.color = PlusColor;
+        }
+        else if(total == 0)
+        {
+            moneyText.TotalMoneyText.color = ZeroColor;
+        }
+        else
+        {
+            moneyText.TotalMoneyText.color = MinusColor;
+        }
+        moneyText.TotalMoneyText.text = _text;
     }
 
     private void GuestState()
