@@ -49,20 +49,24 @@ public class MoneyData : DataManager
     }
     #endregion
     [SerializeField]public MoneyInfos moneyInfos;
-
+    private bool BankData = false;
 
     public int Money
     {
         get { return moneyInfos.Money; }
         set
         {
-            ChangeMoneyData(value);
-            if (TipCount >= 5)
+            if(!BankData)
             {
-                value += TipMoney;
-                moneyInfos.TotalProceeds += TipMoney;
-                moneyInfos.Proceeds[GameData.Instance.Day - 1].TipMoney += TipMoney;
+                ChangeMoneyData(value);
+                if (TipCount >= 5)
+                {
+                    value += TipMoney;
+                    moneyInfos.TotalProceeds += TipMoney;
+                    moneyInfos.Proceeds[GameData.Instance.Day - 1].TipMoney += TipMoney;
+                }
             }
+            BankData = false;
             moneyInfos.Money = value;
         }
     }
@@ -98,7 +102,12 @@ public class MoneyData : DataManager
             moneyInfos.BankInterest = value;
         }
     }
-
+    public void UseBankMoney(int _money)
+    {
+        BankMoney += _money;
+        BankData = true;
+        Money -= _money;
+    }
     public void ChangeBank()
     {
         if (GameData.Instance.Day % 3 == 0) //3일마다 이자변경

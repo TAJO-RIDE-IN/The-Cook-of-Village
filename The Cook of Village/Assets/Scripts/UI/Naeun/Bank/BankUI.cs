@@ -29,7 +29,7 @@ public class BankUI : UIController
     private int MoneyValue()
     {
         int _money = Int32.Parse(ReplaceMoneyText(MoneyInputField.text));
-        _money = (CurrentService == Service.Deposit) ? -_money : _money; //입금 : 출금
+        _money = (CurrentService == Service.Deposit) ? _money : -_money; //입금 : 출금
         return _money;
     }
     private void LoadData()
@@ -54,8 +54,7 @@ public class BankUI : UIController
 
     public void BankButtonClick()
     {
-        MoneyData.Instance.Money += MoneyValue();
-        MoneyData.Instance.BankMoney -= MoneyValue();
+        MoneyData.Instance.UseBankMoney(MoneyValue());
         LoadData();
     }
 
