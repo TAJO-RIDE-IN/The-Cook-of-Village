@@ -16,6 +16,13 @@ public interface IObserver<T>
 {
     void Change(T obj);
 }
+[System.Serializable]
+public class GuestCountInfos
+{
+    public int TotalGuest;
+    public int SucceedGuest;
+    public int FailGuest;
+}
 
 [System.Serializable]
 public class GameInfos
@@ -24,9 +31,7 @@ public class GameInfos
     public int Day;
     public int Fame; //명성
     public int RainbowDrinking;
-    public List<int> TotalGuest;
-    public List<int> SuccedGuest;
-    public List<int> FailGuest;
+    public List<GuestCountInfos> CountInfos;
 }
 
 public class GameData : DataManager, IGameDataOb
@@ -132,9 +137,7 @@ public class GameData : DataManager, IGameDataOb
     private void AddDataList()
     {
         moneyData.AddMoneyList();
-        gameInfos.TotalGuest.Add(0);
-        gameInfos.SuccedGuest.Add(0);
-        gameInfos.FailGuest.Add(0);
+        gameInfos.CountInfos.Add(new GuestCountInfos());
 }
     public int Today = 1;
     public int Date = 1;
@@ -182,7 +185,7 @@ public class GameData : DataManager, IGameDataOb
             gameInfos.RainbowDrinking = value;
         }
     }
-
+    #region Guest
     [SerializeField] private int guestCount;
     public int GuestCount
     {
@@ -191,7 +194,7 @@ public class GameData : DataManager, IGameDataOb
         {
             if (guestCount < value)
             {
-                gameInfos.TotalGuest[Day - 1]++;
+                GuestCountInfos[Day - 1].TotalGuest++;
             }
             guestCount = value;
         }
@@ -200,13 +203,22 @@ public class GameData : DataManager, IGameDataOb
     {
         if(count > 0)
         {
-            gameInfos.SuccedGuest[Day - 1]++;
+            GuestCountInfos[Day - 1].SucceedGuest++;
         }
         else
         {
-            gameInfos.FailGuest[Day - 1]++;
+            GuestCountInfos[Day - 1].FailGuest++;
         }
     }
+    public List<GuestCountInfos> GuestCountInfos
+    {
+        get { return gameInfos.CountInfos; }
+        set
+        {
+            gameInfos.CountInfos = value;
+        }
+    }
+    #endregion
     #endregion
     public override void SaveDataTime()
     {
