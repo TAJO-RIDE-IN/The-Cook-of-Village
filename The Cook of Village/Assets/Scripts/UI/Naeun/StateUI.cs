@@ -45,26 +45,29 @@ public class StateUI : UIController
     {
         MoneyInfos infos = moneyData.moneyInfos;
         int total = infos.Proceeds[day - 1].SalesProceeds + infos.Proceeds[day - 1].TipMoney - infos.Consumption[day - 1];
-        moneyText.SellText.text = infos.Proceeds[day - 1].SalesProceeds.ToString();
-        moneyText.TipText.text = infos.Proceeds[day - 1].TipMoney.ToString();
-        moneyText.ConsumptionText.text = infos.Consumption[day - 1].ToString();
-        string _text = total.ToString();
-        if(total > 0)
+        MoneyText(infos.Proceeds[day - 1].SalesProceeds, moneyText.SellText);
+        MoneyText(infos.Proceeds[day - 1].TipMoney, moneyText.TipText);
+        MoneyText(-infos.Consumption[day - 1], moneyText.ConsumptionText);
+        MoneyText(total, moneyText.TotalMoneyText);
+    }
+    private void MoneyText(int _money, Text _text)
+    {
+        string moneyText = _money.ToString();
+        if(_money > 0)
         {
-            _text = "+ " + total;
-            moneyText.TotalMoneyText.color = PlusColor;
+            moneyText = "+" + _money;
+            _text.color = PlusColor;
         }
-        else if(total == 0)
+        else if(_money < 0)
         {
-            moneyText.TotalMoneyText.color = ZeroColor;
+            _text.color = MinusColor;
         }
         else
         {
-            moneyText.TotalMoneyText.color = MinusColor;
+            _text.color = ZeroColor;
         }
-        moneyText.TotalMoneyText.text = _text;
+        _text.text = moneyText;
     }
-
     private void GuestState()
     {
         GuestCountInfos infos = gameData.GuestCountInfos[day - 1];
