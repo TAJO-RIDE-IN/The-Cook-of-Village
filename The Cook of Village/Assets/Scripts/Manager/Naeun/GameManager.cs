@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
     {
         LoadObject();
     }
-    private void LoadObject()
+    public void LoadObject()
     {
         CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         CurrentSceneName = SceneManager.GetActiveScene().name;
@@ -100,11 +100,12 @@ public class GameManager : MonoBehaviour
         {
             soundManager.SceneLoadSound(CurrentSceneName);
         }
-        if (gameData.GuestCount != 0)
+        if (gameData.GuestCount > 0)
         {
             gameData.ChangeFame(-3 * gameData.GuestCount);
+            gameData.GuestCountInfos[gameData.Day - 1].FailGuest =+ gameData.GuestCount ;
         }
-        gameData.GuestCount = 0;
+        isOpen = false;
     }
     #endregion
     private void CurosrControl(bool value)
