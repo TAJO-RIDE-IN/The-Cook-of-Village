@@ -36,7 +36,6 @@ public class FridgeUI : MonoBehaviour
 
     public void OpenUI()
     {
-        GameManager.Instance.IsUI = true;
         this.gameObject.SetActive(true);
         LoadSlotData();
     }

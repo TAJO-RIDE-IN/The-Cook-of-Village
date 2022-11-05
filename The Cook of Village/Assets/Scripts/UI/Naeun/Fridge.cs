@@ -8,16 +8,16 @@ using UnityEngine.UI;
 public class Fridge : MonoBehaviour
 {
     public FridgeUI FridgeUI;
-    private Animator frigdeAnimator;
+    private Animation frigdeAnimation;
 
     private void Start()
     {
-        frigdeAnimator = transform.GetComponent<Animator>();
+        frigdeAnimation = transform.GetComponent<Animation>();
     }
 
     public void FridgeAnimaion(bool state)
     {
-        frigdeAnimator.SetBool("isOpen", state);
+        //frigdeAnimation.SetBool("isOpen", state);
     }
     public void OpenRefrigerator()
     {

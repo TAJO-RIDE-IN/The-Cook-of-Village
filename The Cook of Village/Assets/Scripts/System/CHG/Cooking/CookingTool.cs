@@ -8,7 +8,7 @@ using Object = System.Object;
 
 public class CookingTool : MonoBehaviour
 {
-    public enum Type { Blender = 0, FryPan = 1, Pot = 2, Oven = 3, Whipper = 4, Trash = 5}//접시도 추가할거니까 접시일때 행동들이랑 도구일때 행동들 구분하기, 그리고 머랭같은 특별한 도구도 어떻게할지 생각해야함
+    public enum Type { Blender = 60, Pot = 61, FryPan = 62, Whipper = 63, Oven = 64, Trash = 5}//접시도 추가할거니까 접시일때 행동들이랑 도구일때 행동들 구분하기, 그리고 머랭같은 특별한 도구도 어떻게할지 생각해야함
     public Type type;
 
     public GameObject InventoryBig;
@@ -80,6 +80,7 @@ public class CookingTool : MonoBehaviour
                     if (!cookSlotManager.itemslots[i].isUsed)
                     {
                         _animation.Play(type.ToString());
+                        
                         ingredientList.Add(id);
                         cookSlotManager.itemslots[i].isUsed = true;
                         cookSlotManager.itemslots[i].changeSlotUI(sprite);
@@ -159,13 +160,21 @@ public class CookingTool : MonoBehaviour
         CloseUI();
     }
 
+    /// <summary>
+    /// 풀링도 돌려주고, FoodData Amount와 ItemData Amount도 바꿔줌
+    /// </summary>
     public void DeleteTool()
     {
         ToolPooling.Instance.indexToChange = index;
         WhenReturn();
         InstallData.DeleteData(index, InstallData.SortOfInstall.Tool);
         ToolPooling.Instance.ReturnObject(this, type.ToString());
-        
+        ToolPooling.Instance.toolInstallMode.isUsed[index] = false;
+        ToolPooling.Instance.toolInstallMode.PositionParticle[index].SetActive(false);
+        FoodData.Instance.FindFoodTool((int)type).Amount--;
+        ItemData.Instance.ItemInfos((int) type).Amount++;
+        //Debug.Log((int)type);
+
     }
 
     private void WhenReturn()

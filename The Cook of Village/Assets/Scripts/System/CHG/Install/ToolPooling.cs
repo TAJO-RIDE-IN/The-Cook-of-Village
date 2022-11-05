@@ -41,7 +41,10 @@ public class ToolPooling : MultipleObjectPooling<CookingTool>
         }
     }
 
-    public int SelectedToolIndex;
+    /// <summary>
+    /// 나은이가 저장한 아이템 데이터에서 값을 빼주고 더해주기 위함
+    /// </summary>
+    public int SelectedToolID;
 
     private static ToolPooling instance;
     public static ToolPooling Instance

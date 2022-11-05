@@ -71,7 +71,7 @@ public class SlotInventory : Slot<ItemInfos>
                 break;
             case (ItemType.Type.CookingTool):
                 ToolPooling.Instance.toolInstallMode.Use(Infos.Name, Infos.Amount);
-                ToolPooling.Instance.SelectedToolIndex = Infos.ID;
+                ToolPooling.Instance.SelectedToolID = Infos.ID;
                 break;
             case (ItemType.Type.Furniture):
                 break;
