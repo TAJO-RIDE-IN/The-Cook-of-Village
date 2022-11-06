@@ -192,7 +192,7 @@ public class GameData : DataManager, IGameDataOb
         get { return guestCount; }
         set
         {
-            if (guestCount < value)
+            if (guestCount < value && value != 0)
             {
                 GuestCountInfos[Day - 1].TotalGuest++;
             }

@@ -26,7 +26,10 @@ public class UIController : MonoBehaviour
         {
             UIObject[0].SetActive(false);
         }
-        GameManager.Instance.IsUI = (UIObject.Count == 0) ? false : true;
+        if(GameManager.Instance != null)
+        {
+            GameManager.Instance.IsUI = (UIObject.Count == 0) ? false : true;
+        }
     }
     protected void AddList()
     {
