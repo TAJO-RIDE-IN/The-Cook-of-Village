@@ -60,6 +60,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
         {
             AvailableChair();
             ChangeCallTime();
+            yield return new WaitForSeconds(Random.Range(CallTime - 4, CallTime + 4));
             if (WaitChair.Count != 0)
             {
                 if (callVillageNPC)
@@ -68,12 +69,10 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
                     {
                         EnterNPC().gameObject.SetActive(true);
                         EnterNPC().RestaurantVisit = true;
-                        yield return new WaitForSeconds(Random.Range(CallTime - 4, CallTime + 4));
                     }
                 }
                 GetObject();
             }
-            yield return new WaitForSeconds(Random.Range(CallTime-4, CallTime+4));
         }
     }
 
