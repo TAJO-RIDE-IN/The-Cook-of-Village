@@ -6,12 +6,11 @@ using UnityEngine.UI;
 
 public class MoneyGraph : MonoBehaviour
 {
-    public GameObject[] ProceedDot;
-    public GameObject[] ConsumptionDot;
-    public GameObject[] TotalDot;
     public GameObject[] YaxisLine;
     public Text[] YaxisText;
     public Text[] DayText;
+    public Image[] Dot;
+    public Transform DotContainer;
     public ToggleControl toggleControl;
     public enum DataType { Proceeds, Consumption, Total }
     [SerializeField] private DataType type = DataType.Proceeds;
@@ -26,21 +25,22 @@ public class MoneyGraph : MonoBehaviour
     }
     private List<int> WeekProceeds = new List<int>();
     private List<int> WeekConsumption = new List<int>();
-    public List<int> WeekAbsTotal = new List<int>();
+    private List<int> WeekAbsTotal = new List<int>();
     private List<int> WeekDay = new List<int>();
 
     private GameData gameData;
     private MoneyData moneyData;
-
-    private int WeekTotalProceed;
-    private int WeekTotalWeekConsumption;
-
     private int yAxisSpace = 40;
     private int MoneySpace = 1000;
+
+    public Color PlusColor;
+    public Color MinusColor;
+    public Color NetGainColor;
     private void OnEnable()
     {
         gameData = GameData.Instance;
         moneyData = MoneyData.Instance;
+        dataType = DataType.Proceeds;
         toggleControl.ResetToggle(2);
         AddData();
     }
@@ -52,24 +52,14 @@ public class MoneyGraph : MonoBehaviour
 
     private void ResetData()
     {
-        foreach (var _dot in ProceedDot)
+        foreach (var _dot in Dot)
         {
-            _dot.SetActive(false);
-        }
-        foreach (var _dot in ConsumptionDot)
-        {
-            _dot.SetActive(false);
-        }
-        foreach (var _dot in TotalDot)
-        {
-            _dot.SetActive(false);
+            _dot.gameObject.SetActive(false);
         }
         WeekProceeds.Clear();
         WeekConsumption.Clear();
         WeekAbsTotal.Clear();
         WeekDay.Clear();
-        WeekTotalProceed = 0;
-        WeekTotalWeekConsumption = 0;
     }
     private void AddData()
     {
@@ -98,8 +88,6 @@ public class MoneyGraph : MonoBehaviour
         WeekProceeds.Add(TotalProceeds);
         WeekConsumption.Add(TotalConsumption);
         WeekAbsTotal.Add(Math.Abs(TotalProceeds - TotalConsumption));
-        WeekTotalProceed += TotalProceeds;
-        WeekTotalWeekConsumption -= TotalConsumption;
     }
     #endregion
 
@@ -118,8 +106,7 @@ public class MoneyGraph : MonoBehaviour
                 space = (int)IntRound(min, -3) / 4;
                 break;
             case DataType.Total:
-                totalMax = (int)IntRound(totalMax, -3);
-                space = (totalMax) / 2;
+                space = (int)IntRound(totalMax, -3) / 2;
                 break;
         }
         space = (space == 0) ? MoneySpace : space;
@@ -158,31 +145,34 @@ public class MoneyGraph : MonoBehaviour
     private void ArrangeDot(DataType type, float space)
     {
         float dotSpace = yAxisSpace / space;
+        float YPosition = 0;
         for (int i = 0; i < WeekDay.Count; i++)
         {
+            Dot[i].gameObject.SetActive(true);
+            Vector3 dotPosition = Dot[i].transform.localPosition;
+            Vector3 container = new Vector3(0,0,0);
             if (type == DataType.Proceeds)
             {
-                ProceedDot[i].SetActive(true);
-                float YPosition = WeekProceeds[i] * dotSpace;
-                Vector3 dot = ProceedDot[i].transform.localPosition;
-                ProceedDot[i].transform.localPosition = new Vector3(dot.x, YPosition, dot.z);
+                Dot[i].color = PlusColor;
+                container = new Vector3(0, -yAxisSpace*2, 0);
+                YPosition = WeekProceeds[i] * dotSpace;
             }
             else if (type == DataType.Consumption)
             {
-                ConsumptionDot[i].SetActive(true);
-                float YPosition = WeekConsumption[i] * -dotSpace;
-                Vector3 dot = ConsumptionDot[i].transform.localPosition;
-                ConsumptionDot[i].transform.localPosition = new Vector3(dot.x, YPosition, dot.z);
+                Dot[i].color = MinusColor;
+                container = new Vector3(0, yAxisSpace * 2, 0);
+                YPosition = WeekConsumption[i] * -dotSpace;
             }
             else if (type == DataType.Total)
             {
-                TotalDot[i].SetActive(true);
+                Dot[i].color = NetGainColor;
+                container = new Vector3(0, 0, 0);
                 int total = WeekProceeds[i] - WeekConsumption[i];
                 dotSpace = (total > space) ? dotSpace : -dotSpace;
-                float YPosition = Math.Abs(total) * dotSpace;
-                Vector3 dot = TotalDot[i].transform.localPosition;
-                TotalDot[i].transform.localPosition = new Vector3(dot.x, YPosition, dot.z);
+                YPosition = Math.Abs(total) * dotSpace;
             }
+            DotContainer.localPosition = container;
+            Dot[i].transform.localPosition = new Vector3(dotPosition.x, YPosition, dotPosition.z);
         }
     }
 }

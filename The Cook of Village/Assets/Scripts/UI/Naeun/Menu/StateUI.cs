@@ -17,8 +17,6 @@ public class StateUI : UIController
     public Toggle[] FameToggle;
     public Text[] GuestStateText;
     [SerializeField] public MoneyText moneyText;
-    public Toggle OpenClose;
-    public GameObject OpenToggleText;
     public Color PlusColor;
     public Color MinusColor;
     public Color ZeroColor;
@@ -40,37 +38,6 @@ public class StateUI : UIController
         FameToggleState();
         GuestState();
         MoneyState();
-        OpenCloseState();
-    }
-
-    public void OpenCloseToggleClick()
-    {
-        NPCPooling npcPooling = FindObjectOfType<NPCPooling>();
-        OpenToggleText.SetActive(!OpenClose.isOn);
-        if (OpenClose.isOn)
-        {
-            npcPooling.OpenRestaurant();
-        }
-        else
-        {
-            npcPooling.CloseRestaurant();
-        }
-    }
-
-    private void OpenCloseState()
-    {
-        NPCPooling npcPooling = FindObjectOfType<NPCPooling>();
-        if(npcPooling != null)
-        {
-            OpenClose.interactable = true;
-            OpenClose.isOn = GameManager.Instance.IsOpen;
-        }
-        else
-        {
-            OpenClose.isOn = false;
-            OpenClose.interactable = false;
-        }
-        OpenToggleText.SetActive(!OpenClose.isOn);
     }
 
     private void MoneyState()
