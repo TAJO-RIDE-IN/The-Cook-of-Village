@@ -122,7 +122,7 @@ public class MoneyData : DataManager
     {
         moneyInfos.Proceeds.Add(new Proceeds());
         moneyInfos.Consumption.Add(0);
-    }
+}
     public int TipMoney;
     public int TipCount;
 

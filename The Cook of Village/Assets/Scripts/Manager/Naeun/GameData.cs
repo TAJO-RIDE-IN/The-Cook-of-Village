@@ -127,7 +127,7 @@ public class GameData : DataManager, IGameDataOb
             ShopCount.ResetShopCount();
             Potion.Instance.ResetPotion();
             moneyData.ChangeBank();
-            MonthDateCalculation();
+            ChangeMonthDate();
             DayNotifyObserver();
             NotifyObserver();
             SaveDataTime();
@@ -142,18 +142,27 @@ public class GameData : DataManager, IGameDataOb
     public int Today = 1;
     public int Date = 1;
     public int Month = 0;
-    private void MonthDateCalculation()
+    private void ChangeMonthDate()
     {
         Today = (int)Day % 7;
-        Date = (int)Day % 14;
-        if(Day%14 == 0)
+        int[] MonthData = MonthDateCalculation(Day);
+        Date = MonthData[0];
+        Month = MonthData[1];
+    }
+
+    public int[] MonthDateCalculation(int day) // 0 -> 일, 1 -> 월
+    {
+        int[] MonthDate = new int[2];
+        int date = day;
+        int month;
+        for(month = 0; date > 14; month++)
         {
-            Date = 14;
+            date -= 14;
         }
-        if(Day%14 == 1) 
-        { 
-            Month++;
-        }
+        month = (month % 4) + 1; //1~4월
+        MonthDate[0] = date;
+        MonthDate[1] = month;
+        return MonthDate;
     }
 
     public void SetTimeMorning()
