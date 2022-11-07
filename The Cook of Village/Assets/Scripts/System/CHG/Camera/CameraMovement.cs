@@ -56,35 +56,39 @@ public class CameraMovement : MonoBehaviour
             }
             cinemachine.m_XAxis.m_MaxSpeed = 0;
         }
+
+        if (!GameManager.Instance.IsUI)
+        {
+            if (Input.GetAxis("Mouse ScrollWheel") > 0)
+            {
+                preOuterDown = cameraPosition.transform.position.z;
+                distance = Input.GetAxis("Mouse ScrollWheel");
+                if (zoomValue < 2)
+                {
+                    cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
+                    zoomValue += distance;
+                    //outerDown += Mathf.Abs(distance);
+                    outerDown += Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+                    outerUp += Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+
+                }
+
+            }
+            else
+            {
+                preOuterDown = cameraPosition.transform.position.z;
+                distance = Input.GetAxis("Mouse ScrollWheel");
+                if (zoomValue > -2)
+                {
+                    cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
+                    zoomValue += distance;
+                    //outerDown -= Mathf.Abs(distance);
+                    outerDown -= Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+                    outerUp -= Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+                }
+            }
+        }
         
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
-        {
-            preOuterDown = cameraPosition.transform.position.z;
-            distance = Input.GetAxis("Mouse ScrollWheel");
-            if (zoomValue < 2)
-            {
-                cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
-                zoomValue += distance;
-                //outerDown += Mathf.Abs(distance);
-                outerDown += Math.Abs(preOuterDown - cameraPosition.transform.position.z);
-                outerUp += Math.Abs(preOuterDown - cameraPosition.transform.position.z);
-
-            }
-
-        }
-        else
-        {
-            preOuterDown = cameraPosition.transform.position.z;
-            distance = Input.GetAxis("Mouse ScrollWheel");
-            if (zoomValue > -2)
-            {
-                cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
-                zoomValue += distance;
-                //outerDown -= Mathf.Abs(distance);
-                outerDown -= Math.Abs(preOuterDown - cameraPosition.transform.position.z);
-                outerUp -= Math.Abs(preOuterDown - cameraPosition.transform.position.z);
-            }
-        }
     }
     void LateUpdate()
     {
