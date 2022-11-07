@@ -8,9 +8,9 @@ public interface IGameDataOb
 {
     void AddObserver(IObserver<GameData> o);
     void AddDayObserver(IObserver<GameData> o);
+    void AddGuestObserver(IObserver<GameData> o);
     void RemoveObserver(IObserver<GameData> o);
-    void DayNotifyObserver();
-    void NotifyObserver();
+    void NotifyObserver(List<IObserver<GameData>> observer);
 }
 public interface IObserver<T>
 {
@@ -36,8 +36,9 @@ public class GameInfos
 
 public class GameData : DataManager, IGameDataOb
 {
-    private List<IObserver<GameData>> _observers = new List<IObserver<GameData>>();
+    private List<IObserver<GameData>> Observers = new List<IObserver<GameData>>();
     private List<IObserver<GameData>> DayObservers = new List<IObserver<GameData>>();
+    private List<IObserver<GameData>> GuestObservers = new List<IObserver<GameData>>();
     private GameObject UIDisplay;
     private Coroutine runningCoroutine = null;
 
@@ -73,7 +74,7 @@ public class GameData : DataManager, IGameDataOb
     #endregion
     public void LoadObject()
     {
-        _observers.Clear();
+        Observers.Clear();
         moneyData.TipCount = 0;
         UIDisplay = GameObject.Find("DisplayUI");
         if (runningCoroutine != null) { StopCoroutine(runningCoroutine); }//한 개의 코루틴만 실행
@@ -101,7 +102,7 @@ public class GameData : DataManager, IGameDataOb
         set
         {
             gameInfos.RestaurantName = value;
-            NotifyObserver();
+            NotifyObserver(Observers);
         }
     }
 
@@ -113,7 +114,7 @@ public class GameData : DataManager, IGameDataOb
         set 
         { 
             timeOfDay = value; 
-            NotifyObserver(); 
+            NotifyObserver(Observers); 
         }
     }
     [SerializeField]
@@ -128,10 +129,9 @@ public class GameData : DataManager, IGameDataOb
             Potion.Instance.ResetPotion();
             moneyData.ChangeBank();
             ChangeMonthDate();
-            DayNotifyObserver();
-            NotifyObserver();
             SaveDataTime();
             AddDataList();
+            NotifyObserver(DayObservers);
         }
     }
     private void AddDataList()
@@ -206,6 +206,7 @@ public class GameData : DataManager, IGameDataOb
                 GuestCountInfos[Day - 1].TotalGuest++;
             }
             guestCount = value;
+            NotifyObserver(GuestObservers);
         }
     }
     public void GuestCountData(int count)
@@ -225,6 +226,7 @@ public class GameData : DataManager, IGameDataOb
         set
         {
             gameInfos.CountInfos = value;
+            NotifyObserver(GuestObservers);
         }
     }
     #endregion
@@ -255,29 +257,26 @@ public class GameData : DataManager, IGameDataOb
     #region observer
     public void AddObserver(IObserver<GameData> o)
     {
-        _observers.Add(o);
+        Observers.Add(o);
     }
     public void AddDayObserver(IObserver<GameData> o)
     {
         DayObservers.Add(o);
     }
+    public void AddGuestObserver(IObserver<GameData> o)
+    {
+        GuestObservers.Add(o);
+    }
     public void RemoveObserver(IObserver<GameData> o)
     {
-        _observers.Remove(o);
+        Observers.Remove(o);
     }
-    public void NotifyObserver() //observer에 값 전달
+    public void NotifyObserver(List <IObserver<GameData>> observer) //observer에 값 전달
     {
-        foreach(var observer in _observers)
+        foreach(var _observer in observer)
         {
-            observer.Change(this);
+            _observer.Change(this);
         }
     } 
-    public void DayNotifyObserver() //observer에 값 전달
-    {
-        foreach(var observer in DayObservers)
-        {
-            observer.Change(this);
-        }
-    }
     #endregion
 }

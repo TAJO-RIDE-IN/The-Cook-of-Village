@@ -21,7 +21,7 @@ public class MoneyGraph : MonoBehaviour
         set
         {
             type = value;
-            AddData();
+            UpdateData();
         }
     }
     private List<int> WeekProceeds = new List<int>();
@@ -43,7 +43,7 @@ public class MoneyGraph : MonoBehaviour
         moneyData = MoneyData.Instance;
         dataType = DataType.Proceeds;
         toggleControl.ResetToggle(2);
-        AddData();
+        UpdateData();
     }
     #region data
     public void ChangeDataType(int type)
@@ -69,7 +69,7 @@ public class MoneyGraph : MonoBehaviour
         WeekAbsTotal.Clear();
         WeekDay.Clear();
     }
-    private void AddData()
+    public void UpdateData()
     {
         ResetData();
         int day = gameData.Day;
@@ -91,8 +91,8 @@ public class MoneyGraph : MonoBehaviour
 
     private void WeekMoneyData(int day)
     {
-        int TotalProceeds = moneyData.moneyInfos.Proceeds[day].SalesProceeds + moneyData.moneyInfos.Proceeds[day].TipMoney;
-        int TotalConsumption = moneyData.moneyInfos.Consumption[day];
+        int TotalProceeds = moneyData.Proceeds[day].SalesProceeds + moneyData.Proceeds[day].TipMoney;
+        int TotalConsumption = moneyData.Consumption[day];
         WeekProceeds.Add(TotalProceeds);
         WeekConsumption.Add(TotalConsumption);
         WeekAbsTotal.Add(Math.Abs(TotalProceeds - TotalConsumption));

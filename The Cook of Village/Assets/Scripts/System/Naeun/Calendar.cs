@@ -25,7 +25,7 @@ public class Calendar : MonoBehaviour, IObserver<GameData>
     }
     public void AddObserver(IGameDataOb o)
     {
-        o.AddDayObserver(this);
+        o.AddObserver(this);
     }
 
     public void Change(GameData obj)

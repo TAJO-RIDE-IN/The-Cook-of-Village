@@ -12,11 +12,12 @@ public class MoneyText
     public Text TotalMoneyText;
 }
 
-public class StateUI : UIController
+public class StateUI : UIController, IObserver<MoneyData>, IObserver<GameData>
 {
     public Toggle[] FameToggle;
     public Text[] GuestStateText;
     [SerializeField] public MoneyText moneyText;
+    public MoneyGraph moneyGraph;
     public Color PlusColor;
     public Color MinusColor;
     public Color ZeroColor;
@@ -27,14 +28,16 @@ public class StateUI : UIController
     public void StateUIState()
     {
         this.gameObject.SetActive(!this.gameObject.activeSelf);
+        gameData = GameData.Instance;
+        moneyData = MoneyData.Instance;
+        AddObserver(moneyData, gameData);
         UpdateData();
     }
 
     private void UpdateData()
     {
-        gameData = GameData.Instance;
-        moneyData = MoneyData.Instance;
         day = gameData.Day;
+        moneyGraph.UpdateData();
         FameToggleState();
         GuestState();
         MoneyState();
@@ -42,11 +45,13 @@ public class StateUI : UIController
 
     private void MoneyState()
     {
-        MoneyInfos infos = moneyData.moneyInfos;
-        int total = infos.Proceeds[day - 1].SalesProceeds + infos.Proceeds[day - 1].TipMoney - infos.Consumption[day - 1];
-        MoneyText(infos.Proceeds[day - 1].SalesProceeds, moneyText.SellText);
-        MoneyText(infos.Proceeds[day - 1].TipMoney, moneyText.TipText);
-        MoneyText(-infos.Consumption[day - 1], moneyText.ConsumptionText);
+        int salesProceeds = moneyData.Proceeds[day - 1].SalesProceeds;
+        int TipProceeds = moneyData.Proceeds[day - 1].TipMoney;
+        int Consumption = moneyData.Proceeds[day - 1].TipMoney;
+        int total = salesProceeds + TipProceeds - Consumption;
+        MoneyText(salesProceeds, moneyText.SellText);
+        MoneyText(TipProceeds, moneyText.TipText);
+        MoneyText(-Consumption, moneyText.ConsumptionText);
         MoneyText(total, moneyText.TotalMoneyText);
     }
     private void MoneyText(int _money, Text _text)
@@ -83,5 +88,28 @@ public class StateUI : UIController
         }
         int fame = (int)(gameData.Fame / 100);
         FameToggle[fame].isOn = true;
+    }
+
+    public void AddObserver(IMoneyDataOb money, IGameDataOb game)
+    {
+        money.AddObserver(this);
+        game.AddDayObserver(this);
+        game.AddGuestObserver(this);
+    }
+    public void Change(MoneyData obj)
+    {
+        if (obj is MoneyData)
+        {
+            var MoneyData = obj;
+            UpdateData();
+        }
+    }
+    public void Change(GameData obj)
+    {
+        if (obj is GameData)
+        {
+            var GameData = obj;
+            UpdateData();
+        }
     }
 }
