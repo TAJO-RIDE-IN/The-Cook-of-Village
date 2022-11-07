@@ -14,9 +14,10 @@ public class ToolInstallMode : InstallMode
     public GameObject[] PositionParticle;
     
     [HideInInspector] public bool isDirectChange;
+    [HideInInspector] public bool isDirectInstall;
     
     [HideInInspector] public bool[] isUsed;
-    
+
 
     private void Start()
     {
@@ -93,6 +94,13 @@ public class ToolInstallMode : InstallMode
         inventoryUI.InventoryState();
         inventoryUI.TabClick(6);
     }
+    
+    public void DirectInstall()//indexToChange를 여기서 바꾸면 깔끔할텐데
+    {
+        isDirectInstall = true;
+        inventoryUI.InventoryState();
+        inventoryUI.TabClick(6);
+    }
 
     public override void GetAndPosition(int index, string name)
     {
@@ -107,7 +115,6 @@ public class ToolInstallMode : InstallMode
     {
         if (isDirectChange)
         {
-            
             ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange].DeleteTool();
             Return();
             GetAndPosition(ToolPooling.Instance.indexToChange, name);
@@ -116,19 +123,24 @@ public class ToolInstallMode : InstallMode
             isDirectChange = false;
             return;
         }
-        else
+        if (isDirectInstall)
         {
-            toolItemInfosAmount = amount;
-            StartInstall();
-            ToolPooling.Instance.SelectedToolName = name;
+            GetAndPosition(ToolPooling.Instance.indexToChange, name);
+            InstallData.SaveData(ToolPooling.Instance.indexToChange, name, InstallData.SortOfInstall.Tool);
+            FoodData.Instance.FindFoodTool(ToolPooling.Instance.SelectedToolID).Amount++;
+            isDirectInstall = false;
+            return;
         }
+        toolItemInfosAmount = amount;
+        StartInstall();
+        ToolPooling.Instance.SelectedToolName = name;
         isDirectChange = false;
     }
 
     protected override void Return()
     {
         ToolPooling.Instance.ReturnObject(ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange],
-            ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange].type.ToString());
+            ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange].toolID.ToString());
         
     }
     public override void GoInstall()//UI만 꺼주기

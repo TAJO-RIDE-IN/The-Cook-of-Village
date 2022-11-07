@@ -8,9 +8,8 @@ using Object = System.Object;
 
 public class CookingTool : MonoBehaviour
 {
-    public enum Type { Blender = 60, Pot = 61, FryPan = 62, Whipper = 63, Oven = 64, Trash = 5}//접시도 추가할거니까 접시일때 행동들이랑 도구일때 행동들 구분하기, 그리고 머랭같은 특별한 도구도 어떻게할지 생각해야함
-    public Type type;
-
+    public enum ToolID { Blender = 0, Pot = 1, FryPan = 2, Whipper = 3, Oven = 4, Trash = 5}//접시도 추가할거니까 접시일때 행동들이랑 도구일때 행동들 구분하기, 그리고 머랭같은 특별한 도구도 어떻게할지 생각해야함
+    public ToolID toolID;
     public GameObject InventoryBig;
     public GameObject IngredientInven;
     
@@ -79,13 +78,13 @@ public class CookingTool : MonoBehaviour
                 {
                     if (!cookSlotManager.itemslots[i].isUsed)
                     {
-                        _animation.Play(type.ToString());
+                        _animation.Play(toolID.ToString());
                         
                         ingredientList.Add(id);
                         cookSlotManager.itemslots[i].isUsed = true;
                         cookSlotManager.itemslots[i].changeSlotUI(sprite);
                         cookSlotManager.itemslots[i].ingridientId = id;
-                        if (type != Type.Trash)
+                        if (toolID != ToolID.Trash)
                         {
                             Ing[i].sprite = sprite;
                             IngredientInven.SetActive(true);
@@ -110,7 +109,7 @@ public class CookingTool : MonoBehaviour
                 {
                     isBeforeCooking = false;
                     ingredientList.Sort();
-                    FoodInfos = FoodData.Instance.RecipeFood((int)type, ingredientList);
+                    FoodInfos = FoodData.Instance.RecipeFood((int)toolID, ingredientList);
                     cookSlotManager.RefreshSlot();
                     RemoveIngSlot();
                     ingredientList.Clear();
@@ -168,12 +167,12 @@ public class CookingTool : MonoBehaviour
         ToolPooling.Instance.indexToChange = index;
         WhenReturn();
         InstallData.DeleteData(index, InstallData.SortOfInstall.Tool);
-        ToolPooling.Instance.ReturnObject(this, type.ToString());
+        ToolPooling.Instance.ReturnObject(this, toolID.ToString());
         ToolPooling.Instance.toolInstallMode.isUsed[index] = false;
-        ToolPooling.Instance.toolInstallMode.PositionParticle[index].SetActive(false);
-        FoodData.Instance.FindFoodTool((int)type).Amount--;
-        ItemData.Instance.ItemInfos((int) type).Amount++;
-        //Debug.Log((int)type);
+        //ToolPooling.Instance.toolInstallMode.PositionParticle[index].SetActive(false);
+        
+        FoodData.Instance.FindFoodTool((int)toolID).Amount--;
+        ItemData.Instance.ItemInfos(int.Parse("6"+ (int)toolID)).Amount++;
 
     }
 
