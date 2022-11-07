@@ -9,6 +9,7 @@ public class MoneyGraph : MonoBehaviour
     public GameObject[] YaxisLine;
     public Text[] YaxisText;
     public Text[] DayText;
+    public Image[] DotLine;
     public Image[] Dot;
     public Transform DotContainer;
     public ToggleControl toggleControl;
@@ -52,9 +53,16 @@ public class MoneyGraph : MonoBehaviour
 
     private void ResetData()
     {
+        Color color = GraphColor(dataType);
         foreach (var _dot in Dot)
         {
             _dot.gameObject.SetActive(false);
+            _dot.color = color;
+        }
+        foreach (var _line in DotLine)
+        {
+            _line.gameObject.SetActive(false);
+            _line.color = color;
         }
         WeekProceeds.Clear();
         WeekConsumption.Clear();
@@ -112,6 +120,7 @@ public class MoneyGraph : MonoBehaviour
         space = (space == 0) ? MoneySpace : space;
         ChangeYaxisText(type, space);
         ArrangeDot(type, space);
+        ArrangeLine();
     }
     public double IntRound(double Value, int Digit)
     {
@@ -150,22 +159,19 @@ public class MoneyGraph : MonoBehaviour
         {
             Dot[i].gameObject.SetActive(true);
             Vector3 dotPosition = Dot[i].transform.localPosition;
-            Vector3 container = new Vector3(0,0,0);
+            Vector3 container = new Vector3(0, 0, 0);
             if (type == DataType.Proceeds)
             {
-                Dot[i].color = PlusColor;
-                container = new Vector3(0, -yAxisSpace*2, 0);
+                container = new Vector3(0, -yAxisSpace * 2, 0);
                 YPosition = WeekProceeds[i] * dotSpace;
             }
             else if (type == DataType.Consumption)
             {
-                Dot[i].color = MinusColor;
                 container = new Vector3(0, yAxisSpace * 2, 0);
                 YPosition = WeekConsumption[i] * -dotSpace;
             }
             else if (type == DataType.Total)
             {
-                Dot[i].color = NetGainColor;
                 container = new Vector3(0, 0, 0);
                 int total = WeekProceeds[i] - WeekConsumption[i];
                 dotSpace = (total > space) ? dotSpace : -dotSpace;
@@ -173,6 +179,37 @@ public class MoneyGraph : MonoBehaviour
             }
             DotContainer.localPosition = container;
             Dot[i].transform.localPosition = new Vector3(dotPosition.x, YPosition, dotPosition.z);
+        }
+    }
+    private Color GraphColor(DataType type)
+    {
+        switch (type)
+        {
+            case DataType.Proceeds:
+                return PlusColor;
+            case DataType.Consumption:
+                return MinusColor;
+            case DataType.Total:
+                return NetGainColor;
+        }
+        return PlusColor;
+    }
+    private void ArrangeLine()
+    {
+        for (int i = 0; i < WeekDay.Count - 1; i++)
+        {
+            float x1 = Dot[i].transform.localPosition.x;
+            float y1 = Dot[i].transform.localPosition.y;
+            float x2 = Dot[i + 1].transform.localPosition.x;
+            float y2 = Dot[i + 1].transform.localPosition.y;
+            float LineX = (x2 + x1) / 2;
+            float LineY = (y2 + y1) / 2;
+            double LineGradient = Math.Atan2((y2 - y1),  (x2 - x1)) * (180 / Math.PI);
+            double LineLength = Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
+            DotLine[i].gameObject.SetActive(true);
+            DotLine[i].transform.eulerAngles = new Vector3(0, 0, (float)LineGradient);
+            DotLine[i].transform.localPosition = new Vector3(LineX, LineY, 0);
+            DotLine[i].rectTransform.sizeDelta = new Vector2((float)LineLength, DotLine[i].rectTransform.sizeDelta.y);
         }
     }
 }
