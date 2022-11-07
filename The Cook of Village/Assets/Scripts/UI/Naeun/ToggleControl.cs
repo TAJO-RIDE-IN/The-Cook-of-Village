@@ -15,7 +15,10 @@ public class ToggleControl : MonoBehaviour
     [SerializeField] public ToggleType[] toggleType;
     public void ResetToggle(int index)
     {
-        toggleType[index].toggleGroup.SetAllTogglesOff();
+        foreach(var toggle in toggleType[index].toggles)
+        {
+            toggle.isOn = false;
+        }
         if (!toggleType[index].toggleGroup.allowSwitchOff)
         {
             toggleType[index].toggles[0].isOn = true;

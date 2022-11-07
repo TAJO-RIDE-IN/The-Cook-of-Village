@@ -2,6 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+public interface IMoneyDataOb
+{
+    void AddObserver(IObserver<MoneyData> o);
+    void NotifyObserver();
+}
+
 [System.Serializable]
 public class Proceeds
 {
@@ -20,8 +27,11 @@ public class MoneyInfos
     public List<Proceeds> Proceeds = new List<Proceeds>();
     public List<int> Consumption = new List<int>();
 }
-public class MoneyData : DataManager
+public class MoneyData : DataManager, IMoneyDataOb
 {
+    private List<IObserver<MoneyData>> _observers = new List<IObserver<MoneyData>>();
+    [SerializeField] public MoneyInfos moneyInfos;
+    private bool BankData = false;
     #region ΩÃ±€≈Ê
     private static MoneyData instance = null;
     private void Awake() //æ¿ Ω√¿€µ…∂ß ¿ŒΩ∫≈œΩ∫ √ ±‚»≠
@@ -48,9 +58,6 @@ public class MoneyData : DataManager
         }
     }
     #endregion
-    [SerializeField]public MoneyInfos moneyInfos;
-    private bool BankData = false;
-
     public int Money
     {
         get { return moneyInfos.Money; }
@@ -68,6 +75,7 @@ public class MoneyData : DataManager
             }
             BankData = false;
             moneyInfos.Money = value;
+            NotifyObserver();
         }
     }
 
@@ -76,14 +84,46 @@ public class MoneyData : DataManager
         if (moneyInfos.Money < value)
         {
             int money = value - moneyInfos.Money;
-            moneyInfos.TotalProceeds += money;
-            moneyInfos.Proceeds[GameData.Instance.Day - 1].SalesProceeds += (value - TipMoney);
+            TotalProceeds += money;
+           Proceeds[GameData.Instance.Day - 1].SalesProceeds += (value - TipMoney);
         }
         else
         {
             int money = moneyInfos.Money - value;
-            moneyInfos.TotalConsumption += money;
-            moneyInfos.Consumption[GameData.Instance.Day - 1] += money;
+            TotalConsumption += money;
+            Consumption[GameData.Instance.Day - 1] += money;
+        }
+    }
+    public List<Proceeds> Proceeds
+    {
+        get { return moneyInfos.Proceeds; }
+        set
+        {
+            moneyInfos.Proceeds = value;
+        }
+    }
+    public List<int> Consumption
+    {
+        get { return moneyInfos.Consumption; }
+        set
+        {
+            moneyInfos.Consumption = value;
+        }
+    }
+    public int TotalProceeds
+    {
+        get { return moneyInfos.TotalProceeds; }
+        set
+        {
+            moneyInfos.TotalProceeds = value;
+        }
+    }
+    public int TotalConsumption
+    {
+        get { return moneyInfos.TotalConsumption; }
+        set
+        {
+            moneyInfos.TotalConsumption = value;
         }
     }
     public int BankMoney
@@ -122,12 +162,25 @@ public class MoneyData : DataManager
     {
         moneyInfos.Proceeds.Add(new Proceeds());
         moneyInfos.Consumption.Add(0);
-    }
+}
     public int TipMoney;
     public int TipCount;
 
     public override void SaveDataTime()
     {
         SaveData<MoneyInfos>(ref moneyInfos, "MoneyData");
+    }
+
+    public void AddObserver(IObserver<MoneyData> o)
+    {
+        _observers.Add(o);
+    }
+
+    public void NotifyObserver()
+    {
+        foreach(var observer in _observers)
+        {
+            observer.Change(this);
+        }
     }
 }

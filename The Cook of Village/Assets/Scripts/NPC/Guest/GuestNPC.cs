@@ -48,7 +48,10 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     private void OnDisable()
     {
         SetNPCModel(false);
-        GameData.Instance.GuestCount--;
+        if(GameData.Instance != null)
+        {
+            GameData.Instance.GuestCount--;
+        }
     }
 
     private void SetNPCModel(bool state)
