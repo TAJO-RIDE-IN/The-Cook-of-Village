@@ -7,7 +7,7 @@ public class UIButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerClickH
 {
     public void OnPointerEnter(PointerEventData eventData) 
     {
-        Debug.Log(eventData.pointerCurrentRaycast);
+
     }
     public void OnPointerClick(PointerEventData eventData)
     {

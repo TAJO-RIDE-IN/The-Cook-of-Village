@@ -47,7 +47,7 @@ public class StateUI : UIController, IObserver<MoneyData>, IObserver<GameData>
     {
         int salesProceeds = moneyData.Proceeds[day - 1].SalesProceeds;
         int TipProceeds = moneyData.Proceeds[day - 1].TipMoney;
-        int Consumption = moneyData.Proceeds[day - 1].TipMoney;
+        int Consumption = moneyData.Consumption[day - 1];
         int total = salesProceeds + TipProceeds - Consumption;
         MoneyText(salesProceeds, moneyText.SellText);
         MoneyText(TipProceeds, moneyText.TipText);
