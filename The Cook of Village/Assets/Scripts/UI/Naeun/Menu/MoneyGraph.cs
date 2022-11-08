@@ -140,7 +140,7 @@ public class MoneyGraph : MonoBehaviour
             case DataType.Consumption:
                 for (int i = 0; i < YaxisText.Length; i++)
                 {
-                    YaxisText[i].text = (space * i).ToString();
+                    YaxisText[i].text = (-space * i).ToString();
                 }
                 break;
             case DataType.Total:

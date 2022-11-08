@@ -26,7 +26,7 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
     }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
 
             isOpen = true;
@@ -36,7 +36,7 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
     }
     public void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             isOpen = false;
             CurrentState = State.Greet;

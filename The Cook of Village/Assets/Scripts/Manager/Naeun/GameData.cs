@@ -39,7 +39,6 @@ public class GameData : DataManager, IGameDataOb
     private List<IObserver<GameData>> Observers = new List<IObserver<GameData>>();
     private List<IObserver<GameData>> DayObservers = new List<IObserver<GameData>>();
     private List<IObserver<GameData>> GuestObservers = new List<IObserver<GameData>>();
-    private GameObject UIDisplay;
     private Coroutine runningCoroutine = null;
 
     [SerializeField] private ItemData itemData;
@@ -76,13 +75,16 @@ public class GameData : DataManager, IGameDataOb
     {
         Observers.Clear();
         moneyData.TipCount = 0;
-        UIDisplay = GameObject.Find("DisplayUI");
         if (runningCoroutine != null) { StopCoroutine(runningCoroutine); }//한 개의 코루틴만 실행
-        runningCoroutine = StartCoroutine(UpdateTime());
+        if(GameManager.Instance.CurrentSceneIndex == 2 || GameManager.Instance.CurrentSceneIndex == 3)
+        {
+            runningCoroutine = StartCoroutine(UpdateTime());
+        }
     }
     private IEnumerator UpdateTime()
     {
-        while (UIDisplay != null)
+        bool time = true;
+        while (time)
         {
             TimeOfDay += Time.deltaTime * orbitSpeed;
             if (TimeOfDay > 1440)

@@ -10,7 +10,7 @@ public class ChangeScene : MonoBehaviour
     public SceneToGo sceneToGo;
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             MoveScene();
         }
