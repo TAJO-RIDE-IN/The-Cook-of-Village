@@ -5,12 +5,17 @@ using UnityEngine.EventSystems;
 
 public class UIButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
 {
+    private SoundManager sound;
+    private void Start()
+    {
+        sound = SoundManager.Instance;
+    }
     public void OnPointerEnter(PointerEventData eventData) 
     {
-
+        sound.Play(sound._audioClips["ButtonEnter"]);
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log(eventData.pointerCurrentRaycast);
+        sound.Play(sound._audioClips["ButtonClick"]);
     }
 }
