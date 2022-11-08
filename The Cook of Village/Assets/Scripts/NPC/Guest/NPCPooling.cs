@@ -22,6 +22,24 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
         AddObserver(GameData.Instance);
     }
 
+    private void Update()
+    {
+        //일시정지 상태가 아닐 때, isOpen에 따라
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (Time.timeScale != 0.0f)
+            {
+                OpenRestaurant();
+            }
+            else
+            {
+                CloseRestaurant();
+            }
+            
+        }
+    }
+
+
     public void OpenRestaurant()
     {
         GameManager.Instance.IsOpen = true;
