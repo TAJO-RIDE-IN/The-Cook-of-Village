@@ -90,7 +90,7 @@ public class SoundManager : MonoBehaviour
         var audio3D = GameObject.FindObjectsOfType<AudioSource>(true);
         foreach (var audio in audio3D)
         {
-            if (audio != null && audio.gameObject.tag == "Effect3D")
+            if (audio != null && audio.gameObject.CompareTag("Effect3D"))
             {
                 audioSources[(int)SoundData.Type.Effect3D].audioSources.Add(audio.GetComponent<AudioSource>());
                 //_3DAudio.Add(audio.transform.parent.gameObject, audio.GetComponent<AudioSource>());
