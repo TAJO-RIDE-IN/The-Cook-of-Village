@@ -39,19 +39,51 @@ public class InstallData
     
     public static ToolData toolData = new ToolData();
     public static FurnitureData furnitureData = new FurnitureData();
-    
-    
-    
+
     private static string toolPath = Application.persistentDataPath + "ToolData.json";
-    private static string toolJsonData = File.ReadAllText(toolPath);
+    private static string toolJsonData;
     
-    private static string furniturePath = Application.persistentDataPath + "ToolData.json";
-    private static string furnitureJsonData = File.ReadAllText(furniturePath);
+    private static string furniturePath = Application.persistentDataPath + "FurnitureData.json";
+    private static string furnitureJsonData;
 
     static InstallData()
     {
+        FileInfo fileInfo = new FileInfo(toolPath);
+        if (fileInfo.Exists)
+        {
+            toolJsonData = File.ReadAllText(toolPath);
+        }
+        else
+        {
+            FirstSavePath();
+        }
+        
+        FileInfo fileInfo2 = new FileInfo(furniturePath);
+        if (fileInfo2.Exists)
+        {
+            furnitureJsonData = File.ReadAllText(furniturePath);
+        }
+        else
+        {
+            FirstSavePath2();
+        }
+
         toolData = JsonUtility.FromJson<ToolData>(toolJsonData);
+        furnitureData = JsonUtility.FromJson<FurnitureData>(furnitureJsonData);
     }
+
+    private static void FirstSavePath()
+    {
+        toolJsonData = JsonUtility.ToJson(toolData, true);
+        File.WriteAllText(toolPath, toolJsonData);
+    }
+    private static void FirstSavePath2()
+    {
+        furnitureJsonData = JsonUtility.ToJson(furnitureData, true);
+        File.WriteAllText(furniturePath, furnitureJsonData);
+    }
+    
+    
     
     public static void SaveData(int index, string name, SortOfInstall sortOfInstall)
     {
@@ -59,8 +91,8 @@ public class InstallData
         {
             case SortOfInstall.Furnitue:
             {
-                toolData._indexNames.Add(new IndexName(index, name));
-                toolJsonData = JsonUtility.ToJson(furnitureData, true);
+                furnitureData._indexNames.Add(new IndexName(index, name));
+                furnitureJsonData = JsonUtility.ToJson(furnitureData, true);
                 File.WriteAllText(furniturePath, furnitureJsonData);
                 break;
             }
