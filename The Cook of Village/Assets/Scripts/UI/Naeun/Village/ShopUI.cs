@@ -114,7 +114,7 @@ public class ShopUI : UIController
 
         foreach(var image in slot)
         {
-            image.GetComponent<Image>().sprite = ImageContainer[index].SlotImage;
+            image.SlotBackground.sprite = ImageContainer[index].SlotImage;
         }
     }
     private void ChangeShopUI()
