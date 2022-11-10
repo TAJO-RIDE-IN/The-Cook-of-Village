@@ -12,8 +12,6 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     [SerializeField]
     private FoodInfos foodInfos;
     public GameObject NPCUI;
-    public Transform FoodPosition;
-    private GameObject ReceiveFoodObject;
     public Image RemainingTimeImage;
     public Image OrderFoodImage;
 
@@ -109,10 +107,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     private void EndEat() //음식 다 먹음
     {
         guest.ChangeState(GuestNPC.State.StandUP);
-        if (ReceiveFoodObject != null)
-        {
-            Destroy(ReceiveFoodObject.gameObject);
-        }
+        guest.chairUse.FoodEnable(foodInfos.ID, false);
     }
     public bool ReceiveFood(int ReceiveFood) //npc에게 음식 전달
     {
@@ -120,7 +115,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         {
             CanReceive = false;
             Receive = true;
-            ReceiveFoodObject = Instantiate(foodInfos.PrefabFood, FoodPosition);
+            guest.chairUse.FoodEnable(foodInfos.ID, true); //책상에 음식 활성화
             PayMoney += foodInfos.Price;
             VillageEatCount++;
             guest.isDrink = FoodData.Instance.DrinkFood((int)foodInfos.Type);
@@ -136,7 +131,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         }
         else
         {
-            CanReceive = false;
+            guest.ChangeState(GuestNPC.State.ChaseUP);
             MoneyData.Instance.TipCount = 0;
         }
         return Receive;
@@ -155,9 +150,9 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     private void Order(FoodInfos infos) //음식주문
     {
-        if (ReceiveFoodObject != null)
+        if(foodInfos != null)
         {
-            Destroy(ReceiveFoodObject.gameObject);
+            guest.chairUse.FoodEnable(foodInfos.ID, false);
         }
         NPCUI.SetActive(true);
         Receive = false;
