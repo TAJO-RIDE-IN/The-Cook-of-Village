@@ -12,7 +12,7 @@ public class CookingCharacter : MonoBehaviour
 
 
     [HideInInspector] public CookingTool _cookingTool;
-    public FoodOrder _foodOrder;
+    [HideInInspector] public FoodOrder _foodOrder;
     private Fridge fridge;
     private AnimatorOverrideController animatorOverrideController;
     private SoundManager soundManager;

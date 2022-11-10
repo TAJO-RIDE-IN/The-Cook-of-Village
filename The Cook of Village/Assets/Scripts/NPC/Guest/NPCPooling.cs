@@ -9,6 +9,8 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     public List<GameObject> WaitChair = new List<GameObject>();
     public List<GameObject> UseChair = new List<GameObject>();
 
+    public GameObject NoticeUI;
+
     [SerializeField]
     private float CallTime = 10f;
     private float DefaultCallTime = 10f;
@@ -29,10 +31,12 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
         {
             if (Time.timeScale != 0.0f)
             {
+                NoticeUI.SetActive(false);
                 OpenRestaurant();
             }
             else
             {
+                NoticeUI.SetActive(false);
                 CloseRestaurant();
             }
             
