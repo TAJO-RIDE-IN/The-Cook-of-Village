@@ -9,7 +9,7 @@ public class FirdgeSlotContainer
     public ItemType.Type ingredientsType;
     public List<SlotFridge> FridgeSlot = new List<SlotFridge>();
 }
-public class FridgeUI : MonoBehaviour
+public class FridgeUI : UIController
 {
     [SerializeField]
     private FirdgeSlotContainer[] SlotContainer;
