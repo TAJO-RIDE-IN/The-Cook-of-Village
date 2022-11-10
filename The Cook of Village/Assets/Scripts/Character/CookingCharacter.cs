@@ -113,13 +113,13 @@ public class CookingCharacter : MonoBehaviour
                 if (isSpace)
                 {
                     isSpace = false;
-                    fridge.CloseRefrigerator();
+                    fridge.UseRefrigerator();
                     return;
                 }
                 else
                 {
                     isSpace = true;
-                    fridge.OpenRefrigerator();
+                    fridge.UseRefrigerator();
                     return;
                 }
                 
@@ -260,7 +260,7 @@ public class CookingCharacter : MonoBehaviour
         if (other.tag == "Fridge")
         {
             isSpace = false;
-            fridge.CloseRefrigerator();
+            fridge.UseRefrigerator();
             isFridgeCollider = false;
             return;
         }

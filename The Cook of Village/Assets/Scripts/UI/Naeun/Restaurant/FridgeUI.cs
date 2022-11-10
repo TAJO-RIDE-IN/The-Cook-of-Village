@@ -34,19 +34,20 @@ public class FridgeUI : MonoBehaviour
         LoadSlotData();
     }
 
-    public void OpenUI()
+    public void FridgeUIState()
     {
-        this.gameObject.SetActive(true);
-        LoadSlotData();
-    }
-    public void CloseUI()
-    {
-        GameManager.Instance.IsUI = false;
-        this.gameObject.SetActive(false);
-        GameObject fridge = GameObject.FindGameObjectWithTag("Fridge");
-        if(fridge != null)
+        this.gameObject.SetActive(!this.gameObject.activeSelf);
+        if (this.gameObject.activeSelf)
         {
-            fridge.GetComponent<Fridge>().FridgeAnimaion(false);
+            LoadSlotData();
+        }
+        else
+        {
+            GameObject fridge = GameObject.FindGameObjectWithTag("Fridge");
+            if (fridge != null)
+            {
+                fridge.GetComponent<Fridge>().FridgeAnimaion(false);
+            }
         }
     }
 }
