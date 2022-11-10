@@ -8,27 +8,36 @@ public class DisplayUI : MonoBehaviour, IObserver<GameData>
 {
     public Text Money;
     public Text TimeText;
+    public Text AmPmText;
     public Text DayText;
     public Text TodayText;
+    private bool Am;
     private Dictionary<int, string> Today =  new Dictionary<int, string>
     {
-        {1, "MON" }, {2, "TUE" }, {3, "WED" }, {4, "THU"}, {5, "FRI"}, {6, "SAT"}, {0, "SUN"}
+        {1, "월요일" }, {2, "화요일" }, {3, "수요일" }, {4, "목요일"}, {5, "금요일"}, {6, "토요일"}, {0, "일요일"}
     };
-
+    private Dictionary<bool, string> AmPm = new Dictionary<bool, string>
+    {
+        {true, "AM" }, {false, "PM" }
+    };
 
     private int[] Time(float currentTime)
     {
         int[] time = new int[2];
-        time[0] = (int) currentTime / 60;  //hour
+        int hour = (int)currentTime / 60;
+        Am = (hour < 12);
+        hour = (hour > 12) ? hour-12 : hour;
+        time[0] = hour;  //hour
         time[1] = (int) currentTime % 60 / 10;
         return time;
     }
 
-    public void ChangeDisplay(float time, float day, int today)
+    public void ChangeDisplay(float time, int month, int date, int today)
     {
         string min = Time(time)[1].ToString();
         TimeText.text = string.Format("{0:00} : ", Time(time)[0]) + min.PadRight(2, '0');
-        DayText.text = "Day" + day.ToString();
+        AmPmText.text = AmPm[Am];
+        DayText.text = month.ToString() + " 월 " + date.ToString() + " 일 ";
         Money.text = MoneyData.Instance.Money.ToString();
         TodayText.text = Today[today];
     }
@@ -36,19 +45,10 @@ public class DisplayUI : MonoBehaviour, IObserver<GameData>
     {
         AddObserver(GameData.Instance);
     }
-    private void OnDisable()
-    {
-        RemoveObserver(GameData.Instance);
-    }
 
     public void AddObserver(IGameDataOb o)
     {
         o.AddObserver(this);
-    }
-
-    public void RemoveObserver(IGameDataOb o)
-    {
-        if(o != null) { o.RemoveObserver(this); }
     }
 
     public void Change(GameData obj)
@@ -56,7 +56,7 @@ public class DisplayUI : MonoBehaviour, IObserver<GameData>
         if (obj is GameData)
         {
             var GameData = obj;
-            ChangeDisplay(GameData.TimeOfDay, GameData.Day, GameData.Today);
+            ChangeDisplay(GameData.TimeOfDay, GameData.Month, GameData.Date, GameData.Today);
         }
     }
 }

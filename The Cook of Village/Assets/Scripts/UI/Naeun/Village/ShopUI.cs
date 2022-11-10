@@ -60,6 +60,7 @@ public class ShopUI : UIController
         {
             infos.AddRange(ItemData.Instance.ItemType[6].ItemInfos);
             infos.AddRange(ItemData.Instance.ItemType[7].ItemInfos);
+            infos.Remove(ItemData.Instance.ItemType[6].ItemInfos[5]);
             return infos;
         }
         infos = ItemData.Instance.ItemType[(int)CurrentShop].ItemInfos;
@@ -114,7 +115,7 @@ public class ShopUI : UIController
 
         foreach(var image in slot)
         {
-            image.GetComponent<Image>().sprite = ImageContainer[index].SlotImage;
+            image.SlotBackground.sprite = ImageContainer[index].SlotImage;
         }
     }
     private void ChangeShopUI()
