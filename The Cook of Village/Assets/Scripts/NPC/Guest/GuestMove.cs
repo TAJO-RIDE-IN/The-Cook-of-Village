@@ -11,6 +11,8 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     private NPCPooling chairContainer;
     private NavMeshAgent agent;
     private GuestNPC guest;
+    private VillageGuest VillageNPC;
+    private Transform Sit;
     public CounterQueue counter;
 
     private bool NPCEat = false;
@@ -21,11 +23,16 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         chairContainer = this.gameObject.transform.parent.GetComponent<NPCPooling>();
         agent = this.gameObject.GetComponent<NavMeshAgent>();
         guest = this.gameObject.GetComponent<GuestNPC>();
+        if (guest.currentNPC == GuestNPC.Guest.Villge)
+        {
+            VillageNPC = this.gameObject.GetComponent<VillageGuest>();
+        }
         AddObserver(guest);
     }
     private void OnEnable()
     {
-        StartCoroutine(NPCMove(ChairPosition(), "Chair"));
+        ChairUse();
+        StartCoroutine(NPCMove(guest.chairUse.CloseDestination(transform).position, "Chair"));
     }
     private void OutChair()
     {
@@ -33,13 +40,13 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         UseChair = null;
     }
 
-    private Vector3 ChairPosition() //사용하지 않은 의자의 위치을 랜덤으로 출력, 사용중인 의자 저장
+    private void ChairUse() //사용하지 않은 의자의 위치을 랜덤으로 출력, 사용중인 의자 저장
     {
         int chairNum = Random.Range(0, chairContainer.WaitChair.Count);
-        Vector3 destination = chairContainer.WaitChair[chairNum].transform.position;
         UseChair = chairContainer.WaitChair[chairNum];
+        guest.chairUse = UseChair.GetComponent<ChairUse>();
+        Sit = guest.chairUse.SitPosition(guest.currentNPC, (int)VillageNPC.npcInfos.work);
         chairContainer.UseChair.Add(UseChair);
-        return (destination);
     }
 
     private IEnumerator NPCMove(Vector3 destination, string destination_name) //NPC이동
@@ -50,21 +57,20 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         while (!isArrive)
         {
             agent.SetDestination(destination);
-            if (agent.velocity.sqrMagnitude >= 1.3f && agent.remainingDistance <= 0.1f) //NPC 목적지 도착
+            if (!agent.pathPending)
             {
-                agent.enabled = false;
-                NPCState(destination_name);
-                isArrive = true;
+                if (agent.remainingDistance <= agent.stoppingDistance + 0.5)
+                {
+                    if (!agent.hasPath || agent.velocity.sqrMagnitude >= 0.2f * 0.2f)
+                    {
+                        agent.enabled = false;
+                        NPCState(destination_name);
+                        isArrive = true;
+                    }
+                }
             }
             yield return null;
         }
-    }
-
-    private Transform SitPosition(GuestNPC.Guest who)//앉는 위치
-    {
-        Transform chair = (who == GuestNPC.Guest.General) ? UseChair.transform.GetChild(0) : UseChair.transform.GetChild(1);
-        transform.position = chair.position;
-        return chair;
     }
 
     private void NPCState(string destination_name) //도착지에 따른 NPC상태 변화
@@ -72,8 +78,8 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         switch (destination_name)
         {
             case "Chair":
-                Transform chair = SitPosition(guest.currentNPC);
-                Vector3 table = new Vector3(UseChair.transform.parent.position.x, chair.transform.position.y, UseChair.transform.parent.position.z);               
+                transform.position = Sit.position;
+                Vector3 table = new Vector3(guest.chairUse.TablePosition.position.x, this.transform.position.y, guest.chairUse.TablePosition.position.z);               
                 transform.LookAt(table);
                 guest.ChangeState(GuestNPC.State.Sit);
                 break;

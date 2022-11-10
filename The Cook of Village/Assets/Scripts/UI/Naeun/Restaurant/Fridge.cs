@@ -19,14 +19,9 @@ public class Fridge : MonoBehaviour
     {
         //frigdeAnimation.SetBool("isOpen", state);
     }
-    public void OpenRefrigerator()
+    public void UseRefrigerator()
     {
-        FridgeAnimaion(true);
-        FridgeUI.OpenUI();
-    }
-    public void CloseRefrigerator()
-    {
-        FridgeAnimaion(false);
-        FridgeUI.CloseUI();
+        FridgeAnimaion(!FridgeUI.gameObject.activeSelf);
+        FridgeUI.FridgeUIState();
     }
 }

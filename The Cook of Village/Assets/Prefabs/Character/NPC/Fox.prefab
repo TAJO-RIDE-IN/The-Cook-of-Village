@@ -931,7 +931,7 @@ Transform:
   m_GameObject: {fileID: 3045001306466448027}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 7879477380861282485}
   - {fileID: 6576762859473931635}
@@ -951,7 +951,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 0ae752c6fc6d0c748b1da1ba55b1c6dc, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -968,7 +968,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1, z: 1.5}
+  m_Size: {x: 1, y: 1, z: 1.5}
   m_Center: {x: 0, y: 0.6, z: 0.5}
 --- !u!114 &4689437462196788895
 MonoBehaviour:
@@ -985,10 +985,14 @@ MonoBehaviour:
   npcInfos:
     work: 4
     Name: 
+    KoreanName: 
     OpenTime: 0
     CloseTime: 0
     Holiday: 0
     likeability: 0
+    FavoriteFood: 0
+    EatFavriteFood: 0
+    VisitRestaurant: 0
     ProfileImage: {fileID: 0}
     NPCModel: {fileID: 0}
   NPCState: 0

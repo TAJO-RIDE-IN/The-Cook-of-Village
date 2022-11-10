@@ -5,9 +5,13 @@ using UnityEngine.UI;
 
 public class SlotFridge : Slot<ItemInfos>
 {
+    public Button slot;
     public Text CountText;
     public Text IngredientName;
     public Image IngredientImage;
+    public Image BasketImage;
+    public Sprite NoneBasketImage;
+    public Sprite UseBasketImage;
     private Transform player;
     public FridgeUI FridgeUI;
     public int SlotCount
@@ -27,9 +31,9 @@ public class SlotFridge : Slot<ItemInfos>
     }
     private void SlotState()
     {
-        bool state;
-        state = (Infos.Amount > 0) ? true : false;
-        this.gameObject.SetActive(state);
+        BasketImage.sprite = (Infos.Amount > 0) ? UseBasketImage : NoneBasketImage;
+        IngredientImage.gameObject.SetActive(Infos.Amount > 0);
+        slot.interactable = (Infos.Amount > 0);
     }
     public override void ModifySlot()
     {

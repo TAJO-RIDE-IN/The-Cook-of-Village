@@ -17,13 +17,20 @@ public class BankUI : UIController
         }
     }
     public InputField MoneyInputField;
-    public Text BankServiceButtonText;
+    public GameObject BankService;
+    public GameObject ServiceChoice;
+    public GameObject DepositButton;
+    public GameObject WithdrawalButton;
     public Text BankMoneyText;
     public Text BankInterestText;
     public void UIState(bool state)
     {
         this.gameObject.SetActive(state);
-        if (state) { LoadData(); }
+        if (state) 
+        {
+            LoadData();
+            ServiceUIState(!state);
+        }
     }
 
     private int MoneyValue()
@@ -37,21 +44,20 @@ public class BankUI : UIController
         BankMoneyText.text = MoneyText(MoneyData.Instance.BankMoney) + "원";
         BankInterestText.text = (MoneyData.Instance.BankInterest * 100).ToString() + "%";
         MoneyInputField.text = "";
-        switch (CurrentService)
-        {
-            case Service.Deposit:
-                BankServiceButtonText.text = "입금하기";
-                break;
-            case Service.Withdrawal:
-                BankServiceButtonText.text = "출금하기";
-                break;
-        }
     }
     public void ChangeService(int state)
     {
         CurrentService = (Service)state;
+        DepositButton.SetActive(state == 0);
+        WithdrawalButton.SetActive(state == 1);
+        ServiceUIState(true);
     }
 
+    public void ServiceUIState(bool state)
+    {
+        BankService.SetActive(state);
+        ServiceChoice.SetActive(!state);
+    }
     public void BankButtonClick()
     {
         MoneyData.Instance.UseBankMoney(MoneyValue());
