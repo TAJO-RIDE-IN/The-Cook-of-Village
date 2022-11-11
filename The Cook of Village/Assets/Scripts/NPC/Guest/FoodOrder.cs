@@ -119,12 +119,12 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             CanReceive = false;
             Receive = true;
             guest.chairUse.FoodEnable(foodInfos.ID, true); //책상에 음식 활성화
-            PayMoney += foodInfos.Price;
-            VillageEatCount++;
             guest.isDrink = foodData.DrinkFood((int)foodInfos.Type);
             guest.ChangeState(GuestNPC.State.Eat);
             EndOrder();
-            if(Village) 
+            PayMoney += foodInfos.Price;
+            VillageEatCount++;
+            if (Village) 
             {
                 VillageReceive();
                 return Receive; 

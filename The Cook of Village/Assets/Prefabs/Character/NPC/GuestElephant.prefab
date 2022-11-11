@@ -435,8 +435,8 @@ NavMeshAgent:
   m_GameObject: {fileID: 1573369791156268121}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.2
-  m_Speed: 3.5
+  m_Radius: 0.25
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 350
@@ -444,8 +444,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
+  m_Height: 1.5
+  m_BaseOffset: 0.18
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &4562565581536691067
@@ -469,6 +469,7 @@ MonoBehaviour:
     ReceiveParticle: {fileID: 7155348417859578296}
     AngryParticle: {fileID: 1680421158046032668}
   ModelsAni: {fileID: 5223690705435536537}
+  chairUse: {fileID: 0}
   isDrink: 0
   npcInfos:
     work: 0
@@ -525,7 +526,6 @@ MonoBehaviour:
     PrefabFood: {fileID: 0}
     ImageUI: {fileID: 0}
   NPCUI: {fileID: 2748099693223256165}
-  FoodPosition: {fileID: 2526323148216148180}
   RemainingTimeImage: {fileID: 1716169628889827011}
   OrderFoodImage: {fileID: 1716169629626727071}
   CanReceive: 0
@@ -554,7 +554,7 @@ Transform:
   m_GameObject: {fileID: 1590283248956788482}
   m_LocalRotation: {x: -0.03145651, y: 0.04656144, z: 0.02577203, w: 0.99808735}
   m_LocalPosition: {x: -0.0038838307, y: 0.36959833, z: 0.0060077887}
-  m_LocalScale: {x: 1.35, y: 1.35, z: 1.35}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4220077657896398603}
   - {fileID: 7515285960199676232}
@@ -2471,7 +2471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5260678503021606608, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.5
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5260678503021606608, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
       propertyPath: m_LocalRotation.w
