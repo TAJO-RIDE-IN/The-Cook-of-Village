@@ -178,8 +178,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 806881861230198786}
   m_LocalRotation: {x: 0.00000008146034, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.75735646, z: -5.7263155e-10}
-  m_LocalScale: {x: 0.778758, y: 0.778758, z: 0.778758}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7433004012586257138}
   m_RootOrder: 1
@@ -1964,7 +1964,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7812766135621881928}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 56c7aadcc7540cd49bae847a63467a75, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 638aba1d7f409974885bf9a1791ed867, type: 3}
   m_Controller: {fileID: 9100000, guid: 61a6c8e198b89754ea22ea9e60766913, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -1984,7 +1984,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.2
-  m_Speed: 3.5
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 350
@@ -1992,8 +1992,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0
+  m_Height: 1.35
+  m_BaseOffset: 0.185
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &7586913874515231801
@@ -2017,6 +2017,7 @@ MonoBehaviour:
     ReceiveParticle: {fileID: 3641488277876044582}
     AngryParticle: {fileID: 5086748786152372610}
   ModelsAni: {fileID: 4286871368730645034}
+  chairUse: {fileID: 0}
   isDrink: 0
   npcInfos:
     work: 6
@@ -2073,7 +2074,6 @@ MonoBehaviour:
     PrefabFood: {fileID: 0}
     ImageUI: {fileID: 0}
   NPCUI: {fileID: 8639869111482858235}
-  FoodPosition: {fileID: 8271565187063331402}
   RemainingTimeImage: {fileID: 5049874514052799581}
   OrderFoodImage: {fileID: 5049874513443315713}
   CanReceive: 0
@@ -2132,7 +2132,7 @@ Transform:
   m_GameObject: {fileID: 8045940379273425683}
   m_LocalRotation: {x: -0.000000018763771, y: -0.0000005607223, z: 0.0000090042395, w: 1}
   m_LocalPosition: {x: -0.0000013249977, y: 0.3673257, z: -0.0038010299}
-  m_LocalScale: {x: 1.35, y: 1.35, z: 1.35}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4839544755458708250}
   - {fileID: 1293261890619448665}
@@ -2410,7 +2410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5260678503021606608, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.50000006
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5260678503021606608, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
       propertyPath: m_LocalRotation.w

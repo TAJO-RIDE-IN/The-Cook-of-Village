@@ -108,7 +108,6 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 ModelsAni.SetBool("isChaseUp", false);
                 NPCImage.AngryParticle.Stop();
                 NPCSound("Pay", false, true);
-
                 break;
             case State.GoOut:
                 ObjectPooling<GuestNPC>.ReturnObject(this);
