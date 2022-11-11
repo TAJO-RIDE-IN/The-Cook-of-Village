@@ -158,8 +158,12 @@ public class CookingCharacter : MonoBehaviour
                     if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemType[6]
                         .ItemInfos[5]))
                     {
+                        
                         return;
-                        //쟁반에 밀가루 생성
+                    }
+                    else
+                    {
+                        ChefInventory.Instance.chefSlotManager.ShowWarning();
                     }
                 }
                 if (objectName == "Trash")
