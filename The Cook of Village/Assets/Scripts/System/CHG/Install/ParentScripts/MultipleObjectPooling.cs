@@ -23,7 +23,7 @@ public class MultipleObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
     public PoolObjectData FindPoolObjectData(String value)
     {
         int index = poolObjectData.FindIndex(data => data.name == value);
-        Debug.Log(index); 
+        //Debug.Log(index); 
         return poolObjectData[index];
     }
 
