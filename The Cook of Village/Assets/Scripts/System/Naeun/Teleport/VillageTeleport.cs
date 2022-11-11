@@ -15,6 +15,7 @@ public class VillageTeleport : MonoBehaviour
     public ThirdPersonGravity Player;
 
     public Dictionary<Gate, Transform> GateDictionary = new Dictionary<Gate, Transform>();
+
     private void Awake()
     {
         GateDictionary.Add(Gate.PotionShop, PotionShopOut);
@@ -31,6 +32,7 @@ public class VillageTeleport : MonoBehaviour
         Player.transform.position = GateDictionary[gate].position;
         Player.transform.rotation = GateDictionary[gate].rotation;
         Player.controller.enabled = true;
+        
     }
 
     public void MoveGate(Gate gate)

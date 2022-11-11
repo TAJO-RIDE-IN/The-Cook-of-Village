@@ -14,6 +14,8 @@ public class ThirdPersonMovement : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     private float turnSmoothVelocity;
 
+    private bool isCanMove;
+
     private void Awake()
     {
         charAnimator.SetBool("isWalk",false);
@@ -27,7 +29,7 @@ public class ThirdPersonMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!GameManager.Instance.IsUI)
+        if (isCanMove)
         {
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertival = Input.GetAxisRaw("Vertical");
@@ -50,7 +52,14 @@ public class ThirdPersonMovement : MonoBehaviour
             }
         }
         
-        
+    }
+    public void StopMoving()
+    {
+        isCanMove = false;
+    }
+    public void StartMoving()
+    {
+        isCanMove = true;
     }
 
     
