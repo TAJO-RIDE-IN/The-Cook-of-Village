@@ -119,7 +119,6 @@ public class ToolInstallMode : InstallMode
             Return();
             GetAndPosition(ToolPooling.Instance.indexToChange, name);
             InstallData.SaveData(ToolPooling.Instance.indexToChange, name, InstallData.SortOfInstall.Tool);
-            //FoodData.Instance.FindFoodTool(ToolPooling.Instance.SelectedToolID).Amount++; => 바꿔주면 해주기
             isDirectChange = false;
             return;
         }
@@ -127,7 +126,6 @@ public class ToolInstallMode : InstallMode
         {
             GetAndPosition(ToolPooling.Instance.indexToChange, name);
             InstallData.SaveData(ToolPooling.Instance.indexToChange, name, InstallData.SortOfInstall.Tool);
-            //FoodData.Instance.FindFoodTool(ToolPooling.Instance.SelectedToolID).Amount++; => 바꿔주면 해주기
             isDirectInstall = false;
             return;
         }
@@ -154,7 +152,6 @@ public class ToolInstallMode : InstallMode
                 ToolPooling.Instance.SelectedPositionIndex = index;
                 GetAndPosition(index, ToolPooling.Instance.SelectedToolName);
                 InstallData.SaveData(index, ToolPooling.Instance.SelectedToolName, InstallData.SortOfInstall.Tool);
-                FoodData.Instance.FindFoodTool(ToolPooling.Instance.SelectedToolID).Amount++;
                 ToolPooling.Instance.pooledObject[index].index = index;
             }
         }
@@ -162,6 +159,7 @@ public class ToolInstallMode : InstallMode
         {
             toolPositionUI[i].SetActive(false);
         }
+        //ItemData.Instance
         ItemData.Instance.ItemInfos(ToolPooling.Instance.SelectedToolID).Amount -= selectedToolAmount - 1;//나은이 함수에서 한번 --해주기 때문. (SlotInventory.UseItem)
         toolItemInfosAmount = 0;
         selectedToolAmount = 0;

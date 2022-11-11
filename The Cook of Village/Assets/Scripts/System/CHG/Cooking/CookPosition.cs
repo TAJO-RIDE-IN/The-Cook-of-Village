@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CookPosition : MonoBehaviour
 {
-    public CookPositionUI CookPositionUI;
+    public CookPositionUI cookPositionUI;
     private bool isPlayer;
 
     private void Update()
@@ -14,14 +14,24 @@ public class CookPosition : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (!ToolPooling.Instance.toolInstallMode.isUsed[CookPositionUI.index])
+                if (!ToolPooling.Instance.toolInstallMode.isUsed[cookPositionUI.index])
                 {
-                    CookPositionUI.gameObject.SetActive(true);
+                    cookPositionUI.gameObject.SetActive(true);
                 }
                 
             }
         }
     }
+    
+    public void isUsedOrNot()
+    {
+        if (!ToolPooling.Instance.toolInstallMode.isUsed[cookPositionUI.index])
+        {
+            
+        }
+    }
+    
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -35,7 +45,7 @@ public class CookPosition : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             isPlayer = false;
-            CookPositionUI.gameObject.SetActive(false);
+            cookPositionUI.gameObject.SetActive(false);
         }
     }
 }

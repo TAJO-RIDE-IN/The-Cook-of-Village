@@ -8,8 +8,9 @@ using Object = System.Object;
 
 public class CookingTool : MonoBehaviour
 {
-    public enum ToolID { Blender = 0, Pot = 1, FryPan = 2, Whipper = 3, Oven = 4}
-    public ToolID toolID;
+    
+    //public enum ToolID { Blender = 0, Pot = 1, FryPan = 2, Whipper = 3, Oven = 4}
+    public FoodTool.Type toolID;
     public GameObject InventoryBig;
     public GameObject IngredientInven;
     
@@ -170,8 +171,6 @@ public class CookingTool : MonoBehaviour
         ToolPooling.Instance.ReturnObject(this, toolID.ToString());
         ToolPooling.Instance.toolInstallMode.isUsed[index] = false;
         //ToolPooling.Instance.toolInstallMode.PositionParticle[index].SetActive(false);
-        
-        FoodData.Instance.FindFoodTool((int)toolID).Amount--;
         ItemData.Instance.ItemInfos(int.Parse("6"+ (int)toolID)).Amount++;
 
     }

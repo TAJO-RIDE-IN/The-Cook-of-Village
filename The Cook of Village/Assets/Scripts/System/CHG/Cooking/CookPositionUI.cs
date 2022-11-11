@@ -5,6 +5,11 @@ using UnityEngine;
 public class CookPositionUI : MonoBehaviour
 {
     public int index;
+
+    public GameObject InstallButton;
+    public GameObject NoCookTool;
+
+    
     
     public void DirectSetUp()
     {
