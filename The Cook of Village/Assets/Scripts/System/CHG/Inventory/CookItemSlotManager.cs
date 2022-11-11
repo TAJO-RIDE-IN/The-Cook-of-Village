@@ -27,14 +27,6 @@ public class CookItemSlotManager : ItemSlotManager
         }
     }
 
-    public void ThrowTrash()
-    {
-        if (ChefInventory.Instance._cookingCharacter)
-        {
-            cookingTool.ingredientList.Clear();
-            RefreshSlot();
-        }
-    }
 
     public override void AddIngredientItem(ItemInfos infos, int index)
     {

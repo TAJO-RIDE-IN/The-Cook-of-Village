@@ -1,8 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChefInventory : MonoBehaviour
 {
@@ -96,6 +95,7 @@ public class ChefInventory : MonoBehaviour
             _availableInven++;
         }
         chefSlotManager.itemslots[_availableInven - 1].changeSlotUI(chefSlotManager.emptySlot);
+        chefSlotManager.itemslots[_availableInven - 1].GetComponent<Button>().interactable = true;
 
     }
 
@@ -144,7 +144,7 @@ public class ChefInventory : MonoBehaviour
     {
         if (isUsed[i])
         {
-            if (_cookingCharacter.isSpace)
+            if (_cookingCharacter.isSpace)//셰프인벤토리에서 보내는 작업은 전부 스페이스바로 UI를 여는 것에서 시작하기 때문
             {
                 if (EdibleItems[i]._itemType == EdibleItem.ItemType.Ingredient)
                 {
@@ -168,6 +168,18 @@ public class ChefInventory : MonoBehaviour
                         isUsed[i] = false;
                         chefSlotManager.itemslots[i].changeSlotUI(chefSlotManager.emptySlot);
                     }
+
+                    if (_cookingCharacter.objectName == "Trash")
+                    {
+                        if (_cookingCharacter.trash.AddIngredient(EdibleItems[i]._ingredientsInfos))
+                        {
+                            SoundManager.Instance.Play(SoundManager.Instance._audioClips["PanIn"]);
+                            EdibleItems[i]._ingredientsInfos = null;
+                            isUsed[i] = false;
+                            chefSlotManager.itemslots[i].changeSlotUI(chefSlotManager.emptySlot);
+                            return;
+                        }
+                    }
                 }
 
                 if (EdibleItems[i]._itemType == EdibleItem.ItemType.Food)
@@ -183,6 +195,17 @@ public class ChefInventory : MonoBehaviour
                             _cookingCharacter.uiMovement.foodOrderImage.sprite = EdibleItems[i]._foodInfos.ImageUI;
                             _cookingCharacter.uiMovement.CloseUI();
                             EdibleItems[i]._foodInfos = null;
+                            return;
+                        }
+                    }
+                    if (_cookingCharacter.objectName == "Trash")
+                    {
+                        if (_cookingCharacter.trash.AddFood(EdibleItems[i]._foodInfos))
+                        {
+                            SoundManager.Instance.Play(SoundManager.Instance._audioClips["PanIn"]);
+                            EdibleItems[i]._ingredientsInfos = null;
+                            isUsed[i] = false;
+                            chefSlotManager.itemslots[i].changeSlotUI(chefSlotManager.emptySlot);
                             return;
                         }
                     }

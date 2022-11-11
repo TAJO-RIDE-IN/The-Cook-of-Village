@@ -211,7 +211,7 @@ public class Potion : MonoBehaviour, IPotionOb
         int count = GameData.Instance.RainbowDrinking;
         if (count%5 == 0)
         {
-            //ChefInventory.Instance.ExtensionInventory();
+            ChefInventory.Instance.ExtensionInventory();
         }
     }
     #endregion

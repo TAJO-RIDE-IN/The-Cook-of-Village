@@ -9,9 +9,11 @@ public class CookingCharacter : MonoBehaviour
 {
     public Animator charAnimator;
     public GameObject HandPosition;
+    public GameObject TrashUI;
 
 
     [HideInInspector] public CookingTool _cookingTool;
+    public Trash trash;
     [HideInInspector] public FoodOrder _foodOrder;
     private Fridge fridge;
     private AnimatorOverrideController animatorOverrideController;
@@ -110,19 +112,18 @@ public class CookingCharacter : MonoBehaviour
             }
             if (isFridgeCollider)
             {
-                if (isSpace)
+                if (isSpace) //냉장고를 닫는 상황
                 {
+                    fridge.UseRefrigerator();//냉장고 닫기
                     isSpace = false;
-                    fridge.UseRefrigerator();
                     return;
                 }
-                else
+                else // 냉장고를 여는 상황
                 {
+                    fridge.UseRefrigerator(); //냉장고 열기
                     isSpace = true;
-                    fridge.UseRefrigerator();
                     return;
                 }
-                
             }
 
             if (isObjectCollider)
@@ -154,12 +155,28 @@ public class CookingCharacter : MonoBehaviour
                 }
                 if (objectName == "Cabinet")
                 {
-                    if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemType[0]
-                        .ItemInfos[1]))
+                    if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemType[6]
+                        .ItemInfos[5]))
                     {
                         return;
                         //쟁반에 밀가루 생성
                     }
+                }
+                if (objectName == "Trash")
+                {
+                    if (!isSpace) //여는 상황
+                    {
+                        isSpace = true;
+                        TrashUI.SetActive(true);
+                        return;
+                    }
+                    else
+                    {
+                        isSpace = false;
+                        TrashUI.SetActive(false);
+                    }
+                    
+                    
                 }
             }
             
@@ -259,9 +276,8 @@ public class CookingCharacter : MonoBehaviour
         
         if (other.tag == "Fridge")
         {
-            isSpace = false;
-            fridge.UseRefrigerator();
             isFridgeCollider = false;
+            isSpace = false;
             return;
         }
 
@@ -279,9 +295,18 @@ public class CookingCharacter : MonoBehaviour
             isGuestCollider = false;
             
         }
+        if (other.gameObject.name == "Trash")
+        {
+            TrashUI.SetActive(false);
+            isSpace = false;
+            isObjectCollider = false;
+        }
+        
         else
         {
             isObjectCollider = false;
+            isSpace = false;
+            
         }
     }
 

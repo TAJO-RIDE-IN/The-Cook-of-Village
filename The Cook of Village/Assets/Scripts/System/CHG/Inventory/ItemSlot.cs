@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ItemSlot : MonoBehaviour
 {
-    [SerializeField] protected int index;//이건 상속 클래스에서 사용, Index 외부에서 사용
+    protected int index;//이건 상속 클래스에서 사용, Index 외부에서 사용
 
     public int Index
     {
