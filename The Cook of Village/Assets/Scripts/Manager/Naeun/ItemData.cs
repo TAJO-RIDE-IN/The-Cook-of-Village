@@ -84,8 +84,32 @@ public class ItemData : DataManager
     {
         return id / 10;
     }
+
+    /// <summary>
+    /// TooId로 ItemInfos 찾기
+    /// </summary>
+    /// <param name="toolID">FoodTool type의 int값 입력</param>
+    /// <returns>TooId와 같은 아이템의 ItemInfos 리턴</returns>
+    public ItemInfos ToolIdToItem(int toolID)
+    {
+        int id = toolID + 60;
+        ItemInfos infos = ItemInfos(id);
+        return infos;
+    }
+
+
+    /// <summary>
+    /// Item의 개수 변경, CookingTool인 경우 사용 가능하도록 변경
+    /// </summary>
+    /// <param name="id">ItemInfos의 ID 입력</param>
+    /// <param name="amount">변경하고 싶은 개수 입력</param>
     public void ChangeAmount(int id, int amount)
     {
-        ItemInfos(id).Amount = amount;
+        ItemInfos infos = ItemInfos(id);
+        infos.Amount = amount;
+        if(amount > 0 && infos.type == global::ItemType.Type.CookingTool)
+        {
+            FoodData.Instance.CanUseTool(infos.ID);
+        }
     }
 }

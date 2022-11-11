@@ -173,8 +173,6 @@ public class CookingTool : MonoBehaviour
         ToolPooling.Instance.ReturnObject(this, toolID.ToString());
         ToolPooling.Instance.toolInstallMode.isUsed[index] = false;
         //ToolPooling.Instance.toolInstallMode.PositionParticle[index].SetActive(false);
-        
-        FoodData.Instance.FindFoodTool((int)toolID).Amount--;
         ItemData.Instance.ItemInfos(int.Parse("6"+ (int)toolID)).Amount++;
 
     }
