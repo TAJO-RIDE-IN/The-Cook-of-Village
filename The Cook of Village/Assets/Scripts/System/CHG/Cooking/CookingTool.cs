@@ -8,7 +8,7 @@ using Object = System.Object;
 
 public class CookingTool : MonoBehaviour
 {
-    public enum ToolID { Blender = 0, Pot = 1, FryPan = 2, Whipper = 3, Oven = 4, Trash = 5}//접시도 추가할거니까 접시일때 행동들이랑 도구일때 행동들 구분하기, 그리고 머랭같은 특별한 도구도 어떻게할지 생각해야함
+    public enum ToolID { Blender = 0, Pot = 1, FryPan = 2, Whipper = 3, Oven = 4}
     public ToolID toolID;
     public GameObject InventoryBig;
     public GameObject IngredientInven;
@@ -84,11 +84,8 @@ public class CookingTool : MonoBehaviour
                         cookSlotManager.itemslots[i].isUsed = true;
                         cookSlotManager.itemslots[i].changeSlotUI(sprite);
                         cookSlotManager.itemslots[i].ingridientId = id;
-                        if (toolID != ToolID.Trash)
-                        {
-                            Ing[i].sprite = sprite;
-                            IngredientInven.SetActive(true);
-                        }
+                        Ing[i].sprite = sprite;
+                        IngredientInven.SetActive(true);
                         return true;
                     }
             

@@ -38,6 +38,15 @@ public class BuyingCharacter : MonoBehaviour
             }
         }    
     }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        if (other.gameObject.name == "RestaurantName")
+        {
+            //레스토랑 이름 바꾸기 함수 실행
+        }
+    }
 
     private void OnTriggerStay(Collider other)
     {
