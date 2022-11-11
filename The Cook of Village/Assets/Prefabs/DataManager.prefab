@@ -404,7 +404,7 @@ MonoBehaviour:
   foodTool:
   - type: 0
     ToolImage: {fileID: 21300000, guid: c63217de04627d9478368d5d4a1c2873, type: 3}
-    Amount: 2
+    CanUse: 0
     foodInfos:
     - Type: 0
       ID: 0
@@ -450,7 +450,7 @@ MonoBehaviour:
       ImageUI: {fileID: 21300000, guid: 434befa24819fe541b16648c03740adf, type: 3}
   - type: 2
     ToolImage: {fileID: 21300000, guid: 51b17981ba62ac449a259ebe9fc59882, type: 3}
-    Amount: 1
+    CanUse: 0
     foodInfos:
     - Type: 2
       ID: 20
@@ -524,7 +524,7 @@ MonoBehaviour:
       ImageUI: {fileID: 21300000, guid: 9fd245b3dbf539d4f95f103c32ae7792, type: 3}
   - type: 1
     ToolImage: {fileID: 21300000, guid: 4c0dee3fd8607aa4182af3042071a979, type: 3}
-    Amount: 1
+    CanUse: 0
     foodInfos:
     - Type: 1
       ID: 10
@@ -580,9 +580,27 @@ MonoBehaviour:
       Recipe: 000000001e00000021000000
       PrefabFood: {fileID: 180836, guid: 1881167c502fc5046bcb592d7ee22189, type: 3}
       ImageUI: {fileID: 21300000, guid: 5394f1ced963cb74ea072458ff35e4b3, type: 3}
+  - type: 3
+    ToolImage: {fileID: 21300000, guid: d34a5d4100106f245b4355cd83e98d14, type: 3}
+    CanUse: 1
+    foodInfos:
+    - Type: 3
+      ID: 30
+      Name: FreshFruits
+      KoreanName: "\uBAA8\uB460\uACFC\uC77C"
+      Explanation: "\uB808\uBAAC, \uC624\uB80C\uC9C0, \uC218\uBC15\uC744 \uC811\uC2DC\uC5D0
+        \uAC00\uB4DD \uB2F4\uC740 \uC2E0\uC120\uD55C \uBAA8\uB460 \uACFC\uC77C\uC774\uB2E4.
+        \uB9DB\uB3C4 \uB9CC\uC810 \uBE44\uD0C0\uBBFC\uB3C4 \uB9CC\uC810\uC774\uB2E4."
+      MakeTime: 10
+      BurntTime: 0
+      Price: 100
+      OrderProbability: 1
+      Recipe: 0a0000000b0000000c000000
+      PrefabFood: {fileID: 919132149155446097, guid: 3f97fc3664af2444a971b85c75139a31, type: 3}
+      ImageUI: {fileID: 21300000, guid: bdc104fd9b9c8054183094652b6c5cce, type: 3}
   - type: 4
     ToolImage: {fileID: 21300000, guid: 3decb9d337d37fd4d93a7acaaf5407f7, type: 3}
-    Amount: 1
+    CanUse: 0
     foodInfos:
     - Type: 4
       ID: 40
@@ -600,7 +618,7 @@ MonoBehaviour:
       ImageUI: {fileID: 21300000, guid: cb60f1d288c2fcc49b419fe069c5aad9, type: 3}
   - type: 5
     ToolImage: {fileID: 21300000, guid: 0a742bab9a8c4294d9db4f9475eeaca8, type: 3}
-    Amount: 0
+    CanUse: 0
     foodInfos:
     - Type: 5
       ID: 50
@@ -628,7 +646,7 @@ MonoBehaviour:
       BurntTime: 8
       Price: 240
       OrderProbability: 1
-      Recipe: 000000002800000029000000
+      Recipe: 0a0000002800000029000000
       PrefabFood: {fileID: 6559327499346871821, guid: 678cfa760d28de34aa1735d2dab7e785, type: 3}
       ImageUI: {fileID: 21300000, guid: a930303ea5c0ec44b8b307ac4fe976e2, type: 3}
     - Type: 5
@@ -643,7 +661,7 @@ MonoBehaviour:
       BurntTime: 32
       Price: 330
       OrderProbability: 1
-      Recipe: 000000001400000021000000
+      Recipe: 0a0000001400000021000000
       PrefabFood: {fileID: 6559327499346871821, guid: 678cfa760d28de34aa1735d2dab7e785, type: 3}
       ImageUI: {fileID: 21300000, guid: cc1679edda97bc14a93f308a5da77467, type: 3}
     - Type: 5
@@ -656,30 +674,12 @@ MonoBehaviour:
       BurntTime: 9
       Price: 250
       OrderProbability: 1
-      Recipe: 000000002800000029000000
+      Recipe: 0a0000002800000029000000
       PrefabFood: {fileID: 6559327499346871821, guid: 678cfa760d28de34aa1735d2dab7e785, type: 3}
       ImageUI: {fileID: 21300000, guid: 622a4f92f1fe28d4995f3c4721578259, type: 3}
-  - type: 3
-    ToolImage: {fileID: 21300000, guid: d34a5d4100106f245b4355cd83e98d14, type: 3}
-    Amount: 1
-    foodInfos:
-    - Type: 3
-      ID: 30
-      Name: FreshFruits
-      KoreanName: "\uBAA8\uB460\uACFC\uC77C"
-      Explanation: "\uB808\uBAAC, \uC624\uB80C\uC9C0, \uC218\uBC15\uC744 \uC811\uC2DC\uC5D0
-        \uAC00\uB4DD \uB2F4\uC740 \uC2E0\uC120\uD55C \uBAA8\uB460 \uACFC\uC77C\uC774\uB2E4.
-        \uB9DB\uB3C4 \uB9CC\uC810 \uBE44\uD0C0\uBBFC\uB3C4 \uB9CC\uC810\uC774\uB2E4."
-      MakeTime: 10
-      BurntTime: 0
-      Price: 100
-      OrderProbability: 1
-      Recipe: 0a0000000b0000000c000000
-      PrefabFood: {fileID: 919132149155446097, guid: 3f97fc3664af2444a971b85c75139a31, type: 3}
-      ImageUI: {fileID: 21300000, guid: bdc104fd9b9c8054183094652b6c5cce, type: 3}
   - type: 6
     ToolImage: {fileID: 0}
-    Amount: 0
+    CanUse: 0
     foodInfos:
     - Type: 100000
       ID: 100000

@@ -30,11 +30,11 @@ public class FoodInfos
 [System.Serializable]
 public class FoodTool
 {
-    public enum Type { Blender, Frypan, Pot, Plate, WhippingMachine, Oven, Failure}
+    public enum Type { Blender, Frypan, Pot, Plate, Whipper, Oven, Failure}
     [SerializeField]
     public Type type;
     public Sprite ToolImage;
-    public int Amount;
+    public bool CanUse;
     public List<FoodInfos> foodInfos = new List<FoodInfos>();
 }
 
@@ -123,7 +123,10 @@ public class FoodData : DataManager
         int id = ItemID % 10; //60번 부터 시작하기 때문에 1의 자리만 남김.
         return foodTool[id];
     }
-
+    public void CanUseTool(int ItemID)
+    {
+        ItemIdToFoodTool(ItemID).CanUse = true;
+    }
     public bool DrinkFood(int type)
     {
         return type == 0;

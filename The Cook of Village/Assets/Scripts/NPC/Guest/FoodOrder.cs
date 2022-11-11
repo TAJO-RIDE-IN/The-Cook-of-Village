@@ -59,7 +59,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     {
         foreach(FoodTool i in FoodData.Instance.foodTool)
         {
-            if(i.Amount != 0)
+            if(i.CanUse)
             {
                 foreach (FoodInfos j in i.foodInfos)
                 {
