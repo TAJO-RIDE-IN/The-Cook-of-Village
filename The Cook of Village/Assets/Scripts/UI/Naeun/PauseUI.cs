@@ -24,4 +24,9 @@ public class PauseUI : UIController
     {
         ExitUI.SetActive(!ExitUI.activeSelf);
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
