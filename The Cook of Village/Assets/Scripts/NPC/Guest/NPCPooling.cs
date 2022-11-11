@@ -62,7 +62,10 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     {
         GameManager.Instance.IsOpen = false;
         callVillageNPC = false;
-        StopCoroutine(_callNPC);
+        if(_callNPC != null)
+        {
+            StopCoroutine(_callNPC);
+        }
     }
 
     private VillageGuest EnterNPC()
