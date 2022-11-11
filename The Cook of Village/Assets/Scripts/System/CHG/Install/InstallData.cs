@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,8 +30,22 @@ public class FurnitureData
     public List<IndexName> _indexNames = new List<IndexName>();
 }
 
-public class InstallData
+public class InstallData : MonoBehaviour
 {
+
+    private static InstallData instance;
+    public static InstallData Instance
+    {
+        get
+        {
+            return instance;
+        }
+        set
+        {
+            instance = value;
+        }
+    }
+    
     public enum SortOfInstall
     {
         Tool,
@@ -40,14 +55,26 @@ public class InstallData
     public static ToolData toolData = new ToolData();
     public static FurnitureData furnitureData = new FurnitureData();
 
-    private static string toolPath = Application.persistentDataPath + "ToolData.json";
+    private static string toolPath;
     private static string toolJsonData;
     
-    private static string furniturePath = Application.persistentDataPath + "FurnitureData.json";
+    private static string furniturePath;
     private static string furnitureJsonData;
 
-    static InstallData()
+    
+
+    private void Awake()
     {
+        if (instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        
+        toolPath = Application.persistentDataPath + "ToolData.json";
+        furniturePath = Application.persistentDataPath + "FurnitureData.json";
+        
         FileInfo fileInfo = new FileInfo(toolPath);
         if (fileInfo.Exists)
         {
@@ -55,7 +82,7 @@ public class InstallData
         }
         else
         {
-            FirstSavePath();
+            FirstSaveToolPath();
         }
         
         FileInfo fileInfo2 = new FileInfo(furniturePath);
@@ -65,27 +92,27 @@ public class InstallData
         }
         else
         {
-            FirstSavePath2();
+            FirstSaveFurniturePath();
         }
-
         toolData = JsonUtility.FromJson<ToolData>(toolJsonData);
         furnitureData = JsonUtility.FromJson<FurnitureData>(furnitureJsonData);
     }
 
-    private static void FirstSavePath()
+    private static void FirstSaveToolPath()
     {
         toolJsonData = JsonUtility.ToJson(toolData, true);
         File.WriteAllText(toolPath, toolJsonData);
     }
-    private static void FirstSavePath2()
+    private static void FirstSaveFurniturePath()
     {
         furnitureJsonData = JsonUtility.ToJson(furnitureData, true);
         File.WriteAllText(furniturePath, furnitureJsonData);
     }
     
     
-    
-    public static void SaveData(int index, string name, SortOfInstall sortOfInstall)
+
+
+    public void PassData(int index, string name, SortOfInstall sortOfInstall)
     {
         switch (sortOfInstall)
         {
@@ -93,30 +120,42 @@ public class InstallData
             {
                 furnitureData._indexNames.Add(new IndexName(index, name));
                 furnitureJsonData = JsonUtility.ToJson(furnitureData, true);
-                File.WriteAllText(furniturePath, furnitureJsonData);
                 break;
             }
             case SortOfInstall.Tool:
             {
                 toolData._indexNames.Add(new IndexName(index, name));
                 toolJsonData = JsonUtility.ToJson(toolData, true);
-                File.WriteAllText(toolPath, toolJsonData);
                 break;
             }
         }
-        
+    }
+    public void SaveData()
+    {
+        File.WriteAllText(furniturePath, furnitureJsonData);
+        File.WriteAllText(toolPath, toolJsonData);
     }
 
     //public void RestoreHealth(int amount) => health += amount;
     public static void DeleteData(int deleteIndex, SortOfInstall sortOfInstall)
     {
-        for (int i = 0; i < toolData._indexNames.Count; i++)
+        switch (sortOfInstall)
         {
-            if (toolData._indexNames[i].index == deleteIndex)
+            case SortOfInstall.Furnitue:
             {
-                toolData._indexNames.RemoveAt(i);
-                toolJsonData = JsonUtility.ToJson(toolData, true);
-                File.WriteAllText(toolPath, toolJsonData);
+                break;
+            }
+            case SortOfInstall.Tool:
+            {
+                for (int i = 0; i < toolData._indexNames.Count; i++)
+                {
+                    if (toolData._indexNames[i].index == deleteIndex)
+                    {
+                        toolData._indexNames.RemoveAt(i);
+                        toolJsonData = JsonUtility.ToJson(toolData, true);
+                    }
+                }
+                break;
             }
         }
     }

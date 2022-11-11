@@ -40,6 +40,8 @@ public class CookingTool : MonoBehaviour
     [HideInInspector]public bool isCooked;//요리가 완성되면 true가 되고, 요리가 담겨있지 않으면 false이다.
     public int index;
     
+    ItemData item = ItemData.Instance;
+    
 
     /*[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void FirstLoad(){
@@ -168,10 +170,13 @@ public class CookingTool : MonoBehaviour
         ToolPooling.Instance.indexToChange = index;
         WhenReturn();
         InstallData.DeleteData(index, InstallData.SortOfInstall.Tool);
+        Debug.Log(toolID.ToString());
         ToolPooling.Instance.ReturnObject(this, toolID.ToString());
         ToolPooling.Instance.toolInstallMode.isUsed[index] = false;
-        //ToolPooling.Instance.toolInstallMode.PositionParticle[index].SetActive(false);
-        ItemData.Instance.ItemInfos(int.Parse("6"+ (int)toolID)).Amount++;
+        //ToolPooling.Instance.toolInstallMode.PositionParticle[index].SetActive(false); => 이거 isTrigger끄는걸로 바꾸기
+
+        ToolPooling.Instance.ChangeToolAmount(1, toolID);
+
 
     }
 

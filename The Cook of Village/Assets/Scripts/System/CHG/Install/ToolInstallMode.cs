@@ -16,8 +16,9 @@ public class ToolInstallMode : InstallMode
     [HideInInspector] public bool isDirectChange;
     [HideInInspector] public bool isDirectInstall;
     
-    [HideInInspector] public bool[] isUsed;
+    public bool[] isUsed;
 
+    
 
     private void Start()
     {
@@ -104,6 +105,7 @@ public class ToolInstallMode : InstallMode
 
     public override void GetAndPosition(int index, string name)
     {
+        //Debug.Log(index+ "번째에 소환함");
         ToolPooling.Instance.pooledObject[index] = ToolPooling.Instance.GetObject(name);
         ToolPooling.Instance.pooledObject[index].transform.position = ToolPooling.Instance.toolPosition[index].position;
         ToolPooling.Instance.pooledObject[index].transform.rotation = ToolPooling.Instance.toolPosition[index].rotation;
@@ -111,27 +113,30 @@ public class ToolInstallMode : InstallMode
         isUsed[index] = true;
         PositionParticle[index].SetActive(true);
     }
-    public override void Use(string name, int amount)
+    public override void Use(ItemInfos itemInfos)
     {
         if (isDirectChange)
         {
             ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange].DeleteTool();
             Return();
-            GetAndPosition(ToolPooling.Instance.indexToChange, name);
-            InstallData.SaveData(ToolPooling.Instance.indexToChange, name, InstallData.SortOfInstall.Tool);
+            GetAndPosition(ToolPooling.Instance.indexToChange, itemInfos.Name);
+            InstallData.Instance.PassData(ToolPooling.Instance.indexToChange, name, InstallData.SortOfInstall.Tool);
             isDirectChange = false;
             return;
         }
         if (isDirectInstall)
         {
-            GetAndPosition(ToolPooling.Instance.indexToChange, name);
-            InstallData.SaveData(ToolPooling.Instance.indexToChange, name, InstallData.SortOfInstall.Tool);
+            GetAndPosition(ToolPooling.Instance.indexToChange, itemInfos.Name);
+            InstallData.Instance.PassData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
             isDirectInstall = false;
             return;
         }
-        toolItemInfosAmount = amount;
+
+        
+        ToolPooling.Instance.selectedItemInfos = itemInfos;
+        toolItemInfosAmount = itemInfos.Amount;
         StartInstall();
-        ToolPooling.Instance.SelectedToolName = name;
+        ToolPooling.Instance.SelectedToolName = itemInfos.Name;
         isDirectChange = false;
     }
 
@@ -151,7 +156,7 @@ public class ToolInstallMode : InstallMode
                 PositionParticle[index].SetActive(true);
                 ToolPooling.Instance.SelectedPositionIndex = index;
                 GetAndPosition(index, ToolPooling.Instance.SelectedToolName);
-                InstallData.SaveData(index, ToolPooling.Instance.SelectedToolName, InstallData.SortOfInstall.Tool);
+                InstallData.Instance.PassData(index, ToolPooling.Instance.SelectedToolName, InstallData.SortOfInstall.Tool);
                 ToolPooling.Instance.pooledObject[index].index = index;
             }
         }
@@ -159,8 +164,9 @@ public class ToolInstallMode : InstallMode
         {
             toolPositionUI[i].SetActive(false);
         }
-        //ItemData.Instance
-        ItemData.Instance.ItemInfos(ToolPooling.Instance.SelectedToolID).Amount -= selectedToolAmount - 1;//나은이 함수에서 한번 --해주기 때문. (SlotInventory.UseItem)
+
+        ItemData.Instance.ChangeAmount(ToolPooling.Instance.selectedItemInfos.ID,
+            ToolPooling.Instance.selectedItemInfos.Amount - (selectedToolAmount - 1));//나은이 함수에서 한번 빼줘서
         toolItemInfosAmount = 0;
         selectedToolAmount = 0;
         cancelInstallUI.SetActive(false);

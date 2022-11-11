@@ -13,6 +13,8 @@ public class ToolPooling : MultipleObjectPooling<CookingTool>
 
     //[HideInInspector] 
     public int indexToChange;
+    
+    public ItemInfos selectedItemInfos;
 
     private String selectedToolName;
     public String SelectedToolName
@@ -79,6 +81,13 @@ public class ToolPooling : MultipleObjectPooling<CookingTool>
     public void FalseDirect()
     {
         toolInstallMode.isDirectChange = false;
+    }
+    public void ChangeToolAmount(int count, FoodTool.Type type)
+    {
+        ItemData item = ItemData.Instance;
+        ItemInfos infos = item.ToolIdToItem((int)type);
+        int amount = infos.Amount + count;
+        item.ChangeAmount(infos.ID, amount);
     }
 
 
