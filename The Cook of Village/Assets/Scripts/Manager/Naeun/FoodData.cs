@@ -71,14 +71,20 @@ public class FoodData : DataManager
     public float ChaseUPTime = 20f;
     public float EatTime = 10f;
     public FoodTool[] foodTool;
+    /// <summary>
+    /// 레시피가 맞는 요리가 있는지 확인 후 요리정보 리턴
+    /// </summary>
+    /// <param name="type"> 요리도구 선택 Blender = 0 , Frypa = 1, Pot = 2, Plate = 3, WhippingMachine = 4, Oven = 5, Failure = 6</param>
+    /// <param name="recipe"> 요리도구에 넣은 재료 리스트 </param>
+    /// <returns>레시피에 맞는 FoodInfos 리턴</returns>
     public FoodInfos RecipeFood(int type, List<int> recipe)
     {
-        foreach(FoodInfos i in foodTool[type].foodInfos)
+        foreach(FoodInfos infos in foodTool[type].foodInfos)
         {
-            if(recipe.SequenceEqual(i.Recipe))
+            if(recipe.SequenceEqual(infos.Recipe))
             {
-                Debug.Log(i.Name);
-                return i;
+                Debug.Log(infos.Name);
+                return infos;
             }
         }
         return foodTool[(int)FoodTool.Type.Failure].foodInfos[0];
@@ -87,16 +93,35 @@ public class FoodData : DataManager
     {
         SaveArrayData<FoodTool>(ref foodTool, "FoodData");
     }
-
+    /// <summary>
+    /// Food ID에 따른 Food 정보 찾기
+    /// </summary>
+    /// <param name="id">Food ID를 입력</param>
+    /// <returns>FoodInfos 리턴</returns>
     public FoodInfos Foodinfos(int id)
     {
         int dataIndex;
         dataIndex = foodTool[FoodType(id)].foodInfos.FindIndex(m => m.ID == id);
         return foodTool[FoodType(id)].foodInfos[dataIndex];
     }
-    public FoodTool FindFoodTool(int id)
+    /// <summary>
+    /// Food ID에 따른 도구 찾기
+    /// </summary>
+    /// <param name="id">Food ID를 입력</param>
+    /// <returns>Food Tool을 리턴함</returns>
+    public FoodTool FindFoodTool(int FoodId)
     {
-        return foodTool[FoodType(id)];
+        return foodTool[FoodType(FoodId)];
+    }
+    /// <summary>
+    /// ItemId를 입력하여 FoodTool를 찾기
+    /// </summary>
+    /// <param name="ItemID">ItemInfos에 있는 ID입력</param>
+    /// <returns>FoodTool을 리턴함.</returns>
+    public FoodTool ItemIdToFoodTool(int ItemID)
+    {
+        int id = ItemID % 10; //60번 부터 시작하기 때문에 1의 자리만 남김.
+        return foodTool[id];
     }
 
     public bool DrinkFood(int type)
