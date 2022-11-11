@@ -153,6 +153,7 @@ public class ChefInventory : MonoBehaviour
                         if (_cookingCharacter._cookingTool.PutIngredient(EdibleItems[i]._ingredientsInfos.ID,
                             EdibleItems[i]._ingredientsInfos.ImageUI))
                         {
+                            SoundManager.Instance.Play(SoundManager.Instance._audioClips["PanIn"]);
                             EdibleItems[i]._ingredientsInfos = null;
                             isUsed[i] = false;
                             chefSlotManager.itemslots[i].changeSlotUI(chefSlotManager.emptySlot);

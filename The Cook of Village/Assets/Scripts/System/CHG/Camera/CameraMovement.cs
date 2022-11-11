@@ -36,26 +36,30 @@ public class CameraMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButton(1))
+        if (!GameManager.Instance.IsUI)
         {
-            isAngle = false;
-            cinemachine.m_XAxis.m_MaxSpeed = 300;
-            
-            //cameraPosition.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
-            cinemachine.m_XAxis.Value += Input.GetAxis("Mouse X");
-            cameraPosition.transform.rotation = Quaternion.Euler(0,flatCamera.transform.eulerAngles.y,0);
-            //Debug.Log(flatCamera.transform.rotation.y);
-        }
-        else
-        {
-            if (!isAngle)
+            if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButton(1))
             {
-                upDirection = Quaternion.Euler(0, cinemachine.m_XAxis.Value - preAngle, 0) * upDirection;//이게 upDirection을 이 회전각도에 따라서 바꿔주는것
-                preAngle = cinemachine.m_XAxis.Value;
-                isAngle = true;
+                isAngle = false;
+                cinemachine.m_XAxis.m_MaxSpeed = 300;
+            
+                //cameraPosition.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
+                cinemachine.m_XAxis.Value += Input.GetAxis("Mouse X");
+                cameraPosition.transform.rotation = Quaternion.Euler(0,flatCamera.transform.eulerAngles.y,0);
+                //Debug.Log(flatCamera.transform.rotation.y);
             }
-            cinemachine.m_XAxis.m_MaxSpeed = 0;
+            else
+            {
+                if (!isAngle)
+                {
+                    upDirection = Quaternion.Euler(0, cinemachine.m_XAxis.Value - preAngle, 0) * upDirection;//이게 upDirection을 이 회전각도에 따라서 바꿔주는것
+                    preAngle = cinemachine.m_XAxis.Value;
+                    isAngle = true;
+                }
+                cinemachine.m_XAxis.m_MaxSpeed = 0;
+            }
         }
+        
 
         if (!GameManager.Instance.IsUI)
         {

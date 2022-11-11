@@ -22,6 +22,7 @@ public class MenuUI : MonoBehaviour
         if (onMenu == true)
         {
             SubMenuAni.SetTrigger("Open");
+            return;
         }
         else
         {

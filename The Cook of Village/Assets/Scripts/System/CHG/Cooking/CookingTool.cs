@@ -107,6 +107,8 @@ public class CookingTool : MonoBehaviour
             {
                 if (ingredientList.Count > 0)
                 {
+                    SoundManager.Instance.PlayEffect3D(
+                        SoundManager.Instance._audioClips[toolID.ToString()], gameObject, true);
                     isBeforeCooking = false;
                     ingredientList.Sort();
                     FoodInfos = FoodData.Instance.RecipeFood((int)toolID, ingredientList);
@@ -195,6 +197,7 @@ public class CookingTool : MonoBehaviour
             circleUIBig.transform.Rotate(0, 0, 1);
             yield return null;
         }
+        SoundManager.Instance.StopEffect3D(gameObject);
         isBeforeCooking = true;
         currentValue = 0;
         isCooked = true;
