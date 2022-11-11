@@ -25,6 +25,43 @@ public class CookItemSlot : ItemSlot
         itemSlotManager.cookingTool.ReturnIngredient(index);
     }
 
+    public void ReturnTrash()
+    {
+        if (ChefInventory.Instance._cookingCharacter.trash.trashEdibleItems[index]._itemType ==
+            ChefInventory.EdibleItem.ItemType.Ingredient)
+        {
+            if (ChefInventory.Instance.AddIngredient(ChefInventory.Instance._cookingCharacter.trash
+                .trashEdibleItems[index]._ingredientsInfos))
+            {
+                isUsed = false;
+                changeSlotUI(itemSlotManager.emptySlot);
+            }
+            else
+            {
+                ChefInventory.Instance.chefSlotManager.ShowWarning();
+            }
+        }
+        else
+        {
+            if (ChefInventory.Instance.AddFood(ChefInventory.Instance._cookingCharacter.trash
+                .trashEdibleItems[index]._foodInfos))
+            {
+                isUsed = false;
+                changeSlotUI(itemSlotManager.emptySlot);
+            }
+            else
+            {
+                ChefInventory.Instance.chefSlotManager.ShowWarning();
+            }
+        }
+        
+    }
+
+    public void ThrowTrash()
+    {
+        itemSlotManager.RefreshSlot();
+    }
+
     public void FoodSlotClick()
     {
         

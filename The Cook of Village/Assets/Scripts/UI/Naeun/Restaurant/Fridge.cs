@@ -9,6 +9,7 @@ public class Fridge : MonoBehaviour
 {
     public FridgeUI FridgeUI;
     private Animation frigdeAnimation;
+    
 
     private void Start()
     {

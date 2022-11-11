@@ -24,4 +24,5 @@ public class PauseUI : UIController
     {
         ExitUI.SetActive(!ExitUI.activeSelf);
     }
+
 }

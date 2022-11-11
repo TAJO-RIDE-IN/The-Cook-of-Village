@@ -119,7 +119,7 @@ public class ToolInstallMode : InstallMode
             Return();
             GetAndPosition(ToolPooling.Instance.indexToChange, name);
             InstallData.SaveData(ToolPooling.Instance.indexToChange, name, InstallData.SortOfInstall.Tool);
-            FoodData.Instance.FindFoodTool(ToolPooling.Instance.SelectedToolID).Amount++;
+            //FoodData.Instance.FindFoodTool(ToolPooling.Instance.SelectedToolID).Amount++; => 바꿔주면 해주기
             isDirectChange = false;
             return;
         }
@@ -127,7 +127,7 @@ public class ToolInstallMode : InstallMode
         {
             GetAndPosition(ToolPooling.Instance.indexToChange, name);
             InstallData.SaveData(ToolPooling.Instance.indexToChange, name, InstallData.SortOfInstall.Tool);
-            FoodData.Instance.FindFoodTool(ToolPooling.Instance.SelectedToolID).Amount++;
+            //FoodData.Instance.FindFoodTool(ToolPooling.Instance.SelectedToolID).Amount++; => 바꿔주면 해주기
             isDirectInstall = false;
             return;
         }

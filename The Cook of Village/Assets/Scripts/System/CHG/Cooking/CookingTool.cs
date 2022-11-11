@@ -150,6 +150,7 @@ public class CookingTool : MonoBehaviour
     public void CloseUI()
     {
         InventoryBig.SetActive(false);
+        ChefInventory.Instance._cookingCharacter.isSpace = false;
     }
     /// <summary>
     /// 바로 요리도구를 없애고 설치하기 위한 설정
