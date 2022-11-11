@@ -28,6 +28,8 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     private bool Village = false;
     private int VillageEatCount = 0;
     private int PayMoney;
+
+    private FoodData foodData;
     private void Awake()
     {
         guest = this.gameObject.GetComponent<GuestNPC>();
@@ -46,6 +48,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     private void OnEnable()
     {
+        foodData = FoodData.Instance;
         PayMoney = 0;
         RemainingTimeImage.fillAmount = 0;
         Receive = false; //Receive bool 초기화
@@ -118,7 +121,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             guest.chairUse.FoodEnable(foodInfos.ID, true); //책상에 음식 활성화
             PayMoney += foodInfos.Price;
             VillageEatCount++;
-            guest.isDrink = FoodData.Instance.DrinkFood((int)foodInfos.Type);
+            guest.isDrink = foodData.DrinkFood((int)foodInfos.Type);
             guest.ChangeState(GuestNPC.State.Eat);
             EndOrder();
             if(Village) 
@@ -126,7 +129,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
                 VillageReceive();
                 return Receive; 
             }
-            StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => EndEat())); //일정 시간 후 다 먹음
+            StartCoroutine(ChangeWithDelay.CheckDelay(foodData.EatTime, () => EndEat())); //일정 시간 후 다 먹음
             return Receive;
         }
         else
@@ -141,7 +144,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     {
         if (Village && VillageEatCount == 1)
         {
-            StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.EatTime, () => Order(FoodData.Instance.Foodinfos(VillageNPC.npcInfos.FavoriteFood))));
+            StartCoroutine(ChangeWithDelay.CheckDelay(foodData.EatTime, () => Order(foodData.Foodinfos(VillageNPC.npcInfos.FavoriteFood))));
         }
         else if(Village && VillageEatCount == 2)
         {
@@ -188,7 +191,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             var guestNPC = obj;
             if (guestNPC.CurrentState == GuestNPC.State.Sit)
             {
-                StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.OrderTime, () => Order(FoodProbability.Get()))); //음식 확률에 따라 고르기
+                StartCoroutine(ChangeWithDelay.CheckDelay(foodData.OrderTime, () => Order(FoodProbability.Get()))); //음식 확률에 따라 고르기
                 NPCUI.SetActive(true);
                 OrderFoodImage.sprite = guest.NPCImage.OrderWaitImage;
             }

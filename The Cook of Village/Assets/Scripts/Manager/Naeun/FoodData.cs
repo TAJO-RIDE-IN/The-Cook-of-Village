@@ -25,18 +25,6 @@ public class FoodInfos
     public List<int> Recipe = new List<int>();
     public GameObject PrefabFood;
     public Sprite ImageUI; //UIImage
-    public FoodInfos(int type, int id, string name, float makeTime, int price, float orderProbability, List<int> recipe, GameObject prefab, Sprite imageUI)
-    {
-        Type = type;
-        ID = id;
-        Name = name;
-        MakeTime = makeTime;
-        Price = price;
-        OrderProbability = orderProbability;
-        Recipe = recipe;
-        PrefabFood = prefab;
-        ImageUI = imageUI;
-    }
 }
 
 [System.Serializable]
@@ -48,12 +36,6 @@ public class FoodTool
     public Sprite ToolImage;
     public int Amount;
     public List<FoodInfos> foodInfos = new List<FoodInfos>();
-    public FoodTool(Type _type,Sprite tool, List<FoodInfos> _foodInfos)
-    {
-        type = _type;
-        ToolImage = tool;
-        foodInfos = _foodInfos;
-    }
 }
 
 public class FoodData : DataManager
@@ -114,8 +96,6 @@ public class FoodData : DataManager
     }
     public FoodTool FindFoodTool(int id)
     {
-        int dataIndex;
-        dataIndex = foodTool[FoodType(id)].foodInfos.FindIndex(m => m.ID == id);
         return foodTool[FoodType(id)];
     }
 
