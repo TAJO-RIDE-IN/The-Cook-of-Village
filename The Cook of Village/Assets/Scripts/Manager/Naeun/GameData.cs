@@ -45,6 +45,7 @@ public class GameData : DataManager, IGameDataOb
     [SerializeField] private FoodData foodData;
     [SerializeField] private NPCData npcData;
     [SerializeField] private MoneyData moneyData;
+    [SerializeField] private InstallData installData;
     #region 싱글톤
     private static GameData instance = null;
     private void Awake() //씬 시작될때 인스턴스 초기화
@@ -115,10 +116,31 @@ public class GameData : DataManager, IGameDataOb
         get { return timeOfDay; } 
         set 
         { 
-            timeOfDay = value; 
+            timeOfDay = value;
+            if(CanSaveData())
+            {
+                UseSave = false;
+                SaveDataTime();
+            }
             NotifyObserver(Observers); 
         }
     }
+
+    private bool UseSave;
+    /// <summary>
+    /// 데이터를 저장할 수 있는지 확인
+    /// </summary>
+    /// <returns>분이 0이고 저장을 안 한 상태일 때 true 리턴</returns>
+    private bool CanSaveData()
+    {
+        int min = (int)TimeOfDay % 60 / 10;
+        if(min != 0)
+        {
+            UseSave = true;
+        }
+        return ((min == 0) && UseSave);
+    }
+
     [SerializeField]
     private float orbitSpeed = 1.0f;
     public int Day
@@ -131,7 +153,6 @@ public class GameData : DataManager, IGameDataOb
             Potion.Instance.ResetPotion();
             moneyData.ChangeBank();
             ChangeMonthDate();
-            SaveDataTime();
             AddDataList();
             NotifyObserver(DayObservers);
         }
@@ -240,6 +261,7 @@ public class GameData : DataManager, IGameDataOb
         itemData.SaveDataTime();
         foodData.SaveDataTime();
         npcData.SaveDataTime();
+        installData.SaveData();
     }
     public void LoadDataTime()
     {
