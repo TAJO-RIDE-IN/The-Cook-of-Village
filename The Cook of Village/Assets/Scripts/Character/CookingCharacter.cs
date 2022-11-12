@@ -114,13 +114,13 @@ public class CookingCharacter : MonoBehaviour
             {
                 if (isSpace) //냉장고를 닫는 상황
                 {
-                    fridge.UseRefrigerator();//냉장고 닫기
+                    fridge.UseRefrigerator(false);//냉장고 닫기
                     isSpace = false;
                     return;
                 }
                 else // 냉장고를 여는 상황
                 {
-                    fridge.UseRefrigerator(); //냉장고 열기
+                    fridge.UseRefrigerator(true); //냉장고 열기
                     isSpace = true;
                     return;
                 }

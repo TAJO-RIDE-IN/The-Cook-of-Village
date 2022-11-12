@@ -34,10 +34,10 @@ public class FridgeUI : UIController
         LoadSlotData();
     }
 
-    public void FridgeUIState()
+    public void FridgeUIState(bool state)
     {
-        this.gameObject.SetActive(!this.gameObject.activeSelf);
-        if (this.gameObject.activeSelf)
+        this.gameObject.SetActive(state);
+        if (state)
         {
             LoadSlotData();
         }
