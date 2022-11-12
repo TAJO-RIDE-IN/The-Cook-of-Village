@@ -32,7 +32,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
             if (Time.timeScale != 0.0f)
             {
                 NoticeUI.SetActive(false);
-                SoundManager.Instance.Play(SoundManager.Instance._audioClips["OpenRestuarant"]);
+                SoundManager.Instance.Play(SoundManager.Instance._audioClips["OpenRestaurant"]);
                 OpenRestaurant();
             }
             else
