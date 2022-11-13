@@ -15,6 +15,7 @@ public class CookingCharacter : MonoBehaviour
     [HideInInspector] public CookingTool _cookingTool;
     public Trash trash;
     [HideInInspector] public FoodOrder _foodOrder;
+    [HideInInspector] public CookPosition _cookPosition;
     private Fridge fridge;
     private AnimatorOverrideController animatorOverrideController;
     private SoundManager soundManager;
@@ -25,11 +26,13 @@ public class CookingCharacter : MonoBehaviour
     public bool isToolCollider;
     public bool isGuestCollider;
     public bool isFridgeCollider;
+    public bool isCookPositionCollider;
     private bool isObjectCollider;
     public bool isHand = false;//이거만 잘 컨트롤해주면 시작할때 null값 넣어주느니 그런거 안해도 되잖아
     public bool isSpace;
     
     private bool isDestroy;
+
     //[HideInInspector]
     public string objectName;
 
@@ -44,7 +47,7 @@ public class CookingCharacter : MonoBehaviour
 
     private void Update()
     {
-        if (isObjectCollider || isToolCollider || isGuestCollider || isFridgeCollider)
+        if (isObjectCollider || isToolCollider || isGuestCollider || isFridgeCollider || isCookPositionCollider)
         {
             WhenKeyDown();
         }
@@ -114,13 +117,29 @@ public class CookingCharacter : MonoBehaviour
             {
                 if (isSpace) //냉장고를 닫는 상황
                 {
-                    //fridge.UseRefrigerator();//냉장고 닫기
+                    fridge.UseRefrigerator(false);
                     isSpace = false;
                     return;
                 }
                 else // 냉장고를 여는 상황
                 {
-                    //fridge.UseRefrigerator(); //냉장고 열기
+                    fridge.UseRefrigerator(true);
+                    isSpace = true;
+                    return;
+                }
+            }
+
+            if (isCookPositionCollider)
+            {
+                if (isSpace) //냉장고를 닫는 상황
+                {
+                    _cookPosition.cookPositionUI.gameObject.SetActive(false);
+                    isSpace = false;
+                    return;
+                }
+                else // 냉장고를 여는 상황
+                {
+                    _cookPosition.cookPositionUI.gameObject.SetActive(true);
                     isSpace = true;
                     return;
                 }
@@ -156,7 +175,7 @@ public class CookingCharacter : MonoBehaviour
                 if (objectName == "Cabinet")
                 {
                     if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemType[6]
-                        .ItemInfos[5]))
+                        .ItemInfos[3]))
                     {
                         
                         return;
@@ -259,7 +278,8 @@ public class CookingCharacter : MonoBehaviour
         }
         if (other.CompareTag("CookPosition"))
         {
-            
+            isCookPositionCollider = true;
+            _cookPosition = other.GetComponent<CookPosition>();
             return;
         }
         isObjectCollider = true;
@@ -285,7 +305,7 @@ public class CookingCharacter : MonoBehaviour
         
         if (other.tag == "Fridge")
         {
-            //fridge.UseRefrigerator();
+            fridge.UseRefrigerator(false);
             isFridgeCollider = false;
             isSpace = false;
             return;
@@ -304,6 +324,12 @@ public class CookingCharacter : MonoBehaviour
             isSpace = false;
             isGuestCollider = false;
             
+        }
+
+        if (other.CompareTag("CookPosition"))
+        {
+            _cookPosition.cookPositionUI.gameObject.SetActive(false);
+            isCookPositionCollider = false;
         }
         if (other.gameObject.name == "Trash")
         {

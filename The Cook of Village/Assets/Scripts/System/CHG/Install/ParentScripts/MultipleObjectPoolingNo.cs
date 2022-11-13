@@ -8,6 +8,7 @@ using UnityEngine;
 /// </summary>
 public class MultipleObjectPoolingNo : MonoBehaviour
 {
+    [Serializable]
     public class PoolObjectData
     {
         public String name;

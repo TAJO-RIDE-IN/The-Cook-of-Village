@@ -34,7 +34,7 @@ public class CookItemSlot : ItemSlot
                 .trashEdibleItems[index]._ingredientsInfos))
             {
                 isUsed = false;
-                changeSlotUI(itemSlotManager.emptySlot);
+                ChangeSlotUI(itemSlotManager.emptySlot);
             }
             else
             {
@@ -47,7 +47,7 @@ public class CookItemSlot : ItemSlot
                 .trashEdibleItems[index]._foodInfos))
             {
                 isUsed = false;
-                changeSlotUI(itemSlotManager.emptySlot);
+                ChangeSlotUI(itemSlotManager.emptySlot);
             }
             else
             {
@@ -73,7 +73,7 @@ public class CookItemSlot : ItemSlot
             {
                 //itemSlotManager.cookingTool.toolBeforeCook
                 //Debug.Log("요리 추가 완료");
-                changeSlotUI(itemSlotManager.cookingTool.toolBeforeCook);
+                ChangeSlotUI(itemSlotManager.cookingTool.toolBeforeCook);
                 itemSlotManager.cookingTool.RemoveFood();
             }
             return;
@@ -83,7 +83,7 @@ public class CookItemSlot : ItemSlot
     
 
 
-    public void changeSlotUI(Sprite sprite)
+    public void ChangeSlotUI(Sprite sprite)
     {
         slotUI.sprite = sprite;
     }

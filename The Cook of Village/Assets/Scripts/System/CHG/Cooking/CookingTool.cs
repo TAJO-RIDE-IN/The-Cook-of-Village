@@ -65,7 +65,7 @@ public class CookingTool : MonoBehaviour
                 cookSlotManager.itemslots[i].isUsed = false;
                 Ing[i].sprite = cookSlotManager.emptySlot;
                 ingredientList.Remove(cookSlotManager.itemslots[i].ingridientId);
-                cookSlotManager.itemslots[i].changeSlotUI(cookSlotManager.emptySlot);
+                cookSlotManager.itemslots[i].ChangeSlotUI(cookSlotManager.emptySlot);
             }
             
         }
@@ -85,7 +85,7 @@ public class CookingTool : MonoBehaviour
                         
                         ingredientList.Add(id);
                         cookSlotManager.itemslots[i].isUsed = true;
-                        cookSlotManager.itemslots[i].changeSlotUI(sprite);
+                        cookSlotManager.itemslots[i].ChangeSlotUI(sprite);
                         cookSlotManager.itemslots[i].ingridientId = id;
                         Ing[i].sprite = sprite;
                         IngredientInven.SetActive(true);

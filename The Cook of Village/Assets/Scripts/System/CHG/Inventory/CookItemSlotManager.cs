@@ -22,7 +22,7 @@ public class CookItemSlotManager : ItemSlotManager
     {
         for (int i = 0; i < ChildSlotCount; i++)
         {
-            itemslots[i].changeSlotUI(emptySlot);
+            itemslots[i].ChangeSlotUI(emptySlot);
             itemslots[i].isUsed = false;
         }
     }
@@ -30,10 +30,10 @@ public class CookItemSlotManager : ItemSlotManager
 
     public override void AddIngredientItem(ItemInfos infos, int index)
     {
-        itemslots[index].changeSlotUI(infos.ImageUI);
+        itemslots[index].ChangeSlotUI(infos.ImageUI);
     }
     public override void AddFoodItem(FoodInfos infos, int index)
     {
-        itemslots[index].changeSlotUI(infos.ImageUI);
+        itemslots[index].ChangeSlotUI(infos.ImageUI);
     }
 }

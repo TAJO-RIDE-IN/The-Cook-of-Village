@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2533763631582836610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8572866351217828621}
+  m_Layer: 0
+  m_Name: Plate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8572866351217828621
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2533763631582836610}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4614266633301319170}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4614266633035321082
 GameObject:
   m_ObjectHideFlags: 0
@@ -34,7 +64,7 @@ Transform:
   - {fileID: 4614266634115726266}
   - {fileID: 4614266633745604329}
   m_Father: {fileID: 4614266633301319170}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4614266633249757730
 GameObject:
@@ -64,7 +94,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4614266633301319170}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4614266633265291068
 GameObject:
@@ -127,6 +157,7 @@ Transform:
   - {fileID: 4614266634089423351}
   - {fileID: 4614266633966597003}
   - {fileID: 4614266634052733489}
+  - {fileID: 8572866351217828621}
   - {fileID: 4614266633820496910}
   - {fileID: 4614266633249757729}
   - {fileID: 4614266633035321081}
@@ -160,6 +191,10 @@ MonoBehaviour:
     poolObject: {fileID: 9146648282875263329, guid: 8279d164db3987a40a2349eacb2c6ce4, type: 3}
     objectContatiner: {fileID: 4614266634052733490}
     initCount: 3
+  - name: Plate
+    poolObject: {fileID: 2673093327956802614, guid: a64584ba735f1e048ac3130e3e11ce3d, type: 3}
+    objectContatiner: {fileID: 2533763631582836610}
+    initCount: 3
   - name: Oven
     poolObject: {fileID: 8131984087344027698, guid: f629e778dfb94e0428923fc693541595, type: 3}
     objectContatiner: {fileID: 4614266633820496911}
@@ -177,7 +212,18 @@ MonoBehaviour:
   - {fileID: 4614266633745604329}
   toolInstallMode: {fileID: 0}
   indexToChange: 0
-  SelectedToolIndex: 0
+  selectedItemInfos:
+    type: 0
+    ID: 0
+    Name: 
+    KoreanName: 
+    Explanation: 
+    Price: 0
+    Amount: 0
+    ShopCount: 0
+    ItemPrefab: {fileID: 0}
+    ImageUI: {fileID: 0}
+  SelectedToolID: 0
 --- !u!1 &4614266633745604330
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +312,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4614266633301319170}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4614266633966597044
 GameObject:
