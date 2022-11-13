@@ -20,9 +20,9 @@ public class Fridge : MonoBehaviour
     {
         //frigdeAnimation.SetBool("isOpen", state);
     }
-    public void UseRefrigerator()
+    public void UseRefrigerator(bool state)
     {
-        FridgeAnimaion(!FridgeUI.gameObject.activeSelf);
-        FridgeUI.FridgeUIState();
+        FridgeAnimaion(state);
+        FridgeUI.FridgeUIState(state);
     }
 }
