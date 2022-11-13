@@ -28,6 +28,7 @@ public class GuestCountInfos
 public class GameInfos
 {
     public string RestaurantName;
+    public string PlayerName;
     public int Day;
     public int Fame; //명성
     public int RainbowDrinking;
@@ -108,7 +109,14 @@ public class GameData : DataManager, IGameDataOb
             NotifyObserver(Observers);
         }
     }
-
+    public string PlayerName
+    {
+        get { return gameInfos.PlayerName; }
+        set
+        {
+            gameInfos.PlayerName = value;
+        }
+    }
     [SerializeField, Range(0, 1440)] //24시간 => 1440분
     private float timeOfDay;
     public float TimeOfDay 
@@ -257,7 +265,6 @@ public class GameData : DataManager, IGameDataOb
     public override void SaveDataTime()
     {
         SaveData<GameInfos>(ref gameInfos, "GameData");
-
         itemData.SaveDataTime();
         foodData.SaveDataTime();
         npcData.SaveDataTime();

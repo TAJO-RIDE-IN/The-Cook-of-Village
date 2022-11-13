@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4930079360339878894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3639210100143052258}
+  - component: {fileID: 4923854197633029787}
+  m_Layer: 0
+  m_Name: DialogueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3639210100143052258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4930079360339878894}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4923854197633029787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4930079360339878894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aac4de6e223af714b87475d85c43e337, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogueData:
+  - type: 0
+    dialogueContents:
+    - SentenceName: WhetherQuestion
+      Sentence:
+      - "\uD29C\uD1A0\uB9AC\uC5BC\uC740 \uAC8C\uC784\uC758 \uAE30\uBCF8 \uC870\uC791
+        \uBC29\uBC95\uC744 \uBC30\uC6B8 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+      - '&(question0)'
+      - "\uC12C\uC5D0 \uC624\uC2E0 \uCD95\uD558 \uC120\uBB3C\uB85C <Color=red>5000\uC6D0</color>\uC744
+        \uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
+      questionSentence:
+      - Question: "\uD29C\uD1A0\uB9AC\uC5BC\uC744 \uC2DC\uC791\uD558\uACA0\uC2B5\uB2C8\uAE4C?"
+        AnswerSentence:
+        - "\uC9C0\uAE08\uBD80\uD130 \uD29C\uD1A0\uB9AC\uC5BC\uC744 \uC9C4\uD589\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+        - "\uC54C\uACA0\uC2B5\uB2C8\uB2E4."
+    - SentenceName: Control
+      Sentence:
+      - "<Color=red>W,A,S,D</color>\uB97C \uC0AC\uC6A9\uD558\uC5EC \uCE90\uB9AD\uD130\uB97C
+        \uC774\uB3D9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+      - "<Color=red>TAP</color>\uB97C \uC0AC\uC6A9\uD558\uC5EC \uC11C\uBE0C\uBA54\uB274\uB97C
+        \uC774\uC6A9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+      - "<Color=red>ESC</color>\uB97C \uC0AC\uC6A9\uD558\uC5EC \uBA54\uB274\uB97C
+        \uC774\uC6A9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+      questionSentence: []
+    - SentenceName: Purchase
+      Sentence:
+      - "\uBC29\uAE08 \uBC1B\uC740 \uB3C8\uC73C\uB85C \uACFC\uC77C\uC0C1\uC810\uC5D0\uC11C
+        \uB808\uBAAC\uC744 \uAD6C\uB9E4\uD574\uBD05\uC2DC\uB2E4."
+      - "\uACFC\uC77C \uC0C1\uC810 \uC8FC\uC778 \uC55E\uC73C\uB85C \uC774\uB3D9\uD558\uC138\uC694."
+      - "<Color=red>SpaceBar</color>\uB97C \uB20C\uB7EC \uC0C1\uC810\uC744 \uC774\uC6A9\uD558\uC138\uC694."
+      - "\uC798\uD558\uC168\uC2B5\uB2C8\uB2E4! \uC774\uBC88\uC5D0\uB294 \uC2DD\uB2F9\uC73C\uB85C
+        \uC774\uB3D9\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+      questionSentence: []
+    - SentenceName: Restaurant
+      Sentence:
+      - "\uC190\uB2D8\uC774 \uB4E4\uC5B4\uC654\uC2B5\uB2C8\uB2E4! \uC74C\uC2DD\uC744
+        \uC8FC\uBB38\uD558\uB294 \uAC78 \uAE30\uB2E4\uB824\uBD05\uC2DC\uB2E4."
+      - "\uC190\uB2D8\uC774 \uB808\uBAAC\uC5D0\uC774\uB4DC\uB97C \uC8FC\uBB38\uD588\uC2B5\uB2C8\uB2E4.
+        \uB808\uBAAC\uC5D0\uC774\uB4DC\uB97C \uB9CC\uB4E4\uC5B4 \uC11C\uBE59\uD574\uBD05\uC2DC\uB2E4."
+      - "\uB0C9\uC7A5\uACE0 \uC55E\uC73C\uB85C \uC774\uB3D9\uD558\uC138\uC694."
+      - "<Color=red>SpaceBar</color>\uB97C \uB20C\uB7EC \uB0C9\uC7A5\uACE0\uB97C
+        \uC0AC\uC6A9\uD558\uC138\uC694."
+      - "\uB808\uBAAC\uC744 \uB4E4\uACE0 \uBBF9\uC11C\uAE30\uC5D0 \uB123\uC5B4\uBD05\uC2DC\uB2E4.\n\uBBF9\uC11C\uAE30
+        \uC55E\uC73C\uB85C \uC774\uB3D9\uD558\uC138\uC694."
+      - (&question0)
+      - "\uC774\uC81C \uCE74\uC6B4\uD130\uB85C \uC774\uB3D9\uD574 \uACC4\uC0B0\uC744
+        \uC9C4\uD589\uD574\uC8FC\uC138\uC694."
+      - "<Color=red>SpaceBar</color>\uB97C \uB20C\uB7EC \uACC4\uC0B0\uC744 \uC644\uB8CC\uD558\uC138\uC694."
+      questionSentence:
+      - Question: "<Color=red>SpaceBar</color>\uB97C \uB20C\uB7EC \uBBF9\uC11C\uAE30\uB97C
+          \uC0AC\uC6A9\uD558\uC138\uC694."
+        AnswerSentence:
+        - "\uB808\uBAAC\uC5D0\uC774\uB4DC\uB97C \uC644\uC131\uD588\uC2B5\uB2C8\uB2E4!
+          \n\uC644\uC131\uD55C \uB808\uBAAC\uC5D0\uC774\uB4DC\uB97C \uC190\uB2D8\uC5D0\uAC8C
+          \uC11C\uBE59\uD558\uC138\uC694."
+        - "\uC557! \uC74C\uC2DD\uC774 \uD0D4\uC5B4\uC694! \uD0C4 \uC74C\uC2DD\uC744
+          \uC4F0\uB808\uAE30\uD1B5\uC5D0 \uBC84\uB9AC\uC138\uC694."
+  - type: 1
+    dialogueContents: []
