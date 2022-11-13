@@ -171,6 +171,7 @@ public class CookingTool : MonoBehaviour
         WhenReturn();
         InstallData.DeleteData(index, InstallData.SortOfInstall.Tool);
         Debug.Log(toolID.ToString());
+        ToolPooling.Instance.toolInstallMode.DeleteTool(index);
         ToolPooling.Instance.ReturnObject(this, toolID.ToString());
         ToolPooling.Instance.toolInstallMode.isUsed[index] = false;
         //ToolPooling.Instance.toolInstallMode.PositionParticle[index].SetActive(false); => 이거 isTrigger끄는걸로 바꾸기

@@ -114,13 +114,13 @@ public class CookingCharacter : MonoBehaviour
             {
                 if (isSpace) //냉장고를 닫는 상황
                 {
-                    fridge.UseRefrigerator();//냉장고 닫기
+                    //fridge.UseRefrigerator();//냉장고 닫기
                     isSpace = false;
                     return;
                 }
                 else // 냉장고를 여는 상황
                 {
-                    fridge.UseRefrigerator(); //냉장고 열기
+                    //fridge.UseRefrigerator(); //냉장고 열기
                     isSpace = true;
                     return;
                 }
@@ -257,6 +257,11 @@ public class CookingCharacter : MonoBehaviour
             isFridgeCollider = true;
             return;
         }
+        if (other.CompareTag("CookPosition"))
+        {
+            
+            return;
+        }
         isObjectCollider = true;
         objectName = other.gameObject.name;
         //Debug.Log(other.gameObject.name + "에 진입");
@@ -280,6 +285,7 @@ public class CookingCharacter : MonoBehaviour
         
         if (other.tag == "Fridge")
         {
+            //fridge.UseRefrigerator();
             isFridgeCollider = false;
             isSpace = false;
             return;

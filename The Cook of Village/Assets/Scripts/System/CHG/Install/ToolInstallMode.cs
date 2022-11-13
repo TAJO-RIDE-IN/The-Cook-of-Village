@@ -111,6 +111,11 @@ public class ToolInstallMode : InstallMode
         ToolPooling.Instance.pooledObject[index].transform.rotation = ToolPooling.Instance.toolPosition[index].rotation;
         ToolPooling.Instance.pooledObject[index].index = index;
         isUsed[index] = true;
+        PositionParticle[index].SetActive(false);
+    }
+
+    public void DeleteTool(int index)
+    {
         PositionParticle[index].SetActive(true);
     }
     public override void Use(ItemInfos itemInfos)
@@ -153,7 +158,6 @@ public class ToolInstallMode : InstallMode
             if (! isUsed[index])
             {
                 isUsed[index] = true;
-                PositionParticle[index].SetActive(true);
                 ToolPooling.Instance.SelectedPositionIndex = index;
                 GetAndPosition(index, ToolPooling.Instance.SelectedToolName);
                 InstallData.Instance.PassData(index, ToolPooling.Instance.SelectedToolName, InstallData.SortOfInstall.Tool);
