@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,11 +19,11 @@ public class Proceeds
 [System.Serializable]
 public class MoneyInfos
 {
-    public int Money; //¼ÒÁöÇÏ°í ÀÖ´Â µ·
-    public int BankMoney; //ÀºÇà¿¡ ³ÖÀº µ·
-    public float BankInterest; //ÀºÇà ÀÌÀÚ
-    public int TotalProceeds; //¸ÅÃâ¾×
-    public int TotalConsumption; //¼Òºñ
+    public int Money; //ì†Œì§€í•˜ê³  ìˆëŠ” ëˆ
+    public int BankMoney; //ì€í–‰ì— ë„£ì€ ëˆ
+    public float BankInterest; //ì€í–‰ ì´ì
+    public int TotalProceeds; //ë§¤ì¶œì•¡
+    public int TotalConsumption; //ì†Œë¹„
     public List<Proceeds> Proceeds = new List<Proceeds>();
     public List<int> Consumption = new List<int>();
 }
@@ -32,9 +32,9 @@ public class MoneyData : DataManager, IMoneyDataOb
     private List<IObserver<MoneyData>> _observers = new List<IObserver<MoneyData>>();
     [SerializeField] public MoneyInfos moneyInfos;
     private bool BankData = false;
-    #region ½Ì±ÛÅæ
+    #region ì‹±ê¸€í†¤
     private static MoneyData instance = null;
-    private void Awake() //¾À ½ÃÀÛµÉ¶§ ÀÎ½ºÅÏ½º ÃÊ±âÈ­
+    private void Awake() //ì”¬ ì‹œì‘ë ë•Œ ì¸ìŠ¤í„´ìŠ¤ ì´ˆê¸°í™”
     {
         if (null == instance)
         {
@@ -150,7 +150,7 @@ public class MoneyData : DataManager, IMoneyDataOb
     }
     public void ChangeBank()
     {
-        if (GameData.Instance.Day % 3 == 0) //3ÀÏ¸¶´Ù ÀÌÀÚº¯°æ
+        if (GameData.Instance.Day % 3 == 0) //3ì¼ë§ˆë‹¤ ì´ìë³€ê²½
         {
             float _interest = UnityEngine.Random.Range(0.08f, 0.20f);
             BankInterest = (float)Math.Round(_interest, 3);
