@@ -120,7 +120,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4627026460570014074}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4942555564916441395}
+        m_TargetAssemblyTypeName: TutorialUI, Assembly-CSharp
+        m_MethodName: YesButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4627026460907239281
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +331,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4627026461148312919}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4942555564916441395}
+        m_TargetAssemblyTypeName: TutorialUI, Assembly-CSharp
+        m_MethodName: DialogueText
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4627026461667136629
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,7 +623,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4627026461963919179}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4942555564916441395}
+        m_TargetAssemblyTypeName: TutorialUI, Assembly-CSharp
+        m_MethodName: DialogueText
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4627026462105186845
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,6 +645,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4627026462105186846}
+  - component: {fileID: 4942555564916441395}
+  - component: {fileID: 8778407895412854168}
   m_Layer: 5
   m_Name: TutorialUI
   m_TagString: Untagged
@@ -636,6 +674,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4942555564916441395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4627026462105186845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03c029a92f2d364aa6418b3186f2ba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SentenceText: {fileID: 4627026461816303619}
+  NextButton: {fileID: 4627026461148312916}
+  ChoiceButton: {fileID: 4627026462633681008}
+--- !u!114 &8778407895412854168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4627026462105186845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e20dfc7716e75a4bb08d2bfbc01facc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToGo: 2
 --- !u!1 &4627026462112568834
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,7 +795,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4627026462633681009
 RectTransform:
   m_ObjectHideFlags: 0

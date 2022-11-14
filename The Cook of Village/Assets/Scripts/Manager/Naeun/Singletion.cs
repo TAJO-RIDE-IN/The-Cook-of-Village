@@ -10,7 +10,7 @@ public class Singletion<T> : MonoBehaviour where T : MonoBehaviour
         if (null == instance)
         {
             instance = (T)FindObjectOfType(typeof(T));
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(instance.gameObject);
             Init();
         }
         else

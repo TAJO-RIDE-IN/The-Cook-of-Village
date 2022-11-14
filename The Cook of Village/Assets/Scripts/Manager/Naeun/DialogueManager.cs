@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 [System.Serializable]
 public class QuestionSentence
 {
@@ -36,6 +38,15 @@ public class DialogueManager : Singletion<DialogueManager>
     private int QuestionNum;
     private bool Question = false;
     private bool NextEnd = false;
+    private Coroutine Typing;
+    private void ResetState()
+    {
+        CurrentSentences.Clear();
+        CurrentUseDialogue = null;
+        Question = false;
+        NextEnd = false;
+        QuestionNum = 0;
+    }
 
     /// <summary>
     /// 이용하고싶은 DiloagueContent를 불러온다.
@@ -44,11 +55,7 @@ public class DialogueManager : Singletion<DialogueManager>
     /// <param name="SentenceName">DialogueContent의 SentenceName 입력</param>
     public void CallDialogue(DialogueData.ContentType type, string SentenceName)
     {
-        CurrentUseDialogue = null;
-        CurrentSentences = new Queue<string>();
-        Question = false;
-        NextEnd = false;
-        QuestionNum = 0;
+        ResetState();
         foreach (var content in DialogueData[(int)type].dialogueContents)
         {
             if (content.SentenceName == SentenceName)
@@ -66,13 +73,13 @@ public class DialogueManager : Singletion<DialogueManager>
     /// 불러올 때마다 다음 대사를 가져온다.
     /// </summary>
     /// <param name="answer">이전 문장이 질문인 경우 질문의 답 index 입력, 기본 값 0</param>
-    /// <returns>DialogueContent의  Sentence, Question인 경우 true</returns>
+    /// <returns>DialogueContent의  Sentence, Question인 경우 true, 다음 문장이 없을경우 true</returns>
     public (string,bool,bool) Dialogue(int answer = 0)
     {
-        if (CurrentUseDialogue != null)
+        if (!NextEnd)
         {
             string sentence;
-            if (!Question)
+            if (!Question) //질문인지 아닌지 확인
             {
                 sentence = CurrentSentences.Dequeue();
             }
@@ -82,14 +89,9 @@ public class DialogueManager : Singletion<DialogueManager>
                 QuestionNum++;
             }
             sentence = ReplaceSentence(sentence);
-            return (sentence, Question, NextEnd);
+            return (sentence, Question, false);
         }
         return ("", Question, NextEnd);
-    }
-
-    private void SentenceState()
-    {
-        
     }
 
     /// <summary>
@@ -101,15 +103,34 @@ public class DialogueManager : Singletion<DialogueManager>
     {
         Question = false;
         string replace = sentence.Replace("&PlayerName", GameData.Instance.PlayerName);
-        if (sentence.Contains("&(question" + QuestionNum + ")"))
+        if (sentence.Contains("&(Question" + QuestionNum + ")"))
         {
             replace = CurrentUseDialogue.questionSentence[QuestionNum].Question;
             Question = true;
         }
         else if(sentence.Contains("&(End)"))
         {
+            replace = sentence.Replace("&(End)", "");
             NextEnd = true;
         }
         return replace;
+    }
+
+    public void TypingEffet(Text _text, string _sentence)
+    {
+        if(Typing != null)
+        {
+            StopCoroutine(Typing);
+        }
+        Typing = StartCoroutine(TypeSentence(_text, _sentence));
+    }
+    private IEnumerator TypeSentence(Text _text, string _sentence)
+    {
+        _text.text = null;
+        foreach (var letter in _sentence)
+        {
+            _text.text += letter;
+            yield return new WaitForSeconds(0.08f);
+        }
     }
 }
