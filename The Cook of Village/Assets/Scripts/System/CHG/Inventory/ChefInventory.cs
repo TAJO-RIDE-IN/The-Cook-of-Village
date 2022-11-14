@@ -151,12 +151,11 @@ public class ChefInventory : MonoBehaviour
                     if (_cookingCharacter.isToolCollider) //스페이스바를 냉장고안이나에서 누른건 아닌지 확인 => 스위치로 변경
                     {
                         if (_cookingCharacter._cookingTool.PutIngredient(EdibleItems[i]._ingredientsInfos.ID,
-                            EdibleItems[i]._ingredientsInfos.ImageUI))
+                            EdibleItems[i]._ingredientsInfos.ImageUI) && EdibleItems[i]._ingredientsInfos.ID != 63)
                         {
+                            
                             SoundManager.Instance.Play(SoundManager.Instance._audioClips["PanIn"]);
-                            EdibleItems[i]._ingredientsInfos = null;
-                            isUsed[i] = false;
-                            chefSlotManager.itemslots[i].changeSlotUI(chefSlotManager.emptySlot);
+                            ChangeInventoryEmpty(i);
                             return;
                         };
                     }
@@ -164,9 +163,22 @@ public class ChefInventory : MonoBehaviour
                     if (_cookingCharacter.isFridgeCollider)
                     {
                         fridgeUI.InputRefrigerator(EdibleItems[i]._ingredientsInfos.ID, 1);
-                        EdibleItems[i]._ingredientsInfos = null;
-                        isUsed[i] = false;
-                        chefSlotManager.itemslots[i].changeSlotUI(chefSlotManager.emptySlot);
+                        ChangeInventoryEmpty(i);
+                        return;
+                    }
+                    if (_cookingCharacter.isCookPositionCollider)
+                    {
+                        if (EdibleItems[i]._ingredientsInfos.ID == 63)
+                        {
+                            ToolPooling.Instance.toolInstallMode.GetAndPosition(
+                                _cookingCharacter._cookPosition.cookPositionUI.index, "Plate");
+                            
+                            _cookingCharacter._cookPosition.cookPositionUI.gameObject.SetActive(false);
+                            ToolPooling.Instance.pooledObject[_cookingCharacter._cookPosition.cookPositionUI.index]
+                                .InventoryBig.SetActive(true);
+                            ChangeInventoryEmpty(i);
+                            return;
+                        }
                     }
 
                     if (_cookingCharacter.objectName == "Trash")
@@ -174,9 +186,7 @@ public class ChefInventory : MonoBehaviour
                         if (_cookingCharacter.trash.AddIngredient(EdibleItems[i]._ingredientsInfos))
                         {
                             SoundManager.Instance.Play(SoundManager.Instance._audioClips["PanIn"]);
-                            EdibleItems[i]._ingredientsInfos = null;
-                            isUsed[i] = false;
-                            chefSlotManager.itemslots[i].changeSlotUI(chefSlotManager.emptySlot);
+                            ChangeInventoryEmpty(i);
                             return;
                         }
                     }
@@ -190,8 +200,7 @@ public class ChefInventory : MonoBehaviour
                         //게스트가 안받은 상태라면
                         if (_cookingCharacter._foodOrder.ReceiveFood(EdibleItems[i]._foodInfos.ID))
                         {
-                            isUsed[i] = false;
-                            chefSlotManager.itemslots[i].changeSlotUI(chefSlotManager.emptySlot);
+                            ChangeInventoryEmpty(i);
                             _cookingCharacter.uiMovement.foodOrderImage.sprite = EdibleItems[i]._foodInfos.ImageUI;
                             _cookingCharacter.uiMovement.CloseUI();
                             EdibleItems[i]._foodInfos = null;
@@ -203,9 +212,7 @@ public class ChefInventory : MonoBehaviour
                         if (_cookingCharacter.trash.AddFood(EdibleItems[i]._foodInfos))
                         {
                             SoundManager.Instance.Play(SoundManager.Instance._audioClips["PanIn"]);
-                            EdibleItems[i]._ingredientsInfos = null;
-                            isUsed[i] = false;
-                            chefSlotManager.itemslots[i].changeSlotUI(chefSlotManager.emptySlot);
+                            ChangeInventoryEmpty(i);
                             return;
                         }
                     }
@@ -221,6 +228,14 @@ public class ChefInventory : MonoBehaviour
         
         
         
+    }
+
+    private void ChangeInventoryEmpty(int index)
+    {
+        EdibleItems[index]._ingredientsInfos = null;
+        EdibleItems[index]._foodInfos = null;
+        isUsed[index] = false;
+        chefSlotManager.itemslots[index].changeSlotUI(chefSlotManager.emptySlot);
     }
     
 }

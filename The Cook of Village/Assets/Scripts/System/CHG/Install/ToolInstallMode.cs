@@ -32,6 +32,13 @@ public class ToolInstallMode : InstallMode
         }
     }
 
+    private void PreviewPositionUpdate()
+    {
+        //if(Physics.Raycast())
+    }
+    
+    
+
     /// <summary>
     /// 설치할 위치의 인덱스 받아옴.
     /// </summary>
@@ -123,9 +130,9 @@ public class ToolInstallMode : InstallMode
         if (isDirectChange)
         {
             ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange].DeleteTool();
-            Return();
+            ReturnPooledObject();
             GetAndPosition(ToolPooling.Instance.indexToChange, itemInfos.Name);
-            InstallData.Instance.PassData(ToolPooling.Instance.indexToChange, name, InstallData.SortOfInstall.Tool);
+            InstallData.Instance.PassData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
             isDirectChange = false;
             return;
         }
@@ -145,7 +152,7 @@ public class ToolInstallMode : InstallMode
         isDirectChange = false;
     }
 
-    protected override void Return()
+    protected override void ReturnPooledObject()
     {
         ToolPooling.Instance.ReturnObject(ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange],
             ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange].toolID.ToString());

@@ -34,7 +34,7 @@ public abstract class InstallMode : MonoBehaviour
     
     public virtual void Use(ItemInfos itemInfos){}
 
-    protected abstract void Return();
+    protected abstract void ReturnPooledObject();
 
     public abstract void GoInstall();
 

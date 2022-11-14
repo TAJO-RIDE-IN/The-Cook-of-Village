@@ -6,6 +6,8 @@ using System;
 public class FurniturePooling : MultipleObjectPoolingNo
 {
     public Transform[] toolPosition;
+    public Transform[] chairPosition;
+    public Transform[] decoPosition;
     public ToolInstallMode toolInstallMode;
     
 

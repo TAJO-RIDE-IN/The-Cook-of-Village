@@ -6,9 +6,9 @@ using UnityEngine;
 public class CookPosition : MonoBehaviour
 {
     public CookPositionUI cookPositionUI;
-    private bool isPlayer;
+    public bool isPlate;
 
-    private void Update()
+    /*private void Update()
     {
         if (isPlayer)
         {
@@ -21,7 +21,7 @@ public class CookPosition : MonoBehaviour
                 
             }
         }
-    }
+    }*/
     
     public void isUsedOrNot()
     {
@@ -33,19 +33,4 @@ public class CookPosition : MonoBehaviour
     
     
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Player"))
-        {
-            isPlayer = true;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.CompareTag("Player"))
-        {
-            isPlayer = false;
-            cookPositionUI.gameObject.SetActive(false);
-        }
-    }
 }

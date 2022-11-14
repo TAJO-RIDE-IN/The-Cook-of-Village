@@ -23,7 +23,7 @@ public class Trash : MonoBehaviour
                 trashEdibleItems[i]._foodInfos = null;
                 cookSlotManager.AddIngredientItem(ingredient, i);
                 cookSlotManager.itemslots[i].isUsed = true;
-                cookSlotManager.itemslots[i].changeSlotUI(ingredient.ImageUI);
+                cookSlotManager.itemslots[i].ChangeSlotUI(ingredient.ImageUI);
                 return true;
             }
         }
@@ -43,7 +43,7 @@ public class Trash : MonoBehaviour
                 trashEdibleItems[i]._foodInfos = food;
                 cookSlotManager.AddFoodItem(food, i);
                 cookSlotManager.itemslots[i].isUsed = true;
-                cookSlotManager.itemslots[i].changeSlotUI(food.ImageUI);
+                cookSlotManager.itemslots[i].ChangeSlotUI(food.ImageUI);
                 return true;
             }
             //SlotManager.AddFoodItem(food);
