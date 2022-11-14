@@ -11,7 +11,7 @@ public class ToolInstallMode : InstallMode
 {
     public int installableToolCount;
 
-    public GameObject[] PositionParticle;
+    public GameObject[] PositionCollider;
     
     [HideInInspector] public bool isDirectChange;
     [HideInInspector] public bool isDirectInstall;
@@ -118,12 +118,12 @@ public class ToolInstallMode : InstallMode
         ToolPooling.Instance.pooledObject[index].transform.rotation = ToolPooling.Instance.toolPosition[index].rotation;
         ToolPooling.Instance.pooledObject[index].index = index;
         isUsed[index] = true;
-        PositionParticle[index].SetActive(false);
+        PositionCollider[index].SetActive(false);
     }
 
-    public void DeleteTool(int index)
+    public void ActviePositionCollider(int index)
     {
-        PositionParticle[index].SetActive(true);
+        PositionCollider[index].SetActive(true);
     }
     public override void Use(ItemInfos itemInfos)
     {

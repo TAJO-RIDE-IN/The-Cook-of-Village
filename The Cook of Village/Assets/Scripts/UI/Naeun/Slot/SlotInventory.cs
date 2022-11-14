@@ -75,6 +75,8 @@ public class SlotInventory : Slot<ItemInfos>
                 Debug.Log(Infos.ID);
                 break;
             case (ItemType.Type.Furniture):
+                Debug.Log(Infos.Name);
+                FurniturePooling.Instance.furnitureInstallMode.UseFurniture(Infos.Name);
                 break;
         }
         Infos.Amount--;

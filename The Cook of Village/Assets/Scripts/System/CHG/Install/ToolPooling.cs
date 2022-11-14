@@ -11,7 +11,10 @@ public class ToolPooling : MultipleObjectPooling<CookingTool>
     public ToolInstallMode toolInstallMode;
     
 
-    //[HideInInspector] 
+    /// <summary>
+    /// 쓰는 이유: 다이렉트 체인지에서 사용. CookingTool의 DirectSetUp에서 바꿀 자리 위치 인덱스를 넘겨줄 수 있는데, 이걸 사용하는 함수인 Use는 나은이 스크립트에서 사용하기 때문이다.
+    /// 또한 cookingCharacter.cookingTool.index와 같은 값이다.
+    /// </summary>
     public int indexToChange;
     
     public ItemInfos selectedItemInfos;
