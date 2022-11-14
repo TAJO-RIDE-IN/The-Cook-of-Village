@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,45 +23,93 @@ public class DialogueData
     public DialogueContent[] dialogueContents;
 }
 
-public class DialogueManager : MonoBehaviour
+public interface IDialogue
+{
+    void CallDialogue(string name);
+}
+
+public class DialogueManager : Singletion<DialogueManager>
 {
     [SerializeField]private DialogueData[] DialogueData;
     [HideInInspector]public DialogueContent CurrentUseDialogue;
-    private int DialogueIndex;
+    [HideInInspector]public Queue<string> CurrentSentences = new Queue<string>();
+    private int QuestionNum;
+    private bool Question = false;
+    private bool NextEnd = false;
+
+    /// <summary>
+    /// 이용하고싶은 DiloagueContent를 불러온다.
+    /// </summary>
+    /// <param name="type">Tutorial, Ending</param>
+    /// <param name="SentenceName">DialogueContent의 SentenceName 입력</param>
     public void CallDialogue(DialogueData.ContentType type, string SentenceName)
     {
-        foreach(var content in DialogueData[(int)type].dialogueContents)
+        CurrentUseDialogue = null;
+        CurrentSentences = new Queue<string>();
+        Question = false;
+        NextEnd = false;
+        QuestionNum = 0;
+        foreach (var content in DialogueData[(int)type].dialogueContents)
         {
             if (content.SentenceName == SentenceName)
             {
                 CurrentUseDialogue = content;
+                foreach (var text in content.Sentence)
+                {
+                    CurrentSentences.Enqueue(text);
+                }
             }
         }
     }
-    public void NextDialogue(int QuestionNum = 0)
+    /// <summary>
+    /// CallDialogue에서 불러온 DialogueContent의 대사를 불러온다.
+    /// 불러올 때마다 다음 대사를 가져온다.
+    /// </summary>
+    /// <param name="answer">이전 문장이 질문인 경우 질문의 답 index 입력, 기본 값 0</param>
+    /// <returns>DialogueContent의  Sentence, Question인 경우 true</returns>
+    public (string,bool,bool) Dialogue(int answer = 0)
     {
-        if(CurrentUseDialogue != null)
+        if (CurrentUseDialogue != null)
         {
-            return;
+            string sentence;
+            if (!Question)
+            {
+                sentence = CurrentSentences.Dequeue();
+            }
+            else
+            {
+                sentence = CurrentUseDialogue.questionSentence[QuestionNum].AnswerSentence[answer];
+                QuestionNum++;
+            }
+            sentence = ReplaceSentence(sentence);
+            return (sentence, Question, NextEnd);
         }
-        string sentence = CurrentUseDialogue.Sentence[DialogueIndex];
-
+        return ("", Question, NextEnd);
     }
-/*    private void DialogueControl(string sentence, int num)
+
+    private void SentenceState()
     {
-        if(sentence.Contains("&PlayerName"))
-        {
-            sentence.Replace("&PlayerName", GameData.Instance.PlayerName);
-        }
-        if (sentence.Contains("&(question"+"num"+")"))
-        {
-            sentence = CurrentUseDialogue.questionSentence[num].Question;
-        }
-    }*/
+        
+    }
+
+    /// <summary>
+    /// 문장에서 바뀌어야 하는 부분(플레이어이름, 질문)을 바꿔준다.
+    /// </summary>
+    /// <param name="sentence">변환하고 싶은 문장</param>
+    /// <returns>변환된 문장</returns>
     private string ReplaceSentence(string sentence)
     {
-        string str = sentence.Replace("&PlayerName", GameData.Instance.PlayerName);
-        str = sentence.Replace("&(question0)", GameData.Instance.PlayerName);
-        return str;
+        Question = false;
+        string replace = sentence.Replace("&PlayerName", GameData.Instance.PlayerName);
+        if (sentence.Contains("&(question" + QuestionNum + ")"))
+        {
+            replace = CurrentUseDialogue.questionSentence[QuestionNum].Question;
+            Question = true;
+        }
+        else if(sentence.Contains("&(End)"))
+        {
+            NextEnd = true;
+        }
+        return replace;
     }
 }

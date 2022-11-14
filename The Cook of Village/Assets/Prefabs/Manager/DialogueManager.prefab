@@ -52,12 +52,12 @@ MonoBehaviour:
         \uBC29\uBC95\uC744 \uBC30\uC6B8 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
       - '&(question0)'
       - "\uC12C\uC5D0 \uC624\uC2E0 \uCD95\uD558 \uC120\uBB3C\uB85C <Color=red>5000\uC6D0</color>\uC744
-        \uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
+        \uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4.&(End)"
       questionSentence:
       - Question: "\uD29C\uD1A0\uB9AC\uC5BC\uC744 \uC2DC\uC791\uD558\uACA0\uC2B5\uB2C8\uAE4C?"
         AnswerSentence:
         - "\uC9C0\uAE08\uBD80\uD130 \uD29C\uD1A0\uB9AC\uC5BC\uC744 \uC9C4\uD589\uD558\uACA0\uC2B5\uB2C8\uB2E4."
-        - "\uC54C\uACA0\uC2B5\uB2C8\uB2E4."
+        - "\uC54C\uACA0\uC2B5\uB2C8\uB2E4.&(End)"
     - SentenceName: Control
       Sentence:
       - "<Color=red>W,A,S,D</color>\uB97C \uC0AC\uC6A9\uD558\uC5EC \uCE90\uB9AD\uD130\uB97C
@@ -87,10 +87,25 @@ MonoBehaviour:
         \uC0AC\uC6A9\uD558\uC138\uC694."
       - "\uB808\uBAAC\uC744 \uB4E4\uACE0 \uBBF9\uC11C\uAE30\uC5D0 \uB123\uC5B4\uBD05\uC2DC\uB2E4.\n\uBBF9\uC11C\uAE30
         \uC55E\uC73C\uB85C \uC774\uB3D9\uD558\uC138\uC694."
-      - (&question0)
+      - "<Color=red>SpaceBar</color>\uB97C \uB20C\uB7EC \uBBF9\uC11C\uAE30\uB97C
+        \uC0AC\uC6A9\uD558\uC138\uC694."
+      questionSentence: []
+    - SentenceName: Serving
+      Sentence:
+      - "\uB808\uBAAC\uC5D0\uC774\uB4DC\uB97C \uC644\uC131\uD588\uC2B5\uB2C8\uB2E4!
+        \n\uC644\uC131\uD55C \uB808\uBAAC\uC5D0\uC774\uB4DC\uB97C \uC190\uB2D8\uC5D0\uAC8C
+        \uC11C\uBE59\uD558\uC138\uC694."
       - "\uC774\uC81C \uCE74\uC6B4\uD130\uB85C \uC774\uB3D9\uD574 \uACC4\uC0B0\uC744
         \uC9C4\uD589\uD574\uC8FC\uC138\uC694."
       - "<Color=red>SpaceBar</color>\uB97C \uB20C\uB7EC \uACC4\uC0B0\uC744 \uC644\uB8CC\uD558\uC138\uC694."
+      questionSentence: []
+    - SentenceName: CharredFood
+      Sentence:
+      - "\uC557! \uC74C\uC2DD\uC774 \uD0D4\uC5B4\uC694! \uD0C4 \uC74C\uC2DD\uC744
+        \uC4F0\uB808\uAE30\uD1B5\uC5D0 \uBC84\uB9AC\uC138\uC694."
+      - "\uC4F0\uB808\uAE30\uD1B5 \uC55E\uC73C\uB85C \uC774\uB3D9\uD558\uC138\uC694."
+      - "<Color=red>SpaceBar</color>\uB97C \uB20C\uB7EC \uC4F0\uB808\uAE30\uD1B5\uC744
+        \uC5EC\uC138\uC694."
       questionSentence:
       - Question: "<Color=red>SpaceBar</color>\uB97C \uB20C\uB7EC \uBBF9\uC11C\uAE30\uB97C
           \uC0AC\uC6A9\uD558\uC138\uC694."
@@ -102,3 +117,7 @@ MonoBehaviour:
           \uC4F0\uB808\uAE30\uD1B5\uC5D0 \uBC84\uB9AC\uC138\uC694."
   - type: 1
     dialogueContents: []
+  CurrentUseDialogue:
+    SentenceName: 
+    Sentence: []
+    questionSentence: []
