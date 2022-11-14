@@ -17,6 +17,7 @@ public class MultipleObjectPoolingNo : MonoBehaviour
         public GameObject objectContatiner;
         public int initCount;
     }
+    
     public List<PoolObjectData> poolObjectData;
     public PoolObjectData FindPoolObjectData(String value)
     {

@@ -81,7 +81,11 @@ public class CookingTool : MonoBehaviour
                 {
                     if (!cookSlotManager.itemslots[i].isUsed)
                     {
-                        _animation.Play(toolID.ToString());
+                        if (toolID != FoodTool.Type.Plate)
+                        {
+                            _animation.Play(toolID.ToString());
+                        }
+                        
                         
                         ingredientList.Add(id);
                         cookSlotManager.itemslots[i].isUsed = true;
@@ -137,6 +141,13 @@ public class CookingTool : MonoBehaviour
         isCooked = false;
         food.sprite = toolBeforeCook;
         StopCoroutine(_burntCoroutine);
+        if (toolID == FoodTool.Type.Plate)
+        {
+            WhenReturn();
+            ToolPooling.Instance.toolInstallMode.ActviePositionCollider(index);
+            ToolPooling.Instance.ReturnObject(this, toolID.ToString());
+            ToolPooling.Instance.toolInstallMode.isUsed[index] = false;
+        }
     }
 
     public void RemoveIngSlot()
@@ -165,17 +176,13 @@ public class CookingTool : MonoBehaviour
     /// <summary>
     /// 풀링도 돌려주고, FoodData Amount와 ItemData Amount도 바꿔줌
     /// </summary>
-    public void DeleteTool()
+    public void DeleteTool() 
     {
-        ToolPooling.Instance.indexToChange = index;
         WhenReturn();
         InstallData.DeleteData(index, InstallData.SortOfInstall.Tool);
-        Debug.Log(toolID.ToString());
-        ToolPooling.Instance.toolInstallMode.DeleteTool(index);
+        ToolPooling.Instance.toolInstallMode.ActviePositionCollider(index);
         ToolPooling.Instance.ReturnObject(this, toolID.ToString());
         ToolPooling.Instance.toolInstallMode.isUsed[index] = false;
-        //ToolPooling.Instance.toolInstallMode.PositionParticle[index].SetActive(false); => 이거 isTrigger끄는걸로 바꾸기
-
         ToolPooling.Instance.ChangeToolAmount(1, toolID);
 
 
