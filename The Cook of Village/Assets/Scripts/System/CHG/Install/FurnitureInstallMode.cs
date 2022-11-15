@@ -22,7 +22,6 @@ public class FurnitureInstallMode : InstallMode
     [SerializeField] private LayerMask layerMask;
     private void Start()
     {
-        SoundManager.Instance.Play(SoundManager.Instance._audioClips["Take a Plate"]);
         isUsedTable = new bool[installableTableCount];
         isUsedChair = new bool[installableChairCount];
         isUsedDeco = new bool[installableDecoCount];
@@ -51,6 +50,7 @@ public class FurnitureInstallMode : InstallMode
         if (Physics.Raycast(ray, out hit, 1000, layerMask))
         {
             pos = hit.point;
+            //Debug.Log(hit.transform.name);
         }
     }
 
@@ -58,8 +58,7 @@ public class FurnitureInstallMode : InstallMode
     {
 
         pendingObject = FurniturePooling.Instance.GetObject(name);
-        FurniturePooling.Instance.FindInstallPoolData(name).pooledObjects
-            .Add(FurniturePooling.Instance.GetObject(name));
+        FurniturePooling.Instance.FindInstallPoolData(name).pooledObjects.Add(pendingObject);
     }
 
     public void PlaceObject()
