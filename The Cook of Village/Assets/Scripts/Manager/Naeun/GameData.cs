@@ -29,50 +29,24 @@ public class GameInfos
 {
     public string RestaurantName;
     public string PlayerName;
+    [Range(0, 1440)] public float TimeOfDay;
     public int Day;
     public int Fame; //명성
     public int RainbowDrinking;
     public List<GuestCountInfos> CountInfos;
 }
 
-public class GameData : DataManager, IGameDataOb
+public class GameData : DataManager<GameData>, IGameDataOb
 {
     private List<IObserver<GameData>> Observers = new List<IObserver<GameData>>();
     private List<IObserver<GameData>> DayObservers = new List<IObserver<GameData>>();
     private List<IObserver<GameData>> GuestObservers = new List<IObserver<GameData>>();
     private Coroutine runningCoroutine = null;
-
     [SerializeField] private ItemData itemData;
     [SerializeField] private FoodData foodData;
     [SerializeField] private NPCData npcData;
     [SerializeField] private MoneyData moneyData;
     [SerializeField] private InstallData installData;
-    #region 싱글톤
-    private static GameData instance = null;
-    private void Awake() //씬 시작될때 인스턴스 초기화
-    {
-        if (null == instance)
-        {
-            instance = this;
-            //LoadDataTime();
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
-    public static GameData Instance
-    {
-        get
-        {
-            if (null == instance)
-            {
-                return null;
-            }
-            return instance;
-        }
-    }
-    #endregion
     public void LoadObject()
     {
         Observers.Clear();
@@ -117,36 +91,34 @@ public class GameData : DataManager, IGameDataOb
             gameInfos.PlayerName = value;
         }
     }
-    [SerializeField, Range(0, 1440)] //24시간 => 1440분
-    private float timeOfDay;
-    public float TimeOfDay 
+    public float TimeOfDay //24시간 => 1440분
     { 
-        get { return timeOfDay; } 
+        get { return gameInfos.TimeOfDay; } 
         set 
-        { 
-            timeOfDay = value;
+        {
+            gameInfos.TimeOfDay = value;
             if(CanSaveData())
             {
                 UseSave = false;
-                SaveDataTime();
+                SaveDataTime(0);
             }
             NotifyObserver(Observers); 
         }
     }
 
-    private bool UseSave;
+    private bool UseSave = true;
     /// <summary>
     /// 데이터를 저장할 수 있는지 확인
     /// </summary>
     /// <returns>분이 0이고 저장을 안 한 상태일 때 true 리턴</returns>
     private bool CanSaveData()
     {
-        int min = (int)TimeOfDay % 60 / 10;
-        if(min != 0)
+        int hour6 = (int)TimeOfDay % 360;
+        if(hour6 != 0)
         {
             UseSave = true;
         }
-        return ((min == 0) && UseSave);
+        return ((hour6 == 0) && UseSave);
     }
 
     [SerializeField]
@@ -199,7 +171,7 @@ public class GameData : DataManager, IGameDataOb
 
     public void SetTimeMorning()
     {
-        timeOfDay = 480;
+        TimeOfDay = 480;
         Day++;
     }
 
@@ -263,19 +235,19 @@ public class GameData : DataManager, IGameDataOb
     }
     #endregion
     #endregion
-    public override void SaveDataTime()
+    public override void SaveDataTime(int PlayNum)
     {
         SaveData<GameInfos>(ref gameInfos, "GameData");
-        itemData.SaveDataTime();
-        foodData.SaveDataTime();
-        npcData.SaveDataTime();
+        itemData.SaveDataTime(PlayNum);
+        foodData.SaveDataTime(PlayNum);
+        npcData.SaveDataTime(PlayNum);
         installData.SaveData();
     }
-    public void LoadDataTime()
+    public void LoadDataTime(int PlayNum)
     {
         if(!FileExists("GameData"))
         {
-            SaveDataTime();
+            SaveDataTime(PlayNum);
         }
         else
         {

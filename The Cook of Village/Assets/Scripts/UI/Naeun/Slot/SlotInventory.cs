@@ -78,7 +78,7 @@ public class SlotInventory : Slot<ItemInfos>
                 break;
         }
         Infos.Amount--;
-        ItemCount.text = Infos.Amount.ToString();
+        ModifySlot();
         if (Infos.Amount <= 0)
         {
             inventoryUI.LoadInventorySlot(); //인벤토리 재정렬

@@ -3,38 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singletion<GameManager>
 {
-    private static GameManager instance = null;
     [SerializeField] private GameData gameData;
     [SerializeField] private SoundManager soundManager;
     [SerializeField] private Potion potionController;
-    private void Awake() //씬 시작될때 인스턴스 초기화
+    protected override void Init()
     {
-        if(null == instance)
-        {
-            instance = this;
-            CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-            CurrentSceneName = SceneManager.GetActiveScene().name;
-            LoadObject();
-            //CurosrControl(true);
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }    
-    }
-    public static GameManager Instance
-    {
-        get
-        {
-            if(null == instance)
-            {
-                return null;
-            }
-            return instance;
-        }
+        CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        CurrentSceneName = SceneManager.GetActiveScene().name;
+        LoadObject();
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private bool isOpen = false;

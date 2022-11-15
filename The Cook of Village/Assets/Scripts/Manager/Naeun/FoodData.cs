@@ -38,33 +38,8 @@ public class FoodTool
     public List<FoodInfos> foodInfos = new List<FoodInfos>();
 }
 
-public class FoodData : DataManager
+public class FoodData : DataManager<FoodData>
 {
-    #region Singleton, LoadData
-    private static FoodData instance = null;
-    private void Awake() //씬 시작될때 인스턴스 초기화
-    {
-        if (null == instance)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
-    public static FoodData Instance
-    {
-        get
-        {
-            if (null == instance)
-            {
-                return null;
-            }
-            return instance;
-        }
-    }
-    #endregion
     public float OrderTime = 5f;
     public float DefaultWaitingTime = 30f;
     public float PayWaitingTime = 20f;
@@ -89,7 +64,7 @@ public class FoodData : DataManager
         }
         return foodTool[(int)FoodTool.Type.Failure].foodInfos[0];
     }
-    public override void SaveDataTime()
+    public override void SaveDataTime(int PlayNum)
     {
         SaveArrayData<FoodTool>(ref foodTool, "FoodData");
     }

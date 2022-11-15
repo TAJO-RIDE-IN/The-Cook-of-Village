@@ -24,5 +24,8 @@ public class Fridge : MonoBehaviour
     {
         FridgeAnimaion(state);
         FridgeUI.FridgeUIState(state);
+        FridgeUI.fridge = this;
+        string open = (state) ? " Open" : " Close";
+        SoundManager.Instance.Play(SoundManager.Instance._audioClips["Refrigerator" + open]);
     }
 }

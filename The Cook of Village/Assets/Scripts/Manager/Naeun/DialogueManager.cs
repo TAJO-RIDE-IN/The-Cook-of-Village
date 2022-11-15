@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,8 +19,8 @@ public class DialogueContent
 [System.Serializable]
 public class DialogueData
 {
-    public enum ContentType {Tutorial, Ending};
-    [SerializeField]public ContentType type;
+    public enum ContentType { Tutorial, Ending };
+    [SerializeField] public ContentType type;
     public DialogueContent[] dialogueContents;
 }
 
@@ -32,13 +31,13 @@ public interface IDialogue
 
 public class DialogueManager : Singletion<DialogueManager>
 {
-    [SerializeField]private DialogueData[] DialogueData;
-    [HideInInspector]public DialogueContent CurrentUseDialogue;
-    [HideInInspector]public Queue<string> CurrentSentences = new Queue<string>();
+    [SerializeField] private DialogueData[] DialogueData;
+    [HideInInspector] public DialogueContent CurrentUseDialogue;
+    [HideInInspector] public Queue<string> CurrentSentences = new Queue<string>();
     private int QuestionNum;
     private bool Question = false;
     private bool NextEnd = false;
-    private Coroutine Typing;
+    private Coroutine TypingCorutine;
     private void ResetState()
     {
         CurrentSentences.Clear();
@@ -74,7 +73,7 @@ public class DialogueManager : Singletion<DialogueManager>
     /// </summary>
     /// <param name="answer">이전 문장이 질문인 경우 질문의 답 index 입력, 기본 값 0</param>
     /// <returns>DialogueContent의  Sentence, Question인 경우 true, 다음 문장이 없을경우 true</returns>
-    public (string,bool,bool) Dialogue(int answer = 0)
+    public (string, bool, bool) Dialogue(int answer = 0)
     {
         if (!NextEnd)
         {
@@ -108,7 +107,7 @@ public class DialogueManager : Singletion<DialogueManager>
             replace = CurrentUseDialogue.questionSentence[QuestionNum].Question;
             Question = true;
         }
-        else if(sentence.Contains("&(End)"))
+        else if (sentence.Contains("&(End)"))
         {
             replace = sentence.Replace("&(End)", "");
             NextEnd = true;
@@ -118,11 +117,11 @@ public class DialogueManager : Singletion<DialogueManager>
 
     public void TypingEffet(Text _text, string _sentence)
     {
-        if(Typing != null)
+        if (TypingCorutine != null)
         {
-            StopCoroutine(Typing);
+            StopCoroutine(TypingCorutine);
         }
-        Typing = StartCoroutine(TypeSentence(_text, _sentence));
+        TypingCorutine = StartCoroutine(TypeSentence(_text, _sentence));
     }
     private IEnumerator TypeSentence(Text _text, string _sentence)
     {
@@ -130,7 +129,7 @@ public class DialogueManager : Singletion<DialogueManager>
         foreach (var letter in _sentence)
         {
             _text.text += letter;
-            yield return new WaitForSeconds(0.08f);
+            yield return new WaitForSeconds(0.05f);
         }
     }
 }

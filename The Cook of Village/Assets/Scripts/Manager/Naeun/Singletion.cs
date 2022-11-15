@@ -11,22 +11,22 @@ public class Singletion<T> : MonoBehaviour where T : MonoBehaviour
         {
             if (instance == null)
             {
-                AddInstace();
+                return null;
             }
             return instance;
         }
     }
     private static void AddInstace()
     {
-        GameObject obj = GameObject.Find(typeof(T).Name);
-        if (obj == null)
+        var component = FindObjectOfType<T>();
+        if (component == null)
         {
-            obj = new GameObject(typeof(T).Name);
+            GameObject obj = new GameObject(typeof(T).Name);
             instance = obj.AddComponent<T>();
         }
         else
         {
-            instance = obj.GetComponent<T>();
+            instance = component.GetComponent<T>();
         }
     }
     private void Awake()
@@ -34,6 +34,10 @@ public class Singletion<T> : MonoBehaviour where T : MonoBehaviour
         if (instance == null)
         {
             AddInstace();
+        }
+        else
+        {
+            Destroy(this.gameObject);
         }
         Init();
     }

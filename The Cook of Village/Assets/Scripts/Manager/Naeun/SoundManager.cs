@@ -34,41 +34,17 @@ public class AudioSourecs
     public List<AudioSource> audioSources = new List<AudioSource>();
 }
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : Singletion<SoundManager>
 {
-    [SerializeField]
-    public List<SoundData> _soundData = new List<SoundData>();
-    private static SoundManager instance = null;
-    #region singleton
-    private void Awake() //씬 시작될때 인스턴스 초기화
-    {
-        if (null == instance)
-        {
-            instance = this;
-            AudioDictionary();
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
-
-    public static SoundManager Instance
-    {
-        get
-        {
-            if (null == instance)
-            {
-                return null;
-            }
-            return instance;
-        }
-    }
-    #endregion singleton
+    [SerializeField] public List<SoundData> _soundData = new List<SoundData>();
     [SerializeField]public AudioSourecs[] audioSources;
     public Dictionary<string, Sound> _audioClips = new Dictionary<string, Sound>();
     public Dictionary<GameObject, AudioSource> _3DAudio = new Dictionary<GameObject, AudioSource>();
     public bool EffectMute;
+    protected override void Init()
+    {
+        AudioDictionary();
+    }
     private void AudioDictionary()
     {
         foreach(var _soundType in _soundData)
