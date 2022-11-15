@@ -19,34 +19,8 @@ public class NPCInfos
     public GameObject NPCModel;
 }
 
-public class NPCData : DataManager
+public class NPCData : DataManager<NPCData>
 {
-    #region Singleton, LoadData
-    private static NPCData instance = null;
-    private void Awake() //씬 시작될때 인스턴스 초기화
-    {
-        if (null == instance)
-        {
-            instance = this;
-            //LoadData<NPCInfos>(ref npcInfos, "NPCData"); //data 완성 되었을때 다시 활성화
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
-    public static NPCData Instance
-    {
-        get
-        {
-            if (null == instance)
-            {
-                return null;
-            }
-            return instance;
-        }
-    }
-    #endregion
     [SerializeField] public NPCInfos[] npcInfos;
 
     public override void SaveDataTime()

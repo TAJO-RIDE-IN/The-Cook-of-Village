@@ -27,37 +27,11 @@ public class MoneyInfos
     public List<Proceeds> Proceeds = new List<Proceeds>();
     public List<int> Consumption = new List<int>();
 }
-public class MoneyData : DataManager, IMoneyDataOb
+public class MoneyData : DataManager<MoneyData>, IMoneyDataOb
 {
     private List<IObserver<MoneyData>> _observers = new List<IObserver<MoneyData>>();
     [SerializeField] public MoneyInfos moneyInfos;
     private bool BankData = false;
-    #region 싱글톤
-    private static MoneyData instance = null;
-    private void Awake() //씬 시작될때 인스턴스 초기화
-    {
-        if (null == instance)
-        {
-            instance = this;
-            //LoadDataTime();
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
-    public static MoneyData Instance
-    {
-        get
-        {
-            if (null == instance)
-            {
-                return null;
-            }
-            return instance;
-        }
-    }
-    #endregion
     public int Money
     {
         get { return moneyInfos.Money; }

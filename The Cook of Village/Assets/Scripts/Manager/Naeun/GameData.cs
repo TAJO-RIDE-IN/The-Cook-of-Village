@@ -35,44 +35,17 @@ public class GameInfos
     public List<GuestCountInfos> CountInfos;
 }
 
-public class GameData : DataManager, IGameDataOb
+public class GameData : DataManager<GameData>, IGameDataOb
 {
     private List<IObserver<GameData>> Observers = new List<IObserver<GameData>>();
     private List<IObserver<GameData>> DayObservers = new List<IObserver<GameData>>();
     private List<IObserver<GameData>> GuestObservers = new List<IObserver<GameData>>();
     private Coroutine runningCoroutine = null;
-
     [SerializeField] private ItemData itemData;
     [SerializeField] private FoodData foodData;
     [SerializeField] private NPCData npcData;
     [SerializeField] private MoneyData moneyData;
     [SerializeField] private InstallData installData;
-    #region 싱글톤
-    private static GameData instance = null;
-    private void Awake() //씬 시작될때 인스턴스 초기화
-    {
-        if (null == instance)
-        {
-            instance = this;
-            //LoadDataTime();
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
-    public static GameData Instance
-    {
-        get
-        {
-            if (null == instance)
-            {
-                return null;
-            }
-            return instance;
-        }
-    }
-    #endregion
     public void LoadObject()
     {
         Observers.Clear();

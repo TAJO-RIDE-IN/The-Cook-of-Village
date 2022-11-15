@@ -11,7 +11,7 @@ public interface IPotionOb
     void NotifyObserver();
 }
 
-public class Potion : MonoBehaviour, IPotionOb
+public class Potion : Singletion<Potion>, IPotionOb
 {
     public float RedDuration = 60f;
     public float RedEffectNum = 1.5f;
@@ -40,31 +40,6 @@ public class Potion : MonoBehaviour, IPotionOb
     private Coroutine RunningOrange;
 
     private List<IObserver<Potion>> _observers = new List<IObserver<Potion>>();
-    #region 싱글톤
-    private static Potion instance = null;
-    private void Awake() //씬 시작될때 인스턴스 초기화
-    {
-        if (null == instance)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
-    public static Potion Instance
-    {
-        get
-        {
-            if (null == instance)
-            {
-                return null;
-            }
-            return instance;
-        }
-    }
-    #endregion
 
     private void Start()
     {

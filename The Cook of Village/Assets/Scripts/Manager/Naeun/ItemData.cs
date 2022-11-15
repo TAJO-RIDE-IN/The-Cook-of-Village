@@ -30,34 +30,8 @@ public class ItemType
     public List<ItemInfos> ItemInfos = new List<ItemInfos>();
 }
 
-public class ItemData : DataManager
+public class ItemData : DataManager<ItemData>
 {
-    #region Singleton, LoadData
-    private static ItemData instance = null;
-    private void Awake() //씬 시작될때 인스턴스 초기화
-    {
-        if (null == instance)
-        {
-            instance = this;
-            //LoadData<ItemType>(ref ItemType, "ItemData"); //data 완성 되었을때 다시 활성화
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
-    public static ItemData Instance
-    {
-        get
-        {
-            if (null == instance)
-            {
-                return null;
-            }
-            return instance;
-        }
-    }
-    #endregion
     [SerializeField]
     public ItemType[] ItemType;
 
