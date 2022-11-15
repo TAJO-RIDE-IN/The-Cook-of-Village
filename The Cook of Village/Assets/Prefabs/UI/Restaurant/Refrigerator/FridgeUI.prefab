@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2003982206885520642}
   - component: {fileID: 901676395084948009}
   m_Layer: 5
-  m_Name: Fruit
+  m_Name: other
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,8 +195,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -124, y: -98}
-  m_SizeDelta: {x: 548.8729, y: 687.914}
+  m_AnchoredPosition: {x: -108, y: 113.2}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6048457413415726205
 CanvasRenderer:
@@ -224,7 +224,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: -50
+  m_Spacing: 205
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -400,26 +400,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffdbf9f11d551e349a84d15152b40449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SlotContainer:
-  - ingredientsType: 1
-    FridgeSlot:
-    - {fileID: 5773817463989212239}
-    - {fileID: 165248451516271466}
-    - {fileID: 165248451814818103}
-  - ingredientsType: 2
-    FridgeSlot:
-    - {fileID: 8273889483227508358}
-    - {fileID: 165248450734546486}
-  - ingredientsType: 3
-    FridgeSlot:
-    - {fileID: 8273889482449168728}
-    - {fileID: 165248450715472227}
-    - {fileID: 165248450774978090}
-    - {fileID: 165248450645654646}
-  - ingredientsType: 4
-    FridgeSlot:
-    - {fileID: 8560187086262033778}
-    - {fileID: 2639188813716472407}
+  slotFridge:
+  - {fileID: 5773817463989212239}
+  - {fileID: 165248451516271466}
+  - {fileID: 165248451814818103}
+  - {fileID: 8273889483227508358}
+  - {fileID: 165248450734546486}
+  - {fileID: 8273889482449168728}
+  - {fileID: 165248450715472227}
+  - {fileID: 165248450774978090}
+  - {fileID: 165248450645654646}
+  - {fileID: 8560187086262033778}
+  - {fileID: 2639188813716472407}
+  fridge: {fileID: 0}
 --- !u!1 &6048457414473133490
 GameObject:
   m_ObjectHideFlags: 0

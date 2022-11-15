@@ -90,7 +90,7 @@ public class ItemData : DataManager<ItemData>
     public void ChangeAmount(int id, int amount)
     {
         ItemInfos infos = ItemInfos(id);
-        infos.Amount = amount;
+        infos.Amount += amount;
         if(amount > 0 && infos.type == global::ItemType.Type.CookingTool)
         {
             FoodData.Instance.CanUseTool(infos.ID);

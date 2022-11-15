@@ -89,8 +89,7 @@ public class ToolPooling : MultipleObjectPooling<CookingTool>
     {
         ItemData item = ItemData.Instance;
         ItemInfos infos = item.ToolIdToItem((int)type);
-        int amount = infos.Amount + count;
-        item.ChangeAmount(infos.ID, amount);
+        item.ChangeAmount(infos.ID, count);
     }
 
 

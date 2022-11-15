@@ -51,8 +51,7 @@ public class ShopSelect : MonoBehaviour
     }
     private int CurrentAmount()
     {
-        int amount;
-        amount = infos.Amount + Int32.Parse(CountText.text); ;
+        int amount = Int32.Parse(CountText.text); ;
         return amount;
     }
     public void ModifySlot(string name, Sprite slotImage)

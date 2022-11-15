@@ -72,15 +72,13 @@ public class SlotInventory : Slot<ItemInfos>
             case (ItemType.Type.CookingTool):
                 ToolPooling.Instance.toolInstallMode.Use(Infos);
                 ToolPooling.Instance.SelectedToolID = Infos.ID;
-                Debug.Log(Infos.ID);
                 break;
             case (ItemType.Type.Furniture):
-                Debug.Log(Infos.Name);
                 FurniturePooling.Instance.furnitureInstallMode.UseFurniture(Infos.Name);
                 break;
         }
         Infos.Amount--;
-        ItemCount.text = Infos.Amount.ToString();
+        ModifySlot();
         if (Infos.Amount <= 0)
         {
             inventoryUI.LoadInventorySlot(); //인벤토리 재정렬

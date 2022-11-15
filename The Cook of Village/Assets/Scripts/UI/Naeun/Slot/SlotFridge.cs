@@ -12,23 +12,18 @@ public class SlotFridge : Slot<ItemInfos>
     public Image BasketImage;
     public Sprite NoneBasketImage;
     public Sprite UseBasketImage;
-    private Transform player;
-    public FridgeUI FridgeUI;
-    public int SlotCount
+    public ItemInfos itemInfos
     {
-        get { return Infos.Amount; }
+        get { return Infos; }
         set
         {
-            Infos.Amount = value;
+            Infos = value;
             ModifySlot();
-            SlotState();
-            ItemData.Instance.ChangeAmount(Infos.ID, Infos.Amount);
         }
     }
-    private void OnEnable()
-    {
-        SlotState();
-    }
+    /// <summary>
+    /// 재료 개수가 0 이상인 경우와 0개인 경우의 모습을 다르게 함.
+    /// </summary>
     private void SlotState()
     {
         BasketImage.sprite = (Infos.Amount > 0) ? UseBasketImage : NoneBasketImage;
@@ -37,9 +32,10 @@ public class SlotFridge : Slot<ItemInfos>
     }
     public override void ModifySlot()
     {
-        CountText.text = "X" + SlotCount;
+        CountText.text = "X" + Infos.Amount;
         IngredientName.text = Infos.KoreanName;
         IngredientImage.sprite = Infos.ImageUI;
+        SlotState();
     }
     public override void SelectSlot()
     {
@@ -47,7 +43,8 @@ public class SlotFridge : Slot<ItemInfos>
         {
             if (ChefInventory.Instance.AddIngredient(Infos))
             {
-                SlotCount--;
+                Infos.Amount--;
+                ModifySlot();
             }
         }
     }
