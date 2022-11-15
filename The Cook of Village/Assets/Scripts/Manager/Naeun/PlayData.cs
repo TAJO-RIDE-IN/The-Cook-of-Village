@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayData : DataManager<PlayData>
 {
-    public override void SaveDataTime()
+    public override void SaveDataTime(int PlayNum)
     {
         throw new System.NotImplementedException();
     }

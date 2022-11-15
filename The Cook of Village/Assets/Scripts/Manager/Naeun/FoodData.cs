@@ -64,7 +64,7 @@ public class FoodData : DataManager<FoodData>
         }
         return foodTool[(int)FoodTool.Type.Failure].foodInfos[0];
     }
-    public override void SaveDataTime()
+    public override void SaveDataTime(int PlayNum)
     {
         SaveArrayData<FoodTool>(ref foodTool, "FoodData");
     }

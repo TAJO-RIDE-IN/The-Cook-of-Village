@@ -140,7 +140,7 @@ public class MoneyData : DataManager<MoneyData>, IMoneyDataOb
     public int TipMoney;
     public int TipCount;
 
-    public override void SaveDataTime()
+    public override void SaveDataTime(int PlayNum)
     {
         SaveData<MoneyInfos>(ref moneyInfos, "MoneyData");
     }

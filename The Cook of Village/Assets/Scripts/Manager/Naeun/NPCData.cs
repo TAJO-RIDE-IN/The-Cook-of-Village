@@ -23,7 +23,7 @@ public class NPCData : DataManager<NPCData>
 {
     [SerializeField] public NPCInfos[] npcInfos;
 
-    public override void SaveDataTime()
+    public override void SaveDataTime(int PlayNum)
     {
         SaveArrayData<NPCInfos>(ref npcInfos, "NPCData");
     }
