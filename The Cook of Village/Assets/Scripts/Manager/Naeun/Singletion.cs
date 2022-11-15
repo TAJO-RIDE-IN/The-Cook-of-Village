@@ -5,33 +5,37 @@ using UnityEngine;
 public class Singletion<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;
-    private void Awake()
-    {
-        if (null == instance)
-        {
-            instance = (T)FindObjectOfType(typeof(T));
-            DontDestroyOnLoad(this.gameObject);
-            Init();
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
     public static T Instance
     {
         get
         {
             if (instance == null)
             {
-                return default(T);
+                AddInstace();
             }
             return instance;
         }
     }
-
-    protected virtual void Init()
+    private static void AddInstace()
     {
-
+        GameObject obj = GameObject.Find(typeof(T).Name);
+        if (obj == null)
+        {
+            obj = new GameObject(typeof(T).Name);
+            instance = obj.AddComponent<T>();
+        }
+        else
+        {
+            instance = obj.GetComponent<T>();
+        }
     }
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            AddInstace();
+        }
+        Init();
+    }
+    protected virtual void Init() {  }
 }

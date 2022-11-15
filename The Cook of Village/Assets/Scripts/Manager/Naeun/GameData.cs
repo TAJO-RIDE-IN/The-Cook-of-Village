@@ -157,9 +157,10 @@ public class GameData : DataManager, IGameDataOb
         set
         {
             gameInfos.Day = value;
-            ShopCount.ResetShopCount();
             Potion.Instance.ResetPotion();
             moneyData.ChangeBank();
+            npcData.ResetData();
+            itemData.ResetData();
             ChangeMonthDate();
             AddDataList();
             NotifyObserver(DayObservers);
