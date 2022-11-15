@@ -19,14 +19,14 @@ public class CameraLayer : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                _camera.cullingMask |= 1 << 7;
+                _camera.cullingMask |= 1 << LayerMask.NameToLayer("SecondFloor");
                 isSecondFloor = true;
                 return;
             }
         }
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            _camera.cullingMask = ~(1 << 7);
+            _camera.cullingMask = ~(1 << LayerMask.NameToLayer("SecondFloor"));
             isSecondFloor = false;
         }
         

@@ -55,6 +55,11 @@ public class CookingTool : MonoBehaviour
         _burntCoroutine = BurntFood();
     }
 
+    public void OpenBigUI()
+    {
+        
+    }
+
     
     public void ReturnIngredient(int i)
     {

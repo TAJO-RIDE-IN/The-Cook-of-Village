@@ -39,10 +39,12 @@ public class FridgeUI : UIController
         this.gameObject.SetActive(state);
         if (state)
         {
+            SoundManager.Instance.Play(SoundManager.Instance._audioClips["Refrigerator Open"]);
             LoadSlotData();
         }
         else
         {
+            SoundManager.Instance.Play(SoundManager.Instance._audioClips["Refrigerator Close"]);
             GameObject fridge = GameObject.FindGameObjectWithTag("Fridge");
             if (fridge != null)
             {
