@@ -60,7 +60,7 @@ public class ShopUI : UIController
         {
             infos.AddRange(ItemData.Instance.ItemType[6].ItemInfos);
             infos.AddRange(ItemData.Instance.ItemType[7].ItemInfos);
-            infos.Remove(ItemData.Instance.ItemType[6].ItemInfos[5]);
+            infos.Remove(ItemData.Instance.ItemType[6].ItemInfos[3]); //접시는 판매하지 않음
             return infos;
         }
         infos = ItemData.Instance.ItemType[(int)CurrentShop].ItemInfos;

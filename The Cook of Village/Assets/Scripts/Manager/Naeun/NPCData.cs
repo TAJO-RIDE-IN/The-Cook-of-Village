@@ -14,7 +14,7 @@ public class NPCInfos
     public int likeability;
     public int FavoriteFood;
     public bool EatFavriteFood;
-    public bool VisitRestaurant;
+    public bool VisitRestaurant;//하루마다 초기화
     public Sprite ProfileImage;
     public GameObject NPCModel;
 }
@@ -59,4 +59,12 @@ public class NPCData : DataManager
         {NPCInfos.Work.ChocolateShop, ItemType.Type.Other},
         {NPCInfos.Work.PotionShop, ItemType.Type.Potion}, {NPCInfos.Work.interiorShop, ItemType.Type.CookingTool}
     };
+
+    public void ResetData()
+    {
+        foreach(var npc in npcInfos)
+        {
+            npc.VisitRestaurant = false;
+        }
+    }
 }

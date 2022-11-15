@@ -34,7 +34,7 @@ public class SlotShop : Slot<ItemInfos>
     public override void ModifySlot()
     {
         SlotImage.sprite = Infos.ImageUI;
-        int count = Infos.ShopCount - ShopCount.ShopCountDictionary[Infos.Name];
+        int count = Infos.ShopCount - Infos.PurchasesCount;
         string price = Infos.Price.ToString();
         string _name = Infos.KoreanName;
         SlotText.fontSize = (_name.Length > 7) ? 18 : 22;

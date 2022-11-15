@@ -15,7 +15,8 @@ public class ItemInfos
     public string Explanation;
     public int Price;
     public int Amount;
-    public int ShopCount;
+    public int ShopCount; //하루에 구매할 수 있는 개수
+    public int PurchasesCount; //오늘 구매한 수, 요리도구 제외 하루마다 초기화
     public GameObject ItemPrefab;
     public Sprite ImageUI;
 }
@@ -64,7 +65,19 @@ public class ItemData : DataManager
     {
         SaveArrayData<ItemType>(ref ItemType, "ItemData");
     }
-
+    public void ResetData()
+    {
+        foreach(var type in ItemType)
+        {
+            if(type.type != global::ItemType.Type.CookingTool) //요리도구는 PurchasesCount를 초기화 하지 않음.
+            {
+                foreach (var infos in type.ItemInfos)
+                {
+                    infos.PurchasesCount = 0;
+                }
+            }
+        }
+    }
     public ItemInfos ItemInfos(int id)
     {
         int dataIndex;
@@ -84,7 +97,6 @@ public class ItemData : DataManager
     {
         return id / 10;
     }
-
     /// <summary>
     /// TooId로 ItemInfos 찾기
     /// </summary>
@@ -96,8 +108,6 @@ public class ItemData : DataManager
         ItemInfos infos = ItemInfos(id);
         return infos;
     }
-
-
     /// <summary>
     /// Item의 개수 변경, CookingTool인 경우 사용 가능하도록 변경
     /// </summary>
