@@ -30,9 +30,14 @@ public class FurnitureData
     public List<IndexName> _indexNames = new List<IndexName>();
 }
 
-public class InstallData : MonoBehaviour
+public class InstallData : DataManager
 {
 
+    public override void SaveDataTime()
+    {
+        //SaveArrayData<NPCInfos>(ref npcInfos, "NPCData");
+    }
+    
     private static InstallData instance;
     public static InstallData Instance
     {

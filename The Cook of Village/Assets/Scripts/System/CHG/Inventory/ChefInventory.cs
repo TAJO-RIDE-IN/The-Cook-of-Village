@@ -177,6 +177,7 @@ public class ChefInventory : MonoBehaviour
                             ToolPooling.Instance.pooledObject[_cookingCharacter._cookPosition.cookPositionUI.index]
                                 .InventoryBig.SetActive(true);
                             ChangeInventoryEmpty(i);
+                            _cookingCharacter.isCookPositionCollider = false;
                             return;
                         }
                     }

@@ -19,8 +19,6 @@ public class FurniturePooling : MultipleObjectPoolingNo
     public int indexToChange;
 
     private String selectedFurnitureName;
-    
-    private int selectedPositionIndex;
 
     public int SelectedFurnitureIndex;
 
@@ -54,7 +52,6 @@ public class FurniturePooling : MultipleObjectPoolingNo
             return;
         }
         instance = this;
-        selectedPositionIndex = -1;
         
     }
 }

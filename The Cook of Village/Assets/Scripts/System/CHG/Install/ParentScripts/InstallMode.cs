@@ -7,15 +7,7 @@ using UnityEngine;
 /// </summary>
 public abstract class InstallMode : MonoBehaviour
 {
-    public GameObject goInstallUI;
-    public GameObject cancelInstallUI;
-    public GameObject[] toolPositionUI;
-    public InventoryUI inventoryUI;
     
-    
-    public List<int> receivedPositionList = new List<int>();
-    
-    public int toolItemInfosAmount;
     
     /// <summary>
     /// 이 값을 리스트에 넣어도 되는지
@@ -25,22 +17,22 @@ public abstract class InstallMode : MonoBehaviour
     /// <summary>
     /// 설치하고 싶은 자리의 선택된 개수
     /// </summary>
-    public int selectedToolAmount;
+    
 
 
-    public abstract void ReceivePositionIndex(int x);
+    public virtual void ReceivePositionIndex(int x){}
     
     public virtual void GetAndPosition(int index, string name){}
     
     public virtual void Use(ItemInfos itemInfos){}
 
-    protected abstract void ReturnPooledObject();
+    protected virtual void ReturnPooledObject(){}
 
-    public abstract void GoInstall();
+    public virtual void GoInstall(){}
 
-    protected abstract void StartInstall();
+    protected virtual void StartInstall(){}
 
-    public abstract void CancelInstall();
+    public virtual void CancelInstall(){}
 }
 
 

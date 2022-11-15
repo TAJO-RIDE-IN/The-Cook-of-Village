@@ -10,15 +10,18 @@ using UnityEngine.UI;
 public class ToolInstallMode : InstallMode
 {
     public int installableToolCount;
-
+    public InventoryUI inventoryUI;
+    public GameObject goInstallUI;
+    public GameObject cancelInstallUI;
+    public GameObject[] toolPositionUI;
     public GameObject[] PositionCollider;
-    
+    public List<int> receivedPositionList = new List<int>();
     [HideInInspector] public bool isDirectChange;
     [HideInInspector] public bool isDirectInstall;
-    
     public bool[] isUsed;
-
     
+    private int selectedToolAmount;
+    private int toolItemInfosAmount;
 
     private void Start()
     {
@@ -37,8 +40,6 @@ public class ToolInstallMode : InstallMode
         //if(Physics.Raycast())
     }
     
-    
-
     /// <summary>
     /// 설치할 위치의 인덱스 받아옴.
     /// </summary>
