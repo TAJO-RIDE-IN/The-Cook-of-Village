@@ -14,6 +14,10 @@ public class Calendar : MonoBehaviour, IObserver<GameData>
     }
     private void OnEnable()
     {
+        foreach(var image in DayImage)
+        {
+            image.enabled = false;
+        }
         Dayhighlight(GameData.Instance.Date);
         MonthText.text = GameData.Instance.Month.ToString() + "¿ù";
     }
@@ -25,7 +29,7 @@ public class Calendar : MonoBehaviour, IObserver<GameData>
     }
     public void AddObserver(IGameDataOb o)
     {
-        o.AddObserver(this);
+        o.AddDayObserver(this);
     }
 
     public void Change(GameData obj)
