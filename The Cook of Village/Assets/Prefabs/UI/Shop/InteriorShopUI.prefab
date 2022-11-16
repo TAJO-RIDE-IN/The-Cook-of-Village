@@ -67,6 +67,7 @@ MonoBehaviour:
   shopNPC: {fileID: 0}
   shopSelect: {fileID: 8830133671202151785}
   ShopName: {fileID: 5832469028895697600}
+  ResellToggle: {fileID: 1694628943271353821}
   BackgroundImage: {fileID: 869345538374854253}
   ServiceButton: {fileID: 5080236426852987316}
   ResellColor: {r: 1, g: 0.8066038, b: 0.8066038, a: 1}
@@ -190,6 +191,10 @@ PrefabInstance:
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8373943888535394415}
+    - target: {fileID: 6699083224769736027, guid: 0bc59677ac686a149b18e3972ba96246, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResellToggleClick
+      objectReference: {fileID: 0}
     - target: {fileID: 7137428565931399715, guid: 0bc59677ac686a149b18e3972ba96246, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -375,5 +380,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1694628943271353821 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6699083224769736027, guid: 0bc59677ac686a149b18e3972ba96246, type: 3}
+  m_PrefabInstance: {fileID: 5436799918765600902}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

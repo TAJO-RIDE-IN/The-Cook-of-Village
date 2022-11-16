@@ -25,6 +25,7 @@ public class ShopUI : UIController
     public ShopNPC shopNPC;
     public ShopSelect shopSelect;
     public Text ShopName;
+    public Toggle ResellToggle;
     public Image BackgroundImage;
     public Image ServiceButton;
     public Color ResellColor;
@@ -40,6 +41,7 @@ public class ShopUI : UIController
     {
         itemData = ItemData.Instance;
         CurrentShop = NPCData.WorkDataType[shopNPC.npcInfos.work];
+        ResellToggle.isOn = false;
         Type = ShopType.Buy;
         this.gameObject.SetActive(state);
         if (state) 
@@ -48,7 +50,7 @@ public class ShopUI : UIController
             ChangeSelectSlotData();
         }
     }
-    public void ResellToggle(Toggle toggle)
+    public void ResellToggleClick(Toggle toggle)
     {
         Type = (toggle.isOn) ? ShopType.ReSell : ShopType.Buy;
         LoadSlotData();
