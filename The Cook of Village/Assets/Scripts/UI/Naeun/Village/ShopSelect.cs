@@ -37,7 +37,7 @@ public class ShopSelect : MonoBehaviour
 
     private void Init()
     {
-        BuyMaxCount = (shopUI.type == ShopUI.ShopType.Buy) ? Infos.ShopCount - Infos.PurchasesCount : Infos.Amount;
+        BuyMaxCount = (shopUI.Type == ShopUI.ShopType.Buy) ? Infos.ShopCount - Infos.PurchasesCount : Infos.Amount;
         MoneyMaxCount = (int)MoneyData.Instance.Money / Infos.Price;
         ModifySlot(Infos.KoreanName, Infos.ImageUI);
         ChangeSelctText();
@@ -52,8 +52,9 @@ public class ShopSelect : MonoBehaviour
     }
     private int CurrentAmount()
     {
-        int amount = Int32.Parse(CountText.text);
-        amount = (shopUI.type == ShopUI.ShopType.Buy) ? amount : -amount;
+
+        int amount = (int)CountSlider.value;
+        amount = (shopUI.Type == ShopUI.ShopType.Buy) ? amount : -amount;
         return amount;
     }
     public void ModifySlot(string name, Sprite slotImage)
@@ -65,13 +66,13 @@ public class ShopSelect : MonoBehaviour
     }
     public void ChangeSelctText()
     {
-        CountText.text = CountSlider.value.ToString();
+        CountText.text = CountSlider.value.ToString() + " °³";
         TotalPrice.text = CalculatePrice((int)CountSlider.value, ModifyPrice).ToString();
         if (CountSlider.value > BuyMaxCount)
         {
             CountSlider.value = BuyMaxCount;
         }
-        if (CountSlider.value > MoneyMaxCount && shopUI.type == ShopUI.ShopType.Buy)
+        if (CountSlider.value > MoneyMaxCount && shopUI.Type == ShopUI.ShopType.Buy)
         {
             CountSlider.value = MoneyMaxCount;
         }
@@ -81,7 +82,7 @@ public class ShopSelect : MonoBehaviour
         if (CountSlider.value != 0)
         {
             int totalprice = Int32.Parse(TotalPrice.text);
-            if (shopUI.type == ShopUI.ShopType.Buy)
+            if (shopUI.Type == ShopUI.ShopType.Buy)
             {
                 NPCData.Instance.ChangeLikeability(NPC.npcInfos.work, "PlayerUse");
                 Infos.PurchasesCount += (int)CountSlider.value;

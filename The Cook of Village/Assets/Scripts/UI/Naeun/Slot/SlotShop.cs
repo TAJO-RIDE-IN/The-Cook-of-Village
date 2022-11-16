@@ -30,8 +30,8 @@ public class SlotShop : Slot<ItemInfos>
     }
     public override void SelectSlot()
     {
-        SelectSlotObject.Infos = Infos;
         SelectSlotObject.ModifyPrice = ModifyPrice;
+        SelectSlotObject.Infos = Infos;
     }
 
     public override void ModifySlot()
@@ -42,7 +42,7 @@ public class SlotShop : Slot<ItemInfos>
         string _name = Infos.KoreanName;
         SlotText.fontSize = (_name.Length > 7) ? 18 : 22;
         SlotText.text = _name;
-        if(shopUI.type == ShopUI.ShopType.Buy)
+        if(shopUI.Type == ShopUI.ShopType.Buy)
         {
             SoldOut.gameObject.SetActive(count == 0);
             PriceText.text = (Infos.Price > MoneyData.Instance.Money) ? "<color=#ff0000>" + price + "</color>" : " <color=#000000ff>" + price + "</color>";
