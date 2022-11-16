@@ -40,19 +40,10 @@ public class ShopButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     }
 
 
-    public void ValueButtonClick()
+    public void ValueButtonClick(int count)
     {
-        string currentButton = EventSystem.current.currentSelectedGameObject.name;
-        if (currentButton == "MinusButton")
-        {
-            plus = false;
-            ChangeSliderValue(-1);
-        }
-        else if (currentButton == "PlusButton")
-        {
-            plus = true;
-            ChangeSliderValue(1);
-        }
+        plus = (count > 0);
+        ChangeSliderValue(count);
     }
     private void ChangeSliderValue(int value)
     {

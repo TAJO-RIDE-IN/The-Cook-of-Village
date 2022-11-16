@@ -22,6 +22,7 @@ public class SlotShop : Slot<ItemInfos>
     public Image SlotBackground;
     public ShopSelect SelectSlotObject;
     public GameObject SoldOut;
+    [HideInInspector] public ShopUI shopUI;
     private void OnDisable()
     {
         this.gameObject.SetActive(false);
@@ -41,7 +42,15 @@ public class SlotShop : Slot<ItemInfos>
         string _name = Infos.KoreanName;
         SlotText.fontSize = (_name.Length > 7) ? 18 : 22;
         SlotText.text = _name;
-        SoldOut.gameObject.SetActive(count == 0);
-        PriceText.text = (Infos.Price > MoneyData.Instance.Money)? "<color=#ff0000>" + price + "</color>" : " <color=#000000ff>" + price + "</color>";
+        if(shopUI.type == ShopUI.ShopType.Buy)
+        {
+            SoldOut.gameObject.SetActive(count == 0);
+            PriceText.text = (Infos.Price > MoneyData.Instance.Money) ? "<color=#ff0000>" + price + "</color>" : " <color=#000000ff>" + price + "</color>";
+        }
+        else
+        {
+            SoldOut.gameObject.SetActive(false);
+            PriceText.text = "<color=#000000ff>" + price + "</color>";
+        }
     }
 }
