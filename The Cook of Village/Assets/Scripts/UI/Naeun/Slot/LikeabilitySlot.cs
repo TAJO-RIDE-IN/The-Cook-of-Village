@@ -19,7 +19,7 @@ public class LikeabilitySlot : Slot<NPCInfos>
     }
     public override void ModifySlot()
     {
-        int likeability = Infos.likeability;
+        int likeability = Infos.Likeability;
         CountText.text = likeability.ToString();
         LikeabilitySlider.value = likeability;
         foreach(var image in PointImage.Select((value, index) => (value, index)))

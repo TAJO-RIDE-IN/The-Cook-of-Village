@@ -15,6 +15,7 @@ public class SlotShop : Slot<ItemInfos>
             ModifySlot();
         }
     }
+    public int ModifyPrice;
     public Text SlotText;
     public Text PriceText;
     public Image SlotImage;
@@ -29,13 +30,14 @@ public class SlotShop : Slot<ItemInfos>
     public override void SelectSlot()
     {
         SelectSlotObject.Infos = Infos;
+        SelectSlotObject.ModifyPrice = ModifyPrice;
     }
 
     public override void ModifySlot()
     {
         SlotImage.sprite = Infos.ImageUI;
         int count = Infos.ShopCount - Infos.PurchasesCount;
-        string price = Infos.Price.ToString();
+        string price = ModifyPrice.ToString();
         string _name = Infos.KoreanName;
         SlotText.fontSize = (_name.Length > 7) ? 18 : 22;
         SlotText.text = _name;

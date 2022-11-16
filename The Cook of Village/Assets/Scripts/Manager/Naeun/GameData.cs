@@ -130,7 +130,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
         {
             gameInfos.Day = value;
             Potion.Instance.ResetPotion();
-            moneyData.ChangeBank();
+            moneyData.ChangeBank(npcData.LikeabilityEffect(NPCInfos.Work.Bank));
             npcData.ResetData();
             itemData.ResetData();
             ChangeMonthDate();

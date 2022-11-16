@@ -101,6 +101,7 @@ public class ShopUI : UIController
             if(LoadState(info.value))
             {
                 slot[info.index].gameObject.SetActive(true);
+                slot[info.index].ModifyPrice = NPCData.Instance.NPCShopPrice(shopNPC.npcInfos.work, info.value.Price);
                 slot[info.index].itemInfos = info.value;
             }
         }
@@ -122,7 +123,7 @@ public class ShopUI : UIController
     {
         string name = "상점";
         ShopName.text = DicShopName[CurrentShop] + " " + name;
-        ChangeUI(DicShopImageIndex[CurrentShop]);
+        //ChangeUI(DicShopImageIndex[CurrentShop]);
     }
 
     private void ChangeSelectSlotData()
