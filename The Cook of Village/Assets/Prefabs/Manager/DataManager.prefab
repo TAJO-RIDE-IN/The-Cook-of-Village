@@ -323,7 +323,7 @@ MonoBehaviour:
       ShopCount: 0
       PurchasesCount: 0
       ItemPrefab: {fileID: 0}
-      ImageUI: {fileID: 21300000, guid: d34a5d4100106f245b4355cd83e98d14, type: 3}
+      ImageUI: {fileID: 21300000, guid: 36e83c066d2a64846b422006128bbd1c, type: 3}
     - type: 6
       ID: 64
       Name: Whipper
@@ -626,7 +626,7 @@ MonoBehaviour:
       OrderProbability: 1
       Recipe: 0a0000000b0000000c000000
       PrefabFood: {fileID: 919132149155446097, guid: 3f97fc3664af2444a971b85c75139a31, type: 3}
-      ImageUI: {fileID: 21300000, guid: bdc104fd9b9c8054183094652b6c5cce, type: 3}
+      ImageUI: {fileID: 21300000, guid: 36e83c066d2a64846b422006128bbd1c, type: 3}
   - type: 4
     ToolImage: {fileID: 21300000, guid: 3decb9d337d37fd4d93a7acaaf5407f7, type: 3}
     CanUse: 0
@@ -753,10 +753,11 @@ MonoBehaviour:
     OpenTime: 480
     CloseTime: 1200
     Holiday: 6
-    likeability: 0
+    Likeability: 0
     FavoriteFood: 12
     EatFavriteFood: 0
     VisitRestaurant: 0
+    VisitPlayer: 0
     ProfileImage: {fileID: 0}
     NPCModel: {fileID: 471088313810367507, guid: f9711b98edc455d4cb791eb7bcce75b2, type: 3}
   - work: 1
@@ -765,10 +766,11 @@ MonoBehaviour:
     OpenTime: 480
     CloseTime: 1200
     Holiday: 5
-    likeability: 0
+    Likeability: 0
     FavoriteFood: 30
     EatFavriteFood: 0
     VisitRestaurant: 0
+    VisitPlayer: 0
     ProfileImage: {fileID: 0}
     NPCModel: {fileID: 3549293458289469134, guid: b71addfae2ee3724f9845f38550da2da, type: 3}
   - work: 2
@@ -777,10 +779,11 @@ MonoBehaviour:
     OpenTime: 480
     CloseTime: 1200
     Holiday: 2
-    likeability: 0
+    Likeability: 0
     FavoriteFood: 24
     EatFavriteFood: 0
     VisitRestaurant: 0
+    VisitPlayer: 0
     ProfileImage: {fileID: 0}
     NPCModel: {fileID: 0}
   - work: 3
@@ -789,10 +792,11 @@ MonoBehaviour:
     OpenTime: 480
     CloseTime: 1440
     Holiday: 0
-    likeability: 0
+    Likeability: 0
     FavoriteFood: 0
     EatFavriteFood: 0
     VisitRestaurant: 0
+    VisitPlayer: 0
     ProfileImage: {fileID: 0}
     NPCModel: {fileID: 0}
   - work: 4
@@ -801,10 +805,11 @@ MonoBehaviour:
     OpenTime: 1200
     CloseTime: 60
     Holiday: 4
-    likeability: 0
+    Likeability: 0
     FavoriteFood: 0
     EatFavriteFood: 0
     VisitRestaurant: 0
+    VisitPlayer: 0
     ProfileImage: {fileID: 0}
     NPCModel: {fileID: 3045001306466448027, guid: 0ae2d989b0c7b16499ca108df4c3fef2, type: 3}
   - work: 5
@@ -813,10 +818,11 @@ MonoBehaviour:
     OpenTime: 600
     CloseTime: 720
     Holiday: 1
-    likeability: 0
+    Likeability: 0
     FavoriteFood: 10
     EatFavriteFood: 0
     VisitRestaurant: 0
+    VisitPlayer: 0
     ProfileImage: {fileID: 0}
     NPCModel: {fileID: 0}
   - work: 6
@@ -825,10 +831,11 @@ MonoBehaviour:
     OpenTime: 480
     CloseTime: 960
     Holiday: 0
-    likeability: 0
+    Likeability: 0
     FavoriteFood: 53
     EatFavriteFood: 0
     VisitRestaurant: 0
+    VisitPlayer: 0
     ProfileImage: {fileID: 0}
     NPCModel: {fileID: 0}
 --- !u!114 &1727613458586631584
@@ -875,6 +882,7 @@ MonoBehaviour:
   gameInfos:
     RestaurantName: "\uB808\uC2A4\uD1A0\uB791\uC774\uB984"
     PlayerName: "\uD50C\uB808\uC774\uC5B4"
+    TimeOfDay: 0
     Day: 1
     Fame: 0
     RainbowDrinking: 0
@@ -882,7 +890,6 @@ MonoBehaviour:
     - TotalGuest: 0
       SucceedGuest: 0
       FailGuest: 0
-  timeOfDay: 754
   orbitSpeed: 2
   Today: 1
   Date: 1

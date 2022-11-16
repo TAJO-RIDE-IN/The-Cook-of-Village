@@ -118,15 +118,16 @@ public class MoneyData : DataManager<MoneyData>, IMoneyDataOb
     }
     public void UseBankMoney(int _money)
     {
+        NPCData.Instance.ChangeLikeability(NPCInfos.Work.Bank, "PlayerUse");
         BankMoney += _money;
         BankData = true;
         Money -= _money;
     }
-    public void ChangeBank()
+    public void ChangeBank(float percent)
     {
         if (GameData.Instance.Day % 3 == 0) //3일마다 이자변경
         {
-            float _interest = UnityEngine.Random.Range(0.08f, 0.20f);
+            float _interest = UnityEngine.Random.Range(percent, percent*2);
             BankInterest = (float)Math.Round(_interest, 3);
         }
         BankMoney = (int)(BankMoney * (1 + BankInterest));

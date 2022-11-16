@@ -22,6 +22,7 @@ public class ShopSelect : MonoBehaviour
             Init();
         }
     }
+    [HideInInspector]public int ModifyPrice;
     public Text TotalPrice;
     public Text CountText;
     public Text NameText;
@@ -46,7 +47,7 @@ public class ShopSelect : MonoBehaviour
 
     private int CalculatePrice(int count, int Price)
     {
-        int price = count * Price;
+        int price = (int) (count * Price);
         return price;
     }
     private int CurrentAmount()
@@ -78,8 +79,9 @@ public class ShopSelect : MonoBehaviour
     {
         if (CountSlider.value != 0)
         {
-            NPC.CurrentState = ShopNPC.State.Sell;
             Infos.PurchasesCount += (int)CountSlider.value;
+            NPC.CurrentState = ShopNPC.State.Sell;
+            NPCData.Instance.ChangeLikeability(NPC.npcInfos.work, "PlayerUse");
             ItemData.Instance.ChangeAmount(Infos.ID, CurrentAmount());
             MoneyData.Instance.Money -= Int32.Parse(TotalPrice.text);
             shopUI.LoadSlotData();
