@@ -27,7 +27,7 @@ public class NPCData : DataManager<NPCData>
 
     public override void SaveDataTime(int PlayNum)
     {
-        SaveArrayData<NPCInfos>(ref npcInfos, "NPCData");
+        SaveArrayData<NPCInfos>(ref npcInfos, "NPCData" + PlayNum);
     }
     public static Dictionary<NPCInfos.Work, ItemType.Type> WorkDataType = new Dictionary<NPCInfos.Work, ItemType.Type>()
     {

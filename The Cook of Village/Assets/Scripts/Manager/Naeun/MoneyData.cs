@@ -143,7 +143,7 @@ public class MoneyData : DataManager<MoneyData>, IMoneyDataOb
 
     public override void SaveDataTime(int PlayNum)
     {
-        SaveData<MoneyInfos>(ref moneyInfos, "MoneyData");
+        SaveData<MoneyInfos>(ref moneyInfos, "MoneyData" + 0);
     }
 
     public void AddObserver(IObserver<MoneyData> o)

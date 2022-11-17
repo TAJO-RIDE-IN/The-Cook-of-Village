@@ -27,8 +27,9 @@ public class GuestCountInfos
 [System.Serializable]
 public class GameInfos
 {
-    public string RestaurantName;
+    public int PlayerID;
     public string PlayerName;
+    public string RestaurantName;
     [Range(0, 1440)] public float TimeOfDay;
     public int Day;
     public int Fame; //명성
@@ -42,11 +43,16 @@ public class GameData : DataManager<GameData>, IGameDataOb
     private List<IObserver<GameData>> DayObservers = new List<IObserver<GameData>>();
     private List<IObserver<GameData>> GuestObservers = new List<IObserver<GameData>>();
     private Coroutine runningCoroutine = null;
+    [SerializeField] private GameInfos gameInfos;
     [SerializeField] private ItemData itemData;
     [SerializeField] private FoodData foodData;
     [SerializeField] private NPCData npcData;
     [SerializeField] private MoneyData moneyData;
     [SerializeField] private InstallData installData;
+    protected override void Init()
+    {
+        LoadDataTime(gameInfos.PlayerID);
+    }
     public void LoadObject()
     {
         Observers.Clear();
@@ -71,7 +77,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
             yield return null;
         }
     }
-    [SerializeField]  private GameInfos gameInfos;
+
 
     #region 변수
     public string RestaurantName
@@ -100,7 +106,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
             if(CanSaveData())
             {
                 UseSave = false;
-                SaveDataTime(0);
+                SaveDataTime(gameInfos.PlayerID);
             }
             NotifyObserver(Observers); 
         }
@@ -237,25 +243,26 @@ public class GameData : DataManager<GameData>, IGameDataOb
     #endregion
     public override void SaveDataTime(int PlayNum)
     {
-        SaveData<GameInfos>(ref gameInfos, "GameData");
+        SaveData<GameInfos>(ref gameInfos, "GameData" + PlayNum);
         itemData.SaveDataTime(PlayNum);
         foodData.SaveDataTime(PlayNum);
         npcData.SaveDataTime(PlayNum);
+        moneyData.SaveDataTime(PlayNum);
         installData.SaveData();
     }
     public void LoadDataTime(int PlayNum)
     {
-        if(!FileExists("GameData"))
+        if(!FileExists("GameData" + PlayNum))
         {
             SaveDataTime(PlayNum);
         }
         else
         {
-            LoadData<GameInfos>(ref gameInfos, "GameData");
-            LoadData<MoneyInfos>(ref moneyData.moneyInfos, "MoneyData");
-            LoadArrayData<ItemType>(ref itemData.ItemType, "ItemData");
-            LoadArrayData<FoodTool>(ref foodData.foodTool, "FoodData");
-            LoadArrayData<NPCInfos>(ref npcData.npcInfos, "NPCData");
+            LoadData<GameInfos>(ref gameInfos, "GameData" + PlayNum);
+            LoadData<MoneyInfos>(ref moneyData.moneyInfos, "MoneyData" + PlayNum);
+            LoadArrayData<ItemType>(ref itemData.ItemType, "ItemData" + PlayNum);
+            LoadArrayData<FoodTool>(ref foodData.foodTool, "FoodData" + PlayNum);
+            LoadArrayData<NPCInfos>(ref npcData.npcInfos, "NPCData" + PlayNum);
         }
     }
     #region observer
