@@ -22,6 +22,7 @@ public class ShopSelect : MonoBehaviour
             Init();
         }
     }
+    [HideInInspector]public int ModifyPrice;
     public Text TotalPrice;
     public Text CountText;
     public Text NameText;
@@ -36,7 +37,7 @@ public class ShopSelect : MonoBehaviour
 
     private void Init()
     {
-        BuyMaxCount = Infos.ShopCount - Infos.PurchasesCount;
+        BuyMaxCount = (shopUI.Type == ShopUI.ShopType.Buy) ? Infos.ShopCount - Infos.PurchasesCount : Infos.Amount;
         MoneyMaxCount = (int)MoneyData.Instance.Money / Infos.Price;
         ModifySlot(Infos.KoreanName, Infos.ImageUI);
         ChangeSelctText();
@@ -46,12 +47,14 @@ public class ShopSelect : MonoBehaviour
 
     private int CalculatePrice(int count, int Price)
     {
-        int price = count * Price;
+        int price = (int) (count * Price);
         return price;
     }
     private int CurrentAmount()
     {
-        int amount = Int32.Parse(CountText.text); ;
+
+        int amount = (int)CountSlider.value;
+        amount = (shopUI.Type == ShopUI.ShopType.Buy) ? amount : -amount;
         return amount;
     }
     public void ModifySlot(string name, Sprite slotImage)
@@ -63,13 +66,13 @@ public class ShopSelect : MonoBehaviour
     }
     public void ChangeSelctText()
     {
-        CountText.text = CountSlider.value.ToString();
-        TotalPrice.text = CalculatePrice((int)CountSlider.value, Infos.Price).ToString();
+        CountText.text = CountSlider.value.ToString() + " °³";
+        TotalPrice.text = CalculatePrice((int)CountSlider.value, ModifyPrice).ToString();
         if (CountSlider.value > BuyMaxCount)
         {
             CountSlider.value = BuyMaxCount;
         }
-        if (CountSlider.value > MoneyMaxCount)
+        if (CountSlider.value > MoneyMaxCount && shopUI.Type == ShopUI.ShopType.Buy)
         {
             CountSlider.value = MoneyMaxCount;
         }
@@ -78,10 +81,16 @@ public class ShopSelect : MonoBehaviour
     {
         if (CountSlider.value != 0)
         {
+            int totalprice = Int32.Parse(TotalPrice.text);
+            if (shopUI.Type == ShopUI.ShopType.Buy)
+            {
+                NPCData.Instance.ChangeLikeability(NPC.npcInfos.work, "PlayerUse");
+                Infos.PurchasesCount += (int)CountSlider.value;
+                totalprice = totalprice * -1;
+            }
             NPC.CurrentState = ShopNPC.State.Sell;
-            Infos.PurchasesCount += (int)CountSlider.value;
             ItemData.Instance.ChangeAmount(Infos.ID, CurrentAmount());
-            MoneyData.Instance.Money -= Int32.Parse(TotalPrice.text);
+            MoneyData.Instance.Money += totalprice;
             shopUI.LoadSlotData();
             Init();
         }

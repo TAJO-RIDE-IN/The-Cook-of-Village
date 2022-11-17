@@ -1,51 +1,48 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable]
-public class ShopImageContainer
-{
-    [SerializeField] public NPCInfos.Work shop;
-    public Sprite BackGoundImage;
-    public Sprite SlotContainerImage;
-    public Sprite SlotImage;
-    public Sprite SelectSlotBackGoundImage;
-    public Sprite BuyButtonImage;
-    public Sprite ExitButtonImage;
-}
-[System.Serializable]
-public class ShopUIContainer
-{
-    public Image BackGoundImage;
-    public Image SlotContainerImage;
-    public Image SelectSlotBackGoundImage;
-    public Image BuyButtonImage;
-    public Image ExitButtonImage;
-}
 public class ShopUI : UIController
 {
-    [SerializeField] public ShopImageContainer[] ImageContainer;
-    [SerializeField] public ShopUIContainer UIContainer;
     public SlotShop[] slot;
-    [SerializeField] public ItemType.Type CurrentShop;
-    public GameObject SlotContent;
+    [SerializeField] private ItemType.Type CurrentShop;
+    [SerializeField] public enum ShopType {Buy, ReSell}
+    private ShopType type;
+    public ShopType Type
+    {
+        get { return type; }
+        set
+        {
+            type = value;
+            Color color = (value == ShopType.Buy) ? BuyColor : ResellColor;
+            BackgroundImage.color = color;
+            ServiceButton.color = color;
+        }
+    }
     public ShopNPC shopNPC;
     public ShopSelect shopSelect;
     public Text ShopName;
+    public Toggle ResellToggle;
+    public Image BackgroundImage;
+    public Image ServiceButton;
+    public Color ResellColor;
+    public Color BuyColor;
     public Dictionary<ItemType.Type, string> DicShopName = new Dictionary<ItemType.Type, string>()
     {
         { ItemType.Type.Fruit, "과일" }, {ItemType.Type.Vegetable, "야채"}, {ItemType.Type.Meat, "고기"},
         { ItemType.Type.Other, "초콜렛" }, { ItemType.Type.Potion, "포션" }, { ItemType.Type.CookingTool, "인테리어" }
     };
-    public Dictionary<ItemType.Type, int> DicShopImageIndex = new Dictionary<ItemType.Type, int>()
-    {
-        { ItemType.Type.Fruit, 0 }, {ItemType.Type.Vegetable, 0}, {ItemType.Type.Meat, 0},
-        { ItemType.Type.Other, 0}, { ItemType.Type.Potion, 1 }, { ItemType.Type.CookingTool, 2}
-    };
+
+    private ItemData itemData;
     public void UIState(bool state)
     {
+        itemData = ItemData.Instance;
+        CurrentShop = NPCData.WorkDataType[shopNPC.npcInfos.work];
+        ResellToggle.isOn = false;
+        Type = ShopType.Buy;
         this.gameObject.SetActive(state);
         if (state) 
         {
@@ -53,17 +50,23 @@ public class ShopUI : UIController
             ChangeSelectSlotData();
         }
     }
+    public void ResellToggleClick(Toggle toggle)
+    {
+        Type = (toggle.isOn) ? ShopType.ReSell : ShopType.Buy;
+        LoadSlotData();
+        ChangeSelectSlotData();
+    }
     private List<ItemInfos> ShopInfos()
     {
         List<ItemInfos> infos = new List<ItemInfos>();
         if((int)CurrentShop == 6 || (int)CurrentShop == 7)
         {
-            infos.AddRange(ItemData.Instance.ItemType[6].ItemInfos);
-            infos.AddRange(ItemData.Instance.ItemType[7].ItemInfos);
-            infos.Remove(ItemData.Instance.ItemType[6].ItemInfos[3]); //접시는 판매하지 않음
+            infos.AddRange(itemData.ItemType[6].ItemInfos);
+            infos.AddRange(itemData.ItemType[7].ItemInfos);
+            infos.Remove(itemData.ItemType[6].ItemInfos[3]); //접시는 판매하지 않음
             return infos;
         }
-        infos = ItemData.Instance.ItemType[(int)CurrentShop].ItemInfos;
+        infos = itemData.ItemType[(int)CurrentShop].ItemInfos;
         return infos;
     }
 
@@ -100,37 +103,35 @@ public class ShopUI : UIController
         {
             if(LoadState(info.value))
             {
-                slot[info.index].gameObject.SetActive(true);
+                slot[info.index].shopUI = this;
+                slot[info.index].gameObject.SetActive(true);               
+                slot[info.index].ModifyPrice = ModifyPrice(info.value.Price);
                 slot[info.index].itemInfos = info.value;
             }
         }
     }
-    private void ChangeUI(int index)
+    private int ModifyPrice(int price)
     {
-        UIContainer.BackGoundImage.sprite = ImageContainer[index].BackGoundImage;
-        UIContainer.SlotContainerImage.sprite = ImageContainer[index].SlotContainerImage;
-        UIContainer.SelectSlotBackGoundImage.sprite = ImageContainer[index].SelectSlotBackGoundImage;
-        UIContainer.BuyButtonImage.sprite = ImageContainer[index].BuyButtonImage;
-        UIContainer.ExitButtonImage.sprite = ImageContainer[index].ExitButtonImage;
-
-        foreach(var image in slot)
+        int shopPrice = NPCData.Instance.NPCShopPrice(shopNPC.npcInfos.work, price);
+        if (Type == ShopType.ReSell)
         {
-            image.SlotBackground.sprite = ImageContainer[index].SlotImage;
+            shopPrice = (int)Math.Round(shopPrice * 0.5f);
+            return shopPrice;
         }
+        return shopPrice;
     }
     private void ChangeShopUI()
     {
         string name = "상점";
         ShopName.text = DicShopName[CurrentShop] + " " + name;
-        ChangeUI(DicShopImageIndex[CurrentShop]);
     }
-
     private void ChangeSelectSlotData()
     {
         foreach (var _slot in slot)
         {
             if(_slot.gameObject.activeSelf == true)
             {
+                shopSelect.ModifyPrice = ModifyPrice(_slot.Infos.Price);
                 shopSelect.Infos = _slot.Infos;
                 break;
             }

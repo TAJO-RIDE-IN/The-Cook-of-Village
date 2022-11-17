@@ -23,8 +23,11 @@ public class BankUI : UIController
     public GameObject WithdrawalButton;
     public Text BankMoneyText;
     public Text BankInterestText;
+
+    private MoneyData moneyData;
     public void UIState(bool state)
     {
+        moneyData = MoneyData.Instance;
         this.gameObject.SetActive(state);
         if (state) 
         {
@@ -60,7 +63,7 @@ public class BankUI : UIController
     }
     public void BankButtonClick()
     {
-        MoneyData.Instance.UseBankMoney(MoneyValue());
+        moneyData.UseBankMoney(MoneyValue());
         LoadData();
     }
 
@@ -92,7 +95,7 @@ public class BankUI : UIController
     }
     private int MaxMoney() //최대 금액
     {
-        int MaxMoney = (CurrentService == Service.Deposit) ? MoneyData.Instance.Money : MoneyData.Instance.BankMoney;
+        int MaxMoney = (CurrentService == Service.Deposit) ? moneyData.Money : moneyData.BankMoney;
         return MaxMoney;
     }
 }

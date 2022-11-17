@@ -8,7 +8,6 @@ public class ShopNPC : VillageNPC
     public ShopUI shopUI;
     public override void EnterShop()
     {
-        shopUI.CurrentShop = NPCData.WorkDataType[npcInfos.work];
         shopUI.shopNPC = this;
     }
     public override void UIState(bool state)

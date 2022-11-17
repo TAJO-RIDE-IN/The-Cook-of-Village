@@ -119,7 +119,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             CanReceive = false;
             Receive = true;
             guest.chairUse.FoodEnable(foodInfos.ID, true); //책상에 음식 활성화
-            guest.isDrink = foodData.DrinkFood((int)foodInfos.Type);
+            guest.isDrink = foodData.DrinkFood((int)foodInfos.Type); //마시는 음식인 경우 소리 다르게 해야하기 때문에 확인
             guest.ChangeState(GuestNPC.State.Eat);
             EndOrder();
             PayMoney += foodInfos.Price;
@@ -148,6 +148,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         }
         else if(Village && VillageEatCount == 2)
         {
+            VillageNPC.npcInfos.Likeability += 20;
             VillageNPC.npcInfos.EatFavriteFood = true;
         }
     }

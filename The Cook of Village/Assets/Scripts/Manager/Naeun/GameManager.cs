@@ -49,7 +49,15 @@ public class GameManager : Singletion<GameManager>
     }
 
     public int NextSceneIndex = 2;
-    public int CurrentSceneIndex;
+    private int currentSceneIndex;
+    public int CurrentSceneIndex
+    {
+        get { return currentSceneIndex; }
+        set
+        {
+            currentSceneIndex = value;
+        }
+    }
     public string CurrentSceneName;
 
     #region OnSceneLoaded
@@ -72,21 +80,37 @@ public class GameManager : Singletion<GameManager>
     {
         CurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         CurrentSceneName = SceneManager.GetActiveScene().name;
-        Pause(false);
-        potionController.LoadObject();
-        gameData.LoadObject();
-        if(soundManager._audioClips.Count != 0)
+        if (soundManager._audioClips.Count != 0)
         {
             soundManager.SceneLoadSound(CurrentSceneName);
         }
-        if (gameData.GuestCount > 0)
-        {
-            gameData.ChangeFame(-3 * gameData.GuestCount);
-            gameData.GuestCountInfos[gameData.Day - 1].FailGuest =+ gameData.GuestCount ;
-        }
+        Pause(false);
+        SceneInitControl(CurrentSceneIndex);
         isOpen = false;
     }
     #endregion
+
+    private void SceneInitControl(int index)
+    {
+        potionController.LoadObject();
+        gameData.LoadObject();
+        switch (index)
+        {
+            case 0: //시작
+                break;
+            case 1: //로딩
+                break;
+            case 2: //마을
+                potionController.VillageSceneInit();
+                gameData.PlaySceneInit();
+                break;
+            case 3: //레스토랑
+                potionController.RestaurantSceneInit();
+                gameData.PlaySceneInit();
+                break;
+        }
+    }
+
     private void CurosrControl(bool value)
     {
         Cursor.visible = value;

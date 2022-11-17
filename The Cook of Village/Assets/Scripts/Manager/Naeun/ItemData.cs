@@ -35,9 +35,9 @@ public class ItemData : DataManager<ItemData>
     [SerializeField]
     public ItemType[] ItemType;
 
-    public override void SaveDataTime(int PlayNum)
+    public override void SaveDataTime(string PlayNum)
     {
-        SaveArrayData<ItemType>(ref ItemType, "ItemData");
+        SaveArrayData<ItemType>(ref ItemType, "ItemData" + PlayNum);
     }
     public void ResetData()
     {
