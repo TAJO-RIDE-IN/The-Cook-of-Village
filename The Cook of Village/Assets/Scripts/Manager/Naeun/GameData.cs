@@ -23,15 +23,20 @@ public class GuestCountInfos
     public int SucceedGuest;
     public int FailGuest;
 }
-
 [System.Serializable]
-public class GameInfos
+public class PlayerInfos
 {
     public int PlayerID;
     public string PlayerName;
     public string RestaurantName;
-    [Range(0, 1440)] public float TimeOfDay;
     public int Day;
+    public int Money;
+}
+[System.Serializable]
+public class GameInfos
+{
+    public PlayerInfos playerInfos;
+    [Range(0, 1440)] public float TimeOfDay;
     public int Fame; //명성
     public int RainbowDrinking;
     public List<GuestCountInfos> CountInfos;
@@ -43,25 +48,26 @@ public class GameData : DataManager<GameData>, IGameDataOb
     private List<IObserver<GameData>> DayObservers = new List<IObserver<GameData>>();
     private List<IObserver<GameData>> GuestObservers = new List<IObserver<GameData>>();
     private Coroutine runningCoroutine = null;
-    [SerializeField] private GameInfos gameInfos;
+    public GameInfos gameInfos;
     [SerializeField] private ItemData itemData;
     [SerializeField] private FoodData foodData;
     [SerializeField] private NPCData npcData;
     [SerializeField] private MoneyData moneyData;
     [SerializeField] private InstallData installData;
-    protected override void Init()
-    {
-        LoadDataTime(gameInfos.PlayerID);
-    }
     public void LoadObject()
     {
         Observers.Clear();
         moneyData.TipCount = 0;
         if (runningCoroutine != null) { StopCoroutine(runningCoroutine); }//한 개의 코루틴만 실행
-        if(GameManager.Instance.CurrentSceneIndex == 2 || GameManager.Instance.CurrentSceneIndex == 3)
+        if (GuestCount > 0)
         {
-            runningCoroutine = StartCoroutine(UpdateTime());
+            ChangeFame(-3 * GuestCount);
+            GuestCountInfos[Day - 1].FailGuest = +GuestCount;
         }
+    }
+    public void PlaySceneInit()
+    {
+        runningCoroutine = StartCoroutine(UpdateTime());
     }
     private IEnumerator UpdateTime()
     {
@@ -78,23 +84,31 @@ public class GameData : DataManager<GameData>, IGameDataOb
         }
     }
 
-
     #region 변수
     public string RestaurantName
     {
-        get { return gameInfos.RestaurantName; }
+        get { return gameInfos.playerInfos.RestaurantName; }
         set
         {
-            gameInfos.RestaurantName = value;
+            gameInfos.playerInfos.RestaurantName = value;
             NotifyObserver(Observers);
+        }
+    }
+    public int PlayerID
+    {
+        get { return gameInfos.playerInfos.PlayerID; }
+        set
+        {
+            gameInfos.playerInfos.PlayerID = value;
+
         }
     }
     public string PlayerName
     {
-        get { return gameInfos.PlayerName; }
+        get { return gameInfos.playerInfos.PlayerName; }
         set
         {
-            gameInfos.PlayerName = value;
+            gameInfos.playerInfos.PlayerName = value;
         }
     }
     public float TimeOfDay //24시간 => 1440분
@@ -106,7 +120,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
             if(CanSaveData())
             {
                 UseSave = false;
-                SaveDataTime(gameInfos.PlayerID);
+                SaveDataTime(gameInfos.playerInfos.PlayerID.ToString());
             }
             NotifyObserver(Observers); 
         }
@@ -131,10 +145,10 @@ public class GameData : DataManager<GameData>, IGameDataOb
     private float orbitSpeed = 1.0f;
     public int Day
     {
-        get { return gameInfos.Day; }
+        get { return gameInfos.playerInfos.Day; }
         set
         {
-            gameInfos.Day = value;
+            gameInfos.playerInfos.Day = value;
             Potion.Instance.ResetPotion();
             moneyData.ChangeBank(npcData.LikeabilityEffect(NPCInfos.Work.Bank));
             npcData.ResetData();
@@ -241,7 +255,11 @@ public class GameData : DataManager<GameData>, IGameDataOb
     }
     #endregion
     #endregion
-    public override void SaveDataTime(int PlayNum)
+    public void ResetData() //시작 화면으로 돌아왔을때 데이터 리셋
+    {
+        LoadDataTime("Default");
+    }
+    public override void SaveDataTime(string PlayNum)
     {
         SaveData<GameInfos>(ref gameInfos, "GameData" + PlayNum);
         itemData.SaveDataTime(PlayNum);
@@ -250,7 +268,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
         moneyData.SaveDataTime(PlayNum);
         installData.SaveData();
     }
-    public void LoadDataTime(int PlayNum)
+    public void LoadDataTime(string PlayNum)
     {
         if(!FileExists("GameData" + PlayNum))
         {

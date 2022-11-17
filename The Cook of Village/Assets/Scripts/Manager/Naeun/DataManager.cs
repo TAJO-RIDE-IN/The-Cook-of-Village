@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class DataManager<T> : Singletion<T> where T : MonoBehaviour
 {
-    public abstract void SaveDataTime(int PlayNum); //6시간이 지날때 마다 저장
+    public abstract void SaveDataTime(string PlayNum); //6시간이 지날때 마다 저장
 
     [ContextMenu("To Json Data")]
     protected void SaveData<D>(ref D source, string FileName)

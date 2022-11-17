@@ -30,11 +30,14 @@ public class MoneyInfos
 public class MoneyData : DataManager<MoneyData>, IMoneyDataOb
 {
     private List<IObserver<MoneyData>> _observers = new List<IObserver<MoneyData>>();
-    [SerializeField] public MoneyInfos moneyInfos;
+    public MoneyInfos moneyInfos;
+    public GameData gameData;
     private bool BankData = false;
+    public int TipMoney;
+    public int TipCount;
     public int Money
     {
-        get { return moneyInfos.Money; }
+        get { return gameData.gameInfos.playerInfos.Money; }
         set
         {
             if(!BankData)
@@ -48,7 +51,7 @@ public class MoneyData : DataManager<MoneyData>, IMoneyDataOb
                 }
             }
             BankData = false;
-            moneyInfos.Money = value;
+            gameData.gameInfos.playerInfos.Money = value;
             NotifyObserver();
         }
     }
@@ -138,12 +141,10 @@ public class MoneyData : DataManager<MoneyData>, IMoneyDataOb
         moneyInfos.Proceeds.Add(new Proceeds());
         moneyInfos.Consumption.Add(0);
 }
-    public int TipMoney;
-    public int TipCount;
 
-    public override void SaveDataTime(int PlayNum)
+    public override void SaveDataTime(string PlayNum)
     {
-        SaveData<MoneyInfos>(ref moneyInfos, "MoneyData" + 0);
+        SaveData<MoneyInfos>(ref moneyInfos, "MoneyData" + PlayNum);
     }
 
     public void AddObserver(IObserver<MoneyData> o)

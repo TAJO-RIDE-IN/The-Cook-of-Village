@@ -17,7 +17,7 @@ public class PlayControl : MonoBehaviour
     }
     private void State()
     {
-        //ContinueButton.interactable = (playerData.PlayerList.Count > 0);
+        ContinueButton.interactable = (playerData.playerInfos.Count > 0);
         NewPlayButton.interactable = playerData.CanAddData();
     }
     public void NewPlayClick()

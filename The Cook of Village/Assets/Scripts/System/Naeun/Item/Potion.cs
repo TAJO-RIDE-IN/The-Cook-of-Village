@@ -49,25 +49,35 @@ public class Potion : Singletion<Potion>, IPotionOb
     {
         if (GameManager.Instance.CurrentSceneIndex == 2)
         {
-            VillagePlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonGravity>();
-            VillagePlayer.speed = VillagePlayer.OriginSpeed;
-            UseBrownPotion(Brown);
+            VillageSceneInit();
         }
         if (GameManager.Instance.CurrentSceneIndex == 3)
         {
-            Tool.Clear();
-            RestaurantPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonMovement>();
-            Counter = FindObjectOfType<CounterQueue>();
-            GameObject[] CookTool = GameObject.FindGameObjectsWithTag("CookingTools");
-            foreach(var tool in CookTool) {
-                Tool.Add(tool.GetComponent<CookingTool>()); //CookingTool 리스트에 추가
-            } 
-            RestaurantPlayer.speed = RestaurantPlayer.OriginSpeed;
-            if(PotionReset) { ResetPotion(); }
-            if(!Orange) { UseOrangePotion(1f); }
+            RestaurantSceneInit();
         }
         if (Red) { UseRedPotion(RedEffectNum); }
         NotifyObserver();
+    }
+
+    public void VillageSceneInit()
+    {
+        VillagePlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonGravity>();
+        VillagePlayer.speed = VillagePlayer.OriginSpeed;
+        UseBrownPotion(Brown);
+    }
+    public void RestaurantSceneInit()
+    {
+        Tool.Clear();
+        Counter = FindObjectOfType<CounterQueue>();
+        RestaurantPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonMovement>();
+        GameObject[] CookTool = GameObject.FindGameObjectsWithTag("CookingTools");
+        foreach (var tool in CookTool)
+        {
+            Tool.Add(tool.GetComponent<CookingTool>()); //CookingTool 리스트에 추가
+        }
+        RestaurantPlayer.speed = RestaurantPlayer.OriginSpeed;
+        if (PotionReset) { ResetPotion(); }
+        if (!Orange) { UseOrangePotion(1f); }
     }
     public void ResetPotion() //하루지나면 포션 효과 제거
     {
