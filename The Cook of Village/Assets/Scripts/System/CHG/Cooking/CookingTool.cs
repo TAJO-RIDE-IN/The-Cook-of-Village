@@ -184,7 +184,7 @@ public class CookingTool : MonoBehaviour
     public void DeleteTool() 
     {
         WhenReturn();
-        InstallData.DeleteData(index, InstallData.SortOfInstall.Tool);
+        InstallData.Instance.DeleteData(index, InstallData.SortOfInstall.Tool);
         ToolPooling.Instance.toolInstallMode.ActviePositionCollider(index);
         ToolPooling.Instance.ReturnObject(this, toolID.ToString());
         ToolPooling.Instance.toolInstallMode.isUsed[index] = false;
