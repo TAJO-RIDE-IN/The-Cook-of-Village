@@ -43,10 +43,10 @@ public class FurnitureInstallMode : InstallMode
     private void Start()
     {
         //데이터에 따라 시작 할 때 설치
-        for (int i = 0; i < InstallData.toolData._indexNames.Count; i++)
+        /*for (int i = 0; i < InstallData.toolData._indexNames.Count; i++)
         {
-            //GetAndPosition(InstallData.toolData._indexNames[i].index, InstallData.toolData._indexNames[i].name);
-        }
+            GetAndPosition(InstallData.toolData._indexNames[i].index, InstallData.toolData._indexNames[i].name);
+        }*/
     }
 
     void Update()
@@ -67,7 +67,7 @@ public class FurnitureInstallMode : InstallMode
                 PlaceObject(currentObjectName);
             }
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Cancel();
             }
@@ -99,6 +99,7 @@ public class FurnitureInstallMode : InstallMode
             if (tableChairs[j].chairCount < 4)
             {
                 secondDis = Vector3.Distance(pendingObject.transform.position, tableChairs[j].tablePos);
+                Debug.Log(secondDis);
                 if (secondDis < firstDis)
                 {
                     firstDis = secondDis;
@@ -151,6 +152,7 @@ public class FurnitureInstallMode : InstallMode
             tableChairs.Add(currentData);
             pendingObject = null;
             noticeUI.SetActive(false);
+            InstallData.Instance.PassTable(currentData.tablePos);
             return;
         }
         for (int i = 1; i < 3; i++)//의자면 테이블이 있는지 확인하고, 설치된 테이블 근처 위치에 초록불 뜨도록
@@ -160,17 +162,18 @@ public class FurnitureInstallMode : InstallMode
                 if (secondDis < 1.2f && secondDis > 0.9f)
                 {
                     tableChairs[selectedIndex].chairCount++;
+                    InstallData.Instance.PassChair(pendingObject.transform.position, currentObjectName, selectedIndex);
                     pendingObject = null;
                     return;
                 }
                 else
                 {
                     StartCoroutine(TextFade(warnings[1].box,warnings[1].text));
+                    return;
                 }
-                
             }
-            
         }
+        InstallData.Instance.PassFurniture(pendingObject.transform.position, currentObjectName);
         pendingObject = null;
         FurniturePooling.Instance.FindInstallPoolData(name).pooledObjects.Add(pendingObject);
     }

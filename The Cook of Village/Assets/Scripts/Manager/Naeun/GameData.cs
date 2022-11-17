@@ -241,7 +241,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
         itemData.SaveDataTime(PlayNum);
         foodData.SaveDataTime(PlayNum);
         npcData.SaveDataTime(PlayNum);
-        installData.SaveData();
+        installData.SaveDataTime(PlayNum);
     }
     public void LoadDataTime(int PlayNum)
     {

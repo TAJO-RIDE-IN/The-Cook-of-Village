@@ -18,7 +18,7 @@ public class InputManager : MonoBehaviour
             {
                 if (!isPause)
                 {
-                    pauseUI.Pause();
+                    //pauseUI.Pause();
                     isPause = true;
                 }
                 else

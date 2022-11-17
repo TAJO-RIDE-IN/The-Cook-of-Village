@@ -29,9 +29,9 @@ public class ToolInstallMode : InstallMode
         
         //Debug.Log(InstallData.toolData._indexNames.Count);
         
-        for (int i = 0; i < InstallData.toolData._indexNames.Count; i++)
+        for (int i = 0; i < InstallData.Instance.toolData._indexNames.Count; i++)
         {
-            GetAndPosition(InstallData.toolData._indexNames[i].index, InstallData.toolData._indexNames[i].name);
+            GetAndPosition(InstallData.Instance.toolData._indexNames[i].index, InstallData.Instance.toolData._indexNames[i].name);
         }
     }
 
@@ -113,7 +113,7 @@ public class ToolInstallMode : InstallMode
 
     public override void GetAndPosition(int index, string name)
     {
-        //Debug.Log(index+ "번째에 소환함");
+        Debug.Log(index+ "번째에 소환함");
         ToolPooling.Instance.pooledObject[index] = ToolPooling.Instance.GetObject(name);
         ToolPooling.Instance.pooledObject[index].transform.position = ToolPooling.Instance.toolPosition[index].position;
         ToolPooling.Instance.pooledObject[index].transform.rotation = ToolPooling.Instance.toolPosition[index].rotation;
@@ -133,14 +133,14 @@ public class ToolInstallMode : InstallMode
             ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange].DeleteTool();
             ReturnPooledObject();
             GetAndPosition(ToolPooling.Instance.indexToChange, itemInfos.Name);
-            InstallData.Instance.PassData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
+            InstallData.Instance.PassIndexData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
             isDirectChange = false;
             return;
         }
         if (isDirectInstall)
         {
             GetAndPosition(ToolPooling.Instance.indexToChange, itemInfos.Name);
-            InstallData.Instance.PassData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
+            InstallData.Instance.PassIndexData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
             isDirectInstall = false;
             return;
         }
@@ -168,7 +168,7 @@ public class ToolInstallMode : InstallMode
                 isUsed[index] = true;
                 ToolPooling.Instance.SelectedPositionIndex = index;
                 GetAndPosition(index, ToolPooling.Instance.SelectedToolName);
-                InstallData.Instance.PassData(index, ToolPooling.Instance.SelectedToolName, InstallData.SortOfInstall.Tool);
+                InstallData.Instance.PassIndexData(index, ToolPooling.Instance.SelectedToolName, InstallData.SortOfInstall.Tool);
                 ToolPooling.Instance.pooledObject[index].index = index;
             }
         }
