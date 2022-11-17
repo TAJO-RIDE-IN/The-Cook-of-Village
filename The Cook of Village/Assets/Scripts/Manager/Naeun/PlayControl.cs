@@ -8,11 +8,12 @@ public class PlayControl : MonoBehaviour
     public Button ContinueButton;
     public Button NewPlayButton;
     public GameObject ContinueUI;
-
     private PlayerData playerData;
+    private GameData gameData;
     private void Start()
     {
         playerData = PlayerData.Instance;
+        gameData = GameData.Instance;
         State();
     }
     private void State()
@@ -28,9 +29,14 @@ public class PlayControl : MonoBehaviour
         }
         State();
     }
-
     public void ContinueClick()
     {
         ContinueUI.SetActive(!ContinueUI.activeSelf);
+    }
+
+    public void StartGame(int PlayID)
+    {
+        gameData.PlayerID = PlayID;
+        gameData.LoadDataTime(PlayID.ToString());
     }
 }

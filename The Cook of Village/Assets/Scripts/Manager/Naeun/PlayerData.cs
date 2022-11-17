@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class PlayerData : DataManager<PlayerData>
 {
     public List<PlayerInfos> playerInfos = new List<PlayerInfos>();
+    public Dictionary<string, string> PlayNum = new Dictionary<string, string>();
     private GameData gameData;
     protected override void Init()
     {
@@ -38,7 +39,10 @@ public class PlayerData : DataManager<PlayerData>
             gameData.SaveDataTime((playerInfos.Count).ToString());
         }
     }
+    public void RemoveData(int PlayerID)
+    {
 
+    }
     public void ContinuePlayer(string PlayNum)
     {
         gameData.LoadDataTime(PlayNum);
