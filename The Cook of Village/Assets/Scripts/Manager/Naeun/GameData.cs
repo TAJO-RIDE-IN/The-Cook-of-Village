@@ -266,7 +266,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
         foodData.SaveDataTime(PlayNum);
         npcData.SaveDataTime(PlayNum);
         moneyData.SaveDataTime(PlayNum);
-        installData.SaveData();
+        installData.SaveDataTime(PlayNum);
     }
     public void LoadDataTime(string PlayNum)
     {

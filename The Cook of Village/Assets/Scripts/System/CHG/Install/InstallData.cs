@@ -72,7 +72,7 @@ public class TableData
 
 public class InstallData : DataManager<InstallData>
 {
-    public override void SaveDataTime(int PlayNum)
+    public override void SaveDataTime(String PlayNum)
     {
         SaveData(ref toolData, "ToolData" + PlayNum);
         SaveData(ref furnitureData, "FurnitureData" + PlayNum);
