@@ -40,17 +40,20 @@ public class SlotShop : Slot<ItemInfos>
         int count = Infos.ShopCount - Infos.PurchasesCount;
         string price = ModifyPrice.ToString();
         string _name = Infos.KoreanName;
-        SlotText.fontSize = (_name.Length > 7) ? 18 : 22;
+        if(Infos.type == ItemType.Type.Furniture)//도구 파는 상점의 ui가 조금 작기 때문에 폰트 크기 조절
+        {
+            SlotText.fontSize = (_name.Length > 7) ? 16 : 22;
+        }
         SlotText.text = _name;
-        if(shopUI.Type == ShopUI.ShopType.Buy)
+        if (shopUI.Type == ShopUI.ShopType.Buy)
         {
             SoldOut.gameObject.SetActive(count == 0);
-            PriceText.text = (Infos.Price > MoneyData.Instance.Money) ? "<color=#ff0000>" + price + "</color>" : " <color=#000000ff>" + price + "</color>";
+            PriceText.text = (Infos.Price > MoneyData.Instance.Money) ? " <color=#ff0000>" + price + "</color>" : " <color=#000000ff>" + price + "</color>";
         }
         else
         {
             SoldOut.gameObject.SetActive(false);
-            PriceText.text = "<color=#000000ff>" + price + "</color>";
+            PriceText.text = " " + "<color=#000000ff>" + price + "</color>";
         }
     }
 }
