@@ -259,28 +259,29 @@ public class GameData : DataManager<GameData>, IGameDataOb
     {
         LoadDataTime("Default");
     }
-    public override void SaveDataTime(string PlayNum)
+    public override void SaveDataTime(string PlayName)
     {
-        SaveData<GameInfos>(ref gameInfos, "GameData" + PlayNum);
-        itemData.SaveDataTime(PlayNum);
-        foodData.SaveDataTime(PlayNum);
-        npcData.SaveDataTime(PlayNum);
-        moneyData.SaveDataTime(PlayNum);
-        installData.SaveData();
+        SaveData<GameInfos>(ref gameInfos, "GameData" + PlayName, PlayName);
+        itemData.SaveDataTime(PlayName);
+        foodData.SaveDataTime(PlayName);
+        npcData.SaveDataTime(PlayName);
+        moneyData.SaveDataTime(PlayName);
+        installData.SaveDataTime(PlayName);
     }
-    public void LoadDataTime(string PlayNum)
+    public void LoadDataTime(string PlayName)
     {
-        if(!FileExists("GameData" + PlayNum))
+        if(!FileExists("GameData" + PlayName))
         {
-            SaveDataTime(PlayNum);
+            SaveDataTime(PlayName);
         }
         else
         {
-            LoadData<GameInfos>(ref gameInfos, "GameData" + PlayNum);
-            LoadData<MoneyInfos>(ref moneyData.moneyInfos, "MoneyData" + PlayNum);
-            LoadArrayData<ItemType>(ref itemData.ItemType, "ItemData" + PlayNum);
-            LoadArrayData<FoodTool>(ref foodData.foodTool, "FoodData" + PlayNum);
-            LoadArrayData<NPCInfos>(ref npcData.npcInfos, "NPCData" + PlayNum);
+            LoadData<GameInfos>(ref gameInfos, "GameData" + PlayName, PlayName);
+            LoadData<MoneyInfos>(ref moneyData.moneyInfos, "MoneyData" + PlayName, PlayName);
+            LoadArrayData<ItemType>(ref itemData.ItemType, "ItemData" + PlayName, PlayName);
+            LoadArrayData<FoodTool>(ref foodData.foodTool, "FoodData" + PlayName, PlayName);
+            LoadArrayData<NPCInfos>(ref npcData.npcInfos, "NPCData" + PlayName, PlayName);
+            installData.LoadData(PlayName);
         }
     }
     #region observer

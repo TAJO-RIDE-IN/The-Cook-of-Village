@@ -64,9 +64,9 @@ public class FoodData : DataManager<FoodData>
         }
         return foodTool[(int)FoodTool.Type.Failure].foodInfos[0];
     }
-    public override void SaveDataTime(string PlayNum)
+    public override void SaveDataTime(string PlayName)
     {
-        SaveArrayData<FoodTool>(ref foodTool, "FoodData" + PlayNum);
+        SaveArrayData<FoodTool>(ref foodTool, "FoodData" + PlayName, PlayName);
     }
     /// <summary>
     /// Food ID에 따른 Food 정보 찾기

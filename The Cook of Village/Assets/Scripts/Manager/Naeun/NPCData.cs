@@ -25,9 +25,9 @@ public class NPCData : DataManager<NPCData>
 {
     [SerializeField] public NPCInfos[] npcInfos;
 
-    public override void SaveDataTime(string PlayNum)
+    public override void SaveDataTime(string PlayName)
     {
-        SaveArrayData<NPCInfos>(ref npcInfos, "NPCData" + PlayNum);
+        SaveArrayData<NPCInfos>(ref npcInfos, "NPCData" + PlayName, PlayName);
     }
     public static Dictionary<NPCInfos.Work, ItemType.Type> WorkDataType = new Dictionary<NPCInfos.Work, ItemType.Type>()
     {
