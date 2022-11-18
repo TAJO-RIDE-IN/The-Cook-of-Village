@@ -22,10 +22,12 @@ public class ToolInstallMode : InstallMode
     
     private int selectedToolAmount;
     private int toolItemInfosAmount;
-    private CookingCharacter _cookingCharacter;
+    private ToolPooling toolPooling;
+    [HideInInspector] public CookingCharacter _cookingCharacter;
 
     private void Start()
     {
+        toolPooling = ToolPooling.Instance;
         isUsed = new bool[installableToolCount];
         
         //Debug.Log(InstallData.toolData._indexNames.Count);
@@ -117,16 +119,12 @@ public class ToolInstallMode : InstallMode
 
     public void GetAndPosition(int index, string name)
     {
-        ToolPooling.Instance.pooledObject[index] = ToolPooling.Instance.GetObject(name);
-        ToolPooling.Instance.pooledObject[index].transform.position = ToolPooling.Instance.toolPosition[index].position;
-        ToolPooling.Instance.pooledObject[index].transform.rotation = ToolPooling.Instance.toolPosition[index].rotation;
-        ToolPooling.Instance.pooledObject[index].index = index;
+        toolPooling.pooledObject[index] = toolPooling.GetObject(name);
+        toolPooling.pooledObject[index].transform.position = ToolPooling.Instance.toolPosition[index].position;
+        toolPooling.pooledObject[index].transform.rotation = ToolPooling.Instance.toolPosition[index].rotation;
+        toolPooling.pooledObject[index].index = index;
         isUsed[index] = true;
         PositionCollider[index].SetActive(false);
-        if (isDirectInstall)
-        {
-            _cookingCharacter.isCookPositionCollider = false;
-        }
     }
 
     public void ActviePositionCollider(int index)
@@ -140,6 +138,7 @@ public class ToolInstallMode : InstallMode
             ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange].DeleteTool();
             ReturnPooledObject();
             GetAndPosition(ToolPooling.Instance.indexToChange, itemInfos.Name);
+            toolPooling.pooledObject[toolPooling.indexToChange].InventoryBig.SetActive(true);
             InstallData.Instance.PassIndexData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
             isDirectChange = false;
             return;
@@ -147,6 +146,10 @@ public class ToolInstallMode : InstallMode
         if (isDirectInstall)
         {
             GetAndPosition(ToolPooling.Instance.indexToChange, itemInfos.Name);
+            toolPooling.pooledObject[toolPooling.indexToChange].InventoryBig.SetActive(true);
+            _cookingCharacter._cookingTool = toolPooling.pooledObject[ToolPooling.Instance.indexToChange];
+            _cookingCharacter.isToolCollider = true;
+            _cookingCharacter.isCookPositionCollider = false;
             InstallData.Instance.PassIndexData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
             isDirectInstall = false;
             return;

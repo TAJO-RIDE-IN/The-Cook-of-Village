@@ -14,6 +14,28 @@ public class GameManager : Singletion<GameManager>
         CurrentSceneName = SceneManager.GetActiveScene().name;
         LoadObject();
         DontDestroyOnLoad(this.gameObject);
+        CursorInit();
+    }
+
+    private void CursorInit()
+    {
+        if (currentSceneIndex == 0)
+        {
+            CursorControl(true);
+        }
+        if (currentSceneIndex == 1)
+        {
+            CursorControl(true);
+        }
+        if (currentSceneIndex == 2)
+        {
+            CursorControl(false);
+        }
+
+        if (currentSceneIndex == 3)
+        {
+            CursorControl(true);
+        }
     }
 
     private bool isOpen = false;
@@ -97,21 +119,25 @@ public class GameManager : Singletion<GameManager>
         switch (index)
         {
             case 0: //시작
+                CursorControl(true);
                 break;
             case 1: //로딩
+                CursorControl(true);
                 break;
             case 2: //마을
                 potionController.VillageSceneInit();
                 gameData.PlaySceneInit();
+                CursorControl(false);
                 break;
             case 3: //레스토랑
                 potionController.RestaurantSceneInit();
                 gameData.PlaySceneInit();
+                CursorControl(true);
                 break;
         }
     }
 
-    private void CurosrControl(bool value)
+    public void CursorControl(bool value)
     {
         Cursor.visible = value;
         Cursor.lockState = (value) ? CursorLockMode.None :  CursorLockMode.Locked;
