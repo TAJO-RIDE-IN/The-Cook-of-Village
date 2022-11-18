@@ -28,17 +28,16 @@ public class VillageTeleport : MonoBehaviour
     public enum Gate { PotionShop, PotionShopOut, InteriorShop, InteriorShopOut, Bank, BankOut};
     private void PlayMove(Gate gate)
     {
-        Player.controller.enabled = false;
         Player.transform.position = GateDictionary[gate].position;
-        Player.transform.rotation = GateDictionary[gate].rotation;
-        Player.controller.enabled = true;
-        
+        Player.transform.rotation = GateDictionary[gate].rotation;  
     }
 
     public void MoveGate(Gate gate)
     {
         MoveEffect.gameObject.SetActive(true); 
         MoveEffect.Play();
+        Player.StopMoving();
         StartCoroutine(ChangeWithDelay.CheckDelay(0.5f, () => PlayMove(gate)));
+        StartCoroutine(ChangeWithDelay.CheckDelay(1.5f, () => Player.StartMoving()));
     }
 }
