@@ -348,9 +348,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2849569586491235485}
-        m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
-        m_MethodName: MoveScene
+      - m_Target: {fileID: 1228942593825748160}
+        m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
+        m_MethodName: HomeButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -358,7 +358,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2849569586491235485
 MonoBehaviour:
@@ -767,6 +767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 843888508aedacb4c83cee342fcdbd7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeScene: {fileID: 2849569586491235485}
   pauseUI: {fileID: 5059103553907024217}
   OptionUI: {fileID: 2056869497557006748}
   ExitUI: {fileID: 8566766499291043047}
@@ -1082,18 +1083,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5059103553907024216}
     m_Modifications:
-    - target: {fileID: 3398464728176354510, guid: 968f8fa38daf02f42a895da555d97302, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1228942593825748160}
-    - target: {fileID: 3398464728176354510, guid: 968f8fa38daf02f42a895da555d97302, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PauseUI, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 3398464728176354510, guid: 968f8fa38daf02f42a895da555d97302, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 3398464729354787874, guid: 968f8fa38daf02f42a895da555d97302, type: 3}
       propertyPath: m_Name
       value: Exit

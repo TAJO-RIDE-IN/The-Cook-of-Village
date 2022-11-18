@@ -19,7 +19,6 @@ public class Proceeds
 [System.Serializable]
 public class MoneyInfos
 {
-    public int Money; //소지하고 있는 돈
     public int BankMoney; //은행에 넣은 돈
     public float BankInterest; //은행 이자
     public int TotalProceeds; //매출액
@@ -58,15 +57,15 @@ public class MoneyData : DataManager<MoneyData>, IMoneyDataOb
 
     public void ChangeMoneyData(int value)
     {
-        if (moneyInfos.Money < value)
+        if (Money < value)
         {
-            int money = value - moneyInfos.Money;
+            int money = value - Money;
             TotalProceeds += money;
            Proceeds[GameData.Instance.Day - 1].SalesProceeds += (value - TipMoney);
         }
         else
         {
-            int money = moneyInfos.Money - value;
+            int money = Money - value;
             TotalConsumption += money;
             Consumption[GameData.Instance.Day - 1] += money;
         }

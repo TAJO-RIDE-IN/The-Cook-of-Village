@@ -18,7 +18,6 @@ public class PlayerData : DataManager<PlayerData>
     private void Start()
     {
         gameData = GameData.Instance;
-        gameData.SaveDataTime("save");
         gameData.ResetData(); 
     }
     private string CreateID()
@@ -40,7 +39,7 @@ public class PlayerData : DataManager<PlayerData>
             DirectoryInfo[] files = fileinfo.GetDirectories().OrderBy(p => p.LastWriteTime).ToArray(); //수정한 날짜순으로 정렬
             foreach(var file in fileinfo.GetDirectories())
             {
-                if(file.Name != "Default")
+                if(file.Name != "Default" && file.Name != "플레이어 이름_0")
                 {
                     GameInfos infos = new GameInfos();
                     LoadData(ref infos, "GameData", file.Name);

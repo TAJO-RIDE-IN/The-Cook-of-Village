@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PauseUI : UIController
 {
+    public ChangeScene changeScene;
     public GameObject pauseUI;
     public GameObject OptionUI;
     public GameObject ExitUI;
@@ -17,7 +18,11 @@ public class PauseUI : UIController
         ExitUI.SetActive(false);
         GameManager.Instance.Pause(state);
     }
-
+    public void HomeButtonClick()
+    {
+        GameData.Instance.SaveDataTime("HomeSave");
+        changeScene.MoveScene();
+    }
     protected override void Disable()
     {
         PauseUIState(false);

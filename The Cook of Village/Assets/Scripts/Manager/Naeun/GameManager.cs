@@ -133,7 +133,6 @@ public class GameManager : Singletion<GameManager>
 
     public void GameQuit()
     {
-        gameData.SaveDataTime("Save");
         Application.Quit();
     }
 }
