@@ -26,7 +26,7 @@ public class GuestCountInfos
 [System.Serializable]
 public class PlayerInfos
 {
-    public int PlayerID;
+    public string PlayerID;
     public string PlayerName;
     public string RestaurantName;
     public int Day;
@@ -94,13 +94,12 @@ public class GameData : DataManager<GameData>, IGameDataOb
             NotifyObserver(Observers);
         }
     }
-    public int PlayerID
+    public string PlayerID
     {
         get { return gameInfos.playerInfos.PlayerID; }
         set
         {
             gameInfos.playerInfos.PlayerID = value;
-
         }
     }
     public string PlayerName
@@ -120,7 +119,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
             if(CanSaveData())
             {
                 UseSave = false;
-                SaveDataTime(gameInfos.playerInfos.PlayerID.ToString());
+                SaveDataTime("Save");
             }
             NotifyObserver(Observers); 
         }
@@ -261,26 +260,37 @@ public class GameData : DataManager<GameData>, IGameDataOb
     }
     public override void SaveDataTime(string PlayName)
     {
-        SaveData<GameInfos>(ref gameInfos, "GameData" + PlayName, PlayName);
-        itemData.SaveDataTime(PlayName);
-        foodData.SaveDataTime(PlayName);
-        npcData.SaveDataTime(PlayName);
-        moneyData.SaveDataTime(PlayName);
-        installData.SaveDataTime(PlayName);
+        if(Instance == this)
+        {
+            if (PlayName != "Default")
+            {
+                PlayName = PlayerName + "_" + PlayerID;
+            }
+            SaveData<GameInfos>(ref gameInfos, "GameData", PlayName);
+            itemData.SaveDataTime(PlayName);
+            foodData.SaveDataTime(PlayName);
+            npcData.SaveDataTime(PlayName);
+            moneyData.SaveDataTime(PlayName);
+            installData.SaveDataTime(PlayName);
+        }
     }
     public void LoadDataTime(string PlayName)
     {
-        if(!FileExists("GameData" + PlayName))
+        if (PlayName != "Default")
+        {
+            PlayName = PlayerName + "_" + PlayerID;
+        }
+        if (!FileExists(PlayName))
         {
             SaveDataTime(PlayName);
         }
         else
         {
-            LoadData<GameInfos>(ref gameInfos, "GameData" + PlayName, PlayName);
-            LoadData<MoneyInfos>(ref moneyData.moneyInfos, "MoneyData" + PlayName, PlayName);
-            LoadArrayData<ItemType>(ref itemData.ItemType, "ItemData" + PlayName, PlayName);
-            LoadArrayData<FoodTool>(ref foodData.foodTool, "FoodData" + PlayName, PlayName);
-            LoadArrayData<NPCInfos>(ref npcData.npcInfos, "NPCData" + PlayName, PlayName);
+            LoadData<GameInfos>(ref gameInfos, "GameData", PlayName);
+            LoadData<MoneyInfos>(ref moneyData.moneyInfos, "MoneyData", PlayName);
+            LoadArrayData<ItemType>(ref itemData.ItemType, "ItemData", PlayName);
+            LoadArrayData<FoodTool>(ref foodData.foodTool, "FoodData", PlayName);
+            LoadArrayData<NPCInfos>(ref npcData.npcInfos, "NPCData", PlayName);
             installData.LoadData(PlayName);
         }
     }

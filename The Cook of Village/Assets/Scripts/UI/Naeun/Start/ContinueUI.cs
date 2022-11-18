@@ -6,12 +6,11 @@ using UnityEngine.UI;
 
 public class ContinueUI : UIController
 {
-    public SlotPlayer[] PlayerSlot;
     public PlayControl playControl;
+    private List<SlotPlayer> slotPlayer = new List<SlotPlayer>();
     private PlayerData playerData;
     public void ContinueUIState()
     {
-        ResetSlot();
         playerData = PlayerData.Instance;
         this.gameObject.SetActive(!this.gameObject.activeSelf);
         if(this.gameObject.activeSelf)
@@ -22,19 +21,25 @@ public class ContinueUI : UIController
 
     private void ResetSlot()
     {
-        foreach(var slot in PlayerSlot)
+        if(playerData.playerInfos.Count == 0)
         {
-            slot.gameObject.SetActive(false);
+            ContinueUIState();
+        }
+        foreach(var slot in slotPlayer)
+        {
+            ObjectPooling<SlotPlayer>.ReturnObject(slot);
         }
     }
-    
-    private void LoadData()
+    public void LoadData()
     {
-        foreach(var infos in playerData.playerInfos.Select((value, index) => (value, index)))
+        ResetSlot();
+        foreach (var infos in playerData.playerInfos)
         {
-            PlayerSlot[infos.index].gameObject.SetActive(true);
-            PlayerSlot[infos.index].playControl = playControl;
-            PlayerSlot[infos.index].playerInfos = infos.value;
+            SlotPlayer slot = ObjectPooling<SlotPlayer>.GetObject();
+            slot.gameObject.SetActive(true);
+            slot.playControl = playControl;
+            slot.playerInfos = infos;
+            slotPlayer.Add(slot);
         }        
     }
 }

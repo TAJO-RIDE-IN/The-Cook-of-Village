@@ -18,7 +18,13 @@ public class SlotPlayer : Slot<PlayerInfos>
     public Text RestaurantNameText;
     public Text DayText;
     public Text MoneyText;
+    public DeleteUI deleteUI;
     public PlayControl playControl;
+
+    private void OnDisable()
+    {
+        ObjectPooling<SlotPlayer>.ReturnObject(this);
+    }
 
     public override void ModifySlot()
     {
@@ -26,10 +32,15 @@ public class SlotPlayer : Slot<PlayerInfos>
         RestaurantNameText.text = playerInfos.RestaurantName;
         DayText.text = "Day " + playerInfos.Day + "ÀÏÂ÷";
         MoneyText.text = playerInfos.Money + "¿ø";
-}
-
+    }
+    public void DeleteData()
+    {
+        playControl.WantDeleteData = playerInfos;
+        deleteUI.playControl = playControl;
+        deleteUI.DeleteUIState(true);
+    }
     public override void SelectSlot()
     {
-        playControl.StartGame(playerInfos.PlayerID);
+        playControl.ContinueGame(playerInfos);
     }
 }
