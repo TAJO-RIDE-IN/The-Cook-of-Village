@@ -34,7 +34,7 @@ public class SlotFridge : Slot<ItemInfos>
     {
         CountText.text = "X" + Infos.Amount;
         IngredientName.text = Infos.KoreanName;
-        IngredientImage.sprite = Infos.ImageUI;
+        IngredientImage.sprite = ImageData.Instance.FindImageData(Infos.ImageID);
         SlotState();
     }
     public override void SelectSlot()

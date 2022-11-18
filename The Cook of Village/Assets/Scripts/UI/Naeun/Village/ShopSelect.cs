@@ -39,7 +39,7 @@ public class ShopSelect : MonoBehaviour
     {
         BuyMaxCount = (shopUI.Type == ShopUI.ShopType.Buy) ? Infos.ShopCount - Infos.PurchasesCount : Infos.Amount;
         MoneyMaxCount = (int)MoneyData.Instance.Money / Infos.Price;
-        ModifySlot(Infos.KoreanName, Infos.ImageUI);
+        ModifySlot();
         ChangeSelctText();
         CountSlider.value = 0;
         CountSlider.maxValue = BuyMaxCount;
@@ -57,12 +57,12 @@ public class ShopSelect : MonoBehaviour
         amount = (shopUI.Type == ShopUI.ShopType.Buy) ? amount : -amount;
         return amount;
     }
-    public void ModifySlot(string name, Sprite slotImage)
+    public void ModifySlot()
     {
-        NameText.fontSize = (name.Length > 7) ? 18 : 23;
-        NameText.text = name;
+        NameText.fontSize = (Infos.KoreanName.Length > 7) ? 18 : 23;
+        NameText.text = Infos.KoreanName;
         ExplanationText.text = infos.Explanation;
-        SelectImage.sprite = slotImage;
+        SelectImage.sprite = ImageData.Instance.FindImageData(Infos.ImageID);
     }
     public void ChangeSelctText()
     {

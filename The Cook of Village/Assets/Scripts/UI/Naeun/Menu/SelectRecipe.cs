@@ -23,14 +23,14 @@ public class SelectRecipe : MonoBehaviour
     {
         Init();
         int count = 0;
-        FoodImage.sprite = foodInfos.ImageUI;
+        FoodImage.sprite = ImageData.Instance.FindImageData(foodInfos.ImageID);
         FoodExplanation.text = foodInfos.Explanation;
         FoodText.text = foodInfos.KoreanName;
         foreach(int ingredientID in foodInfos.Recipe)
         {
             ItemInfos infos = ItemData.Instance.ItemInfos(ingredientID);
             IngredientImage[count].gameObject.SetActive(true);
-            IngredientImage[count].sprite = infos.ImageUI;
+            IngredientImage[count].sprite = ImageData.Instance.FindImageData(infos.ImageID);
             count++;
         }
     }

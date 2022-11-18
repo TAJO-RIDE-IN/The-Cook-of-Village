@@ -36,7 +36,7 @@ public class SlotShop : Slot<ItemInfos>
 
     public override void ModifySlot()
     {
-        SlotImage.sprite = Infos.ImageUI;
+        SlotImage.sprite = ImageData.Instance.FindImageData(Infos.ImageID);
         int count = Infos.ShopCount - Infos.PurchasesCount;
         string price = ModifyPrice.ToString();
         string _name = Infos.KoreanName;

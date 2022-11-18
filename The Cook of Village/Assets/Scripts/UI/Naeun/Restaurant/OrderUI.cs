@@ -15,7 +15,7 @@ public class OrderUI : MonoBehaviour
             this.gameObject.transform.SetParent(Order);
             this.gameObject.SetActive(true);
             OrderContainer.gameObject.GetComponent<OrderControl>().OrderCount++;
-            ChangeImage(food.ImageUI, FoodData.Instance.foodTool[food.Type].ToolImage);
+            ChangeImage(ImageData.Instance.FindImageData(food.ImageID), ImageData.Instance.FindImageData(FoodData.Instance.foodTool[food.Type].ImageID));
             MateiralState();
         }
     }
@@ -46,7 +46,7 @@ public class OrderUI : MonoBehaviour
         for(int i = 0; i < food.Recipe.Count; i++)
         {
             MaterialObject[i].SetActive(true);
-            MaterialImage[i].sprite = ItemData.Instance.ItemInfos(food.Recipe[i]).ImageUI;
+            MaterialImage[i].sprite = ImageData.Instance.FindImageData(ItemData.Instance.ItemInfos(food.Recipe[i]).ImageID);
         }
     }
     private void ChangeImage(Sprite food, Sprite tool)

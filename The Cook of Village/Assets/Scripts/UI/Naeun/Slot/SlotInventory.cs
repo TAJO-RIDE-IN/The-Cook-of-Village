@@ -40,7 +40,7 @@ public class SlotInventory : Slot<ItemInfos>
     {
         ObjectState(true);
         ItemCount.text = Infos.Amount.ToString();
-        ItemImage.sprite = Infos.ImageUI;
+        ItemImage.sprite = ImageData.Instance.FindImageData(Infos.ImageID);
     }
     public bool UseButtonState()
     {

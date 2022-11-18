@@ -162,7 +162,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         Receive = false;
         CanReceive = true;
         foodInfos = infos;
-        OrderFoodImage.sprite = foodInfos.ImageUI;
+        OrderFoodImage.sprite = ImageData.Instance.FindImageData(foodInfos.ImageID);
         currentOrderUI = ObjectPooling<OrderUI>.GetObject(); //화면 상단 주문서 표시
         currentOrderUI.foodInfos = foodInfos;
         WaitingOrderCoroutine = StartCoroutine(WaitingOrder());

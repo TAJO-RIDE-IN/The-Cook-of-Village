@@ -216,8 +216,8 @@ public class CookingTool : MonoBehaviour
         isBeforeCooking = true;
         currentValue = 0;
         isCooked = true;
-        food.sprite = FoodInfos.ImageUI;
-        foodBig.sprite = FoodInfos.ImageUI;
+        food.sprite = ImageData.Instance.FindImageData(FoodInfos.ImageID);
+        foodBig.sprite = ImageData.Instance.FindImageData(FoodInfos.ImageID);
         if (FoodInfos.ID != 100000)
         {
             StartCoroutine(_burntCoroutine);
@@ -235,10 +235,9 @@ public class CookingTool : MonoBehaviour
             yield return null;
         }
         currentValue = 0;
-        food.sprite = FoodData.Instance.foodTool[6].foodInfos[1].ImageUI;
-        foodBig.sprite = FoodData.Instance.foodTool[6].foodInfos[1].ImageUI;
-        FoodInfos = FoodData.Instance.foodTool[6].foodInfos[1];
-        
+        food.sprite = ImageData.Instance.FindImageData(FoodData.Instance.foodTool[6].foodInfos[1].ImageID);
+        foodBig.sprite = ImageData.Instance.FindImageData(FoodData.Instance.foodTool[6].foodInfos[1].ImageID); 
+        FoodInfos = FoodData.Instance.foodTool[6].foodInfos[1];       
 
     }
 

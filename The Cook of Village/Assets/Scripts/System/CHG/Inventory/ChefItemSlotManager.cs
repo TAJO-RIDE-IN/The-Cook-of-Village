@@ -18,10 +18,10 @@ public class ChefItemSlotManager : ItemSlotManager
 
     public override void AddIngredientItem(ItemInfos infos, int index)
     {
-        itemslots[index].changeSlotUI(infos.ImageUI);
+        itemslots[index].changeSlotUI(ImageData.Instance.FindImageData(infos.ImageID));
     }
     public override void AddFoodItem(FoodInfos infos, int index)
     {
-        itemslots[index].changeSlotUI(infos.ImageUI);
+        itemslots[index].changeSlotUI(ImageData.Instance.FindImageData(infos.ImageID));
     }
 }

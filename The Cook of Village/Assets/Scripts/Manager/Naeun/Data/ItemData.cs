@@ -17,8 +17,7 @@ public class ItemInfos
     public int Amount;
     public int ShopCount; //하루에 구매할 수 있는 개수
     public int PurchasesCount; //오늘 구매한 수, 요리도구 제외 하루마다 초기화
-    public GameObject ItemPrefab;
-    public Sprite ImageUI;
+    public int ImageID;
 }
 
 [System.Serializable]

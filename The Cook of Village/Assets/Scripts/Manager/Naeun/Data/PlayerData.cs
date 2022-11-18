@@ -18,6 +18,7 @@ public class PlayerData : DataManager<PlayerData>
     private void Start()
     {
         gameData = GameData.Instance;
+        gameData.SaveDataTime("save");
         gameData.ResetData(); 
     }
     private string CreateID()

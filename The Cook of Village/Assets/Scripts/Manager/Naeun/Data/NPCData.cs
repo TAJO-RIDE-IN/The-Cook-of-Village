@@ -17,8 +17,7 @@ public class NPCInfos
     public bool EatFavriteFood;
     public bool VisitRestaurant;//하루마다 초기화
     public bool VisitPlayer;//하루마다 초기화
-    public Sprite ProfileImage;
-    public GameObject NPCModel;
+    public int ImageID;
 }
 
 public class NPCData : DataManager<NPCData>
