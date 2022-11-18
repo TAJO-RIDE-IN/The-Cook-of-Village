@@ -36,6 +36,7 @@ public class FurnitureInstallMode : InstallMode
     private float firstDis;
     private float secondDis;
     private int selectedIndex;
+    private int uiValue;
     private Vector3 pos;
     private RaycastHit hit;
 
@@ -61,15 +62,15 @@ public class FurnitureInstallMode : InstallMode
                     CheckChairPosition();
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                uiValue--;
+                Cancel();
+            }
             if (Input.GetMouseButtonDown(0))
             {
                 Debug.Log("실행");
                 PlaceObject(currentObjectName);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Cancel();
             }
         }
     }
@@ -129,6 +130,7 @@ public class FurnitureInstallMode : InstallMode
                     if (tableChairs[j].chairCount < 4)
                     {
                         currentObjectName = name;
+                        uiValue++;
                         pendingObject = FurniturePooling.Instance.GetObject(name);
                         return;
                     }
@@ -137,6 +139,7 @@ public class FurnitureInstallMode : InstallMode
                 return;
             }
         }
+        uiValue++;
         noticeUI.SetActive(true);
         currentObjectName = name;
         pendingObject = FurniturePooling.Instance.GetObject(name);
@@ -144,7 +147,6 @@ public class FurnitureInstallMode : InstallMode
 
     public void PlaceObject(String name)//테이블과 의자 정보는 테이블의자 클래스에 저장, 그 외는 pooledObjects에 저장
     {
-        
         if (name == FurniturePooling.Instance.FurnitureDatas[0].name)//테이블이면 클래스 리스트 하나 추가
         {
             currentData = new TableChair();
