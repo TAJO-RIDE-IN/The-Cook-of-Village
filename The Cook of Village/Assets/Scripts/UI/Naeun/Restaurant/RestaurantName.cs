@@ -13,8 +13,8 @@ public class RestaurantName : MonoBehaviour
         NameText.text = GameData.Instance.RestaurantName;
     }
     /// <summary>
-    /// RestaurantNameUI¸¦ ÄÑ°Å³ª ²ø ¼ö ÀÖ´Ù.
-    /// ÇöÀç»óÅÂ°¡ È°¼ºÈ­ »óÅÂÀÎ °æ¿ì ºñÈ°¼ºÈ­ µÊ. ¹İ´ëÀÇ °æ¿ì´Â È°¼ºÈ­ µÊ.
+    /// RestaurantNameUIë¥¼ ì¼œê±°ë‚˜ ëŒ ìˆ˜ ìˆë‹¤.
+    /// í˜„ì¬ìƒíƒœê°€ í™œì„±í™” ìƒíƒœì¸ ê²½ìš° ë¹„í™œì„±í™” ë¨. ë°˜ëŒ€ì˜ ê²½ìš°ëŠ” í™œì„±í™” ë¨.
     /// </summary>
     public void RestaurantNameUIState()
     {
@@ -26,9 +26,9 @@ public class RestaurantName : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÌ¸§À» ¹Ù²Ù°Å³ª ¹Ù²Ù´Â°É Ãë¼ÒÇÔ
+    /// ì´ë¦„ì„ ë°”ê¾¸ê±°ë‚˜ ë°”ê¾¸ëŠ”ê±¸ ì·¨ì†Œí•¨
     /// </summary>
-    /// <param name="use">true = ÀÌ¸§À» ¹Ù²Û´Ù. false = ÀÌ¸§À» ¹Ù²ÙÁö ¾Ê´Â´Ù.</param>
+    /// <param name="use">true = ì´ë¦„ì„ ë°”ê¾¼ë‹¤. false = ì´ë¦„ì„ ë°”ê¾¸ì§€ ì•ŠëŠ”ë‹¤.</param>
     public void NameUIButton(bool use)
     {
         if(use)

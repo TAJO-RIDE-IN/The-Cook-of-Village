@@ -29,7 +29,7 @@ public class Singletion<T> : MonoBehaviour where T : MonoBehaviour
             instance = component.GetComponent<T>();
         }
     }
-    private void Awake()
+    protected virtual void Awake()
     {
         if (instance == null)
         {

@@ -47,6 +47,18 @@ public class PositionName
     }
 }
 
+/// <summary>
+/// 이건 나중에 할거(모든 데이터 하나로 합치는 것)
+/// </summary>
+[Serializable]
+public class InstallObjectData 
+{
+    public List<IndexName> _toolData = new List<IndexName>();
+    public List<Vector3> tableData = new List<Vector3>();
+    public List<ChairPositionName> chairData = new List<ChairPositionName>();
+    public List<PositionName> furnitureData = new List<PositionName>();
+}
+
 [Serializable]
 public class ToolData
 {
@@ -72,6 +84,7 @@ public class TableData
 
 public class InstallData : DataManager<InstallData>
 {
+    
     public override void SaveDataTime(string PlayName)
     {
         SaveData(ref toolData, "ToolData", PlayName);
@@ -105,9 +118,23 @@ public class InstallData : DataManager<InstallData>
     }
 
 
-    public void PassVector3Data(Vector3 vt3, string name = "", int j = 0)
+    public void PassVector3Data(SortOfInstall sortOfInstall, Vector3 vt3, string name = "", int tableNumber = 0)
     {
-        chairData.chairPositionNames.Add(new ChairPositionName(vt3, name, j));
+        if (sortOfInstall == SortOfInstall.Chair)
+        {
+            chairData.chairPositionNames.Add(new ChairPositionName(vt3, name, tableNumber));
+        }
+
+        if (sortOfInstall == SortOfInstall.Table)
+        {
+            tableData.tableVector.Add(vt3);
+        }
+
+        if (sortOfInstall == SortOfInstall.Furnitue)
+        {
+            furnitureData._positionNames.Add(new PositionName(vt3, name));
+        }
+        
     }
 
     public void PassIndexData(int index, string name, SortOfInstall sortOfInstall)
