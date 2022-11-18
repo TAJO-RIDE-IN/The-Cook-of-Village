@@ -7,7 +7,6 @@ public class ImageData : Singletion<ImageData>
     public Sprite[] ImageContainer;
     public Sprite FindImageData(int ImageID)
     {
-        Sprite image = ImageContainer[ImageID];
-        return image;
+        return ImageContainer[ImageID];
     }
 }

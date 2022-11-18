@@ -23,7 +23,7 @@ public class FoodInfos
     public int Price;
     public float OrderProbability;
     public List<int> Recipe = new List<int>();
-    public Sprite ImageUI; //UIImage
+    public int ImageID;
 }
 
 [System.Serializable]
@@ -32,7 +32,7 @@ public class FoodTool
     public enum Type { Blender, FryPan, Pot, Plate, Whipper, Oven, Failure}
     [SerializeField]
     public Type type;
-    public Sprite ToolImage;
+    public int ImageID;
     public bool CanUse;
     public List<FoodInfos> foodInfos = new List<FoodInfos>();
 }

@@ -20,7 +20,7 @@ public class SlotRecipe : Slot<FoodInfos>
 
     public override void ModifySlot()
     {
-        FoodImage.sprite = foodInfos.ImageUI;
+        FoodImage.sprite = ImageData.Instance.FindImageData(foodInfos.ImageID);
     }
 
     public override void SelectSlot()

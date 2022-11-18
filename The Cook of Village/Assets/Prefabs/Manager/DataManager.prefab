@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3307610199849571922}
   - component: {fileID: 1727613458586631584}
   - component: {fileID: 1069157777528172281}
+  - component: {fileID: 2060690928490365699}
   m_Layer: 0
   m_Name: DataManager
   m_TagString: Untagged
@@ -60,8 +61,7 @@ MonoBehaviour:
       Amount: 0
       ShopCount: 0
       PurchasesCount: 0
-      ItemPrefab: {fileID: 0}
-      ImageUI: {fileID: 21300000, guid: 8aeb99a0e41071d44b746434dd5be0d7, type: 3}
+      ImageID: 0
     - type: 0
       ID: 1
       Name: Sugar
@@ -71,8 +71,7 @@ MonoBehaviour:
       Amount: 0
       ShopCount: 0
       PurchasesCount: 0
-      ItemPrefab: {fileID: 0}
-      ImageUI: {fileID: 21300000, guid: 2b7275c5937714645a6b7c5687379fa6, type: 3}
+      ImageID: 1
   - type: 1
     ItemInfos:
     - type: 1
@@ -84,8 +83,7 @@ MonoBehaviour:
       Amount: 10
       ShopCount: 99
       PurchasesCount: 0
-      ItemPrefab: {fileID: -927199367670048503, guid: 0b6795b7f395ff8449fcef2ee0966ce1, type: 3}
-      ImageUI: {fileID: 21300000, guid: 517b956ee3027d74e933a4c270b53f01, type: 3}
+      ImageID: 2
     - type: 1
       ID: 11
       Name: Orange
@@ -95,8 +93,7 @@ MonoBehaviour:
       Amount: 10
       ShopCount: 99
       PurchasesCount: 0
-      ItemPrefab: {fileID: -927199367670048503, guid: d88f4dc7d2164fc4aa4251e648f060c2, type: 3}
-      ImageUI: {fileID: 21300000, guid: fbb9b59c42098bf4d9733db99a077e0d, type: 3}
+      ImageID: 3
     - type: 1
       ID: 12
       Name: Watermelon
@@ -106,8 +103,7 @@ MonoBehaviour:
       Amount: 10
       ShopCount: 99
       PurchasesCount: 0
-      ItemPrefab: {fileID: -927199367670048503, guid: 7e79de16814ded545a311b11622dd9b2, type: 3}
-      ImageUI: {fileID: 21300000, guid: c7e902bb69e8e394aa7de1e15d8732c8, type: 3}
+      ImageID: 4
   - type: 2
     ItemInfos:
     - type: 2
@@ -119,8 +115,7 @@ MonoBehaviour:
       Amount: 10
       ShopCount: 99
       PurchasesCount: 0
-      ItemPrefab: {fileID: -927199367670048503, guid: c0e2319084512b64b8cb850d4bb5c0cf, type: 3}
-      ImageUI: {fileID: 21300000, guid: 9d70dba0d376f074998ecc46a361e668, type: 3}
+      ImageID: 5
     - type: 2
       ID: 21
       Name: Potato
@@ -130,8 +125,7 @@ MonoBehaviour:
       Amount: 10
       ShopCount: 99
       PurchasesCount: 0
-      ItemPrefab: {fileID: -927199367670048503, guid: aabc0072ecd6a3345b74744eb7bce061, type: 3}
-      ImageUI: {fileID: 21300000, guid: 8d6d8905310b7c543bf826142fb72f96, type: 3}
+      ImageID: 6
   - type: 3
     ItemInfos:
     - type: 3
@@ -143,8 +137,7 @@ MonoBehaviour:
       Amount: 10
       ShopCount: 99
       PurchasesCount: 0
-      ItemPrefab: {fileID: -927199367670048503, guid: 6d69d5e3378d7ad44bdcd7633a8e5e7b, type: 3}
-      ImageUI: {fileID: 21300000, guid: 5ff33c3a9c6f3eb459190661496f1546, type: 3}
+      ImageID: 7
     - type: 3
       ID: 31
       Name: Chicken
@@ -154,8 +147,7 @@ MonoBehaviour:
       Amount: 10
       ShopCount: 99
       PurchasesCount: 0
-      ItemPrefab: {fileID: -927199367670048503, guid: 3d124e8144bf3274b8aca97fa9a7c3b1, type: 3}
-      ImageUI: {fileID: 21300000, guid: 6f411b9ed154c024f8d1f6742eac7adc, type: 3}
+      ImageID: 8
     - type: 3
       ID: 32
       Name: Beef
@@ -166,8 +158,7 @@ MonoBehaviour:
       Amount: 10
       ShopCount: 99
       PurchasesCount: 0
-      ItemPrefab: {fileID: -927199367670048503, guid: 15f1cf728da66d346a950ceb25e4d4ed, type: 3}
-      ImageUI: {fileID: 21300000, guid: 93d9e576a5795ec42a51cae6ae96a238, type: 3}
+      ImageID: 9
     - type: 3
       ID: 33
       Name: Bacon
@@ -177,8 +168,7 @@ MonoBehaviour:
       Amount: 10
       ShopCount: 99
       PurchasesCount: 0
-      ItemPrefab: {fileID: -927199367670048503, guid: 6f8aad615109c4642b8e0e968051c88d, type: 3}
-      ImageUI: {fileID: 21300000, guid: 696c5db8bfc7a3d4996d2e0fe15fe32f, type: 3}
+      ImageID: 10
   - type: 4
     ItemInfos:
     - type: 4
@@ -191,8 +181,7 @@ MonoBehaviour:
       Amount: 0
       ShopCount: 0
       PurchasesCount: 0
-      ItemPrefab: {fileID: 0}
-      ImageUI: {fileID: 21300000, guid: cb60f1d288c2fcc49b419fe069c5aad9, type: 3}
+      ImageID: 11
     - type: 4
       ID: 41
       Name: Chocolate
@@ -202,8 +191,7 @@ MonoBehaviour:
       Amount: 0
       ShopCount: 5
       PurchasesCount: 0
-      ItemPrefab: {fileID: 0}
-      ImageUI: {fileID: 21300000, guid: f3d88a17de359894e87f450488b306cc, type: 3}
+      ImageID: 12
   - type: 5
     ItemInfos:
     - type: 5
@@ -217,8 +205,7 @@ MonoBehaviour:
       Amount: 1
       ShopCount: 5
       PurchasesCount: 0
-      ItemPrefab: {fileID: 0}
-      ImageUI: {fileID: 21300000, guid: 293fe9f84474c8d4aac8624b52274a19, type: 3}
+      ImageID: 13
     - type: 5
       ID: 51
       Name: OrangePotion
@@ -230,8 +217,7 @@ MonoBehaviour:
       Amount: 2
       ShopCount: 2
       PurchasesCount: 0
-      ItemPrefab: {fileID: 0}
-      ImageUI: {fileID: 21300000, guid: d08d8c16982975c40ab8cce402f1f673, type: 3}
+      ImageID: 14
     - type: 5
       ID: 52
       Name: GreenPotion
@@ -244,8 +230,7 @@ MonoBehaviour:
       Amount: 3
       ShopCount: 5
       PurchasesCount: 0
-      ItemPrefab: {fileID: 0}
-      ImageUI: {fileID: 21300000, guid: 881e11a05bc557c46a8f37d1ffdb02f6, type: 3}
+      ImageID: 15
     - type: 5
       ID: 53
       Name: BrownPotion
@@ -257,8 +242,7 @@ MonoBehaviour:
       Amount: 2
       ShopCount: 1
       PurchasesCount: 0
-      ItemPrefab: {fileID: 0}
-      ImageUI: {fileID: 21300000, guid: 2000214614732da4eb73ae7fed599364, type: 3}
+      ImageID: 16
     - type: 5
       ID: 54
       Name: RainbowPotion
@@ -271,8 +255,7 @@ MonoBehaviour:
       Amount: 1
       ShopCount: 1
       PurchasesCount: 0
-      ItemPrefab: {fileID: 0}
-      ImageUI: {fileID: 21300000, guid: d5e82a7c74109b944bef1c1fce33b91b, type: 3}
+      ImageID: 17
   - type: 6
     ItemInfos:
     - type: 6
@@ -286,8 +269,7 @@ MonoBehaviour:
       Amount: 3
       ShopCount: 3
       PurchasesCount: 0
-      ItemPrefab: {fileID: 0}
-      ImageUI: {fileID: 21300000, guid: c63217de04627d9478368d5d4a1c2873, type: 3}
+      ImageID: 18
     - type: 6
       ID: 61
       Name: FryPan
@@ -298,8 +280,7 @@ MonoBehaviour:
       Amount: 3
       ShopCount: 3
       PurchasesCount: 0
-      ItemPrefab: {fileID: 0}
-      ImageUI: {fileID: 21300000, guid: 4c0dee3fd8607aa4182af3042071a979, type: 3}
+      ImageID: 19
     - type: 6
       ID: 62
       Name: Pot
@@ -312,8 +293,7 @@ MonoBehaviour:
       Amount: 3
       ShopCount: 3
       PurchasesCount: 0
-      ItemPrefab: {fileID: 0}
-      ImageUI: {fileID: 21300000, guid: 4fc85973005e3e341b276e0cf9d7042e, type: 3}
+      ImageID: 20
     - type: 6
       ID: 63
       Name: Plate
@@ -323,8 +303,7 @@ MonoBehaviour:
       Amount: 0
       ShopCount: 0
       PurchasesCount: 0
-      ItemPrefab: {fileID: 0}
-      ImageUI: {fileID: 21300000, guid: 36e83c066d2a64846b422006128bbd1c, type: 3}
+      ImageID: 21
     - type: 6
       ID: 64
       Name: Whipper
@@ -336,8 +315,7 @@ MonoBehaviour:
       Amount: 3
       ShopCount: 3
       PurchasesCount: 0
-      ItemPrefab: {fileID: 0}
-      ImageUI: {fileID: 21300000, guid: 448d455cf72dcd24cbf3af862b743ff6, type: 3}
+      ImageID: 22
     - type: 6
       ID: 65
       Name: Oven
@@ -348,8 +326,7 @@ MonoBehaviour:
       Amount: 1
       ShopCount: 1
       PurchasesCount: 0
-      ItemPrefab: {fileID: 0}
-      ImageUI: {fileID: 21300000, guid: fe35fa810e8f5c44abd461bef2c45c2f, type: 3}
+      ImageID: 23
   - type: 7
     ItemInfos:
     - type: 7
@@ -362,8 +339,7 @@ MonoBehaviour:
       Amount: 5
       ShopCount: 5
       PurchasesCount: 0
-      ItemPrefab: {fileID: 919132149155446097, guid: 8d9127901695e2f49b1f7be872de793d, type: 3}
-      ImageUI: {fileID: 21300000, guid: 8d7acd7709735854487a86f1dd39cd06, type: 3}
+      ImageID: 24
     - type: 7
       ID: 71
       Name: WoodChair
@@ -374,8 +350,7 @@ MonoBehaviour:
       Amount: 5
       ShopCount: 5
       PurchasesCount: 0
-      ItemPrefab: {fileID: 919132149155446097, guid: db381221598af0d44a1e6d71347df00e, type: 3}
-      ImageUI: {fileID: 21300000, guid: ad33161714d8ffc44a809a4aa27667e1, type: 3}
+      ImageID: 25
     - type: 7
       ID: 72
       Name: WoodBackrestChair
@@ -387,8 +362,7 @@ MonoBehaviour:
       Amount: 5
       ShopCount: 5
       PurchasesCount: 0
-      ItemPrefab: {fileID: 919132149155446097, guid: 74d043945b21a4f4498f66f3d9936bb8, type: 3}
-      ImageUI: {fileID: 21300000, guid: 6939444d128b3c041941ef524364b49d, type: 3}
+      ImageID: 26
     - type: 7
       ID: 73
       Name: PlantPot
@@ -399,21 +373,19 @@ MonoBehaviour:
       Amount: 5
       ShopCount: 5
       PurchasesCount: 0
-      ItemPrefab: {fileID: 919132149155446097, guid: 13feebce0f62461428a49efb8fcff93d, type: 3}
-      ImageUI: {fileID: 21300000, guid: df274c0ae0d5d5e419acc87bc41bd09a, type: 3}
+      ImageID: 27
     - type: 7
       ID: 74
       Name: OrchidPlantPot
       KoreanName: "\uB09C \uD654\uBD84"
-      Explanation: "ooo\uC774 \uC81C\uC77C \uC88B\uC544\uD558\uB294 \uB09C\uCD08\uAC00
+      Explanation: "\uCF54\uCF54\uAC00 \uC81C\uC77C \uC88B\uC544\uD558\uB294 \uB09C\uCD08\uAC00
         \uC2EC\uC5B4\uC9C4 \uD654\uBD84\uC774\uB2E4.\n\uBC30\uACE0\uD504\uB2E4\uACE0
         \uB72F\uC5B4\uBA39\uC73C\uBA74 \uC548 \uB41C\uB2E4."
       Price: 600
       Amount: 5
       ShopCount: 5
       PurchasesCount: 0
-      ItemPrefab: {fileID: 919132149155446097, guid: a1c3127f9774ec74fa25a12e16a98ccd, type: 3}
-      ImageUI: {fileID: 21300000, guid: dbc8d56f588f4aa41a1b7f0d6fd136b9, type: 3}
+      ImageID: 28
 --- !u!114 &2754297000416015866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,7 +405,7 @@ MonoBehaviour:
   EatTime: 10
   foodTool:
   - type: 0
-    ToolImage: {fileID: 21300000, guid: c63217de04627d9478368d5d4a1c2873, type: 3}
+    ImageID: 18
     CanUse: 1
     foodInfos:
     - Type: 0
@@ -448,8 +420,7 @@ MonoBehaviour:
       Price: 40
       OrderProbability: 4
       Recipe: 0a000000
-      PrefabFood: {fileID: 189742, guid: 5db192e9231ec704f9d0425db47ea8ff, type: 3}
-      ImageUI: {fileID: 21300000, guid: 870b85707528eb340a0488e5b56d8ffe, type: 3}
+      ImageID: 35
     - Type: 0
       ID: 1
       Name: OrangeJuice
@@ -462,8 +433,7 @@ MonoBehaviour:
       Price: 50
       OrderProbability: 3
       Recipe: 0b000000
-      PrefabFood: {fileID: 173640, guid: 58ebda16b382c684db903d128c94604b, type: 3}
-      ImageUI: {fileID: 21300000, guid: 487267b6ea9329348b2b5b00d2e3b9e4, type: 3}
+      ImageID: 36
     - Type: 0
       ID: 2
       Name: WatermelonJuice
@@ -476,10 +446,9 @@ MonoBehaviour:
       Price: 60
       OrderProbability: 2
       Recipe: 0c000000
-      PrefabFood: {fileID: 150884, guid: eb6221c713885534ca1d35c17a219d4e, type: 3}
-      ImageUI: {fileID: 21300000, guid: 434befa24819fe541b16648c03740adf, type: 3}
+      ImageID: 37
   - type: 1
-    ToolImage: {fileID: 21300000, guid: 4c0dee3fd8607aa4182af3042071a979, type: 3}
+    ImageID: 19
     CanUse: 0
     foodInfos:
     - Type: 1
@@ -493,8 +462,7 @@ MonoBehaviour:
       Price: 120
       OrderProbability: 5
       Recipe: 0000000015000000
-      PrefabFood: {fileID: 150492, guid: e2bfaac6e975f904f80e1b4636bff658, type: 3}
-      ImageUI: {fileID: 21300000, guid: b693603bc91a31746ac362f997949a33, type: 3}
+      ImageID: 38
     - Type: 1
       ID: 11
       Name: Pancake
@@ -506,8 +474,7 @@ MonoBehaviour:
       Price: 170
       OrderProbability: 2
       Recipe: 00000000010000001e000000
-      PrefabFood: {fileID: 3897846533795759199, guid: 86494ed4fceccfe418425555d742b0cb, type: 3}
-      ImageUI: {fileID: 21300000, guid: 57b461e5ab5433a468bedf5f4f578561, type: 3}
+      ImageID: 39
     - Type: 1
       ID: 12
       Name: FriedChicken
@@ -520,8 +487,7 @@ MonoBehaviour:
       Price: 170
       OrderProbability: 2
       Recipe: 1f000000
-      PrefabFood: {fileID: 5882850810782424028, guid: fa8b85f371f3b3e42944f1fc07c2c4a4, type: 3}
-      ImageUI: {fileID: 21300000, guid: f9b0a6ada6e129b4f958030f475ed335, type: 3}
+      ImageID: 40
     - Type: 1
       ID: 13
       Name: HanEggSandwich
@@ -534,10 +500,9 @@ MonoBehaviour:
       Price: 300
       OrderProbability: 1
       Recipe: 000000001e00000021000000
-      PrefabFood: {fileID: 180836, guid: 1881167c502fc5046bcb592d7ee22189, type: 3}
-      ImageUI: {fileID: 21300000, guid: 5394f1ced963cb74ea072458ff35e4b3, type: 3}
+      ImageID: 41
   - type: 2
-    ToolImage: {fileID: 21300000, guid: 51b17981ba62ac449a259ebe9fc59882, type: 3}
+    ImageID: 20
     CanUse: 0
     foodInfos:
     - Type: 2
@@ -552,8 +517,7 @@ MonoBehaviour:
       Price: 160
       OrderProbability: 2
       Recipe: 0000000014000000
-      PrefabFood: {fileID: 112086, guid: 32a97063d1906984ba032bf2f471436c, type: 3}
-      ImageUI: {fileID: 21300000, guid: 70afa9c23af0b49489be1bb48ee20a4c, type: 3}
+      ImageID: 42
     - Type: 2
       ID: 21
       Name: SubedSteak
@@ -567,8 +531,7 @@ MonoBehaviour:
       Price: 230
       OrderProbability: 1
       Recipe: 20000000
-      PrefabFood: {fileID: 138356, guid: 85325518c798a0d44b45f7b523c54a36, type: 3}
-      ImageUI: {fileID: 21300000, guid: f90e8bafbc38252419cdbc3ba4368061, type: 3}
+      ImageID: 43
     - Type: 2
       ID: 22
       Name: TomatoBaconPasta
@@ -580,8 +543,7 @@ MonoBehaviour:
       Price: 300
       OrderProbability: 1
       Recipe: 000000001400000021000000
-      PrefabFood: {fileID: 7737081643027869940, guid: b049e83a56db5cd45be9ecfcf612ddc1, type: 3}
-      ImageUI: {fileID: 21300000, guid: 2ea7eb5c33c815245963c5bf89a65c3b, type: 3}
+      ImageID: 44
     - Type: 2
       ID: 23
       Name: ChickenStew
@@ -594,8 +556,7 @@ MonoBehaviour:
       Price: 420
       OrderProbability: 1
       Recipe: 1500000020000000
-      PrefabFood: {fileID: 4559216468120554223, guid: 968c20688a9910447ba6937474aa0caf, type: 3}
-      ImageUI: {fileID: 21300000, guid: 524d1f6dc7628e741a9bdbf08c8ae651, type: 3}
+      ImageID: 45
     - Type: 2
       ID: 24
       Name: Jangjorim
@@ -608,10 +569,9 @@ MonoBehaviour:
       Price: 420
       OrderProbability: 1
       Recipe: 1e00000020000000
-      PrefabFood: {fileID: 4559216468120554223, guid: 968c20688a9910447ba6937474aa0caf, type: 3}
-      ImageUI: {fileID: 21300000, guid: 9fd245b3dbf539d4f95f103c32ae7792, type: 3}
+      ImageID: 46
   - type: 3
-    ToolImage: {fileID: 21300000, guid: d34a5d4100106f245b4355cd83e98d14, type: 3}
+    ImageID: 21
     CanUse: 1
     foodInfos:
     - Type: 3
@@ -626,10 +586,9 @@ MonoBehaviour:
       Price: 100
       OrderProbability: 1
       Recipe: 0a0000000b0000000c000000
-      PrefabFood: {fileID: 919132149155446097, guid: 3f97fc3664af2444a971b85c75139a31, type: 3}
-      ImageUI: {fileID: 21300000, guid: 36e83c066d2a64846b422006128bbd1c, type: 3}
+      ImageID: 47
   - type: 4
-    ToolImage: {fileID: 21300000, guid: 3decb9d337d37fd4d93a7acaaf5407f7, type: 3}
+    ImageID: 22
     CanUse: 0
     foodInfos:
     - Type: 4
@@ -644,10 +603,9 @@ MonoBehaviour:
       Price: 0
       OrderProbability: 0
       Recipe: 010000001e000000
-      PrefabFood: {fileID: 6559327499346871821, guid: 678cfa760d28de34aa1735d2dab7e785, type: 3}
-      ImageUI: {fileID: 21300000, guid: cb60f1d288c2fcc49b419fe069c5aad9, type: 3}
+      ImageID: 11
   - type: 5
-    ToolImage: {fileID: 21300000, guid: 0a742bab9a8c4294d9db4f9475eeaca8, type: 3}
+    ImageID: 23
     CanUse: 0
     foodInfos:
     - Type: 5
@@ -662,8 +620,7 @@ MonoBehaviour:
       Price: 230
       OrderProbability: 1
       Recipe: 28000000
-      PrefabFood: {fileID: 6559327499346871821, guid: 678cfa760d28de34aa1735d2dab7e785, type: 3}
-      ImageUI: {fileID: 21300000, guid: d60c7d5c0caf68d42af42ecb725c4d3b, type: 3}
+      ImageID: 48
     - Type: 5
       ID: 51
       Name: ChocolateMacarons
@@ -677,8 +634,7 @@ MonoBehaviour:
       Price: 240
       OrderProbability: 1
       Recipe: 0a0000002800000029000000
-      PrefabFood: {fileID: 6559327499346871821, guid: 678cfa760d28de34aa1735d2dab7e785, type: 3}
-      ImageUI: {fileID: 21300000, guid: a930303ea5c0ec44b8b307ac4fe976e2, type: 3}
+      ImageID: 49
     - Type: 5
       ID: 52
       Name: BaconPizza
@@ -692,8 +648,7 @@ MonoBehaviour:
       Price: 330
       OrderProbability: 1
       Recipe: 0a0000001400000021000000
-      PrefabFood: {fileID: 6559327499346871821, guid: 678cfa760d28de34aa1735d2dab7e785, type: 3}
-      ImageUI: {fileID: 21300000, guid: cc1679edda97bc14a93f308a5da77467, type: 3}
+      ImageID: 50
     - Type: 5
       ID: 53
       Name: ChocolateCake
@@ -705,10 +660,9 @@ MonoBehaviour:
       Price: 250
       OrderProbability: 1
       Recipe: 0a0000002800000029000000
-      PrefabFood: {fileID: 6559327499346871821, guid: 678cfa760d28de34aa1735d2dab7e785, type: 3}
-      ImageUI: {fileID: 21300000, guid: 622a4f92f1fe28d4995f3c4721578259, type: 3}
+      ImageID: 51
   - type: 6
-    ToolImage: {fileID: 0}
+    ImageID: 0
     CanUse: 0
     foodInfos:
     - Type: 100000
@@ -721,8 +675,7 @@ MonoBehaviour:
       Price: 0
       OrderProbability: 0
       Recipe: 
-      PrefabFood: {fileID: 6559327499346871821, guid: 678cfa760d28de34aa1735d2dab7e785, type: 3}
-      ImageUI: {fileID: 21300000, guid: 501cb9195b3f4f9488c79115788bc6dc, type: 3}
+      ImageID: 52
     - Type: 100001
       ID: 100001
       Name: BurntFood
@@ -733,8 +686,7 @@ MonoBehaviour:
       Price: 0
       OrderProbability: 0
       Recipe: 
-      PrefabFood: {fileID: 6559327499346871821, guid: 678cfa760d28de34aa1735d2dab7e785, type: 3}
-      ImageUI: {fileID: 21300000, guid: cbe61811cd838b640bd2e44b2c8661bf, type: 3}
+      ImageID: 53
 --- !u!114 &3307610199849571922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,8 +711,7 @@ MonoBehaviour:
     EatFavriteFood: 0
     VisitRestaurant: 0
     VisitPlayer: 0
-    ProfileImage: {fileID: 0}
-    NPCModel: {fileID: 471088313810367507, guid: f9711b98edc455d4cb791eb7bcce75b2, type: 3}
+    ImageID: 29
   - work: 1
     Name: Coco
     KoreanName: "\uCF54\uCF54"
@@ -772,8 +723,7 @@ MonoBehaviour:
     EatFavriteFood: 0
     VisitRestaurant: 0
     VisitPlayer: 0
-    ProfileImage: {fileID: 0}
-    NPCModel: {fileID: 3549293458289469134, guid: b71addfae2ee3724f9845f38550da2da, type: 3}
+    ImageID: 30
   - work: 2
     Name: Benson
     KoreanName: "\uBCA4\uC2A8"
@@ -785,8 +735,7 @@ MonoBehaviour:
     EatFavriteFood: 0
     VisitRestaurant: 0
     VisitPlayer: 0
-    ProfileImage: {fileID: 0}
-    NPCModel: {fileID: 0}
+    ImageID: 31
   - work: 3
     Name: 
     KoreanName: 
@@ -798,8 +747,7 @@ MonoBehaviour:
     EatFavriteFood: 0
     VisitRestaurant: 0
     VisitPlayer: 0
-    ProfileImage: {fileID: 0}
-    NPCModel: {fileID: 0}
+    ImageID: 0
   - work: 4
     Name: Luna
     KoreanName: "\uB8E8\uB098"
@@ -811,8 +759,7 @@ MonoBehaviour:
     EatFavriteFood: 0
     VisitRestaurant: 0
     VisitPlayer: 0
-    ProfileImage: {fileID: 0}
-    NPCModel: {fileID: 3045001306466448027, guid: 0ae2d989b0c7b16499ca108df4c3fef2, type: 3}
+    ImageID: 32
   - work: 5
     Name: Reid
     KoreanName: "\uB9AC\uB4DC"
@@ -824,8 +771,7 @@ MonoBehaviour:
     EatFavriteFood: 0
     VisitRestaurant: 0
     VisitPlayer: 0
-    ProfileImage: {fileID: 0}
-    NPCModel: {fileID: 0}
+    ImageID: 33
   - work: 6
     Name: Sera
     KoreanName: "\uC138\uB77C"
@@ -837,8 +783,7 @@ MonoBehaviour:
     EatFavriteFood: 0
     VisitRestaurant: 0
     VisitPlayer: 0
-    ProfileImage: {fileID: 0}
-    NPCModel: {fileID: 0}
+    ImageID: 34
 --- !u!114 &1727613458586631584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -900,6 +845,73 @@ MonoBehaviour:
   Date: 1
   Month: 1
   guestCount: 0
+--- !u!114 &2060690928490365699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7616927221443922528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fffc3448a364d24baf1e6c261875f23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImageContainer:
+  - {fileID: 21300000, guid: e0c879ed2f5a13345b2bf82fc7031c63, type: 3}
+  - {fileID: 21300000, guid: 52e64e9e300e61f4dba45b5f8d3a6899, type: 3}
+  - {fileID: 21300000, guid: 517b956ee3027d74e933a4c270b53f01, type: 3}
+  - {fileID: 21300000, guid: fbb9b59c42098bf4d9733db99a077e0d, type: 3}
+  - {fileID: 21300000, guid: c7e902bb69e8e394aa7de1e15d8732c8, type: 3}
+  - {fileID: 21300000, guid: 9d70dba0d376f074998ecc46a361e668, type: 3}
+  - {fileID: 21300000, guid: 8d6d8905310b7c543bf826142fb72f96, type: 3}
+  - {fileID: 21300000, guid: 5ff33c3a9c6f3eb459190661496f1546, type: 3}
+  - {fileID: 21300000, guid: 6f411b9ed154c024f8d1f6742eac7adc, type: 3}
+  - {fileID: 21300000, guid: 93d9e576a5795ec42a51cae6ae96a238, type: 3}
+  - {fileID: 21300000, guid: 696c5db8bfc7a3d4996d2e0fe15fe32f, type: 3}
+  - {fileID: 21300000, guid: cb60f1d288c2fcc49b419fe069c5aad9, type: 3}
+  - {fileID: 21300000, guid: f3d88a17de359894e87f450488b306cc, type: 3}
+  - {fileID: 21300000, guid: c2d12d00a853fe04fb9b5e8c9fe9df27, type: 3}
+  - {fileID: 21300000, guid: 7c09d42d5364f6f43b25c35ad2942ab6, type: 3}
+  - {fileID: 21300000, guid: 881e11a05bc557c46a8f37d1ffdb02f6, type: 3}
+  - {fileID: 21300000, guid: 2000214614732da4eb73ae7fed599364, type: 3}
+  - {fileID: 21300000, guid: d5e82a7c74109b944bef1c1fce33b91b, type: 3}
+  - {fileID: 21300000, guid: c63217de04627d9478368d5d4a1c2873, type: 3}
+  - {fileID: 21300000, guid: 4c0dee3fd8607aa4182af3042071a979, type: 3}
+  - {fileID: 21300000, guid: 4fc85973005e3e341b276e0cf9d7042e, type: 3}
+  - {fileID: 21300000, guid: 36e83c066d2a64846b422006128bbd1c, type: 3}
+  - {fileID: 21300000, guid: 448d455cf72dcd24cbf3af862b743ff6, type: 3}
+  - {fileID: 21300000, guid: fe35fa810e8f5c44abd461bef2c45c2f, type: 3}
+  - {fileID: 21300000, guid: 206e5466cc907074cbf88c802ea2612a, type: 3}
+  - {fileID: 21300000, guid: 6939444d128b3c041941ef524364b49d, type: 3}
+  - {fileID: 21300000, guid: ad33161714d8ffc44a809a4aa27667e1, type: 3}
+  - {fileID: 21300000, guid: df274c0ae0d5d5e419acc87bc41bd09a, type: 3}
+  - {fileID: 21300000, guid: dbc8d56f588f4aa41a1b7f0d6fd136b9, type: 3}
+  - {fileID: 21300000, guid: 8e3bc48829ab7b348820fd608db01506, type: 3}
+  - {fileID: 21300000, guid: dbd614a283fc0e745b5780f6017128aa, type: 3}
+  - {fileID: 21300000, guid: ab073e9e04deb624d9712f1ebe7938f1, type: 3}
+  - {fileID: 21300000, guid: 87e64a3deb0e8c943aed99c25c6af763, type: 3}
+  - {fileID: 21300000, guid: 79338c659cbe74a48aed306770eebe92, type: 3}
+  - {fileID: 21300000, guid: 1cc958b21aaccd34a8b13e4d417d5033, type: 3}
+  - {fileID: 21300000, guid: 870b85707528eb340a0488e5b56d8ffe, type: 3}
+  - {fileID: 21300000, guid: 487267b6ea9329348b2b5b00d2e3b9e4, type: 3}
+  - {fileID: 21300000, guid: 434befa24819fe541b16648c03740adf, type: 3}
+  - {fileID: 21300000, guid: b693603bc91a31746ac362f997949a33, type: 3}
+  - {fileID: 21300000, guid: e22d7e133e177ed41acce1c25efc23b3, type: 3}
+  - {fileID: 21300000, guid: f9b0a6ada6e129b4f958030f475ed335, type: 3}
+  - {fileID: 21300000, guid: 5394f1ced963cb74ea072458ff35e4b3, type: 3}
+  - {fileID: 21300000, guid: 70afa9c23af0b49489be1bb48ee20a4c, type: 3}
+  - {fileID: 21300000, guid: f90e8bafbc38252419cdbc3ba4368061, type: 3}
+  - {fileID: 21300000, guid: b24e180500f3efa4296b61f445674746, type: 3}
+  - {fileID: 21300000, guid: 524d1f6dc7628e741a9bdbf08c8ae651, type: 3}
+  - {fileID: 21300000, guid: 9fd245b3dbf539d4f95f103c32ae7792, type: 3}
+  - {fileID: 21300000, guid: bdc104fd9b9c8054183094652b6c5cce, type: 3}
+  - {fileID: 21300000, guid: d60c7d5c0caf68d42af42ecb725c4d3b, type: 3}
+  - {fileID: 21300000, guid: a930303ea5c0ec44b8b307ac4fe976e2, type: 3}
+  - {fileID: 21300000, guid: cc1679edda97bc14a93f308a5da77467, type: 3}
+  - {fileID: 21300000, guid: 622a4f92f1fe28d4995f3c4721578259, type: 3}
+  - {fileID: 21300000, guid: 501cb9195b3f4f9488c79115788bc6dc, type: 3}
+  - {fileID: 21300000, guid: cbe61811cd838b640bd2e44b2c8661bf, type: 3}
 --- !u!1 &8876383815362153624
 GameObject:
   m_ObjectHideFlags: 0

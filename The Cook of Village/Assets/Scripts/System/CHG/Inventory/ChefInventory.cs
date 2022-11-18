@@ -151,7 +151,7 @@ public class ChefInventory : MonoBehaviour
                     if (_cookingCharacter.isToolCollider) //스페이스바를 냉장고안이나에서 누른건 아닌지 확인 => 스위치로 변경
                     {
                         if (_cookingCharacter._cookingTool.PutIngredient(EdibleItems[i]._ingredientsInfos.ID,
-                            EdibleItems[i]._ingredientsInfos.ImageUI) && EdibleItems[i]._ingredientsInfos.ID != 63)
+                            ImageData.Instance.FindImageData(EdibleItems[i]._ingredientsInfos.ImageID)) && EdibleItems[i]._ingredientsInfos.ID != 63)
                         {
                             
                             SoundManager.Instance.Play(SoundManager.Instance._audioClips["PanIn"]);
@@ -202,7 +202,7 @@ public class ChefInventory : MonoBehaviour
                         if (_cookingCharacter._foodOrder.ReceiveFood(EdibleItems[i]._foodInfos.ID))
                         {
                             ChangeInventoryEmpty(i);
-                            _cookingCharacter.uiMovement.foodOrderImage.sprite = EdibleItems[i]._foodInfos.ImageUI;
+                            _cookingCharacter.uiMovement.foodOrderImage.sprite = ImageData.Instance.FindImageData(EdibleItems[i]._foodInfos.ImageID);
                             _cookingCharacter.uiMovement.CloseUI();
                             EdibleItems[i]._foodInfos = null;
                             return;
