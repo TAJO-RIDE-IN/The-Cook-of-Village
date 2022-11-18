@@ -17,9 +17,10 @@ public class ShopUI : UIController
         set
         {
             type = value;
+            ServiceButton.sprite = (value == ShopType.Buy) ? BuyButtonImage : ResellButtonImage;
             Color color = (value == ShopType.Buy) ? BuyColor : ResellColor;
             BackgroundImage.color = color;
-            ServiceButton.color = color;
+
         }
     }
     public ShopNPC shopNPC;
@@ -28,6 +29,8 @@ public class ShopUI : UIController
     public Toggle ResellToggle;
     public Image BackgroundImage;
     public Image ServiceButton;
+    public Sprite ResellButtonImage;
+    public Sprite BuyButtonImage;
     public Color ResellColor;
     public Color BuyColor;
     public Dictionary<ItemType.Type, string> DicShopName = new Dictionary<ItemType.Type, string>()
