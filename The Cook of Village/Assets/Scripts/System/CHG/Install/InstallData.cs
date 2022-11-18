@@ -72,12 +72,12 @@ public class TableData
 
 public class InstallData : DataManager<InstallData>
 {
-    public override void SaveDataTime(String PlayNum)
+    public override void SaveDataTime(string PlayName)
     {
-        SaveData(ref toolData, "ToolData" + PlayNum);
-        SaveData(ref furnitureData, "FurnitureData" + PlayNum);
-        SaveData(ref chairData, "ChairData" + PlayNum);
-        SaveData(ref tableData, "TableData" + PlayNum);
+        SaveData(ref toolData, "ToolData" + PlayName, PlayName);
+        SaveData(ref furnitureData, "FurnitureData" + PlayName, PlayName);
+        SaveData(ref chairData, "ChairData" + PlayName, PlayName);
+        SaveData(ref tableData, "TableData" + PlayName, PlayName);
     }
     public enum SortOfInstall
     {
@@ -96,13 +96,12 @@ public class InstallData : DataManager<InstallData>
     
     private static string furnitureJsonData;
 
-
-    protected override void Init()
+    public void LoadData(string PlayName)
     {
-        LoadData(ref toolData, "ToolData0");
-        LoadData(ref furnitureData, "FurnitureData0");
-        LoadData(ref chairData, "ChairData0");
-        LoadData(ref tableData, "TableData0");
+        LoadData(ref toolData, "ToolData"+ PlayName, PlayName);
+        LoadData(ref furnitureData, "FurnitureData" + PlayName, PlayName);
+        LoadData(ref chairData, "ChairData" + PlayName, PlayName);
+        LoadData(ref tableData, "TableData" + PlayName, PlayName);
     }
 
     public void PassFurniture(Vector3 vt3, string name)
