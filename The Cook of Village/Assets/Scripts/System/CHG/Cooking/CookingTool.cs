@@ -19,19 +19,11 @@ public class CookingTool : MonoBehaviour
     public Image foodBig;
     public Image blackCircle;
     public Image blackCircleBig;
-
     public GameObject circleUI;
     public GameObject circleUIBig;
-    
     public Sprite toolBeforeCook;
     public CookItemSlotManager cookSlotManager;
-
-
-    private Animation _animation;
-    private float currentValue;
     public float GreenPotionEffect = 1f;
-    private IEnumerator _burntCoroutine;
-    private Vector3 cameraVector;
     
     public List<int> ingredientList = new List<int>();//이건 요리할 때만 사용, 인덱스가 필요한 ID는 CookItemSlot에 저장
     public FoodInfos FoodInfos { get; set;}//foodInfos가 바뀌면 해줄 일,즉 UI코루틴 끝났을때 할 일 set에 적자
@@ -42,6 +34,14 @@ public class CookingTool : MonoBehaviour
     
     ItemData item = ItemData.Instance;
     
+    private Animation _animation;
+    private float currentValue;
+    private IEnumerator _burntCoroutine;
+    private Vector3 cameraVector;
+    private ToolPooling toolPooling;
+    private SoundManager soundManager;
+
+    
 
     /*[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void FirstLoad(){
@@ -51,6 +51,8 @@ public class CookingTool : MonoBehaviour
     private void Start()
     {
         //InventoryBig.SetActive(false);
+        soundManager = SoundManager.Instance;
+        toolPooling = ToolPooling.Instance;
         _animation = transform.GetComponent<Animation>();
         _burntCoroutine = BurntFood();
     }
@@ -116,8 +118,7 @@ public class CookingTool : MonoBehaviour
             {
                 if (ingredientList.Count > 0)
                 {
-                    SoundManager.Instance.PlayEffect3D(
-                        SoundManager.Instance._audioClips[toolID.ToString()], gameObject, true);
+                    soundManager.PlayEffect3D(soundManager._audioClips[toolID.ToString()], gameObject, true);
                     isBeforeCooking = false;
                     ingredientList.Sort();
                     FoodInfos = FoodData.Instance.RecipeFood((int)toolID, ingredientList);
@@ -149,9 +150,9 @@ public class CookingTool : MonoBehaviour
         if (toolID == FoodTool.Type.Plate)
         {
             WhenReturn();
-            ToolPooling.Instance.toolInstallMode.ActviePositionCollider(index);
-            ToolPooling.Instance.ReturnObject(this, toolID.ToString());
-            ToolPooling.Instance.toolInstallMode.isUsed[index] = false;
+            toolPooling.toolInstallMode.ActviePositionCollider(index);
+            toolPooling.ReturnObject(this, toolID.ToString());
+            toolPooling.toolInstallMode.isUsed[index] = false;
         }
     }
 
@@ -173,8 +174,8 @@ public class CookingTool : MonoBehaviour
     /// </summary>
     public void DirectSetUp()
     {
-        ToolPooling.Instance.toolInstallMode.DirectChange();
-        ToolPooling.Instance.indexToChange = index;
+        toolPooling.toolInstallMode.DirectChange();
+        toolPooling.indexToChange = index;
         CloseUI();
     }
 
@@ -185,10 +186,16 @@ public class CookingTool : MonoBehaviour
     {
         WhenReturn();
         InstallData.Instance.DeleteData(index, InstallData.SortOfInstall.Tool);
-        ToolPooling.Instance.toolInstallMode.ActviePositionCollider(index);
-        ToolPooling.Instance.ReturnObject(this, toolID.ToString());
-        ToolPooling.Instance.toolInstallMode.isUsed[index] = false;
-        ToolPooling.Instance.ChangeToolAmount(1, toolID);
+        toolPooling.toolInstallMode._cookingCharacter.isToolCollider = false;
+        toolPooling.toolInstallMode.PositionCollider[index].SetActive(true);
+        toolPooling.toolInstallMode.ActviePositionCollider(index);
+        toolPooling.toolInstallMode.isUsed[index] = false;
+        toolPooling.toolInstallMode._cookingCharacter._cookPosition =
+            toolPooling.toolInstallMode.PositionCollider[index].GetComponent<CookPosition>();
+        toolPooling.toolInstallMode._cookingCharacter._cookPosition.cookPositionUI.gameObject.SetActive(true);
+        toolPooling.ChangeToolAmount(1, toolID);
+        toolPooling.ReturnObject(this, toolID.ToString());
+        
 
 
     }
@@ -212,7 +219,7 @@ public class CookingTool : MonoBehaviour
             circleUIBig.transform.Rotate(0, 0, 1);
             yield return null;
         }
-        SoundManager.Instance.StopEffect3D(gameObject);
+        soundManager.StopEffect3D(gameObject);
         isBeforeCooking = true;
         currentValue = 0;
         isCooked = true;

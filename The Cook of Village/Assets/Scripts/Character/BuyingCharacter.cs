@@ -9,14 +9,13 @@ public class BuyingCharacter : MonoBehaviour
     private bool isShopCollider;
     private bool isRestNameCollider;
     public CinemachineFreeLook cinemachine;
-
-
-
     public RestaurantName _restaurantName;
     private VillageNPC _npc;
+    private GameManager _gameManager;
 
     private void Start()
     {
+        _gameManager = GameManager.Instance;
         cinemachine = cinemachine.GetComponent<CinemachineFreeLook>();
     }
 
@@ -26,12 +25,14 @@ public class BuyingCharacter : MonoBehaviour
         {
             if (isShopCollider)
             {
+                _gameManager.CursorControl(true);
                 _npc.UIState(true);
                 return;
             }
 
             if (isRestNameCollider)
             {
+                _gameManager.CursorControl(true);
                 _restaurantName.RestaurantNameUIState(true);
             }
             
@@ -75,6 +76,7 @@ public class BuyingCharacter : MonoBehaviour
     {
         if (other.tag == "VillageNPC")
         {
+            _gameManager.CursorControl(false);
             _npc.UIState(false);
             isShopCollider = false;
             return;
@@ -82,6 +84,7 @@ public class BuyingCharacter : MonoBehaviour
         
         if (other.name == "RestaurantName")
         {
+            _gameManager.CursorControl(false);
             //레스토랑 이름 UI 끄기
             _restaurantName.RestaurantNameUIState(false);
             isRestNameCollider = false;
