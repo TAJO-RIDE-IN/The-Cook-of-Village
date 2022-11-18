@@ -131,13 +131,13 @@ public class CookingCharacter : MonoBehaviour
 
             if (isCookPositionCollider)
             {
-                if (isSpace) //냉장고를 닫는 상황
+                if (isSpace)
                 {
                     _cookPosition.cookPositionUI.gameObject.SetActive(false);
                     isSpace = false;
                     return;
                 }
-                else // 냉장고를 여는 상황
+                else
                 {
                     _cookPosition.cookPositionUI.gameObject.SetActive(true);
                     isSpace = true;
@@ -293,7 +293,6 @@ public class CookingCharacter : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                Debug.Log("계산스페이스바눌림");
                 other.GetComponent<CounterQueue>().PayCounter();
             }
         }

@@ -104,17 +104,8 @@ public class InstallData : DataManager<InstallData>
         LoadData(ref tableData, "TableData", PlayName);
     }
 
-    public void PassFurniture(Vector3 vt3, string name)
-    {
-        furnitureData._positionNames.Add(new PositionName(vt3, name));
-    }
 
-    public void PassTable(Vector3 vt3)
-    {
-        tableData.tableVector.Add(vt3);
-    }
-
-    public void PassChair(Vector3 vt3, string name, int j)
+    public void PassVector3Data(Vector3 vt3, string name = "", int j = 0)
     {
         chairData.chairPositionNames.Add(new ChairPositionName(vt3, name, j));
     }

@@ -22,6 +22,7 @@ public class ToolInstallMode : InstallMode
     
     private int selectedToolAmount;
     private int toolItemInfosAmount;
+    private CookingCharacter _cookingCharacter;
 
     private void Start()
     {
@@ -33,6 +34,8 @@ public class ToolInstallMode : InstallMode
         {
             GetAndPosition(InstallData.Instance.toolData._indexNames[i].index, InstallData.Instance.toolData._indexNames[i].name);
         }
+
+        _cookingCharacter = ChefInventory.Instance._cookingCharacter;
     }
 
     private void PreviewPositionUpdate()
@@ -104,22 +107,26 @@ public class ToolInstallMode : InstallMode
         inventoryUI.TabClick(6);
     }
     
-    public void DirectInstall()//indexToChange를 여기서 바꾸면 깔끔할텐데
+    public void DirectInstall()
     {
         isDirectInstall = true;
         inventoryUI.InventoryState();
         inventoryUI.TabClick(6);
+        
     }
 
     public override void GetAndPosition(int index, string name)
     {
-        Debug.Log(index+ "번째에 소환함");
         ToolPooling.Instance.pooledObject[index] = ToolPooling.Instance.GetObject(name);
         ToolPooling.Instance.pooledObject[index].transform.position = ToolPooling.Instance.toolPosition[index].position;
         ToolPooling.Instance.pooledObject[index].transform.rotation = ToolPooling.Instance.toolPosition[index].rotation;
         ToolPooling.Instance.pooledObject[index].index = index;
         isUsed[index] = true;
         PositionCollider[index].SetActive(false);
+        if (isDirectInstall)
+        {
+            _cookingCharacter.isCookPositionCollider = false;
+        }
     }
 
     public void ActviePositionCollider(int index)

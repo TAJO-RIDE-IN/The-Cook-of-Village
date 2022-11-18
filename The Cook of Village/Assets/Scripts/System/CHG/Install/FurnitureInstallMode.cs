@@ -100,7 +100,7 @@ public class FurnitureInstallMode : InstallMode
             if (tableChairs[j].chairCount < 4)
             {
                 secondDis = Vector3.Distance(pendingObject.transform.position, tableChairs[j].tablePos);
-                Debug.Log(secondDis);
+                //Debug.Log(secondDis);
                 if (secondDis < firstDis)
                 {
                     firstDis = secondDis;
@@ -154,7 +154,7 @@ public class FurnitureInstallMode : InstallMode
             tableChairs.Add(currentData);
             pendingObject = null;
             noticeUI.SetActive(false);
-            InstallData.Instance.PassTable(currentData.tablePos);
+            InstallData.Instance.PassVector3Data(currentData.tablePos);
             return;
         }
         for (int i = 1; i < 3; i++)//의자면 테이블이 있는지 확인하고, 설치된 테이블 근처 위치에 초록불 뜨도록
@@ -164,7 +164,7 @@ public class FurnitureInstallMode : InstallMode
                 if (secondDis < 1.2f && secondDis > 0.9f)
                 {
                     tableChairs[selectedIndex].chairCount++;
-                    InstallData.Instance.PassChair(pendingObject.transform.position, currentObjectName, selectedIndex);
+                    InstallData.Instance.PassVector3Data(pendingObject.transform.position, currentObjectName, selectedIndex);
                     pendingObject = null;
                     return;
                 }
@@ -175,7 +175,7 @@ public class FurnitureInstallMode : InstallMode
                 }
             }
         }
-        InstallData.Instance.PassFurniture(pendingObject.transform.position, currentObjectName);
+        InstallData.Instance.PassVector3Data(pendingObject.transform.position, currentObjectName);
         pendingObject = null;
         FurniturePooling.Instance.FindInstallPoolData(name).pooledObjects.Add(pendingObject);
     }
