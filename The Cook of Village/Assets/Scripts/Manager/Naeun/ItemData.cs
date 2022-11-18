@@ -37,7 +37,7 @@ public class ItemData : DataManager<ItemData>
 
     public override void SaveDataTime(string PlayName)
     {
-        SaveArrayData<ItemType>(ref ItemType, "ItemData" + PlayName, PlayName);
+        SaveArrayData<ItemType>(ref ItemType, "ItemData", PlayName);
     }
     public void ResetData()
     {

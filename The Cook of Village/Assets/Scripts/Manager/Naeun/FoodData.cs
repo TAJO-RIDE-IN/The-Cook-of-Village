@@ -66,7 +66,7 @@ public class FoodData : DataManager<FoodData>
     }
     public override void SaveDataTime(string PlayName)
     {
-        SaveArrayData<FoodTool>(ref foodTool, "FoodData" + PlayName, PlayName);
+        SaveArrayData<FoodTool>(ref foodTool, "FoodData", PlayName);
     }
     /// <summary>
     /// Food ID에 따른 Food 정보 찾기

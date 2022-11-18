@@ -7,7 +7,8 @@ public class PlayControl : MonoBehaviour
 {
     public Button ContinueButton;
     public Button NewPlayButton;
-    public GameObject ContinueUI;
+    public ChangeScene changeScene;
+    public PlayerInfos WantDeleteData;
     private PlayerData playerData;
     private GameData gameData;
     private void Start()
@@ -19,24 +20,22 @@ public class PlayControl : MonoBehaviour
     private void State()
     {
         ContinueButton.interactable = (playerData.playerInfos.Count > 0);
-        NewPlayButton.interactable = playerData.CanAddData();
     }
-    public void NewPlayClick()
+    public void DeleteData()
     {
-        if (playerData.CanAddData())
-        {
-            playerData.AddPlayer();
-        }
+        playerData.DeleteData(WantDeleteData);
+        WantDeleteData = null;
         State();
     }
-    public void ContinueClick()
+    public void NewStartGame(PlayerInfos info)
     {
-        ContinueUI.SetActive(!ContinueUI.activeSelf);
+        playerData.AddNewPlayer(info);
+        changeScene.MoveScene();
+        State();
     }
-
-    public void StartGame(int PlayID)
+    public void ContinueGame(PlayerInfos info)
     {
-        gameData.PlayerID = PlayID;
-        gameData.LoadDataTime(PlayID.ToString());
+        playerData.ContinuePlayer(info);
+        changeScene.MoveScene();
     }
 }
