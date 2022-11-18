@@ -22,7 +22,6 @@ public abstract class InstallMode : MonoBehaviour
 
     public virtual void ReceivePositionIndex(int x){}
     
-    public virtual void GetAndPosition(int index, string name){}
     
     public virtual void Use(ItemInfos itemInfos){}
 

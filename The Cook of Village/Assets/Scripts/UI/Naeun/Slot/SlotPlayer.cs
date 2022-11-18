@@ -30,8 +30,8 @@ public class SlotPlayer : Slot<PlayerInfos>
     {
         PlayerNameText.text = playerInfos.PlayerName;
         RestaurantNameText.text = playerInfos.RestaurantName;
-        DayText.text = "Day " + playerInfos.Day + "ÀÏÂ÷";
-        MoneyText.text = playerInfos.Money + "¿ø";
+        DayText.text = "Day " + playerInfos.Day + "ì¼ì°¨";
+        MoneyText.text = playerInfos.Money + "ì›";
     }
     public void DeleteData()
     {

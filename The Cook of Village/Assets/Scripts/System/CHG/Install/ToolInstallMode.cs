@@ -115,7 +115,7 @@ public class ToolInstallMode : InstallMode
         
     }
 
-    public override void GetAndPosition(int index, string name)
+    public void GetAndPosition(int index, string name)
     {
         ToolPooling.Instance.pooledObject[index] = ToolPooling.Instance.GetObject(name);
         ToolPooling.Instance.pooledObject[index].transform.position = ToolPooling.Instance.toolPosition[index].position;

@@ -7,8 +7,12 @@ using UnityEngine;
 public class BuyingCharacter : MonoBehaviour
 {
     private bool isShopCollider;
+    private bool isRestNameCollider;
     public CinemachineFreeLook cinemachine;
 
+
+
+    public RestaurantName _restaurantName;
     private VillageNPC _npc;
 
     private void Start()
@@ -16,14 +20,29 @@ public class BuyingCharacter : MonoBehaviour
         cinemachine = cinemachine.GetComponent<CinemachineFreeLook>();
     }
 
-    private void Update()
+    private void WhenSpaceDown()
     {
-        if (isShopCollider)//상점말고 esc메뉴 눌렀을때도 화면 움직이면 안되니깐 isUI 넣기로함
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (isShopCollider)
             {
                 _npc.UIState(true);
+                return;
             }
+
+            if (isRestNameCollider)
+            {
+                _restaurantName.RestaurantNameUIState(true);
+            }
+            
+        }
+    }
+
+    private void Update()
+    {
+        if (isShopCollider || isRestNameCollider)//상점말고 esc메뉴 눌렀을때도 화면 움직이면 안되니깐 isUI 넣기로함
+        {
+            WhenSpaceDown();
         }
 
         if(GameManager.Instance != null)
@@ -41,20 +60,14 @@ public class BuyingCharacter : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        
-        if (other.gameObject.name == "RestaurantName")
-        {
-            //레스토랑 이름 바꾸기 함수 실행
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        
         if (other.CompareTag("VillageNPC"))
         {
             isShopCollider = true;
             _npc = other.transform.GetComponent<VillageNPC>();
+        }
+        if (other.gameObject.name == "RestaurantName")
+        {
+            isRestNameCollider = true;
         }
     }
 
@@ -63,15 +76,16 @@ public class BuyingCharacter : MonoBehaviour
         if (other.tag == "VillageNPC")
         {
             _npc.UIState(false);
+            isShopCollider = false;
+            return;
         }
-        isShopCollider = false;
-    }
-    
-    private void InTheShop()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
+        
+        if (other.name == "RestaurantName")
         {
-            _npc.UIState(true);
+            //레스토랑 이름 UI 끄기
+            _restaurantName.RestaurantNameUIState(false);
+            isRestNameCollider = false;
+            return;
         }
     }
 
