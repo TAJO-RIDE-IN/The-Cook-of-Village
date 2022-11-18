@@ -23,7 +23,6 @@ public class FoodInfos
     public int Price;
     public float OrderProbability;
     public List<int> Recipe = new List<int>();
-    public GameObject PrefabFood;
     public Sprite ImageUI; //UIImage
 }
 
