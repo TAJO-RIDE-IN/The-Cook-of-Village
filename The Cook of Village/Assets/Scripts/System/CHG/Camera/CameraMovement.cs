@@ -19,6 +19,7 @@ public class CameraMovement : MonoBehaviour
 
     public float zoomValue;
     public CinemachineFreeLook cinemachine;
+    private GameManager _gameManager;
     
     private Vector3 TargetPosition;
     private Vector3 upDirection;
@@ -33,35 +34,38 @@ public class CameraMovement : MonoBehaviour
         //Debug.Log(Input.GetAxis("Mouse ScrollWheel"));
         upDirection = Vector3.forward;
         rightDirection = Vector3.right;//이거
+        _gameManager = GameManager.Instance;
+
     }
     private void Update()
     {
-        if (!GameManager.Instance.IsUI)
+        if (!_gameManager.IsUI)
         {
             if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButton(1))
             {
                 isAngle = false;
                 cinemachine.m_XAxis.m_MaxSpeed = 300;
-            
+
                 //cameraPosition.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
                 cinemachine.m_XAxis.Value += Input.GetAxis("Mouse X");
-                cameraPosition.transform.rotation = Quaternion.Euler(0,flatCamera.transform.eulerAngles.y,0);
+                cameraPosition.transform.rotation = Quaternion.Euler(0, flatCamera.transform.eulerAngles.y, 0);
                 //Debug.Log(flatCamera.transform.rotation.y);
             }
             else
             {
                 if (!isAngle)
                 {
-                    upDirection = Quaternion.Euler(0, cinemachine.m_XAxis.Value - preAngle, 0) * upDirection;//이게 upDirection을 이 회전각도에 따라서 바꿔주는것
+                    upDirection = Quaternion.Euler(0, cinemachine.m_XAxis.Value - preAngle, 0) *
+                                  upDirection; //이게 upDirection을 이 회전각도에 따라서 바꿔주는것
                     preAngle = cinemachine.m_XAxis.Value;
                     isAngle = true;
                 }
+
                 cinemachine.m_XAxis.m_MaxSpeed = 0;
             }
         }
-        
 
-        if (!GameManager.Instance.IsUI)
+        if (!_gameManager.IsUI)
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0)
             {
