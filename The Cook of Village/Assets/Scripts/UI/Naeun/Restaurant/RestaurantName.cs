@@ -16,9 +16,9 @@ public class RestaurantName : MonoBehaviour
     /// RestaurantNameUI를 켜거나 끌 수 있다.
     /// 현재상태가 활성화 상태인 경우 비활성화 됨. 반대의 경우는 활성화 됨.
     /// </summary>
-    public void RestaurantNameUIState()
+    public void RestaurantNameUIState(bool value)
     {
-        NameChangeUI.SetActive(!NameChangeUI.activeSelf);
+        NameChangeUI.SetActive(value);
     }
     public void InputText()
     {

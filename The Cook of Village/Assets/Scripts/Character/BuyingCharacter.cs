@@ -32,7 +32,7 @@ public class BuyingCharacter : MonoBehaviour
 
             if (isRestNameCollider)
             {
-                //레스토랑 이름 UI 켜기
+                _restaurantName.RestaurantNameUIState(true);
             }
             
         }
@@ -83,6 +83,7 @@ public class BuyingCharacter : MonoBehaviour
         if (other.name == "RestaurantName")
         {
             //레스토랑 이름 UI 끄기
+            _restaurantName.RestaurantNameUIState(false);
             isRestNameCollider = false;
             return;
         }
