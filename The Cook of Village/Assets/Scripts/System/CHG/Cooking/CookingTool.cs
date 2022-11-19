@@ -190,9 +190,12 @@ public class CookingTool : MonoBehaviour
         toolPooling.toolInstallMode.PositionCollider[index].SetActive(true);
         toolPooling.toolInstallMode.ActviePositionCollider(index);
         toolPooling.toolInstallMode.isUsed[index] = false;
-        toolPooling.toolInstallMode._cookingCharacter._cookPosition =
-            toolPooling.toolInstallMode.PositionCollider[index].GetComponent<CookPosition>();
-        toolPooling.toolInstallMode._cookingCharacter._cookPosition.cookPositionUI.gameObject.SetActive(true);
+        if (!toolPooling.toolInstallMode.isDirectChange)
+        {
+            toolPooling.toolInstallMode._cookingCharacter._cookPosition =
+                toolPooling.toolInstallMode.PositionCollider[index].GetComponent<CookPosition>();
+            toolPooling.toolInstallMode._cookingCharacter._cookPosition.cookPositionUI.gameObject.SetActive(true);
+        }
         toolPooling.ChangeToolAmount(1, toolID);
         toolPooling.ReturnObject(this, toolID.ToString());
         

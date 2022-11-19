@@ -16,8 +16,10 @@ public class ToolInstallMode : InstallMode
     public GameObject[] toolPositionUI;
     public GameObject[] PositionCollider;
     public List<int> receivedPositionList = new List<int>();
-    [HideInInspector] public bool isDirectChange;
-    [HideInInspector] public bool isDirectInstall;
+    //[HideInInspector] 
+    public bool isDirectChange;
+    //[HideInInspector] 
+    public bool isDirectInstall;
     public bool[] isUsed;
     
     private int selectedToolAmount;
@@ -138,19 +140,18 @@ public class ToolInstallMode : InstallMode
             ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange].DeleteTool();
             ReturnPooledObject();
             GetAndPosition(ToolPooling.Instance.indexToChange, itemInfos.Name);
-            toolPooling.pooledObject[toolPooling.indexToChange].InventoryBig.SetActive(true);
             InstallData.Instance.PassIndexData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
+            DirectUIOnSetting();
             isDirectChange = false;
             return;
         }
         if (isDirectInstall)
         {
-            GetAndPosition(ToolPooling.Instance.indexToChange, itemInfos.Name);
-            toolPooling.pooledObject[toolPooling.indexToChange].InventoryBig.SetActive(true);
+            GetAndPosition(toolPooling.indexToChange, itemInfos.Name);
             _cookingCharacter._cookingTool = toolPooling.pooledObject[ToolPooling.Instance.indexToChange];
-            _cookingCharacter.isToolCollider = true;
-            _cookingCharacter.isCookPositionCollider = false;
             InstallData.Instance.PassIndexData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
+            DirectUIOnSetting();
+            _cookingCharacter.isCookPositionCollider = false;
             isDirectInstall = false;
             return;
         }
@@ -161,6 +162,17 @@ public class ToolInstallMode : InstallMode
         StartInstall();
         ToolPooling.Instance.SelectedToolName = itemInfos.Name;
         isDirectChange = false;
+    }
+
+    /// <summary>
+    /// InventoryBig 켜지게 하고 isSpace도 true로 해줘서 스페이스바 누르면 바로 UI 꺼지도록
+    /// </summary>
+    private void DirectUIOnSetting()
+    {
+        toolPooling.pooledObject[toolPooling.indexToChange].InventoryBig.SetActive(true);
+        _cookingCharacter.isToolCollider = true;
+        _cookingCharacter.isSpace = true;
+        
     }
 
     protected override void ReturnPooledObject()

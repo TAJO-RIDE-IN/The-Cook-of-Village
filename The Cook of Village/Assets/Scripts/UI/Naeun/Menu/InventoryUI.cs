@@ -34,6 +34,15 @@ public class InventoryUI : UIController
         {
             CurrentTab = ItemType.Type.Fruit;
             LoadInventorySlot();
+            
+        }
+        else
+        {
+            if (ToolPooling.Instance.toolInstallMode.isDirectInstall)
+            {
+                Debug.Log("닫으면 false");
+                ToolPooling.Instance.toolInstallMode.isDirectInstall = false;
+            }
         }
         toggleControl.ResetToggle(1);
     }
@@ -42,6 +51,7 @@ public class InventoryUI : UIController
         this.gameObject.SetActive(state);
         if (state)
         {
+            
             CurrentTab = ItemType.Type.Fruit;
             LoadInventorySlot();
         }
