@@ -49,7 +49,7 @@ public class ChefInventory : MonoBehaviour
             _availableInven = value;
         }
     }
-    private int _maxInven = 6;//이 수에 따라서 UI 바뀌는건 나중에 해서 포폴 넣자
+    private int _maxInven = 6;//이 수에 따라서 UI 바뀌는건 나중에
     public int MaxInven
     {
         get { return _maxInven;}
@@ -131,11 +131,30 @@ public class ChefInventory : MonoBehaviour
                 EdibleItems[i]._foodInfos = food;
                 chefSlotManager.AddFoodItem(food, i);
                 isUsed[i] = true;
+                if (!_cookingCharacter.isHand)//음식이 들어올 때마다 실행하지 않기 위해서
+                {
+                    _cookingCharacter.HoldDish(true);
+                }
                 return true;
             }
             //SlotManager.AddFoodItem(food);
         }
         chefSlotManager.ShowWarning();
+        return false;
+    }
+
+    private bool IsFoodInHand()
+    {
+        for (int i = 0; i < AvailableInven; i++)
+        {
+            if (isUsed[i])
+            {
+                if (EdibleItems[i]._itemType == EdibleItem.ItemType.Food)
+                {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -202,9 +221,13 @@ public class ChefInventory : MonoBehaviour
                         if (_cookingCharacter._foodOrder.ReceiveFood(EdibleItems[i]._foodInfos.ID))
                         {
                             ChangeInventoryEmpty(i);
-                            _cookingCharacter.uiMovement.foodOrderImage.sprite = ImageData.Instance.FindImageData(EdibleItems[i]._foodInfos.ImageID);
+                            //_cookingCharacter.uiMovement.foodOrderImage.sprite = ImageData.Instance.FindImageData(EdibleItems[i]._foodInfos.ImageID);
                             _cookingCharacter.uiMovement.CloseUI();
                             EdibleItems[i]._foodInfos = null;
+                            if (!IsFoodInHand())//인벤토리에 음식이 아예 없다면
+                            {
+                                _cookingCharacter.HoldDish(false);
+                            }
                             return;
                         }
                     }

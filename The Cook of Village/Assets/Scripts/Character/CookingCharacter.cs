@@ -22,6 +22,7 @@ public class CookingCharacter : MonoBehaviour
     public AnimationClip[] Idle;
     public AnimationClip[] Walk;
     public UIMovement uiMovement;
+    public GameObject FoodDish;
 
     public bool isToolCollider;
     public bool isGuestCollider;
@@ -32,6 +33,7 @@ public class CookingCharacter : MonoBehaviour
     public bool isSpace;
     
     private bool isDestroy;
+    private GameManager _gameManager;
 
     //[HideInInspector]
     public string objectName;
@@ -43,6 +45,8 @@ public class CookingCharacter : MonoBehaviour
         fridge = GameObject.FindGameObjectWithTag("Fridge").GetComponent<Fridge>();
         animatorOverrideController = new AnimatorOverrideController(charAnimator.runtimeAnimatorController);
         charAnimator.runtimeAnimatorController = animatorOverrideController;
+        _gameManager = GameManager.Instance;
+        HoldDish(false);
     }
 
     private void Update()
@@ -53,97 +57,98 @@ public class CookingCharacter : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    public void HoldDish(bool isTrue)
     {
-        if (!isHand)//null일땐 0 고정, 즉 기본값
+        if (isTrue)
         {
-            animatorOverrideController["Idle"] = Idle[0];
-            animatorOverrideController["Walk"] = Walk[0];
-        }
-        if(isHand)//어떤 값이라도 들어오면
-        {
+            isHand = true;
             animatorOverrideController["Idle"] = Idle[1];
-            animatorOverrideController["Walk"] = Walk[1];
+            animatorOverrideController["Walking"] = Walk[1];
+            FoodDish.SetActive(true);
+        }
+        else
+        {
+            isHand = false;
+            animatorOverrideController["Idle"] = Idle[0];
+            animatorOverrideController["Walking"] = Walk[0];
+            FoodDish.SetActive(false);
         }
     }
+
     //isHand 참 거짓 상관 없이 실행되어야 하는 것 : 냉장고, 자러가기, 달력 보기
 
     private void WhenKeyDown()//원래 재료넣는 함수였는데 스페이스바누를때 재료만 넣는게 아니고 다양한걸 하는데 스페이스바 누를때 모든 함수 실행하도록 최적화를 위해서 이렇게 하기로함
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !_gameManager.IsUI)
         {
             if (isToolCollider)//요리도구에 들어갔을때만,요리중이 아닐때만 재료넣는거 실행
-            {
-                if (isSpace)
                 {
-                    isSpace = false;
-                    _cookingTool.InventoryBig.SetActive(false);
-                    return;
-                }
-                else
-                {
-                    isSpace = true;
-                    _cookingTool.InventoryBig.SetActive(true);
-                    return;
-                }
-                
-            }
-            if (isGuestCollider)
-            {
-                if(isSpace)
-                {
-                    if (!_foodOrder.CanReceive)
+                    if (isSpace)
                     {
-                        uiMovement.CloseUI();
                         isSpace = false;
-                        //UI 띄우기
+                        _cookingTool.InventoryBig.SetActive(false);
                         return;
                     }
-                    
-                }
-                else
-                {
-                    if (_foodOrder.CanReceive)
+                    else
                     {
-                        uiMovement.ShowUI();
                         isSpace = true;
-                        //UI 끄기
+                        _cookingTool.InventoryBig.SetActive(true);
                         return;
                     }
-                    
                 }
-            }
-            if (isFridgeCollider)
-            {
-                if (isSpace) //냉장고를 닫는 상황
+                if (isGuestCollider)
                 {
-                    fridge.UseRefrigerator(false);
-                    isSpace = false;
-                    return;
+                    if(isSpace)
+                    {
+                        if (!_foodOrder.CanReceive)
+                        {
+                            uiMovement.CloseUI();
+                            isSpace = false;
+                            //UI 띄우기
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if (_foodOrder.CanReceive)
+                        {
+                            uiMovement.ShowUI();
+                            isSpace = true;
+                            //UI 끄기
+                            return;
+                        }
+                    }
                 }
-                else // 냉장고를 여는 상황
+                if (isFridgeCollider)
                 {
-                    fridge.UseRefrigerator(true);
-                    isSpace = true;
-                    return;
+                    if (isSpace) //냉장고를 닫는 상황
+                    {
+                        fridge.UseRefrigerator(false);
+                        isSpace = false;
+                        return;
+                    }
+                    else // 냉장고를 여는 상황
+                    {
+                        fridge.UseRefrigerator(true);
+                        isSpace = true;
+                        return;
+                    }
                 }
-            }
-
-            if (isCookPositionCollider)
-            {
-                if (isSpace)
+                if (isCookPositionCollider)
                 {
-                    _cookPosition.cookPositionUI.gameObject.SetActive(false);
-                    isSpace = false;
-                    return;
+                    if (isSpace)
+                    {
+                        _cookPosition.cookPositionUI.gameObject.SetActive(false);
+                        isSpace = false;
+                        return;
+                    }
+                    else
+                    {
+                        _cookPosition.cookPositionUI.gameObject.SetActive(true);
+                        isSpace = true;
+                        return;
+                    }
                 }
-                else
-                {
-                    _cookPosition.cookPositionUI.gameObject.SetActive(true);
-                    isSpace = true;
-                    return;
-                }
-            }
 
             if (isObjectCollider)
             {
@@ -329,6 +334,7 @@ public class CookingCharacter : MonoBehaviour
         {
             _cookPosition.cookPositionUI.gameObject.SetActive(false);
             isCookPositionCollider = false;
+            
         }
         if (other.gameObject.name == "Trash")
         {
