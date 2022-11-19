@@ -10,11 +10,9 @@ public class PlayControl : MonoBehaviour
     public ChangeScene changeScene;
     public PlayerInfos WantDeleteData;
     private PlayerData playerData;
-    private GameData gameData;
     private void Start()
     {
         playerData = PlayerData.Instance;
-        gameData = GameData.Instance;
         State();
     }
     private void State()
