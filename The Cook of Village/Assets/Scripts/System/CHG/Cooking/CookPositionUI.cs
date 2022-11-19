@@ -12,12 +12,19 @@ public class CookPositionUI : MonoBehaviour
     public GameObject NoCookTool;
     public Image _image;
 
+    private ToolPooling _toolPooling;
 
+
+    private void Start()
+    {
+        _toolPooling = ToolPooling.Instance;
+    }
 
     public void DirectSetUp()
     {
-        ToolPooling.Instance.toolInstallMode.DirectInstall();
-        ToolPooling.Instance.indexToChange = index;
+        _toolPooling.toolInstallMode._cookingCharacter.isSpace = false;
+        _toolPooling.toolInstallMode.DirectInstall();
+        _toolPooling.indexToChange = index;
         gameObject.SetActive(false);
     }
 
