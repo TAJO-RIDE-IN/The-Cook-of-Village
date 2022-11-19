@@ -23,10 +23,10 @@ public class OrderUI : MonoBehaviour
     public Image TimeBar;
     public Image FoodImage;
     public Image ToolImgae;
+    public Image TongsImage;
 
-    public GameObject Material;
-    public List<GameObject> MaterialObject = new List<GameObject>();
     public List<Image> MaterialImage = new List<Image>();
+    public List<Sprite> TongsSprite = new List<Sprite>();
 
     public Transform Order;
     public Transform OrderContainer;
@@ -36,17 +36,18 @@ public class OrderUI : MonoBehaviour
     private void OnDisable()
     {
         OrderAnimation(false);
-        foreach (GameObject i in MaterialObject)
+        foreach (var image in MaterialImage)
         {
-            i.SetActive(false);
+            image.gameObject.SetActive(false);
         }
     }
     private void MateiralState()
     {
         for(int i = 0; i < food.Recipe.Count; i++)
         {
-            MaterialObject[i].SetActive(true);
+            MaterialImage[i].gameObject.SetActive(true);
             MaterialImage[i].sprite = ImageData.Instance.FindImageData(ItemData.Instance.ItemInfos(food.Recipe[i]).ImageID);
+            TongsImage.sprite = TongsSprite[Random.Range(0, TongsSprite.Count)];
         }
     }
     private void ChangeImage(Sprite food, Sprite tool)
