@@ -190,10 +190,10 @@ public class ChefInventory : MonoBehaviour
                         if (EdibleItems[i]._ingredientsInfos.ID == 63)
                         {
                             ToolPooling.Instance.toolInstallMode.GetAndPosition(
-                                _cookingCharacter._cookPosition.cookPositionUI.index, "Plate");
+                                _cookingCharacter._cookPosition.index, "Plate");
                             
-                            _cookingCharacter._cookPosition.cookPositionUI.gameObject.SetActive(false);
-                            ToolPooling.Instance.pooledObject[_cookingCharacter._cookPosition.cookPositionUI.index]
+                            _cookingCharacter._cookPosition.CloseUI();
+                            ToolPooling.Instance.pooledObject[_cookingCharacter._cookPosition.index]
                                 .InventoryBig.SetActive(true);
                             ChangeInventoryEmpty(i);
                             _cookingCharacter.isCookPositionCollider = false;

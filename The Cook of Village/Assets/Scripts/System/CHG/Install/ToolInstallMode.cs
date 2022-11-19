@@ -169,7 +169,7 @@ public class ToolInstallMode : InstallMode
     /// </summary>
     private void DirectUIOnSetting()
     {
-        toolPooling.pooledObject[toolPooling.indexToChange].InventoryBig.SetActive(true);
+        toolPooling.pooledObject[toolPooling.indexToChange].InventoryBig.LeanScale(Vector2.one, 0f);
         _cookingCharacter.isToolCollider = true;
         _cookingCharacter.isSpace = true;
         

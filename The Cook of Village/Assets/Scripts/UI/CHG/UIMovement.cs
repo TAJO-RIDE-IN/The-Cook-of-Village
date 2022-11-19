@@ -25,6 +25,6 @@ public class UIMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         foodOrderImage.sprite = emptyFoodOrder;
-
+        
     }
 }

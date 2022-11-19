@@ -55,6 +55,8 @@ public class CookingTool : MonoBehaviour
         toolPooling = ToolPooling.Instance;
         _animation = transform.GetComponent<Animation>();
         _burntCoroutine = BurntFood();
+        InventoryBig.SetActive(true);
+        InventoryBig.transform.localScale = Vector2.zero;
     }
 
     public void OpenBigUI()
@@ -164,10 +166,21 @@ public class CookingTool : MonoBehaviour
         }
     }
 
+    public void OpenUI()
+    {
+        InventoryBig.LeanScale(Vector2.one, 1.3f).setEaseOutElastic();
+    }
+
     public void CloseUI()
     {
-        InventoryBig.SetActive(false);
-        ChefInventory.Instance._cookingCharacter.isSpace = false;
+        if (toolPooling.toolInstallMode.isDirectChange)
+        {
+            InventoryBig.LeanScale(Vector2.zero, 0f);
+            ChefInventory.Instance._cookingCharacter.isSpace = false;
+            return;
+        }
+        InventoryBig.LeanScale(Vector2.zero, 0.7f).setEaseInBack();
+        
     }
     /// <summary>
     /// 바로 요리도구를 없애고 설치하기 위한 설정
@@ -194,7 +207,7 @@ public class CookingTool : MonoBehaviour
         {
             toolPooling.toolInstallMode._cookingCharacter._cookPosition =
                 toolPooling.toolInstallMode.PositionCollider[index].GetComponent<CookPosition>();
-            toolPooling.toolInstallMode._cookingCharacter._cookPosition.cookPositionUI.gameObject.SetActive(true);
+            toolPooling.toolInstallMode._cookingCharacter._cookPosition.OpenUI(0);
         }
         toolPooling.ChangeToolAmount(1, toolID);
         toolPooling.ReturnObject(this, toolID.ToString());

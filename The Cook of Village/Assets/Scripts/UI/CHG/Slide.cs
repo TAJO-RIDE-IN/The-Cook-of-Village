@@ -19,12 +19,18 @@ public class Slide : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        transform.localScale = Vector2.zero;
         rect = GetComponent<RectTransform>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Open()
     {
-        
+        transform.LeanScale(Vector3.one, 1f);
     }
+    public void Close()
+    {
+        transform.LeanScale(Vector2.zero, 1f).setEaseInBack();
+    }
+
+    
 }
