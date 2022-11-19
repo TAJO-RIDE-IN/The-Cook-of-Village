@@ -5,6 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singletion<GameManager>
 {
+    public enum GameMode {Default, Tutorial}
+    [SerializeField]private GameMode mode;
+    public GameMode gameMode
+    {
+        get { return mode; }
+        set 
+        {
+            mode = value;
+            if (mode == GameMode.Default)
+            {
+                gameData.orbitSpeed = 2;
+            }
+            else
+            {
+                gameData.orbitSpeed = 0;
+            }
+        }
+    }
     [SerializeField] private GameData gameData;
     [SerializeField] private SoundManager soundManager;
     [SerializeField] private Potion potionController;
@@ -29,7 +47,7 @@ public class GameManager : Singletion<GameManager>
         }
         if (currentSceneIndex == 2)
         {
-            CursorControl(false);
+            //CursorControl(false);
         }
 
         if (currentSceneIndex == 3)
@@ -127,7 +145,7 @@ public class GameManager : Singletion<GameManager>
             case 2: //마을
                 potionController.VillageSceneInit();
                 gameData.PlaySceneInit();
-                CursorControl(false);
+                //CursorControl(false);
                 break;
             case 3: //레스토랑
                 potionController.RestaurantSceneInit();

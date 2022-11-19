@@ -139,9 +139,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
         }
         return ((hour6 == 0) && UseSave);
     }
-
-    [SerializeField]
-    private float orbitSpeed = 1.0f;
+    public float orbitSpeed;
     public int Day
     {
         get { return gameInfos.playerInfos.Day; }
