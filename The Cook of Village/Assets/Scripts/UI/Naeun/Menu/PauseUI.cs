@@ -16,7 +16,10 @@ public class PauseUI : UIController
         menuUI.MenuUIState(!state);
         OptionUI.SetActive(false);
         ExitUI.SetActive(false);
-        GameManager.Instance.Pause(state);
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.Pause(state);
+        }
     }
     public void HomeButtonClick()
     {
