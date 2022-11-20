@@ -135,8 +135,14 @@ public class ToolInstallMode : InstallMode
     }
     public override void Use(ItemInfos itemInfos)
     {
+        
         if (isDirectChange)
         {
+            if (itemInfos.Name == "Oven")
+            {
+                //오븐은 특정 자리에만 설치할 수 있습니다! 출력
+                return;
+            }
             ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange].DeleteTool();
             ReturnPooledObject();
             GetAndPosition(ToolPooling.Instance.indexToChange, itemInfos.Name);
@@ -147,11 +153,19 @@ public class ToolInstallMode : InstallMode
         }
         if (isDirectInstall)
         {
+            if (itemInfos.Name == "Oven")
+            {
+                //position index가 6일 때 오븐이 설치되어있지 않다면
+                //오븐은 특정 자리에만 설치할 수 있습니다! 출력
+                return;
+            }
+            
             GetAndPosition(toolPooling.indexToChange, itemInfos.Name);
-            _cookingCharacter._cookingTool = toolPooling.pooledObject[ToolPooling.Instance.indexToChange];
+            
             InstallData.Instance.PassIndexData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
             DirectUIOnSetting();
             _cookingCharacter.isCookPositionCollider = false;
+            _cookingCharacter._cookPosition.CloseUI(0);
             isDirectInstall = false;
             return;
         }
@@ -169,7 +183,8 @@ public class ToolInstallMode : InstallMode
     /// </summary>
     private void DirectUIOnSetting()
     {
-        toolPooling.pooledObject[toolPooling.indexToChange].InventoryBig.LeanScale(Vector2.one, 0f);
+        _cookingCharacter._cookingTool = toolPooling.pooledObject[ToolPooling.Instance.indexToChange];
+        _cookingCharacter._cookingTool.OpenUI(0);
         _cookingCharacter.isToolCollider = true;
         _cookingCharacter.isSpace = true;
         

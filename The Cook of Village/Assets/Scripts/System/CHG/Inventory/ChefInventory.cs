@@ -192,7 +192,7 @@ public class ChefInventory : MonoBehaviour
                             ToolPooling.Instance.toolInstallMode.GetAndPosition(
                                 _cookingCharacter._cookPosition.index, "Plate");
                             
-                            _cookingCharacter._cookPosition.CloseUI();
+                            _cookingCharacter._cookPosition.CloseUI(0);
                             ToolPooling.Instance.pooledObject[_cookingCharacter._cookPosition.index]
                                 .InventoryBig.SetActive(true);
                             ChangeInventoryEmpty(i);
