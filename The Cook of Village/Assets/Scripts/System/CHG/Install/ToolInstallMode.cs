@@ -161,7 +161,6 @@ public class ToolInstallMode : InstallMode
             }
             
             GetAndPosition(toolPooling.indexToChange, itemInfos.Name);
-            
             InstallData.Instance.PassIndexData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
             DirectUIOnSetting();
             _cookingCharacter.isCookPositionCollider = false;
