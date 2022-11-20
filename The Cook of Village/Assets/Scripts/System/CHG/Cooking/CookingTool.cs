@@ -55,7 +55,11 @@ public class CookingTool : MonoBehaviour
         toolPooling = ToolPooling.Instance;
         _animation = transform.GetComponent<Animation>();
         _burntCoroutine = BurntFood();
-        InventoryBig.SetActive(true);
+        if (toolID != FoodTool.Type.Oven)
+        {
+            InventoryBig.SetActive(true);
+        }
+        
         InventoryBig.transform.localScale = Vector2.zero;
     }
 
@@ -166,9 +170,9 @@ public class CookingTool : MonoBehaviour
         }
     }
 
-    public void OpenUI()
+    public void OpenUI(float time)
     {
-        InventoryBig.LeanScale(Vector2.one, 1.3f).setEaseOutElastic();
+        InventoryBig.LeanScale(Vector2.one, time).setEaseOutElastic();
     }
 
     public void CloseUI()

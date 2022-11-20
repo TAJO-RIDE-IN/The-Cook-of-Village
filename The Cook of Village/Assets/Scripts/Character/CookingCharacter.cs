@@ -93,7 +93,7 @@ public class CookingCharacter : MonoBehaviour
                     else
                     {
                         isSpace = true;
-                        _cookingTool.OpenUI();
+                        _cookingTool.OpenUI(1.3f);
                         //_cookingTool.InventoryBig.SetActive(true);
                         return;
                     }
@@ -140,7 +140,7 @@ public class CookingCharacter : MonoBehaviour
                 {
                     if (isSpace)
                     {
-                        _cookPosition.CloseUI();
+                        _cookPosition.CloseUI(1);
                         isSpace = false;
                         return;
                     }
@@ -334,7 +334,7 @@ public class CookingCharacter : MonoBehaviour
 
         if (other.CompareTag("CookPosition"))
         {
-            _cookPosition.CloseUI();
+            _cookPosition.CloseUI(1);
             isCookPositionCollider = false;
             
         }

@@ -9,7 +9,6 @@ public class ItemSlotManager : MonoBehaviour
     public int ChildSlotCount;
     public Text WarningText;
     
-    public Sprite lockedSlot;
     public Sprite emptySlot;
     
 
