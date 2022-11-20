@@ -220,8 +220,8 @@ public class ChefInventory : MonoBehaviour
                         //게스트가 안받은 상태라면
                         if (_cookingCharacter._foodOrder.ReceiveFood(EdibleItems[i]._foodInfos.ID))
                         {
-                            ChangeInventoryEmpty(i);
                             _cookingCharacter.uiMovement.foodOrderImage.sprite = ImageData.Instance.FindImageData(EdibleItems[i]._foodInfos.ImageID);
+                            ChangeInventoryEmpty(i);
                             _cookingCharacter.uiMovement.CloseUI();
                             EdibleItems[i]._foodInfos = null;
                             if (!IsFoodInHand())//인벤토리에 음식이 아예 없다면
