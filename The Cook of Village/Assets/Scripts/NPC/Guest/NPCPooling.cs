@@ -12,8 +12,10 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     public GameObject NoticeUI;
 
     [SerializeField]
-    private float CallTime = 10f;
-    private float DefaultCallTime = 10f;
+    private float CallTime = 20f;
+    private float DefaultCallTime = 20f;
+    private float FirstCallTime = 4f;
+    private bool FirstNPC = false;
     private bool callVillageNPC = false;
     private Coroutine _callNPC;
     private float VillageNPCTime;
@@ -48,6 +50,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     public void OpenRestaurant()
     {
         GameManager.Instance.IsOpen = true;
+        FirstNPC = true;
         OpenTime = GameData.Instance.TimeOfDay;
         VillageNPCTime = OpenTime + Random.Range(60, 181); // 마을 주민 오는시간 -> 오픈 후 1시간~3시간 사이
 
@@ -110,9 +113,17 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
 
     private void ChangeCallTime()
     {
-        if(GameData.Instance.Fame > 0)
+        if (FirstNPC && GameData.Instance.GuestCount == 0)
         {
-            CallTime = DefaultCallTime - GameData.Instance.Fame / 100;
+            CallTime = FirstCallTime;
+            FirstNPC = false;
+        }
+        else
+        {
+            if (GameData.Instance.Fame >= 0)
+            {
+                CallTime = DefaultCallTime - GameData.Instance.Fame / 100;
+            }
         }
     }
 
