@@ -114,12 +114,12 @@ public class DialogueManager : Singletion<DialogueManager>
             replace = CurrentUseDialogue.questionSentence[QuestionNum].Question;
             Question = true;
         }
-        else if (sentence.Contains("&(End)"))
+        if (sentence.Contains("&(End)"))
         {
             replace = sentence.Replace("&(End)", "");
             NextEnd = true;
         }
-        else if (sentence.Contains("&(Stay)"))
+        if (sentence.Contains("&(Stay)"))
         {
             replace = sentence.Replace("&(Stay)", "");
             Stay = true;
@@ -180,11 +180,6 @@ public class DialogueManager : Singletion<DialogueManager>
         }
     }
 
-    private void AddRichText()
-    {
-
-    }
-
     private IEnumerator TypeSentence(Text _text, string _sentence)
     {
         _text.text = null;
@@ -196,7 +191,6 @@ public class DialogueManager : Singletion<DialogueManager>
             {
                 AddRich = true;
                 RichText(_sentence, _text.text, i); // <Color=cyan></color> stringBuilderø° ¿˙¿Â
-                stringBuilder = new StringBuilder(_text.text + stringBuilder);
             }
             if(AddRich)
             {

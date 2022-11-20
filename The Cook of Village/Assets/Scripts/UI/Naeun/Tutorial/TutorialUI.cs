@@ -10,7 +10,8 @@ public class TutorialUI : MonoBehaviour, IDialogue
     public Button YesButton;
     public Button NoButton;
     public GameObject ChoiceButton;
-    private DialogueManager dialogueManager;
+    public GameObject BackgroundImage;
+    protected DialogueManager dialogueManager;
     private DialogueData.ContentType type = DialogueData.ContentType.Tutorial;
 
     private void Awake()
@@ -29,7 +30,6 @@ public class TutorialUI : MonoBehaviour, IDialogue
         if(!state)
         {
             Disable();
-
         }
     }
     protected virtual void Disable() { }
@@ -37,9 +37,10 @@ public class TutorialUI : MonoBehaviour, IDialogue
     {
         bool NextButtonState = (QuestionState) ? false : !Stay;
         NextButton.gameObject.SetActive(NextButtonState);
+        BackgroundImage.gameObject.SetActive(!Stay);
         ChoiceButton.SetActive(QuestionState);
     }
-
+    protected virtual void Action(){ }
     public void CallDialogue(string name)
     {
         dialogueManager = DialogueManager.Instance;
@@ -50,11 +51,15 @@ public class TutorialUI : MonoBehaviour, IDialogue
     public void DialogueText(int answer = 0)
     {
         (string, bool, bool, bool) Dialogue = dialogueManager.Dialogue(answer);
-        if(Dialogue.Item3)
+        dialogueManager.TypingEffet(SentenceText, Dialogue.Item1);
+        ButtonState(Dialogue.Item2, Dialogue.Item4);
+        if(Dialogue.Item4)
+        {
+            Action();
+        }
+        if (Dialogue.Item3)
         {
             DialogueState(false);
         }
-        ButtonState(Dialogue.Item2, Dialogue.Item3);
-        dialogueManager.TypingEffet(SentenceText, Dialogue.Item1);
     }
 }
