@@ -16,7 +16,7 @@ public class OrderUI : MonoBehaviour
             this.gameObject.SetActive(true);
             OrderContainer.gameObject.GetComponent<OrderControl>().OrderCount++;
             ChangeImage(ImageData.Instance.FindImageData(food.ImageID), ImageData.Instance.FindImageData(FoodData.Instance.foodTool[food.Type].ImageID));
-            MateiralState();
+            IngredientState();
         }
     }
 
@@ -25,7 +25,7 @@ public class OrderUI : MonoBehaviour
     public Image ToolImgae;
     public Image TongsImage;
 
-    public List<Image> MaterialImage = new List<Image>();
+    public List<Image> IngredientImage = new List<Image>();
     public List<Sprite> TongsSprite = new List<Sprite>();
 
     public Transform Order;
@@ -33,20 +33,24 @@ public class OrderUI : MonoBehaviour
 
     [SerializeField]
     private Animator ani;
-    private void OnDisable()
+    private void OnEnable()
+    {
+        Init();
+    }
+    private void Init()
     {
         OrderAnimation(false);
-        foreach (var image in MaterialImage)
+        foreach (var image in IngredientImage)
         {
             image.gameObject.SetActive(false);
         }
     }
-    private void MateiralState()
+    private void IngredientState()
     {
         for(int i = 0; i < food.Recipe.Count; i++)
         {
-            MaterialImage[i].gameObject.SetActive(true);
-            MaterialImage[i].sprite = ImageData.Instance.FindImageData(ItemData.Instance.ItemInfos(food.Recipe[i]).ImageID);
+            IngredientImage[i].gameObject.SetActive(true);
+            IngredientImage[i].sprite = ImageData.Instance.FindImageData(ItemData.Instance.ItemInfos(food.Recipe[i]).ImageID);
             TongsImage.sprite = TongsSprite[Random.Range(0, TongsSprite.Count)];
         }
     }
