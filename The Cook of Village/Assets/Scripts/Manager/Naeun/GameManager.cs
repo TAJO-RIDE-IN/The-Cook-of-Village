@@ -77,12 +77,28 @@ public class GameManager : Singletion<GameManager>
         }
     }
 
+    [SerializeField] private bool tutorialUI = false;
+    public bool TutorialUI
+    {
+        get { return tutorialUI; }
+        set
+        {
+            tutorialUI = value;
+            IsUI = value;
+            //CurosrControl(value);
+        }
+    }
+
     [SerializeField] private bool isUI = false;
     public bool IsUI
     {
         get { return isUI; }
         set 
         {
+            if(TutorialUI)
+            {
+                value = true;
+            }
             isUI = value;
             //CurosrControl(value);
         }
