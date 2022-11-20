@@ -190,10 +190,10 @@ public class ChefInventory : MonoBehaviour
                         if (EdibleItems[i]._ingredientsInfos.ID == 63)
                         {
                             ToolPooling.Instance.toolInstallMode.GetAndPosition(
-                                _cookingCharacter._cookPosition.cookPositionUI.index, "Plate");
+                                _cookingCharacter._cookPosition.index, "Plate");
                             
-                            _cookingCharacter._cookPosition.cookPositionUI.gameObject.SetActive(false);
-                            ToolPooling.Instance.pooledObject[_cookingCharacter._cookPosition.cookPositionUI.index]
+                            _cookingCharacter._cookPosition.CloseUI();
+                            ToolPooling.Instance.pooledObject[_cookingCharacter._cookPosition.index]
                                 .InventoryBig.SetActive(true);
                             ChangeInventoryEmpty(i);
                             _cookingCharacter.isCookPositionCollider = false;
@@ -221,7 +221,7 @@ public class ChefInventory : MonoBehaviour
                         if (_cookingCharacter._foodOrder.ReceiveFood(EdibleItems[i]._foodInfos.ID))
                         {
                             ChangeInventoryEmpty(i);
-                            //_cookingCharacter.uiMovement.foodOrderImage.sprite = ImageData.Instance.FindImageData(EdibleItems[i]._foodInfos.ImageID);
+                            _cookingCharacter.uiMovement.foodOrderImage.sprite = ImageData.Instance.FindImageData(EdibleItems[i]._foodInfos.ImageID);
                             _cookingCharacter.uiMovement.CloseUI();
                             EdibleItems[i]._foodInfos = null;
                             if (!IsFoodInHand())//인벤토리에 음식이 아예 없다면

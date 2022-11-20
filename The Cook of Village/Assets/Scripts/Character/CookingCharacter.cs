@@ -22,14 +22,14 @@ public class CookingCharacter : MonoBehaviour
     public AnimationClip[] Idle;
     public AnimationClip[] Walk;
     public UIMovement uiMovement;
-    public GameObject FoodDish;
+    public GameObject DishObject;
 
     public bool isToolCollider;
     public bool isGuestCollider;
     public bool isFridgeCollider;
     public bool isCookPositionCollider;
     private bool isObjectCollider;
-    public bool isHand = false;//이거만 잘 컨트롤해주면 시작할때 null값 넣어주느니 그런거 안해도 되잖아
+    public bool isHand;
     public bool isSpace;
     
     private bool isDestroy;
@@ -46,7 +46,6 @@ public class CookingCharacter : MonoBehaviour
         animatorOverrideController = new AnimatorOverrideController(charAnimator.runtimeAnimatorController);
         charAnimator.runtimeAnimatorController = animatorOverrideController;
         _gameManager = GameManager.Instance;
-        HoldDish(false);
     }
 
     private void Update()
@@ -64,14 +63,14 @@ public class CookingCharacter : MonoBehaviour
             isHand = true;
             animatorOverrideController["Idle"] = Idle[1];
             animatorOverrideController["Walking"] = Walk[1];
-            FoodDish.SetActive(true);
+            DishObject.SetActive(true);
         }
         else
         {
             isHand = false;
             animatorOverrideController["Idle"] = Idle[0];
             animatorOverrideController["Walking"] = Walk[0];
-            FoodDish.SetActive(false);
+            DishObject.SetActive(false);
         }
     }
 
@@ -86,13 +85,16 @@ public class CookingCharacter : MonoBehaviour
                     if (isSpace)
                     {
                         isSpace = false;
-                        _cookingTool.InventoryBig.SetActive(false);
+                        
+                        _cookingTool.CloseUI();
+                        //_cookingTool.InventoryBig.SetActive(false);
                         return;
                     }
                     else
                     {
                         isSpace = true;
-                        _cookingTool.InventoryBig.SetActive(true);
+                        _cookingTool.OpenUI();
+                        //_cookingTool.InventoryBig.SetActive(true);
                         return;
                     }
                 }
@@ -138,13 +140,13 @@ public class CookingCharacter : MonoBehaviour
                 {
                     if (isSpace)
                     {
-                        _cookPosition.cookPositionUI.gameObject.SetActive(false);
+                        _cookPosition.CloseUI();
                         isSpace = false;
                         return;
                     }
                     else
                     {
-                        _cookPosition.cookPositionUI.gameObject.SetActive(true);
+                        _cookPosition.OpenUI(1);
                         isSpace = true;
                         return;
                     }
@@ -319,7 +321,7 @@ public class CookingCharacter : MonoBehaviour
         {
             isToolCollider = false;
             isSpace = false;
-            _cookingTool.InventoryBig.SetActive(false);
+            _cookingTool.CloseUI();
             return;
         }
         if (other.CompareTag("Guest"))
@@ -332,7 +334,7 @@ public class CookingCharacter : MonoBehaviour
 
         if (other.CompareTag("CookPosition"))
         {
-            _cookPosition.cookPositionUI.gameObject.SetActive(false);
+            _cookPosition.CloseUI();
             isCookPositionCollider = false;
             
         }
