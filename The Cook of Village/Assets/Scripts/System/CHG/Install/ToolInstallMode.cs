@@ -20,7 +20,7 @@ public class ToolInstallMode : InstallMode
     public bool isDirectChange;
     //[HideInInspector] 
     public bool isDirectInstall;
-    public bool[] isUsed;
+    [HideInInspector] public bool[] isUsed;
     
     private int selectedToolAmount;
     private int toolItemInfosAmount;
@@ -147,7 +147,7 @@ public class ToolInstallMode : InstallMode
             ReturnPooledObject();
             GetAndPosition(ToolPooling.Instance.indexToChange, itemInfos.Name);
             InstallData.Instance.PassIndexData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
-            DirectUIOnSetting();
+            DirectUIOpenSetting();
             isDirectChange = false;
             return;
         }
@@ -162,9 +162,8 @@ public class ToolInstallMode : InstallMode
             
             GetAndPosition(toolPooling.indexToChange, itemInfos.Name);
             InstallData.Instance.PassIndexData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
-            _cookingCharacter.isCookPositionCollider = false;
-            _cookingCharacter._cookPosition.CookPositionUI.LeanScale(Vector2.zero, 0f).setEaseInBack();
-            DirectUIOnSetting();
+            DirectUICloseSetting();
+            DirectUIOpenSetting();
             isDirectInstall = false;
             return;
         }
@@ -177,15 +176,21 @@ public class ToolInstallMode : InstallMode
         isDirectChange = false;
     }
 
+    private void DirectUICloseSetting()
+    {
+        _cookingCharacter._cookPosition.isDirect = true;
+        _cookingCharacter._cookPosition.CloseUI(0.5f);
+    }
+
     /// <summary>
     /// InventoryBig 켜지게 하고 isSpace도 true로 해줘서 스페이스바 누르면 바로 UI 꺼지도록
     /// </summary>
-    private void DirectUIOnSetting()
+    private void DirectUIOpenSetting()
     {
         _cookingCharacter._cookingTool = toolPooling.pooledObject[ToolPooling.Instance.indexToChange];
         _cookingCharacter.isToolCollider = true;
         _cookingCharacter.isSpace = true;
-        _cookingCharacter._cookingTool.OpenUI(0.5f);
+        //_cookingCharacter._cookingTool.OpenUI(0.5f);
     }
 
     protected override void ReturnPooledObject()

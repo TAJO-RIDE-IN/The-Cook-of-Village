@@ -154,14 +154,14 @@ public class CookingCharacter : MonoBehaviour
 
             if (isObjectCollider)
             {
-                if (objectName == "Ladder")
+                if (objectName.Equals("Bed"))
                 {
                     GameData.Instance.SetTimeMorning();
                     Debug.Log("아침으로 변경");
                     return;
                 }
 
-                if (objectName == "Flour")
+                if (objectName.Equals("Flour"))
                 {
                     if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemType[0]
                         .ItemInfos[0]))
@@ -170,7 +170,7 @@ public class CookingCharacter : MonoBehaviour
                         //쟁반에 밀가루 생성
                     }
                 }
-                if (objectName == "Sugar")
+                if (objectName.Equals("Sugar"))
                 {
                     if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemType[0]
                         .ItemInfos[1]))
@@ -179,20 +179,20 @@ public class CookingCharacter : MonoBehaviour
                         //쟁반에 밀가루 생성
                     }
                 }
-                if (objectName == "Cabinet")
+                if (objectName.Equals("Cabinet"))
                 {
                     if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemType[6]
                         .ItemInfos[3]))
                     {
-                        
                         return;
                     }
                     else
                     {
                         ChefInventory.Instance.chefSlotManager.ShowWarning();
+                        return;
                     }
                 }
-                if (objectName == "Trash")
+                if (objectName.Equals("Trash"))
                 {
                     if (!isSpace) //여는 상황
                     {
@@ -204,8 +204,12 @@ public class CookingCharacter : MonoBehaviour
                     {
                         isSpace = false;
                         TrashUI.SetActive(false);
+                        return;
                     }
-                    
+                }
+
+                if (objectName == "Calender")
+                {
                     
                 }
             }
@@ -233,34 +237,6 @@ public class CookingCharacter : MonoBehaviour
         }
     }
     
-    public IEnumerator FoodOrderUI()
-    {
-        int TrueNumber = 1;
-        int loopNum = 0;
-        while (TrueNumber == 1)
-        {
-
-            yield return null;
-
-            if(loopNum++ > 10000)
-                throw new System.Exception("Infinite Loop");
-
-        }
-
-    }
-
-    public void DestroyOrNot()//쟁반에서 써야할듯
-    {
-        if (isDestroy)
-        {
-            for (int i = 0; i < HandPosition.transform.childCount; i++)//이걸 꽉차면 안없애야하는데..(원래 PutIngredient에 있었음)
-            {
-                Destroy(HandPosition.transform.GetChild(i).gameObject);
-            }
-            isHand = false;
-        }
-        
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -295,8 +271,7 @@ public class CookingCharacter : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-
-        if (other.gameObject.name == "CounterPosition")
+        if (other.gameObject.name.Equals("CounterPosition"))
         {
             if (Input.GetKey(KeyCode.Space))
             {
@@ -308,28 +283,24 @@ public class CookingCharacter : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        
-        if (other.tag == "Fridge")
+        if (other.CompareTag("Fridge"))
         {
             fridge.UseRefrigerator(false);
             isFridgeCollider = false;
             isSpace = false;
-            return;
         }
 
-        if (other.tag == "CookingTools")
+        if (other.CompareTag("CookingTools"))
         {
             isToolCollider = false;
             isSpace = false;
             _cookingTool.CloseUI();
-            return;
         }
         if (other.CompareTag("Guest"))
         {
             uiMovement.CloseUI();
             isSpace = false;
             isGuestCollider = false;
-            
         }
 
         if (other.CompareTag("CookPosition"))
@@ -338,7 +309,7 @@ public class CookingCharacter : MonoBehaviour
             isCookPositionCollider = false;
             
         }
-        if (other.gameObject.name == "Trash")
+        if (other.gameObject.name.Equals("Trash"))
         {
             TrashUI.SetActive(false);
             isSpace = false;
