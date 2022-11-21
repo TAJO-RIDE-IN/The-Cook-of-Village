@@ -171,11 +171,11 @@ public class GuestNPC : MonoBehaviour, IGuestOb
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "SecondFloor")
+        if (other.gameObject.name.Equals("SecondFloor"))
         {
             ChangeLayer(this.transform, 7);
         }
-        else if (other.gameObject.name == "FirstFloor")
+        else if (other.gameObject.name.Equals("FirstFloor"))
         {
             ChangeLayer(this.transform, 0);
         }

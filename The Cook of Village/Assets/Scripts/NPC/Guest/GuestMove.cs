@@ -53,6 +53,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
 
     private IEnumerator NPCMove(Vector3 destination, string destination_name) //NPC이동
     {
+        float stopDistance = (destination_name.Equals("Chair")) ? 0.3f : 0.1f;
         isArrive = false;
         agent.enabled = true;
         guest.ChangeState(GuestNPC.State.Walk);
@@ -61,7 +62,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
             agent.SetDestination(destination);
             if (!agent.pathPending) //가까이 갔을때 감지
             {
-                if (agent.remainingDistance <= agent.stoppingDistance + 0.3)
+                if (agent.remainingDistance <= agent.stoppingDistance + stopDistance)
                 {
                     if (!agent.hasPath || agent.velocity.sqrMagnitude >= 0.2f * 0.2f)
                     {
@@ -109,8 +110,8 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
                 OutChair();                                
                 break;
             case GuestNPC.State.Pay:
-                StartCoroutine(WaitAnimation("Pay", 0.1f, () => StartCoroutine(NPCMove(Door.position, "Door"))));
-                StartCoroutine(WaitAnimation("Pay", 0.1f, () => counter.OutGuest(this.gameObject)));
+                counter.OutGuest(this.gameObject);
+                StartCoroutine(WaitAnimation("Pay", 0.05f, () => StartCoroutine(NPCMove(Door.position, "Door"))));
                 Vector3 look = new Vector3(counter.CounterObject.position.x, transform.position.y, counter.CounterObject.position.z);
                 transform.LookAt(look);               
                 break;

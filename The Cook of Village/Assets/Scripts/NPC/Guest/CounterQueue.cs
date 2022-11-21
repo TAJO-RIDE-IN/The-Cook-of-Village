@@ -7,6 +7,7 @@ public class WaitingLine
 {
     public Queue<GameObject> GuestQueue = new Queue<GameObject>();
     private List<Vector3> PositionList = new List<Vector3>();
+    public bool CanPay = true;
     public void AddPositionList(List<Vector3> positionList)
     {
         this.PositionList = positionList;
@@ -31,6 +32,7 @@ public class WaitingLine
     {
         if(GuestQueue.Peek() == guest)
         {
+            CanPay = true;
             GuestQueue.Dequeue();
             RelocateAllGuests();
         }
@@ -74,8 +76,9 @@ public class CounterQueue : MonoBehaviour
     }
     public void PayCounter()
     {
-        if(waitngQueue.GuestQueue.Count > 0)
+        if(waitngQueue.GuestQueue.Count > 0 && waitngQueue.CanPay)
         {
+            waitngQueue.CanPay = false;
             FoodOrder PayGuest = waitngQueue.GuestQueue.Peek().GetComponent<FoodOrder>();
             PayGuest.PayFood(PayMultiple);
         }

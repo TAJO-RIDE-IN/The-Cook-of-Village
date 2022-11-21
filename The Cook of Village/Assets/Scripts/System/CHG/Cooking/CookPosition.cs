@@ -9,8 +9,9 @@ public class CookPosition : MonoBehaviour
     public int index;
 
     public GameObject CookPositionUI;
-    public Material transMaterial;
+    
     private ToolPooling _toolPooling;
+    
 
     private int fadeCount = 5;
     
@@ -41,23 +42,9 @@ public class CookPosition : MonoBehaviour
 
     public void CloseUI(float time)
     {
-        CookPositionUI.LeanScale(Vector2.zero, time).setEaseInBack();
-    }
-    
-    public IEnumerator MaterialFadeOut(Material material,float fadeOutValue)
-    {
-        for (int i = 0; i < fadeCount; i++)
-        {
-            if (i % 2 == 0)
-            {
-                while (material.color.a > fadeOutValue)
-                {
-                    material.color = new Color(material.color.r, material.color.g, material.color.b, material.color.a - (Time.deltaTime / 3.0f));
-                    yield return null;
-                }
-            }
-        }
-        
+        //if(ChefInventory.)
+        CookPositionUI.LeanScale(Vector2.zero, time).setEaseInBack().setOnComplete(() =>
+            ChefInventory.Instance._cookingCharacter._cookingTool.OpenUI(0.5f));
         
     }
 }

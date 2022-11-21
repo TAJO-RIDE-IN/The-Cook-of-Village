@@ -40,21 +40,15 @@ public class Potion : Singletion<Potion>, IPotionOb
     private Coroutine RunningOrange;
 
     private List<IObserver<Potion>> _observers = new List<IObserver<Potion>>();
+    private GameManager gameManager;
 
     private void Start()
     {
+        gameManager = GameManager.Instance;
         LoadObject();
     }
     public void LoadObject()
     {
-        if (GameManager.Instance.CurrentSceneIndex == 2)
-        {
-            VillageSceneInit();
-        }
-        if (GameManager.Instance.CurrentSceneIndex == 3)
-        {
-            RestaurantSceneInit();
-        }
         if (Red) { UseRedPotion(RedEffectNum); }
         NotifyObserver();
     }
@@ -193,11 +187,6 @@ public class Potion : Singletion<Potion>, IPotionOb
     private void UseRainbowPotion() //인벤토리 해금
     {
         GameData.Instance.RainbowDrinking++;
-        int count = GameData.Instance.RainbowDrinking;
-        if (count%5 == 0)
-        {
-            ChefInventory.Instance.ExtensionInventory();
-        }
     }
     #endregion
 
