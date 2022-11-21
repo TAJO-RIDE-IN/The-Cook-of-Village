@@ -39,6 +39,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
             }
             else
             {
+                NoticeUI.SetActive(true);
                 NoticeUI.SetActive(false);
                 CloseRestaurant();
             }

@@ -23,16 +23,10 @@ public class ThirdPersonGravity : MonoBehaviour
     float turnSmoothVelocity;
     public float turnSmoothTime = 0.1f;
 
-    private Animator animator;
+    public Animator animator;
     public CinemachineFreeLook cinemachine;
 
     private bool isCanMove = true;
-    
-    private void Start()
-    {
-        animator = transform.GetChild(0).GetComponent<Animator>();
-        //cinemachine.GetComponent<CinemachineFreeLook>();
-    }
 
     // Update is called once per frame
     void FixedUpdate()
