@@ -23,6 +23,7 @@ public class ChairUse : MonoBehaviour
     public Transform[] Destination;
     public Transform TablePosition;
     public Transform GuestSitPosition;
+    public ParticleSystem FoodEffect;
     public GameObject Model(int id)
     {
         foreach(var obj in FoodModel)
@@ -46,6 +47,7 @@ public class ChairUse : MonoBehaviour
     public void FoodEnable(int id, bool state)
     {
         Model(id).SetActive(state);
+        FoodEffect.Play();
     }
     public Transform SitPosition(GuestNPC.Guest npc, int work = 0)
     {

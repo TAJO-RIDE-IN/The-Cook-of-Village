@@ -229,6 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1493714007219546262}
   - component: {fileID: 4159759577444574125}
+  - component: {fileID: 419461761755767390}
   - component: {fileID: 4781292478313886444}
   - component: {fileID: 4450268594473960659}
   - component: {fileID: 7401886509079043323}
@@ -274,6 +275,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6, y: 1, z: 0.9}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &419461761755767390
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2301739997543854636}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 1.3
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!95 &4781292478313886444
 Animator:
   serializedVersion: 3
@@ -337,6 +352,8 @@ MonoBehaviour:
     AngryParticle: {fileID: 576610877050082192}
   ModelsAni: {fileID: 4781292478313886444}
   chairUse: {fileID: 0}
+  DefalutCollider: {fileID: 419461761755767390}
+  FoodCollider: {fileID: 4159759577444574125}
   isDrink: 0
   npcInfos:
     work: 1
@@ -345,12 +362,12 @@ MonoBehaviour:
     OpenTime: 0
     CloseTime: 0
     Holiday: 5
-    likeability: 0
+    Likeability: 0
     FavoriteFood: 0
     EatFavriteFood: 0
     VisitRestaurant: 0
-    ProfileImage: {fileID: 0}
-    NPCModel: {fileID: 0}
+    VisitPlayer: 0
+    ImageID: 0
   RestaurantVisit: 0
 --- !u!114 &8908563786562773595
 MonoBehaviour:
@@ -375,8 +392,7 @@ MonoBehaviour:
     Price: 0
     OrderProbability: 0
     Recipe: 
-    PrefabFood: {fileID: 0}
-    ImageUI: {fileID: 0}
+    ImageID: 0
   NPCUI: {fileID: 4641583917996528081}
   RemainingTimeImage: {fileID: 8185308575019382647}
   OrderFoodImage: {fileID: 8185308575615224619}

@@ -6,7 +6,10 @@ using UnityEngine;
 public class WaitingLine
 {
     public Queue<GameObject> GuestQueue = new Queue<GameObject>();
+    private List<GameObject> LineGuest = new List<GameObject>();
     private List<Vector3> PositionList = new List<Vector3>();
+
+    public bool CanPay = true;
     public void AddPositionList(List<Vector3> positionList)
     {
         this.PositionList = positionList;
@@ -31,6 +34,7 @@ public class WaitingLine
     {
         if(GuestQueue.Peek() == guest)
         {
+            CanPay = true;
             GuestQueue.Dequeue();
             RelocateAllGuests();
         }
@@ -53,6 +57,7 @@ public class CounterQueue : MonoBehaviour
     [SerializeField]
     private Transform[] WaitingPositionArray;
     public WaitingLine waitngQueue;
+    public GameObject CanPayNPC;
     private void Start()
     {
         foreach(Transform line in WaitingPositionArray)
@@ -67,17 +72,21 @@ public class CounterQueue : MonoBehaviour
     {
         waitngQueue.AddGuest(guest);
     }
-
     public void OutGuest(GameObject guest)
     {
         waitngQueue.QuitGuest(guest);
     }
     public void PayCounter()
     {
-        if(waitngQueue.GuestQueue.Count > 0)
+        if (CanPayNPC != null)
         {
-            FoodOrder PayGuest = waitngQueue.GuestQueue.Peek().GetComponent<FoodOrder>();
-            PayGuest.PayFood(PayMultiple);
+            if(waitngQueue.CanPay && CanPayNPC.Equals(waitngQueue.GuestQueue.Peek()))
+            {
+                waitngQueue.CanPay = false;
+                CanPayNPC = null;
+                FoodOrder PayGuest = waitngQueue.GuestQueue.Peek().GetComponent<FoodOrder>();
+                PayGuest.PayFood(PayMultiple);
+            }
         }
     }
 }

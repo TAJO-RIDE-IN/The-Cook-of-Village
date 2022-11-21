@@ -416,13 +416,14 @@ GameObject:
   - component: {fileID: 5277295997532421252}
   - component: {fileID: 2295873098928318206}
   - component: {fileID: 1038802357744291642}
+  - component: {fileID: 8049169246450275991}
   - component: {fileID: 7675860166285789459}
   - component: {fileID: 5165788161716900133}
   - component: {fileID: 8593230486054475763}
   - component: {fileID: 7035049705808061831}
   m_Layer: 0
   m_Name: GuestBird
-  m_TagString: Untagged
+  m_TagString: Guest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -478,6 +479,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6, y: 1, z: 0.9}
   m_Center: {x: 0, y: 0.14, z: 0}
+--- !u!136 &8049169246450275991
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4789411160639333950}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 1.3
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!195 &7675860166285789459
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -522,6 +537,8 @@ MonoBehaviour:
     AngryParticle: {fileID: 6135404391292473076}
   ModelsAni: {fileID: 2295873098928318206}
   chairUse: {fileID: 0}
+  DefalutCollider: {fileID: 8049169246450275991}
+  FoodCollider: {fileID: 1038802357744291642}
   isDrink: 0
   npcInfos:
     work: 5
@@ -530,12 +547,12 @@ MonoBehaviour:
     OpenTime: 0
     CloseTime: 0
     Holiday: 1
-    likeability: 0
+    Likeability: 0
     FavoriteFood: 0
     EatFavriteFood: 0
     VisitRestaurant: 0
-    ProfileImage: {fileID: 0}
-    NPCModel: {fileID: 0}
+    VisitPlayer: 0
+    ImageID: 0
   RestaurantVisit: 0
 --- !u!114 &8593230486054475763
 MonoBehaviour:
@@ -575,8 +592,7 @@ MonoBehaviour:
     Price: 0
     OrderProbability: 0
     Recipe: 
-    PrefabFood: {fileID: 0}
-    ImageUI: {fileID: 0}
+    ImageID: 0
   NPCUI: {fileID: 3537648239249773926}
   RemainingTimeImage: {fileID: 65998630613464000}
   OrderFoodImage: {fileID: 65998630139236252}
