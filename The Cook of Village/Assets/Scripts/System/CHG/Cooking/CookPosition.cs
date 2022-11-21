@@ -42,7 +42,6 @@ public class CookPosition : MonoBehaviour
     public void CloseUI(float time)
     {
         CookPositionUI.LeanScale(Vector2.zero, time).setEaseInBack();
-        Debug.Log(index +"번째 UI닫음");
     }
     
     public IEnumerator MaterialFadeOut(Material material,float fadeOutValue)
