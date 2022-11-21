@@ -75,7 +75,7 @@ public class NPCData : DataManager<NPCData>
     }
     public void AtOnceCloseNPC(NPCInfos.Work work)
     {
-        npcInfos[(int)work].CloseTime = (int)GameData.Instance.TimeOfDay;
+        npcInfos[(int)work].CloseTime = (int)GameData.Instance.TimeOfDay - 100;
     }
     public void ResetData()
     {

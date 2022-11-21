@@ -32,28 +32,6 @@ public class GameManager : Singletion<GameManager>
         CurrentSceneName = SceneManager.GetActiveScene().name;
         LoadObject();
         DontDestroyOnLoad(this.gameObject);
-        CursorInit();
-    }
-
-    private void CursorInit()
-    {
-        if (currentSceneIndex == 0)
-        {
-            CursorControl(true);
-        }
-        if (currentSceneIndex == 1)
-        {
-            CursorControl(true);
-        }
-        if (currentSceneIndex == 2)
-        {
-            //CursorControl(false);
-        }
-
-        if (currentSceneIndex == 3)
-        {
-            CursorControl(true);
-        }
     }
 
     private bool isOpen = false;
@@ -85,7 +63,6 @@ public class GameManager : Singletion<GameManager>
         {
             tutorialUI = value;
             IsUI = value;
-            //CurosrControl(value);
         }
     }
 
@@ -100,7 +77,7 @@ public class GameManager : Singletion<GameManager>
                 value = true;
             }
             isUI = value;
-            //CurosrControl(value);
+            CursorControl(value);
         }
     }
 
@@ -161,7 +138,7 @@ public class GameManager : Singletion<GameManager>
             case 2: //마을
                 potionController.VillageSceneInit();
                 gameData.PlaySceneInit();
-                //CursorControl(false);
+                CursorControl(false);
                 break;
             case 3: //레스토랑
                 potionController.RestaurantSceneInit();

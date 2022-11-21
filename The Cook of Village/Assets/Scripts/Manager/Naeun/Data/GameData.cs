@@ -49,6 +49,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
     private List<IObserver<GameData>> GuestObservers = new List<IObserver<GameData>>();
     private Coroutine runningCoroutine = null;
     public GameInfos gameInfos;
+    [SerializeField] private GameManager gameManaer;
     [SerializeField] private ItemData itemData;
     [SerializeField] private FoodData foodData;
     [SerializeField] private NPCData npcData;
@@ -258,7 +259,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
     }
     public override void SaveDataTime(string PlayName)
     {
-        if(Instance == this)
+        if(Instance == this && gameManaer.gameMode == GameManager.GameMode.Default)
         {
             if (PlayName != "Default")
             {
