@@ -39,7 +39,7 @@ public class Option : MonoBehaviour
     {
         soundManager = SoundManager.Instance;
         BgmToggle.isOn = soundManager.audioSources[(int)SoundData.Type.Bgm].audioSources[0].mute;
-        EffectToggle.isOn = soundManager.EffectMute;
+        BgmToggle.isOn = soundManager.audioSources[(int)SoundData.Type.Bgm].audioSources[1].mute;
         MuteSound(0);
         MuteSound(1);
         MuteSound(2);
@@ -123,7 +123,7 @@ public class Option : MonoBehaviour
         }
         else
         {
-            soundManager.EffectMute = EffectToggle.isOn;
+            soundManager.MuteSound(type, EffectToggle.isOn);
             StopEffectSlider = true;
             EffectSlider.value = (EffectToggle.isOn) ? 0 : SoundManager.Instance.audioSources[(int)SoundData.Type.Effect].audioSources[0].volume;
             StopEffectSlider = false;

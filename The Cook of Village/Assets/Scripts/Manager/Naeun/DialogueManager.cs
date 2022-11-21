@@ -40,7 +40,8 @@ public class DialogueManager : Singletion<DialogueManager>
     private int QuestionNum;
     private bool Question = false;
     private bool NextEnd = false;
-    private bool Stay = false;
+    private bool EndUse = false;
+    private bool Action = false;
     private Coroutine TypingCorutine;
     private void ResetState()
     {
@@ -48,7 +49,8 @@ public class DialogueManager : Singletion<DialogueManager>
         CurrentUseDialogue = null;
         Question = false;
         NextEnd = false;
-        Stay = false;
+        EndUse = false;
+        Action = false;
         QuestionNum = 0;
     }
 
@@ -70,6 +72,7 @@ public class DialogueManager : Singletion<DialogueManager>
                 {
                     CurrentSentences.Enqueue(text);
                 }
+                return;
             }
         }
     }
@@ -81,7 +84,7 @@ public class DialogueManager : Singletion<DialogueManager>
     /// <returns>DialogueContent의  Sentence, Question인 경우 true, 다음 문장이 없을경우 true</returns>
     public (string, bool, bool, bool) Dialogue(int answer = 0)
     {
-        if (!NextEnd)
+        if (!NextEnd || EndUse)
         {
             string sentence;
             if (!Question) //질문인지 아닌지 확인
@@ -94,11 +97,13 @@ public class DialogueManager : Singletion<DialogueManager>
                 QuestionNum++;
             }
             sentence = ReplaceSentence(sentence);
-            return (sentence, Question, false, Stay);
+            return (sentence, Question, false, Action);
         }
-        return ("", Question, NextEnd, Stay);
+        EndUse = true;
+        return ("", false, NextEnd, false);
     }
 
+    private string Replace;
     /// <summary>
     /// 문장에서 바뀌어야 하는 부분(플레이어이름, 질문)을 바꿔준다.
     /// </summary>
@@ -107,24 +112,26 @@ public class DialogueManager : Singletion<DialogueManager>
     private string ReplaceSentence(string sentence)
     {
         Question = false;
-        Stay = false;
-        string replace = sentence.Replace("&PlayerName", GameData.Instance.PlayerName);
+        Action = false;
+        EndUse = false;
+        Replace = "";
+        Replace = sentence.Replace("&PlayerName", GameData.Instance.PlayerName);
         if (sentence.Contains("&(Question" + QuestionNum + ")"))
         {
-            replace = CurrentUseDialogue.questionSentence[QuestionNum].Question;
+            Replace = CurrentUseDialogue.questionSentence[QuestionNum].Question;
             Question = true;
+        }
+        if (sentence.Contains("&(Action)"))
+        {
+            Replace = Replace.Replace("&(Action)", "");
+            Action = true;
         }
         if (sentence.Contains("&(End)"))
         {
-            replace = sentence.Replace("&(End)", "");
+            Replace = Replace.Replace("&(End)", "");
             NextEnd = true;
         }
-        if (sentence.Contains("&(Stay)"))
-        {
-            replace = sentence.Replace("&(Stay)", "");
-            Stay = true;
-        }
-        return replace;
+        return Replace;
     }
 
     #region TypingEffet

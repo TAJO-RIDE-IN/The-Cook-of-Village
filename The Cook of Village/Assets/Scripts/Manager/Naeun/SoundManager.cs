@@ -40,7 +40,6 @@ public class SoundManager : Singletion<SoundManager>
     [SerializeField]public AudioSourecs[] audioSources;
     public Dictionary<string, Sound> _audioClips = new Dictionary<string, Sound>();
     public Dictionary<GameObject, AudioSource> _3DAudio = new Dictionary<GameObject, AudioSource>();
-    public bool EffectMute;
     protected override void Init()
     {
         AudioDictionary();

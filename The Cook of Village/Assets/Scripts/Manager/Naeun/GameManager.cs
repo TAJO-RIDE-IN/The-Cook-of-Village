@@ -32,28 +32,6 @@ public class GameManager : Singletion<GameManager>
         CurrentSceneName = SceneManager.GetActiveScene().name;
         LoadObject();
         DontDestroyOnLoad(this.gameObject);
-        CursorInit();
-    }
-
-    private void CursorInit()
-    {
-        if (currentSceneIndex == 0)
-        {
-            CursorControl(true);
-        }
-        if (currentSceneIndex == 1)
-        {
-            CursorControl(true);
-        }
-        if (currentSceneIndex == 2)
-        {
-            //CursorControl(false);
-        }
-
-        if (currentSceneIndex == 3)
-        {
-            CursorControl(true);
-        }
     }
 
     private bool isOpen = false;
@@ -77,14 +55,29 @@ public class GameManager : Singletion<GameManager>
         }
     }
 
+    [SerializeField] private bool tutorialUI = false;
+    public bool TutorialUI
+    {
+        get { return tutorialUI; }
+        set
+        {
+            tutorialUI = value;
+            IsUI = value;
+        }
+    }
+
     [SerializeField] private bool isUI = false;
     public bool IsUI
     {
         get { return isUI; }
         set 
         {
+            if(TutorialUI)
+            {
+                value = true;
+            }
             isUI = value;
-            //CurosrControl(value);
+            CursorControl(value);
         }
     }
 
@@ -145,7 +138,7 @@ public class GameManager : Singletion<GameManager>
             case 2: //마을
                 potionController.VillageSceneInit();
                 gameData.PlaySceneInit();
-                //CursorControl(false);
+                CursorControl(false);
                 break;
             case 3: //레스토랑
                 potionController.RestaurantSceneInit();
@@ -163,20 +156,11 @@ public class GameManager : Singletion<GameManager>
     public void Pause(bool state) // Game Pause
     {
         Time.timeScale = state ? 0.0f : 1.0f;
-        if(state)
-        {
-            soundManager.MuteSound(1, true);
-            soundManager.MuteSound(2, true);
-        }
-        else
-        {
-            soundManager.MuteSound(1, soundManager.EffectMute);
-            soundManager.MuteSound(2, soundManager.EffectMute);
-        }
     }
 
     public void GameQuit()
     {
+        gameData.SaveDataTime("ExitSave");
         Application.Quit();
     }
 }

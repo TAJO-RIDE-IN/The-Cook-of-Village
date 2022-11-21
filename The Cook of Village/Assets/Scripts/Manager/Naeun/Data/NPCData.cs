@@ -73,7 +73,10 @@ public class NPCData : DataManager<NPCData>
         }
         npcInfos[(int)work].Likeability += likeability;
     }
-
+    public void AtOnceCloseNPC(NPCInfos.Work work)
+    {
+        npcInfos[(int)work].CloseTime = (int)GameData.Instance.TimeOfDay - 100;
+    }
     public void ResetData()
     {
         foreach(var npc in npcInfos)

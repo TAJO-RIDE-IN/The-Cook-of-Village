@@ -27,12 +27,14 @@ public class PlayControl : MonoBehaviour
     }
     public void NewStartGame(PlayerInfos info)
     {
+        GameManager.Instance.gameMode = GameManager.GameMode.Default;
         playerData.AddNewPlayer(info);
         changeScene.MoveScene();
         State();
     }
     public void ContinueGame(PlayerInfos info)
     {
+        GameManager.Instance.gameMode = GameManager.GameMode.Default;
         playerData.ContinuePlayer(info);
         changeScene.MoveScene();
     }
