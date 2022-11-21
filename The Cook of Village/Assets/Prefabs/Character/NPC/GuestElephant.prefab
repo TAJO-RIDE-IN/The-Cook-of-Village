@@ -362,6 +362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2206319415878973155}
   - component: {fileID: 2468958859432895715}
+  - component: {fileID: 6178963261648251109}
   - component: {fileID: 5223690705435536537}
   - component: {fileID: 2781668665291607337}
   - component: {fileID: 4562565581536691067}
@@ -407,6 +408,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6, y: 1, z: 0.9}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &6178963261648251109
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573369791156268121}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 1.3
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!95 &5223690705435536537
 Animator:
   serializedVersion: 3
@@ -470,6 +485,8 @@ MonoBehaviour:
     AngryParticle: {fileID: 1680421158046032668}
   ModelsAni: {fileID: 5223690705435536537}
   chairUse: {fileID: 0}
+  DefalutCollider: {fileID: 6178963261648251109}
+  FoodCollider: {fileID: 2468958859432895715}
   isDrink: 0
   npcInfos:
     work: 0
@@ -478,12 +495,12 @@ MonoBehaviour:
     OpenTime: 0
     CloseTime: 0
     Holiday: 6
-    likeability: 0
+    Likeability: 0
     FavoriteFood: 0
     EatFavriteFood: 0
     VisitRestaurant: 0
-    ProfileImage: {fileID: 0}
-    NPCModel: {fileID: 0}
+    VisitPlayer: 0
+    ImageID: 0
   RestaurantVisit: 0
 --- !u!114 &3888475760647715853
 MonoBehaviour:
@@ -523,8 +540,7 @@ MonoBehaviour:
     Price: 0
     OrderProbability: 0
     Recipe: 
-    PrefabFood: {fileID: 0}
-    ImageUI: {fileID: 0}
+    ImageID: 0
   NPCUI: {fileID: 2748099693223256165}
   RemainingTimeImage: {fileID: 1716169628889827011}
   OrderFoodImage: {fileID: 1716169629626727071}
@@ -2525,9 +2541,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8715474676570282346, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
   m_PrefabInstance: {fileID: 6832136654628387087}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1716169628889827011 stripped
+--- !u!114 &1716169629626727071 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5260678501312643020, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5260678501915820944, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
   m_PrefabInstance: {fileID: 6832136654628387087}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -2536,9 +2552,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1716169629626727071 stripped
+--- !u!114 &1716169628889827011 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5260678501915820944, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5260678501312643020, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
   m_PrefabInstance: {fileID: 6832136654628387087}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -2604,6 +2620,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9abb3976896c9248939b2d4baa31797, type: 3}
+--- !u!4 &8377438958292834731 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1888791234038377736, guid: d9abb3976896c9248939b2d4baa31797, type: 3}
+  m_PrefabInstance: {fileID: 7959252275974288547}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &7155348417859578296 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 952536334432918811, guid: d9abb3976896c9248939b2d4baa31797, type: 3}
@@ -2612,10 +2633,5 @@ ParticleSystem:
 --- !u!198 &1680421158046032668 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 8729946289892546495, guid: d9abb3976896c9248939b2d4baa31797, type: 3}
-  m_PrefabInstance: {fileID: 7959252275974288547}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8377438958292834731 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1888791234038377736, guid: d9abb3976896c9248939b2d4baa31797, type: 3}
   m_PrefabInstance: {fileID: 7959252275974288547}
   m_PrefabAsset: {fileID: 0}

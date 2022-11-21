@@ -16,6 +16,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     private int VillageSitNum;
     public CounterQueue counter;
 
+    private Coroutine MoveCoroutine;
     private bool NPCEat = false;
     [SerializeField]
     private bool isArrive = false;
@@ -34,7 +35,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     private void OnEnable()
     {
         ChairUse();
-        StartCoroutine(NPCMove(guest.chairUse.CloseDestination(transform).position, "Chair"));
+        Move(guest.chairUse.CloseDestination(transform).position, "Chair");
     }
     private void OutChair()
     {
@@ -49,6 +50,17 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         guest.chairUse = UseChair.GetComponent<ChairUse>();
         Sit = guest.chairUse.SitPosition(guest.currentNPC, VillageSitNum);
         chairContainer.UseChair.Add(UseChair);
+    }
+
+    private void Move(Vector3 destination, string destination_name) //agent 초기화와 콜라이더 저장을 위한 함수
+    {
+        agent.enabled = false;
+        agent.enabled = true;
+        if (MoveCoroutine != null)
+        {
+            StopCoroutine(MoveCoroutine);
+        }
+        MoveCoroutine = StartCoroutine(NPCMove(destination, destination_name));
     }
 
     private IEnumerator NPCMove(Vector3 destination, string destination_name) //NPC이동
@@ -105,13 +117,13 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         {
             case GuestNPC.State.StandUP:
                 if(NPCEat) { GoCounter(); }
-                else { StartCoroutine(WaitAnimation("StandUp", 0.8f, () => StartCoroutine(NPCMove(Door.position, "Door")))); }
+                else { StartCoroutine(WaitAnimation("StandUp", 0.8f, () => Move(Door.position, "Door"))); }
                 NPCEat = false;
                 OutChair();                                
                 break;
             case GuestNPC.State.Pay:
                 counter.OutGuest(this.gameObject);
-                StartCoroutine(WaitAnimation("Pay", 0.05f, () => StartCoroutine(NPCMove(Door.position, "Door"))));
+                StartCoroutine(WaitAnimation("Pay", 0.05f, () => Move(Door.position, "Door")));
                 Vector3 look = new Vector3(counter.CounterObject.position.x, transform.position.y, counter.CounterObject.position.z);
                 transform.LookAt(look);               
                 break;
@@ -137,16 +149,16 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     {
         counter.GoGuest(this.gameObject);
         Vector3 countLine = counter.waitngQueue.LineUPPosition(this.gameObject);
-        StartCoroutine(WaitAnimation("StandUp", 0.8f, () => StartCoroutine(NPCMove(countLine, "Counter"))));
+        StartCoroutine(WaitAnimation("StandUp", 0.8f, () => Move(countLine, "Counter")));
     }
     private void OutCounter() //Counter에서 문으로 이동
     {
         counter.OutGuest(this.gameObject);
-        StartCoroutine(NPCMove(Door.position, "Door"));
+        Move(Door.position, "Door");
     }
     public void RelocateGuest(Vector3 position) //Counter 줄 정렬
     {
-        StartCoroutine(NPCMove(position, "CounterLine"));
+        Move(position, "CounterLine");
     }
 
 
@@ -160,7 +172,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         if(obj is GuestNPC)
         {
             var guestNPC = obj;
-            if(guestNPC.CurrentState == GuestNPC.State.Eat)
+            if(guestNPC.CurrentState.Equals(GuestNPC.State.Eat))
             {
                 NPCEat = true;
             }

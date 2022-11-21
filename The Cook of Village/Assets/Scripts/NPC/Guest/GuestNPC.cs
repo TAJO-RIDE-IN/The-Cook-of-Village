@@ -38,10 +38,13 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     private GameObject CurrentModel;
     public Animator ModelsAni;
     public ChairUse chairUse;
+    public Collider DefalutCollider, FoodCollider; //foodCollider -> 음식 받을 때 영역
     public bool isDrink;
+
     #region Model 변경
     private void OnEnable()
     {
+        ColliderState(true);
         SetNPCModel(true);
         GameData.Instance.GuestCount++;
     }
@@ -49,12 +52,16 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     private void OnDisable()
     {
         SetNPCModel(false);
-        if(GameData.Instance != null)
+        if (GameData.Instance != null)
         {
             GameData.Instance.GuestCount--;
         }
     }
-
+    private void ColliderState(bool state)
+    {
+        DefalutCollider.enabled = state;
+        FoodCollider.enabled = !state;
+    }
     private void SetNPCModel(bool state)
     {
         if(state == true)
@@ -76,6 +83,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 NPCImage.AngryParticle.Stop();
                 break;
             case State.Walk:
+                ColliderState(true);
                 ModelsAni.SetBool("isWalk", true);
                 NPCSound("GuestNPCWalk", true, false);
                 break;
@@ -87,6 +95,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 EatSound();
                 break;
             case State.Sit:
+                ColliderState(false);
                 ModelsAni.SetBool("isWalk", false);
                 ModelsAni.SetTrigger("Sit");
                 ModelsAni.SetTrigger("SitIdle");
@@ -174,7 +183,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
         if (other.gameObject.name.Equals("SecondFloor"))
         {
             ChangeLayer(this.transform, 7);
-        }
+        }        
         else if (other.gameObject.name.Equals("FirstFloor"))
         {
             ChangeLayer(this.transform, 0);

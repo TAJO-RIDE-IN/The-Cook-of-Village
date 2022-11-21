@@ -493,6 +493,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5372487303430263187}
   - component: {fileID: 5074828913974885815}
+  - component: {fileID: 9033400323395977754}
   - component: {fileID: 6351338910643732720}
   - component: {fileID: 4792410253293628085}
   - component: {fileID: 6389951242416713733}
@@ -500,7 +501,7 @@ GameObject:
   - component: {fileID: 3235364028935737014}
   m_Layer: 0
   m_Name: GuestHorse
-  m_TagString: Untagged
+  m_TagString: Guest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -537,6 +538,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6, y: 1, z: 0.9}
   m_Center: {x: 0, y: 0.14, z: 0}
+--- !u!136 &9033400323395977754
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4739255826327374633}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!95 &6351338910643732720
 Animator:
   serializedVersion: 3
@@ -600,6 +615,8 @@ MonoBehaviour:
     AngryParticle: {fileID: 370903021716590983}
   ModelsAni: {fileID: 6351338910643732720}
   chairUse: {fileID: 0}
+  DefalutCollider: {fileID: 9033400323395977754}
+  FoodCollider: {fileID: 5074828913974885815}
   isDrink: 0
   npcInfos:
     work: 2
@@ -608,12 +625,12 @@ MonoBehaviour:
     OpenTime: 0
     CloseTime: 0
     Holiday: 0
-    likeability: 0
+    Likeability: 0
     FavoriteFood: 0
     EatFavriteFood: 0
     VisitRestaurant: 0
-    ProfileImage: {fileID: 0}
-    NPCModel: {fileID: 0}
+    VisitPlayer: 0
+    ImageID: 0
   RestaurantVisit: 0
 --- !u!114 &3755907922151095145
 MonoBehaviour:
@@ -638,8 +655,7 @@ MonoBehaviour:
     Price: 0
     OrderProbability: 0
     Recipe: 
-    PrefabFood: {fileID: 0}
-    ImageUI: {fileID: 0}
+    ImageID: 0
   NPCUI: {fileID: 3933435422466186991}
   RemainingTimeImage: {fileID: 532664584686630985}
   OrderFoodImage: {fileID: 532664585158738965}
