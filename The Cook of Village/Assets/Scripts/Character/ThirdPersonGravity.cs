@@ -76,6 +76,7 @@ public class ThirdPersonGravity : MonoBehaviour
     public void StopMoving()
     {
         isCanMove = false;
+        animator.SetBool("isWalk",false);
     }
     public void StartMoving()
     {

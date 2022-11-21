@@ -77,6 +77,8 @@ public class ChefInventory : MonoBehaviour
 
     public bool[] isUsed = Enumerable.Repeat(false, 6).ToArray();
 
+    private ToolPooling toolPooling;
+
 
         //= new List<EdibleItem>()
 
@@ -87,6 +89,7 @@ public class ChefInventory : MonoBehaviour
             EdibleItems[i]._itemType = EdibleItem.ItemType.Ingredient;
         }
         _cookingCharacter = GameObject.FindGameObjectWithTag("Player").GetComponent<CookingCharacter>();
+        toolPooling = ToolPooling.Instance;
     }
     public void ExtensionInventory()
     {
@@ -189,12 +192,12 @@ public class ChefInventory : MonoBehaviour
                     {
                         if (EdibleItems[i]._ingredientsInfos.ID == 63)
                         {
-                            ToolPooling.Instance.toolInstallMode.GetAndPosition(
+                            toolPooling.toolInstallMode.GetAndPosition(
                                 _cookingCharacter._cookPosition.index, "Plate");
                             
                             _cookingCharacter._cookPosition.CloseUI(0);
-                            ToolPooling.Instance.pooledObject[_cookingCharacter._cookPosition.index]
-                                .InventoryBig.SetActive(true);
+                            
+                            toolPooling.pooledObject[_cookingCharacter._cookPosition.index].OpenUI(1);
                             ChangeInventoryEmpty(i);
                             _cookingCharacter.isCookPositionCollider = false;
                             return;
