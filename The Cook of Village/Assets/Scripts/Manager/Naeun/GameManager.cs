@@ -150,7 +150,7 @@ public class GameManager : Singletion<GameManager>
 
     private void CursorControl(bool value)
     {
-        if(currentSceneIndex == 2)
+        if(currentSceneIndex.Equals(1) || currentSceneIndex.Equals(2))
         {
             Cursor.visible = value;
             Cursor.lockState = (value) ? CursorLockMode.None : CursorLockMode.Locked;

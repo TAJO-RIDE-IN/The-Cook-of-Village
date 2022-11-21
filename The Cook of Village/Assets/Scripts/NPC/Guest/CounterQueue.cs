@@ -48,7 +48,7 @@ public class WaitingLine
 public class CounterQueue : MonoBehaviour
 {
     private Queue<Vector3> WaitingPosition = new Queue<Vector3>();
-    public float PayMultiple;
+    public float PayMultiple; //포션 먹었을 경우 사용
     public Transform CounterObject;
     [SerializeField]
     private Transform[] WaitingPositionArray;
