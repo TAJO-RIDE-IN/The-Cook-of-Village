@@ -148,10 +148,18 @@ public class GameManager : Singletion<GameManager>
         }
     }
 
-    public void CursorControl(bool value)
+    private void CursorControl(bool value)
     {
-        Cursor.visible = value;
-        Cursor.lockState = (value) ? CursorLockMode.None :  CursorLockMode.Locked;
+        if(currentSceneIndex == 2)
+        {
+            Cursor.visible = value;
+            Cursor.lockState = (value) ? CursorLockMode.None : CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
     public void Pause(bool state) // Game Pause
     {
