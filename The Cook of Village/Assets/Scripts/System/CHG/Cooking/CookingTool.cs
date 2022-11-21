@@ -172,7 +172,8 @@ public class CookingTool : MonoBehaviour
 
     public void OpenUI(float time)
     {
-        InventoryBig.LeanScale(Vector2.one, time).setEaseOutElastic();
+        InventoryBig.LeanScale(Vector3.one, time).setEaseOutElastic();
+        Debug.Log("안녕");
     }
 
     public void CloseUI()

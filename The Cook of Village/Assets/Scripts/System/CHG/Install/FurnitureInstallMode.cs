@@ -40,13 +40,16 @@ public class FurnitureInstallMode : InstallMode
     private Vector3 pos;
     private RaycastHit hit;
     private InstallData _installData;
+    private GameData gameData;
     private ToolPooling _toolPooling;
+    private ItemInfos _itemInfos;
 
     [SerializeField] private LayerMask layerMask;
     private void Start()
     {
         _installData = InstallData.Instance;
         _toolPooling = ToolPooling.Instance;
+        gameData = GameData.Instance;
         //책상, 의자, 가구 순으로 설치
         for (int i = 0; i < _installData.tableData.tableVector.Count; i++)
         {
@@ -137,19 +140,19 @@ public class FurnitureInstallMode : InstallMode
         pendingObject = null;
     }
 
-    public void UseFurniture(String name)
+    public void UseFurniture(ItemInfos infos)
     {
-        if (ChairNameCheck(name))
+        _itemInfos = infos;
+        if (ChairNameCheck(infos.Name))
         {
             for (int j = 0; j < tableChairs.Count; j++)//의자를 설치할 수 있는지 확인하는 과정
             {
                 if (tableChairs[j].chairCount < 4)
                 {
-                    currentObjectName = name;
+                    currentObjectName = infos.Name;
                     uiValue++;
-                    pendingObject = FurniturePooling.Instance.GetObject(name);
+                    pendingObject = FurniturePooling.Instance.GetObject(infos.Name);
                     noticeUI.SetActive(true);
-                    
                     return;
                 }
             }
@@ -158,14 +161,15 @@ public class FurnitureInstallMode : InstallMode
         }
         uiValue++;
         noticeUI.SetActive(true);
-        currentObjectName = name;
-        pendingObject = FurniturePooling.Instance.GetObject(name);
+        currentObjectName = infos.Name;
+        pendingObject = FurniturePooling.Instance.GetObject(infos.Name);
     }
 
     public void PlaceObject(String name)//테이블과 의자 정보는 테이블의자 클래스에 저장, 그 외는 pooledObjects에 저장
     {
         if (name == FurniturePooling.Instance.FurnitureDatas[0].name)//테이블이면 클래스 리스트 하나 추가
         {
+            //gameData.Fame += _itemInfos.
             currentData = new TableChair();
             currentData.tablePos = pendingObject.transform.position;
             tableChairs.Add(currentData);

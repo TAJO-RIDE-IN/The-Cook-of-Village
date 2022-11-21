@@ -74,7 +74,7 @@ public class SlotInventory : Slot<ItemInfos>
                 ToolPooling.Instance.SelectedToolID = Infos.ID;
                 break;
             case (ItemType.Type.Furniture):
-                FurniturePooling.Instance.furnitureInstallMode.UseFurniture(Infos.Name);
+                FurniturePooling.Instance.furnitureInstallMode.UseFurniture(Infos);
                 break;
         }
         Infos.Amount--;

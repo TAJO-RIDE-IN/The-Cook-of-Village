@@ -162,9 +162,9 @@ public class ToolInstallMode : InstallMode
             
             GetAndPosition(toolPooling.indexToChange, itemInfos.Name);
             InstallData.Instance.PassIndexData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
-            DirectUIOnSetting();
             _cookingCharacter.isCookPositionCollider = false;
-            _cookingCharacter._cookPosition.CloseUI(0);
+            _cookingCharacter._cookPosition.CookPositionUI.LeanScale(Vector2.zero, 0f).setEaseInBack();
+            DirectUIOnSetting();
             isDirectInstall = false;
             return;
         }
@@ -183,10 +183,9 @@ public class ToolInstallMode : InstallMode
     private void DirectUIOnSetting()
     {
         _cookingCharacter._cookingTool = toolPooling.pooledObject[ToolPooling.Instance.indexToChange];
-        _cookingCharacter._cookingTool.OpenUI(0);
         _cookingCharacter.isToolCollider = true;
         _cookingCharacter.isSpace = true;
-        
+        _cookingCharacter._cookingTool.OpenUI(0.5f);
     }
 
     protected override void ReturnPooledObject()
