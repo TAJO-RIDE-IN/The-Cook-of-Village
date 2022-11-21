@@ -21,7 +21,7 @@ public class LoadingScene : MonoBehaviour
         operation.allowSceneActivation = false;
         load = (operation.progress > LoadingTime) ? operation.progress : LoadingTime;
         float time = 0;
-        while (time < LoadingTime)
+        while (time < LoadingTime || !operation.isDone)
         {
             yield return null;
             time += Time.deltaTime;

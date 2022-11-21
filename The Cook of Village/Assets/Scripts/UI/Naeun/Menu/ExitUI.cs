@@ -10,7 +10,6 @@ public class ExitUI : MonoBehaviour
     }
     public void ExitGame()
     {
-        GameData.Instance.SaveDataTime("ExitSave");
         GameManager.Instance.GameQuit();
     }
 }
