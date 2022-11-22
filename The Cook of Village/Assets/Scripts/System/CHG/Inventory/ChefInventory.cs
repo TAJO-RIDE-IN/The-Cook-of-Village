@@ -24,6 +24,7 @@ public class ChefInventory : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     public static ChefInventory Instance
     {
         get
@@ -90,6 +91,11 @@ public class ChefInventory : MonoBehaviour
         }
         _cookingCharacter = GameObject.FindGameObjectWithTag("Player").GetComponent<CookingCharacter>();
         toolPooling = ToolPooling.Instance;
+        
+        if (GameData.Instance.RainbowDrinking%5 == 0)
+        {
+            ExtensionInventory();
+        }
     }
     public void ExtensionInventory()
     {

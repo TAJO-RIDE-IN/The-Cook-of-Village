@@ -184,7 +184,7 @@ public class CookingTool : MonoBehaviour
             ChefInventory.Instance._cookingCharacter.isSpace = false;
             return;
         }
-        InventoryBig.LeanScale(Vector2.zero, 0.7f).setEaseInBack();
+        InventoryBig.LeanScale(Vector2.zero, 1f).setEaseInBack();
         
     }
     /// <summary>

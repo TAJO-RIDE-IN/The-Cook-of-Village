@@ -10,10 +10,15 @@ public class ThirdPersonMovement : MonoBehaviour
     private Transform _camera;
     public CharacterController controller;
     public float speed = 80f;
-    public float OriginSpeed = 80f;
-    public float turnSmoothTime = 0.1f;
+    public float originSpeed = 80f;
+    private float turnSmoothTime = 0.1f;
     private float turnSmoothVelocity;
 
+    private SoundManager soundManager;
+
+    private bool isWalkSound;
+
+    private String walkSound;
 
     private void Awake()
     {
@@ -22,6 +27,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
     private void Start()
     {
+        soundManager = SoundManager.Instance;
         _camera = Camera.main.transform;
     }
 
@@ -40,15 +46,21 @@ public class ThirdPersonMovement : MonoBehaviour
                 turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            
             controller.SimpleMove(moveDir.normalized * speed * Time.deltaTime);
+            if (!isWalkSound)
+            {
+                soundManager.PlayEffect3D(soundManager._audioClips["CookWalk"], gameObject, true);
+                isWalkSound = true;
+            }
         }
         else
         {
             charAnimator.SetBool("isWalk",false);
+            soundManager.StopEffect3D(gameObject);
+            isWalkSound = false;
         }
-        
     }
+    
     
 
     

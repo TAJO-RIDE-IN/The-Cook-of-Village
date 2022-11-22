@@ -69,7 +69,7 @@ public class Potion : Singletion<Potion>, IPotionOb
         {
             Tool.Add(tool.GetComponent<CookingTool>()); //CookingTool 리스트에 추가
         }
-        RestaurantPlayer.speed = RestaurantPlayer.OriginSpeed;
+        RestaurantPlayer.speed = RestaurantPlayer.originSpeed;
         if (PotionReset) { ResetPotion(); }
         if (!Orange) { UseOrangePotion(1f); }
     }
@@ -142,7 +142,7 @@ public class Potion : Singletion<Potion>, IPotionOb
         }
         else if (RestaurantPlayer != null)
         {
-            RestaurantPlayer.speed = RestaurantPlayer.OriginSpeed * speed;
+            RestaurantPlayer.speed = RestaurantPlayer.originSpeed * speed;
         }
     }
     #endregion
