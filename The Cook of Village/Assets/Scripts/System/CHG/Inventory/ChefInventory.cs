@@ -39,7 +39,7 @@ public class ChefInventory : MonoBehaviour
 
     public FridgeUI fridgeUI;
     public ChefItemSlotManager chefSlotManager;
-    private int _availableInven = 2;//이 값이 바뀌면 인벤토리 잠금을 해제할거니깐 초기화도 게임데이터에서 하면 좋을듯
+    private int _availableInven = 3;//이 값이 바뀌면 인벤토리 잠금을 해제할거니깐 초기화도 게임데이터에서 하면 좋을듯
     [HideInInspector]public CookingCharacter _cookingCharacter;
 
     public int AvailableInven
@@ -78,6 +78,8 @@ public class ChefInventory : MonoBehaviour
 
     public bool[] isUsed = Enumerable.Repeat(false, 6).ToArray();
 
+    
+
     private ToolPooling toolPooling;
 
 
@@ -85,6 +87,7 @@ public class ChefInventory : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("셰프인벤토리 Start");
         for (int i = 0; i < AvailableInven; i++)
         {
             EdibleItems[i]._itemType = EdibleItem.ItemType.Ingredient;
@@ -92,9 +95,14 @@ public class ChefInventory : MonoBehaviour
         _cookingCharacter = GameObject.FindGameObjectWithTag("Player").GetComponent<CookingCharacter>();
         toolPooling = ToolPooling.Instance;
         
-        if (GameData.Instance.RainbowDrinking%5 == 0)
+        if (GameData.Instance.isExtension)
         {
-            ExtensionInventory();
+            for (int i = 0; i < GameData.Instance.RainbowDrinking / 5; i++)//여러번 확장해야 할 때
+            {
+                ExtensionInventory();
+            }
+            Debug.Log("확장");
+            GameData.Instance.isExtension = false;
         }
     }
     public void ExtensionInventory()
@@ -103,9 +111,9 @@ public class ChefInventory : MonoBehaviour
         {
             _availableInven++;
         }
-        chefSlotManager.itemslots[_availableInven - 1].changeSlotUI(chefSlotManager.emptySlot);
+        chefSlotManager.itemslots[_availableInven - 1].changeSlotUI(chefSlotManager.emptyInven);
         chefSlotManager.itemslots[_availableInven - 1].GetComponent<Button>().interactable = true;
-
+        chefSlotManager.itemslots[_availableInven - 1].slotUI2.sprite = chefSlotManager.emptySlot;
     }
 
     public bool AddIngredient(ItemInfos ingredient)
@@ -268,7 +276,7 @@ public class ChefInventory : MonoBehaviour
         EdibleItems[index]._ingredientsInfos = null;
         EdibleItems[index]._foodInfos = null;
         isUsed[index] = false;
-        chefSlotManager.itemslots[index].changeSlotUI(chefSlotManager.emptySlot);
+        chefSlotManager.itemslots[index].changeSlotUI(chefSlotManager.emptyInven);
     }
     
 }

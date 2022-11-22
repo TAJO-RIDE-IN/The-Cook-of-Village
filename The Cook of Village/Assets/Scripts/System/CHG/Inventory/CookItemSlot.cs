@@ -34,7 +34,7 @@ public class CookItemSlot : ItemSlot
                 .trashEdibleItems[index]._ingredientsInfos))
             {
                 isUsed = false;
-                ChangeSlotUI(itemSlotManager.emptySlot);
+                ChangeSlotUI(itemSlotManager.emptyInven);
             }
             else
             {
@@ -47,7 +47,7 @@ public class CookItemSlot : ItemSlot
                 .trashEdibleItems[index]._foodInfos))
             {
                 isUsed = false;
-                ChangeSlotUI(itemSlotManager.emptySlot);
+                ChangeSlotUI(itemSlotManager.emptyInven);
             }
             else
             {

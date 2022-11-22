@@ -43,6 +43,15 @@ public class ThirdPersonGravity : MonoBehaviour
             {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
             }
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                
+            }
+            else
+            {
+                
+            }
             //gravity
             velocity.y += gravity * Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);

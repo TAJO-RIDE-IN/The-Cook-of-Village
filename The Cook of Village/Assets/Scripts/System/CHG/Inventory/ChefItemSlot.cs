@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class ChefItemSlot : ItemSlot
 {
+    
     private void Awake()
     {
         slotUI = transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();
+        slotUI2 = transform.GetComponent<UnityEngine.UI.Image>();
     }
     
     public override void SlotClick()

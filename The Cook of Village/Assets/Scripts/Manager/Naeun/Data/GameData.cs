@@ -55,6 +55,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
     [SerializeField] private NPCData npcData;
     [SerializeField] private MoneyData moneyData;
     [SerializeField] private InstallData installData;
+    [HideInInspector] public bool isExtension;
     public void LoadObject()
     {
         Observers.Clear();
@@ -214,6 +215,10 @@ public class GameData : DataManager<GameData>, IGameDataOb
         set
         {
             gameInfos.RainbowDrinking = value;
+            if (gameInfos.RainbowDrinking % 5 == 0)
+            {
+                isExtension = true;
+            }
         }
     }
     #region Guest
