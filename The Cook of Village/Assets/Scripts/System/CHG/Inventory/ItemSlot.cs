@@ -16,7 +16,8 @@ public class ItemSlot : MonoBehaviour
             //EdibleItems.Add();
         }
     }
-    protected UnityEngine.UI.Image slotUI;
+    [HideInInspector] public UnityEngine.UI.Image slotUI;
+    [HideInInspector] public UnityEngine.UI.Image slotUI2;
 
     public virtual void SlotClick() { }
 

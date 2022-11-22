@@ -22,11 +22,13 @@ public class MenuUI : MonoBehaviour
         if (onMenu == true)
         {
             SubMenuAni.SetTrigger("Open");
+            GameManager.Instance.IsUI = true;
             return;
         }
         else
         {
             SubMenuAni.SetTrigger("Close");
+            GameManager.Instance.IsUI = false;
         }
     }
 }
