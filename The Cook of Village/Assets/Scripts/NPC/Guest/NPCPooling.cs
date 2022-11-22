@@ -9,7 +9,9 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     public List<GameObject> WaitChair = new List<GameObject>();
     public List<GameObject> UseChair = new List<GameObject>();
 
-    public GameObject NoticeUI;
+    public GameObject openUI;
+    public GameObject closeUI;
+    private bool isOpen;
 
     [SerializeField]
     private float CallTime = 20f;
@@ -33,18 +35,34 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
         {
             if (Time.timeScale != 0.0f)
             {
-                NoticeUI.SetActive(false);
-                SoundManager.Instance.Play(SoundManager.Instance._audioClips["OpenRestaurant"]);
-                OpenRestaurant();
-            }
-            else
-            {
-                NoticeUI.SetActive(true);
-                NoticeUI.SetActive(false);
-                CloseRestaurant();
+                if (isOpen)
+                {
+                    SoundManager.Instance.Play(SoundManager.Instance._audioClips["CloseRestaurant"]);
+                    closeUI.LeanScale(Vector2.zero, 0.5f).setOnComplete(() => CloseSetting());
+                    return;
+                }
+                else
+                {
+                    SoundManager.Instance.Play(SoundManager.Instance._audioClips["OpenRestaurant"]);
+                    openUI.LeanScale(Vector2.zero, 0.5f).setOnComplete(() => OpenSetting());
+                }
             }
             
         }
+    }
+
+    private void OpenSetting()
+    {
+        isOpen = true;
+        OpenRestaurant();
+        closeUI.LeanScale(Vector2.one, 0.5f);
+    }
+
+    private void CloseSetting()
+    {
+        isOpen = false;
+        CloseRestaurant();
+        openUI.LeanScale(Vector2.one, 0.5f);
     }
 
 
