@@ -41,22 +41,39 @@ public class FurnitureInstallMode : InstallMode
     private RaycastHit hit;
     private InstallData _installData;
     private GameData gameData;
-    private ToolPooling _toolPooling;
+    private FurniturePooling _furniturePooling;
     private ItemInfos _itemInfos;
+    private InstallPoolData installPoolData;
 
     [SerializeField] private LayerMask layerMask;
     private void Start()
     {
         _installData = InstallData.Instance;
-        _toolPooling = ToolPooling.Instance;
+        _furniturePooling = FurniturePooling.Instance;
         gameData = GameData.Instance;
+        
         //책상, 의자, 가구 순으로 설치
-        for (int i = 0; i < _installData.tableData.tableVector.Count; i++)
-        {
-            //GetAndPosition();
-        }
     }
 
+    public void InstallWhenStart()
+    {
+        for (int i = 0; i < InstallData.Instance.tableData.tableVector.Count; i++)
+        {
+            GetAndPosition(InstallData.Instance.tableData.tableVector[i], "Table");
+        }
+
+        for (int i = 0; i < InstallData.Instance.chairData.chairPositionNames.Count; i++)
+        {
+            GetAndPosition(InstallData.Instance.chairData.chairPositionNames[i].vector3,
+                InstallData.Instance.chairData.chairPositionNames[i].name,
+                InstallData.Instance.chairData.chairPositionNames[i].tableIndex);
+        }
+        for (int i = 0; i < InstallData.Instance.furnitureData._positionNames.Count; i++)
+        {
+            GetAndPosition(InstallData.Instance.furnitureData._positionNames[i].vector3,
+                InstallData.Instance.furnitureData._positionNames[i].name);
+        }
+    }
     void Update()
     {
         if (pendingObject != null)
@@ -81,8 +98,6 @@ public class FurnitureInstallMode : InstallMode
             }
         }
     }
-    
-
     private void FixedUpdate()
     {
         if (pendingObject != null)
@@ -159,6 +174,7 @@ public class FurnitureInstallMode : InstallMode
             StartCoroutine(TextFade(warnings[0].box,warnings[0].text));
             return;
         }
+        
         uiValue++;
         noticeUI.SetActive(true);
         currentObjectName = infos.Name;
@@ -175,6 +191,7 @@ public class FurnitureInstallMode : InstallMode
             tableChairs.Add(currentData);
             pendingObject = null;
             noticeUI.SetActive(false);
+            gameData.gameInfos.Fame += 1;
             InstallData.Instance.PassVector3Data(InstallData.SortOfInstall.Table,currentData.tablePos);
             return;
         }
@@ -184,6 +201,7 @@ public class FurnitureInstallMode : InstallMode
             if (secondDis < 1.5f && secondDis > 0.8f)
             {
                 tableChairs[selectedIndex].chairCount++;
+                gameData.gameInfos.Fame += 1;
                 InstallData.Instance.PassVector3Data(InstallData.SortOfInstall.Chair,pendingObject.transform.position, currentObjectName, selectedIndex);
                 pendingObject = null;
                 return;
@@ -194,9 +212,10 @@ public class FurnitureInstallMode : InstallMode
                 return;
             }
         }
+        gameData.gameInfos.Fame += 2;
         InstallData.Instance.PassVector3Data(InstallData.SortOfInstall.Furnitue,pendingObject.transform.position, currentObjectName);
-        pendingObject = null;
         FurniturePooling.Instance.FindInstallPoolData(name).pooledObjects.Add(pendingObject);
+        pendingObject = null;
     }
 
 
@@ -213,12 +232,19 @@ public class FurnitureInstallMode : InstallMode
         
     }
 
-    public void GetAndPosition(Vector3 vector3, string name, int tableNumber)
+    public void GetAndPosition(Vector3 vector3, string name, int tableNumber = 0)
     {
         if (ChairNameCheck(name))
         {
-            
+            //_furniturePooling.FurnitureDatas
+            //_furniturePooling.FindInstallPoolData(name)
         }
+
+         installPoolData = _furniturePooling.FindInstallPoolData(name);
+         GameObject gameObject = _furniturePooling.GetObject(name);
+         gameObject.transform.position = vector3;
+         installPoolData.pooledObjects.Add(gameObject);
+         
         /*ToolPooling.Instance.pooledObject[index] = ToolPooling.Instance.GetObject(name);
         ToolPooling.Instance.pooledObject[index].transform.position = ToolPooling.Instance.toolPosition[index].position;
         ToolPooling.Instance.pooledObject[index].transform.rotation = ToolPooling.Instance.toolPosition[index].rotation;

@@ -42,7 +42,6 @@ public class ToolPooling : MultipleObjectPooling<CookingTool>
         set
         {
             selectedPositionIndex = value;
-            
         }
     }
 

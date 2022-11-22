@@ -87,7 +87,6 @@ public class ChefInventory : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("셰프인벤토리 Start");
         for (int i = 0; i < AvailableInven; i++)
         {
             EdibleItems[i]._itemType = EdibleItem.ItemType.Ingredient;
