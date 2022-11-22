@@ -536,8 +536,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6, y: 1, z: 0.9}
-  m_Center: {x: 0, y: 0.14, z: 0}
+  m_Size: {x: 1, y: 0.5, z: 0.8}
+  m_Center: {x: 0, y: 0.1, z: -0.15}
 --- !u!136 &9033400323395977754
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -618,20 +618,22 @@ MonoBehaviour:
   DefalutCollider: {fileID: 9033400323395977754}
   FoodCollider: {fileID: 5074828913974885815}
   isDrink: 0
+  soundManager: {fileID: 0}
+  gameData: {fileID: 0}
+  VillageFoodColor: {r: 0, g: 0, b: 0, a: 0.7}
   npcInfos:
     work: 2
     Name: 
     KoreanName: 
     OpenTime: 0
     CloseTime: 0
-    Holiday: 0
+    Holiday: 2
     Likeability: 0
     FavoriteFood: 0
     EatFavriteFood: 0
     VisitRestaurant: 0
     VisitPlayer: 0
     ImageID: 0
-  RestaurantVisit: 0
 --- !u!114 &3755907922151095145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659,6 +661,7 @@ MonoBehaviour:
   NPCUI: {fileID: 3933435422466186991}
   RemainingTimeImage: {fileID: 532664584686630985}
   OrderFoodImage: {fileID: 532664585158738965}
+  VillageNPCImage: {fileID: 3566564037082009423}
   CanReceive: 0
 --- !u!114 &3235364028935737014
 MonoBehaviour:
@@ -1484,11 +1487,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
---- !u!224 &532664586198430037 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5260678503021606608, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
-  m_PrefabInstance: {fileID: 5649141929857468293}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3933435422466186991 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8715474676570282346, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
@@ -1516,6 +1514,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3566564037082009423 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9158971166849730762, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
+  m_PrefabInstance: {fileID: 5649141929857468293}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!224 &532664586198430037 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5260678503021606608, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
+  m_PrefabInstance: {fileID: 5649141929857468293}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8936067110103254584
 PrefabInstance:
   m_ObjectHideFlags: 0

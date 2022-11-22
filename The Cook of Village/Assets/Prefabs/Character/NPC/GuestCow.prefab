@@ -273,8 +273,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6, y: 1, z: 0.9}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.5, z: 0.8}
+  m_Center: {x: 0, y: 0.1, z: -0.15}
 --- !u!136 &419461761755767390
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -355,6 +355,9 @@ MonoBehaviour:
   DefalutCollider: {fileID: 419461761755767390}
   FoodCollider: {fileID: 4159759577444574125}
   isDrink: 0
+  soundManager: {fileID: 0}
+  gameData: {fileID: 0}
+  VillageFoodColor: {r: 0, g: 0, b: 0, a: 0.7}
   npcInfos:
     work: 1
     Name: 
@@ -368,7 +371,6 @@ MonoBehaviour:
     VisitRestaurant: 0
     VisitPlayer: 0
     ImageID: 0
-  RestaurantVisit: 0
 --- !u!114 &8908563786562773595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,6 +398,7 @@ MonoBehaviour:
   NPCUI: {fileID: 4641583917996528081}
   RemainingTimeImage: {fileID: 8185308575019382647}
   OrderFoodImage: {fileID: 8185308575615224619}
+  VillageNPCImage: {fileID: 5152841789495083121}
   CanReceive: 0
 --- !u!114 &1531429878981391108
 MonoBehaviour:
@@ -1485,6 +1488,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5152841789495083121 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9158971166849730762, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
+  m_PrefabInstance: {fileID: 4078468996213180603}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5595323086115463292
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1609,13 +1623,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1888791234038377736, guid: d9abb3976896c9248939b2d4baa31797, type: 3}
   m_PrefabInstance: {fileID: 8153335481568494639}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &576610877050082192 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8729946289892546495, guid: d9abb3976896c9248939b2d4baa31797, type: 3}
-  m_PrefabInstance: {fileID: 8153335481568494639}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &8943693472108140852 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 952536334432918811, guid: d9abb3976896c9248939b2d4baa31797, type: 3}
+  m_PrefabInstance: {fileID: 8153335481568494639}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &576610877050082192 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8729946289892546495, guid: d9abb3976896c9248939b2d4baa31797, type: 3}
   m_PrefabInstance: {fileID: 8153335481568494639}
   m_PrefabAsset: {fileID: 0}

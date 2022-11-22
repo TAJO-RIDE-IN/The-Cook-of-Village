@@ -14,7 +14,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     public GameObject NPCUI;
     public Image RemainingTimeImage;
     public Image OrderFoodImage;
-
+    public Image VillageNPCImage;
     private OrderUI currentOrderUI;
     private GuestNPC guest;
 
@@ -26,19 +26,20 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     //마을 주민
     private VillageGuest VillageNPC;
     private bool Village = false;
-    private int VillageEatCount = 0;
+    private bool VillageEatFavorite = false;
     private int PayMoney;
 
     private FoodData foodData;
     private void Awake()
     {
-        guest = this.gameObject.GetComponent<GuestNPC>();
+        guest = GetComponent<GuestNPC>();
         if (guest.currentNPC == GuestNPC.Guest.Villge) 
         { 
             Village = true;
-            VillageNPC = this.gameObject.GetComponent<VillageGuest>();
+            VillageNPC = GetComponent<VillageGuest>();
         }
         camera = Camera.main.transform;
+        foodData = FoodData.Instance;
         AddObserver(guest);
         AddProbability();
     }
@@ -48,16 +49,15 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     private void OnEnable()
     {
-        foodData = FoodData.Instance;
         PayMoney = 0;
         RemainingTimeImage.fillAmount = 0;
         Receive = false; //Receive bool 초기화
         foodInfos = null; // Food 정보 초기화
-        VillageEatCount = 0;
+        VillageNPCImage.gameObject.SetActive(false);
     }
     private void AddProbability() //확률 가중치 부여
     {
-        foreach(FoodTool i in FoodData.Instance.foodTool)
+        foreach(FoodTool i in foodData.foodTool)
         {
             if(i.CanUse)
             {
@@ -68,14 +68,15 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             }
         }
     }
+    private float SaveWaitTime;
+    private float FoodWaitTime;
     private IEnumerator WaitingOrder() //주문 기다림
     {
-        float time = FoodData.Instance.DefaultWaitingTime + foodInfos.MakeTime * 2f;
-        float Waitingtime = time;
-        while(time > 0)
+        float Waitingtime = FoodWaitTime;
+        while(FoodWaitTime > 0)
         {
-            time -= Time.deltaTime;
-            float ratio = time / Waitingtime;
+            FoodWaitTime -= Time.deltaTime;
+            float ratio = FoodWaitTime / Waitingtime;
             RemainingTimeImage.fillAmount = 1 - ratio;
             currentOrderUI.TimeBar.fillAmount = 1 - ratio;
             if (ratio <= 0.4)
@@ -83,10 +84,10 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
                 currentOrderUI.OrderAnimation(true);
                 guest.ChangeState(GuestNPC.State.ChaseUP);
             }
-            if (time <= 0)
+            if (FoodWaitTime <= 0)
             {
                 currentOrderUI.OrderAnimation(false);
-                if(Village && VillageEatCount != 1)
+                if(Village && !VillageEatFavorite)
                 {
                     MoneyData.Instance.TipCount = 0;
                 }
@@ -123,7 +124,6 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             guest.ChangeState(GuestNPC.State.Eat);
             EndOrder();
             PayMoney += foodInfos.Price;
-            VillageEatCount++;
             if (Village) 
             {
                 VillageReceive();
@@ -134,6 +134,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         }
         else
         {
+            FoodWaitTime -= SaveWaitTime * 0.2f; //패널티 : 음식 기다리는 시간이 10퍼센트 줄음
             guest.ChangeState(GuestNPC.State.ChaseUP);
             MoneyData.Instance.TipCount = 0;
         }
@@ -142,14 +143,17 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     
     private void VillageReceive()
     {
-        if (Village && VillageEatCount == 1)
+        if (Village && !VillageEatFavorite)
         {
+            VillageEatFavorite = true;
+            SoundManager.Instance.StopEffect3D(this.gameObject); //먹는 소리 off
             StartCoroutine(ChangeWithDelay.CheckDelay(foodData.EatTime, () => Order(foodData.Foodinfos(VillageNPC.npcInfos.FavoriteFood))));
         }
-        else if(Village && VillageEatCount == 2)
+        else if(Village && VillageEatFavorite)
         {
             VillageNPC.npcInfos.Likeability += 20;
             VillageNPC.npcInfos.EatFavriteFood = true;
+            StartCoroutine(ChangeWithDelay.CheckDelay(foodData.EatTime, () => EndEat())); //일정 시간 후 다 먹음
         }
     }
     private void Order(FoodInfos infos) //음식주문
@@ -162,10 +166,29 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         Receive = false;
         CanReceive = true;
         foodInfos = infos;
-        OrderFoodImage.sprite = ImageData.Instance.FindImageData(foodInfos.ImageID);
-        currentOrderUI = ObjectPooling<OrderUI>.GetObject(); //화면 상단 주문서 표시
-        currentOrderUI.foodInfos = foodInfos;
+        ChangeOrderImage();
+        FoodWaitTime = foodData.DefaultWaitingTime + foodInfos.MakeTime * 2f;
+        SaveWaitTime = FoodWaitTime;
         WaitingOrderCoroutine = StartCoroutine(WaitingOrder());
+    }
+    private void ChangeOrderImage()
+    {
+        Color orderImageColor = new Color(1, 1, 1, 1);
+        bool favorite = false;
+        if (VillageNPC != null && VillageEatFavorite)
+        {
+            favorite = true;
+            VillageNPCImage.gameObject.SetActive(true);
+            VillageNPCImage.sprite = ImageData.Instance.FindImageData(VillageNPC.npcInfos.ImageID);
+            if (!VillageNPC.npcInfos.EatFavriteFood)
+            {
+                orderImageColor = VillageNPC.VillageFoodColor;
+            } 
+        }
+        OrderFoodImage.sprite = ImageData.Instance.FindImageData(foodInfos.ImageID);
+        OrderFoodImage.color = orderImageColor;
+        currentOrderUI = ObjectPooling<OrderUI>.GetObject(); //화면 상단 주문서 표시
+        currentOrderUI.ModifyOrderUI(foodInfos, favorite, VillageNPC);
     }
     public void PayFood(float multiple) //계산
     {
@@ -190,7 +213,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         if (obj is GuestNPC)
         {
             var guestNPC = obj;
-            if (guestNPC.CurrentState == GuestNPC.State.Sit)
+            if (guestNPC.CurrentState.Equals(GuestNPC.State.Sit))
             {
                 StartCoroutine(ChangeWithDelay.CheckDelay(foodData.OrderTime, () => Order(FoodProbability.Get()))); //음식 확률에 따라 고르기
                 NPCUI.SetActive(true);

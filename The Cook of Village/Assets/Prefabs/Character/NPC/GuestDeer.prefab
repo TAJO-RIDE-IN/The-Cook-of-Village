@@ -1954,8 +1954,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6, y: 1, z: 0.9}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.5, z: 0.8}
+  m_Center: {x: 0, y: 0.1, z: -0.15}
 --- !u!136 &2646482254315216597
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2036,6 +2036,9 @@ MonoBehaviour:
   DefalutCollider: {fileID: 2646482254315216597}
   FoodCollider: {fileID: 2404296739668438523}
   isDrink: 0
+  soundManager: {fileID: 0}
+  gameData: {fileID: 0}
+  VillageFoodColor: {r: 0, g: 0, b: 0, a: 0.7}
   npcInfos:
     work: 6
     Name: 
@@ -2049,7 +2052,6 @@ MonoBehaviour:
     VisitRestaurant: 0
     VisitPlayer: 0
     ImageID: 0
-  RestaurantVisit: 0
 --- !u!114 &8801976064673659668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2092,6 +2094,7 @@ MonoBehaviour:
   NPCUI: {fileID: 8639869111482858235}
   RemainingTimeImage: {fileID: 5049874514052799581}
   OrderFoodImage: {fileID: 5049874513443315713}
+  VillageNPCImage: {fileID: 8074495201771776859}
   CanReceive: 0
 --- !u!1 &7981366177572357228
 GameObject:
@@ -2494,6 +2497,17 @@ MonoBehaviour:
 --- !u!114 &5049874513443315713 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5260678501915820944, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
+  m_PrefabInstance: {fileID: 1086894890730414993}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8074495201771776859 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9158971166849730762, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
   m_PrefabInstance: {fileID: 1086894890730414993}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

@@ -1860,8 +1860,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6, y: 1, z: 0.9}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.5, z: 0.8}
+  m_Center: {x: 0, y: 0.1, z: -0.15}
 --- !u!136 &7671527310911482802
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1942,6 +1942,9 @@ MonoBehaviour:
   DefalutCollider: {fileID: 7671527310911482802}
   FoodCollider: {fileID: 7585753726614882834}
   isDrink: 0
+  soundManager: {fileID: 0}
+  gameData: {fileID: 0}
+  VillageFoodColor: {r: 0, g: 0, b: 0, a: 0.7}
   npcInfos:
     work: 4
     Name: 
@@ -1955,7 +1958,6 @@ MonoBehaviour:
     VisitRestaurant: 0
     VisitPlayer: 0
     ImageID: 0
-  RestaurantVisit: 0
 --- !u!114 &6821936155496496807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1998,6 +2000,7 @@ MonoBehaviour:
   NPCUI: {fileID: 1343815408947826900}
   RemainingTimeImage: {fileID: 2545670468324324978}
   OrderFoodImage: {fileID: 2545670467722693166}
+  VillageNPCImage: {fileID: 1535328675891102068}
   CanReceive: 0
 --- !u!1 &7133464101865936165
 GameObject:
@@ -2608,17 +2611,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5260678503021606608, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
   m_PrefabInstance: {fileID: 7662213908746881470}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2545670468324324978 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5260678501312643020, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
+--- !u!1 &1343815408947826900 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8715474676570282346, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
   m_PrefabInstance: {fileID: 7662213908746881470}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2545670467722693166 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5260678501915820944, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
@@ -2630,8 +2627,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1343815408947826900 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8715474676570282346, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
+--- !u!114 &1535328675891102068 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9158971166849730762, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
   m_PrefabInstance: {fileID: 7662213908746881470}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2545670468324324978 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5260678501312643020, guid: 0365e03233dd60c4d91180aad41b3bb6, type: 3}
+  m_PrefabInstance: {fileID: 7662213908746881470}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

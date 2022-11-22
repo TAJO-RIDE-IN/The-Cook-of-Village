@@ -259,9 +259,9 @@ public class GameData : DataManager<GameData>, IGameDataOb
     }
     public override void SaveDataTime(string PlayName)
     {
-        if(Instance == this && gameManaer.gameMode == GameManager.GameMode.Default)
+        if(Instance == this && gameManaer.gameMode == GameManager.GameMode.Default && !PlayerID.Equals("0"))
         {
-            if (PlayName != "Default")
+            if (!PlayName.Equals("Default"))
             {
                 PlayName = PlayerName + "_" + PlayerID;
             }
@@ -275,7 +275,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
     }
     public void LoadDataTime(string PlayName)
     {
-        if (PlayName != "Default")
+        if (!PlayName.Equals("Default"))
         {
             PlayName = PlayerName + "_" + PlayerID;
         }

@@ -76,7 +76,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     {
         foreach (var npc in VillgeNPC)
         {
-            if(npc.npcInfos.Holiday == GameData.Instance.Today)
+            if(npc.npcInfos.Holiday.Equals(GameData.Instance.Today))
             {
                 return npc;
             }
@@ -95,10 +95,11 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
             {
                 if (callVillageNPC)
                 {
-                    if (EnterNPC() != null  && !EnterNPC().RestaurantVisit)
+                    VillageGuest village = EnterNPC();
+                    if (village != null  && !village.npcInfos.VisitRestaurant)
                     {
-                        EnterNPC().gameObject.SetActive(true);
-                        EnterNPC().RestaurantVisit = true;
+                        village.gameObject.SetActive(true);
+                        village.VisitRestaurant();
                     }
                 }
                 GetObject();

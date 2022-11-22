@@ -40,21 +40,25 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     public ChairUse chairUse;
     public Collider DefalutCollider, FoodCollider; //foodCollider -> 음식 받을 때 영역
     public bool isDrink;
+    public SoundManager soundManager;
+    public GameData gameData;
 
     #region Model 변경
     private void OnEnable()
     {
         ColliderState(true);
         SetNPCModel(true);
-        GameData.Instance.GuestCount++;
+        gameData = GameData.Instance;
+        soundManager = SoundManager.Instance;
+        gameData.GuestCount++;
     }
 
     private void OnDisable()
     {
         SetNPCModel(false);
-        if (GameData.Instance != null)
+        if (gameData != null)
         {
-            GameData.Instance.GuestCount--;
+            gameData.GuestCount--;
         }
     }
     private void ColliderState(bool state)
@@ -64,7 +68,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     }
     private void SetNPCModel(bool state)
     {
-        if(state == true)
+        if(state)
         {
             int model = Random.Range(0, Models.Length);
             CurrentModel = Models[model];
@@ -81,6 +85,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 ModelsAni.SetBool("isWalk", false);
                 ModelsAni.SetBool("isChaseUp", false);
                 NPCImage.AngryParticle.Stop();
+                soundManager.StopEffect3D(this.gameObject);
                 break;
             case State.Walk:
                 ColliderState(true);
@@ -100,12 +105,12 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 ModelsAni.SetTrigger("Sit");
                 ModelsAni.SetTrigger("SitIdle");
                 NPCImage.AngryParticle.Stop();
-                SoundManager.Instance.StopEffect3D(this.gameObject);
+                soundManager.StopEffect3D(this.gameObject);
                 break;
             case State.StandUP:
                 ModelsAni.SetBool("isEat", false);
                 ModelsAni.SetTrigger("StandUp");
-                SoundManager.Instance.StopEffect3D(this.gameObject);
+                soundManager.StopEffect3D(this.gameObject);
                 break;
             case State.ChaseUP:
                 NPCImage.AngryParticle.Play();
@@ -132,15 +137,15 @@ public class GuestNPC : MonoBehaviour, IGuestOb
 
     private void NPCSound(string _sound, bool _loop, bool _global)
     {
-        if(SoundManager.Instance != null && SoundManager.Instance._audioClips.Count != 0)
+        if(soundManager != null && soundManager._audioClips.Count != 0)
         {
             if(_global)
             {
-                SoundManager.Instance.Play(SoundManager.Instance._audioClips[_sound]);
+                soundManager.Play(soundManager._audioClips[_sound]);
             }
             else
             {
-                SoundManager.Instance.PlayEffect3D(SoundManager.Instance._audioClips[_sound], this.gameObject, _loop);
+                soundManager.PlayEffect3D(soundManager._audioClips[_sound], this.gameObject, _loop);
             }
         }
     }

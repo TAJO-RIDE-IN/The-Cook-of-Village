@@ -88,14 +88,18 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         }
     }
 
+    private void NPCLook(Vector3 lookPosition)
+    {
+        Vector3 table = new Vector3(lookPosition.x, this.transform.position.y, lookPosition.z);
+        transform.LookAt(table);
+    }
     private void NPCState(string destination_name) //도착지에 따른 NPC상태 변화
    {
         switch (destination_name)
         {
             case "Chair":
                 transform.position = Sit.position;
-                Vector3 table = new Vector3(guest.chairUse.TablePosition.position.x, this.transform.position.y, guest.chairUse.TablePosition.position.z);               
-                transform.LookAt(table);
+                NPCLook(guest.chairUse.TablePosition.position);
                 guest.ChangeState(GuestNPC.State.Sit);
                 break;
             case "Door":
@@ -124,8 +128,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
             case GuestNPC.State.Pay:
                 counter.OutGuest(this.gameObject);
                 StartCoroutine(WaitAnimation("Pay", 0.05f, () => Move(Door.position, "Door")));
-                Vector3 look = new Vector3(counter.CounterObject.position.x, transform.position.y, counter.CounterObject.position.z);
-                transform.LookAt(look);               
+                NPCLook(counter.CounterObject.position);             
                 break;
             default:
                 break;

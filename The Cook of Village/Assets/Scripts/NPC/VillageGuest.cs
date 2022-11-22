@@ -2,24 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VillageGuest : GuestNPC, IObserver<GameData>
+public class VillageGuest : GuestNPC
 {
+    public Color VillageFoodColor = new Color(0,0,0,0.7f);
     public NPCInfos npcInfos;
-    public bool RestaurantVisit;
     public void Start()
     {
         npcInfos = NPCData.Instance.npcInfos[(int)npcInfos.work];
-        AddObserver(GameData.Instance);
     }
-    public void AddObserver(IGameDataOb o)
+    public void VisitRestaurant()
     {
-        o.AddObserver(this);
-    }
-    public void Change(GameData obj)
-    {
-        if (obj is GameData)
-        {
-            RestaurantVisit = false;
-        }
+        npcInfos.VisitRestaurant = true;
     }
 }

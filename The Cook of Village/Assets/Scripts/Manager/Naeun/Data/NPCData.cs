@@ -36,10 +36,10 @@ public class NPCData : DataManager<NPCData>
     };
     public float LikeabilityEffect(NPCInfos.Work work)
     {
-        int likeability = npcInfos[(int)work].Likeability / 100;
+        int likeability = npcInfos[(int)work].Likeability /100;
         float shop = 1f;
         float bank = 0.04f;
-        if(likeability == 5)
+        if (likeability == 5)
         {
             shop = 0.7f;
             bank = 0.10f;
@@ -61,12 +61,12 @@ public class NPCData : DataManager<NPCData>
     public void ChangeLikeability(NPCInfos.Work work, string situation)
     {
         int likeability = 0;
-        if(situation == "ReceiveFood" && !npcInfos[(int)work].VisitRestaurant)
+        if (situation == "ReceiveFood" && !npcInfos[(int)work].VisitRestaurant)
         {
             npcInfos[(int)work].VisitRestaurant = true;
             likeability = 20;
         }
-        else if(situation == "PlayerUse" && !npcInfos[(int)work].VisitPlayer)
+        else if (situation == "PlayerUse" && !npcInfos[(int)work].VisitPlayer)
         {
             npcInfos[(int)work].VisitPlayer = true;
             likeability = 5;

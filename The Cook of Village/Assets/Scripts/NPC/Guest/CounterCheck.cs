@@ -10,7 +10,7 @@ public class CounterCheck : MonoBehaviour
     {
         if(counter.waitngQueue.GuestQueue.Count > 0)
         {
-            if (other.tag.Equals("Guest"))
+            if (other.CompareTag("Guest"))
             {
                 if (counter.waitngQueue.GuestQueue.Peek().Equals(other.gameObject))
                 {
