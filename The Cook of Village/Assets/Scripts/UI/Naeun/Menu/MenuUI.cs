@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,21 +9,23 @@ public class MenuUI : MonoBehaviour
 
     public void MenuUIState(bool state)
     {
-        foreach(var _button in MenuButton)
+        foreach (var _button in MenuButton)
         {
             _button.enabled = state;
-        }    
+        }
     }
     public void ClickMenu()
     {
         onMenu = !onMenu;
-        if (onMenu == true)
+        if (onMenu.Equals(true))
         {
+            UIManager.SubMenuChangeisUI(true);
             SubMenuAni.SetTrigger("Open");
             return;
         }
         else
         {
+            UIManager.SubMenuChangeisUI(false);
             SubMenuAni.SetTrigger("Close");
         }
     }

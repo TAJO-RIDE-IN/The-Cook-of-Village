@@ -62,7 +62,7 @@ public class ShopUI : UIController
     private List<ItemInfos> ShopInfos()
     {
         List<ItemInfos> infos = new List<ItemInfos>();
-        if((int)CurrentShop == 6 || (int)CurrentShop == 7)
+        if(CurrentShop.Equals(6) || CurrentShop.Equals(7))
         {
             infos.AddRange(itemData.ItemType[6].ItemInfos);
             infos.AddRange(itemData.ItemType[7].ItemInfos);
@@ -75,19 +75,19 @@ public class ShopUI : UIController
 
     private bool LoadState(ItemInfos info)
     {
-        if (CurrentShop == ItemType.Type.Potion )
+        if (CurrentShop.Equals(ItemType.Type.Potion))
         {
-            if(GameData.Instance.Today == 5)
+            if(GameData.Instance.Today.Equals(5))
             {
                 return true;
             }
             else
             {
-                if(info.ID == 54) { return false; }
+                if(info.ID.Equals(54)) { return false; }
                 return true;
             }
         }
-        if(CurrentShop == ItemType.Type.Other && info.ID == 40) { return false; }
+        if(CurrentShop.Equals(ItemType.Type.Other) && info.ID.Equals(40)) { return false; }
         return true;
     }
     public void Init()
@@ -116,7 +116,7 @@ public class ShopUI : UIController
     private int ModifyPrice(int price)
     {
         int shopPrice = NPCData.Instance.NPCShopPrice(shopNPC.npcInfos.work, price);
-        if (Type == ShopType.ReSell)
+        if (Type.Equals(ShopType.ReSell))
         {
             shopPrice = (int)Math.Round(shopPrice * 0.5f);
             return shopPrice;

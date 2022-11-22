@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIManager : Singletion<UIManager>
 {
     public static List<GameObject> UIObject = new List<GameObject>();
+    public static bool SubMenuActive = false;
     public static void UIState()
     {
         if (UIObject.Count >= 2)
@@ -13,7 +14,10 @@ public class UIManager : Singletion<UIManager>
         }
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.IsUI = (UIObject.Count == 0) ? false : true;
+            if(!SubMenuActive)
+            {
+                GameManager.Instance.IsUI = (UIObject.Count.Equals(0)) ? false : true;
+            }
         }
     }
 
@@ -31,5 +35,13 @@ public class UIManager : Singletion<UIManager>
     {
         UIObject.Remove(obj.gameObject);
         UIState();
+    }
+    public static void SubMenuChangeisUI(bool state)
+    {
+        SubMenuActive = state;
+        if (UIObject.Count.Equals(0))
+        {
+            GameManager.Instance.IsUI = state;
+        }
     }
 }

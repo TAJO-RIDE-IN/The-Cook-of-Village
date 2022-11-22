@@ -38,10 +38,13 @@ public class InventoryUI : UIController
         }
         else
         {
-            if (ToolPooling.Instance.toolInstallMode.isDirectInstall)
+            if(ToolPooling.Instance != null)
             {
-                Debug.Log("닫으면 false");
-                ToolPooling.Instance.toolInstallMode.isDirectInstall = false;
+                if (ToolPooling.Instance.toolInstallMode.isDirectInstall)
+                {
+                    Debug.Log("닫으면 false");
+                    ToolPooling.Instance.toolInstallMode.isDirectInstall = false;
+                }
             }
         }
         toggleControl.ResetToggle(1);
