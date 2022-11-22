@@ -180,6 +180,7 @@ public class ToolInstallMode : InstallMode
     {
         _cookingCharacter._cookPosition.isDirect = true;
         _cookingCharacter._cookPosition.CloseUI(0.5f);
+        _cookingCharacter.isCookPositionCollider = false;
     }
 
     /// <summary>
