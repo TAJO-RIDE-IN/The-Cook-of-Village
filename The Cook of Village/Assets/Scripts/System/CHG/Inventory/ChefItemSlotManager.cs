@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class ChefItemSlotManager : ItemSlotManager
 {
+    public Sprite emptySlot;
     // Start is called before the first frame update
     public ItemSlot[] itemslots;
+    
 
     private void Awake()
     {

@@ -76,9 +76,9 @@ public class CookingTool : MonoBehaviour
             if (ChefInventory.Instance.AddIngredient(ItemData.Instance.ItemInfos(cookSlotManager.itemslots[i].ingridientId)))
             {
                 cookSlotManager.itemslots[i].isUsed = false;
-                Ing[i].sprite = cookSlotManager.emptySlot;
+                Ing[i].sprite = cookSlotManager.emptyInven;
                 ingredientList.Remove(cookSlotManager.itemslots[i].ingridientId);
-                cookSlotManager.itemslots[i].ChangeSlotUI(cookSlotManager.emptySlot);
+                cookSlotManager.itemslots[i].ChangeSlotUI(cookSlotManager.emptyInven);
             }
             
         }
@@ -166,13 +166,15 @@ public class CookingTool : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            Ing[i].sprite = cookSlotManager.emptySlot;
+            Ing[i].sprite = cookSlotManager.emptyInven;
         }
     }
 
     public void OpenUI(float time)
     {
+        InventoryBig.SetActive(true);
         InventoryBig.LeanScale(Vector3.one, time).setEaseOutElastic();
+        
         Debug.Log("안녕");
     }
 
@@ -181,11 +183,13 @@ public class CookingTool : MonoBehaviour
         if (toolPooling.toolInstallMode.isDirectChange)
         {
             InventoryBig.LeanScale(Vector2.zero, 0f);
+            InventoryBig.SetActive(false);
             ChefInventory.Instance._cookingCharacter.isSpace = false;
             return;
         }
-        InventoryBig.LeanScale(Vector2.zero, 1f).setEaseInBack();
-        
+
+        InventoryBig.LeanScale(Vector2.zero, 1f).setEaseInBack().setOnComplete(() => InventoryBig.SetActive(false));
+
     }
     /// <summary>
     /// 바로 요리도구를 없애고 설치하기 위한 설정
@@ -258,8 +262,8 @@ public class CookingTool : MonoBehaviour
         {
             //Debug.Log(currentValue / FoodInfos.MakeTime * 1.25f);
             currentValue += Time.deltaTime;
-            blackCircle.fillAmount = 1 - (currentValue / (FoodInfos.MakeTime * 1.25f));
-            blackCircleBig.fillAmount = 1 - (currentValue / (FoodInfos.MakeTime * 1.25f));
+            blackCircle.fillAmount = 1 - (currentValue / (FoodInfos.BurntTime + 15f));
+            blackCircleBig.fillAmount = 1 - (currentValue / (FoodInfos.BurntTime + 15f));
             yield return null;
         }
         currentValue = 0;

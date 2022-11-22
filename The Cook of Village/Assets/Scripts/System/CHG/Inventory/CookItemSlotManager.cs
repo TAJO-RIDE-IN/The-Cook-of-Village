@@ -22,7 +22,7 @@ public class CookItemSlotManager : ItemSlotManager
     {
         for (int i = 0; i < ChildSlotCount; i++)
         {
-            itemslots[i].ChangeSlotUI(emptySlot);
+            itemslots[i].ChangeSlotUI(emptyInven);
             itemslots[i].isUsed = false;
         }
     }

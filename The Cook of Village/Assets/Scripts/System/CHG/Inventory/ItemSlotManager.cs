@@ -9,7 +9,7 @@ public class ItemSlotManager : MonoBehaviour
     public int ChildSlotCount;
     public Text WarningText;
     
-    public Sprite emptySlot;
+    public Sprite emptyInven;
     
 
     public virtual void AddIngredientItem(ItemInfos infos, int index) { }
