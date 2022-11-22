@@ -18,6 +18,7 @@ public class NPCUIImage
     public Sprite OrderWaitImage;
     public ParticleSystem ReceiveParticle;
     public ParticleSystem AngryParticle;
+    public ParticleSystem CoinParticle;
 }
 public class GuestNPC : MonoBehaviour, IGuestOb
 {
@@ -121,6 +122,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 ModelsAni.SetTrigger("Pay");
                 ModelsAni.SetBool("isChaseUp", false);
                 NPCImage.AngryParticle.Stop();
+                NPCImage.CoinParticle.Play();
                 NPCSound("Pay", false, true);
                 break;
             case State.GoOut:
