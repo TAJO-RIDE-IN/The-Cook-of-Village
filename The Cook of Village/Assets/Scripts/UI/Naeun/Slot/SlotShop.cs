@@ -37,18 +37,25 @@ public class SlotShop : Slot<ItemInfos>
     public override void ModifySlot()
     {
         SlotImage.sprite = ImageData.Instance.FindImageData(Infos.ImageID);
-        int count = Infos.ShopCount - Infos.PurchasesCount;
-        string price = ModifyPrice.ToString();
+
         string _name = Infos.KoreanName;
-        if(Infos.type == ItemType.Type.Furniture)//도구 파는 상점의 ui가 조금 작기 때문에 폰트 크기 조절
+        if(Infos.type.Equals(ItemType.Type.Furniture))//도구 파는 상점의 ui가 조금 작기 때문에 폰트 크기 조절
         {
             SlotText.fontSize = (_name.Length > 7) ? 16 : 22;
         }
         SlotText.text = _name;
-        if (shopUI.Type == ShopUI.ShopType.Buy)
+        ChangePrice();
+    }
+
+    private void ChangePrice()
+    {
+        int priceInt = (shopUI.npcWork.Equals(NPCInfos.Work.ChocolateShop)) ? SelectSlotObject.totalprice : ModifyPrice;
+        string price = priceInt.ToString();
+        int count = Infos.ShopCount - Infos.PurchasesCount;
+        if (shopUI.Type.Equals(ShopUI.ShopType.Buy)) //아이템을 사는 경우에만 색을 빨간색으로 바꿀 수 있음
         {
-            SoldOut.gameObject.SetActive(count == 0);
-            PriceText.text = (Infos.Price > MoneyData.Instance.Money) ? " <color=#ff0000>" + price + "</color>" : " <color=#000000ff>" + price + "</color>";
+            SoldOut.gameObject.SetActive(count.Equals(0));
+            PriceText.text = (ModifyPrice > MoneyData.Instance.Money) ? " <color=#ff0000>" + price + "</color>" : " <color=#000000ff>" + price + "</color>";
         }
         else
         {

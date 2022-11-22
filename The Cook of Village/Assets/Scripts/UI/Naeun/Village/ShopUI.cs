@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,7 +8,8 @@ public class ShopUI : UIController
 {
     public SlotShop[] slot;
     [SerializeField] private ItemType.Type CurrentShop;
-    [SerializeField] public enum ShopType {Buy, ReSell}
+    [HideInInspector] public NPCInfos.Work npcWork;
+    [SerializeField] public enum ShopType { Buy, ReSell }
     private ShopType type;
     public ShopType Type
     {
@@ -44,10 +44,11 @@ public class ShopUI : UIController
     {
         itemData = ItemData.Instance;
         CurrentShop = NPCData.WorkDataType[shopNPC.npcInfos.work];
+        npcWork = shopNPC.npcInfos.work;
         ResellToggle.isOn = false;
         Type = ShopType.Buy;
         this.gameObject.SetActive(state);
-        if (state) 
+        if (state)
         {
             LoadSlotData();
             ChangeSelectSlotData();
@@ -62,7 +63,7 @@ public class ShopUI : UIController
     private List<ItemInfos> ShopInfos()
     {
         List<ItemInfos> infos = new List<ItemInfos>();
-        if(CurrentShop.Equals(6) || CurrentShop.Equals(7))
+        if (npcWork.Equals(NPCInfos.Work.interiorShop))
         {
             infos.AddRange(itemData.ItemType[6].ItemInfos);
             infos.AddRange(itemData.ItemType[7].ItemInfos);
@@ -73,28 +74,31 @@ public class ShopUI : UIController
         return infos;
     }
 
-    private bool LoadState(ItemInfos info)
+    private bool LoadState(ItemInfos info) //추가하거나 제거해야하는 아이템인 경우 판단
     {
         if (CurrentShop.Equals(ItemType.Type.Potion))
         {
-            if(GameData.Instance.Today.Equals(5))
+            if (GameData.Instance.Today.Equals(5))
             {
                 return true;
             }
             else
             {
-                if(info.ID.Equals(54)) { return false; }
+                if (info.ID.Equals(54)) { return false; }//금요일에만 무지개 포션 판매
                 return true;
             }
         }
-        if(CurrentShop.Equals(ItemType.Type.Other) && info.ID.Equals(40)) { return false; }
+        if (CurrentShop.Equals(ItemType.Type.Other) && info.ID.Equals(40)) { return false; }
         return true;
     }
     public void Init()
     {
         foreach (var _slot in slot)
         {
-            _slot.gameObject.SetActive(false);
+            if (_slot != null)
+            {
+                _slot.gameObject.SetActive(false);
+            }
         }
     }
     public void LoadSlotData()
@@ -104,10 +108,10 @@ public class ShopUI : UIController
         shopSelect.NPC = shopNPC;
         foreach (var info in ShopInfos().Select((value, index) => (value, index)))
         {
-            if(LoadState(info.value))
+            if (LoadState(info.value))
             {
                 slot[info.index].shopUI = this;
-                slot[info.index].gameObject.SetActive(true);               
+                slot[info.index].gameObject.SetActive(true);
                 slot[info.index].ModifyPrice = ModifyPrice(info.value.Price);
                 slot[info.index].itemInfos = info.value;
             }
@@ -132,11 +136,14 @@ public class ShopUI : UIController
     {
         foreach (var _slot in slot)
         {
-            if(_slot.gameObject.activeSelf == true)
+            if(_slot != null)
             {
-                shopSelect.ModifyPrice = ModifyPrice(_slot.Infos.Price);
-                shopSelect.Infos = _slot.Infos;
-                break;
+                if (_slot.gameObject.activeSelf)
+                {
+                    shopSelect.ModifyPrice = ModifyPrice(_slot.Infos.Price);
+                    shopSelect.Infos = _slot.Infos;
+                    break;
+                }
             }
         }
     }

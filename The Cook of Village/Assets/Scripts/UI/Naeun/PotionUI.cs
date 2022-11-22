@@ -48,10 +48,10 @@ public class PotionUI : MonoBehaviour, IObserver<Potion>
 
             PotionTime(potion.RedDuration, potion.RedTime, RedPotionText, RedPotionTime);
             PotionTime(potion.OrangeDuration, potion.OrangeTime, OrangePotionText, OrangePotionTime);
-            RedPotion.SetActive(potion.Red);
-            OrangePotion.SetActive(potion.Orange);
-            GreenPotion.SetActive(potion.Green);
-            BrownPotion.SetActive(potion.Brown);
+            RedPotion.SetActive(Potion.Red);
+            OrangePotion.SetActive(Potion.Orange);
+            GreenPotion.SetActive(Potion.Green);
+            BrownPotion.SetActive(Potion.Brown);
         }
     }
     #endregion

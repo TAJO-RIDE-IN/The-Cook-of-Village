@@ -20,10 +20,10 @@ public class Potion : Singletion<Potion>, IPotionOb
     public float GreenEffectNum = 2f;
 
     //포션 사용상태
-    public bool Red = false;
-    public bool Orange = false;
-    public bool Green = false;
-    public bool Brown = false;
+    public static bool Red = false;
+    public static bool Orange = false;
+    public static bool Green = false;
+    public static bool Brown = false;
 
     public bool PotionReset = false;
 
@@ -187,6 +187,7 @@ public class Potion : Singletion<Potion>, IPotionOb
     private void UseRainbowPotion() //인벤토리 해금
     {
         GameData.Instance.RainbowDrinking++;
+        //if(GameData.Instance.RainbowDrinking)
     }
     #endregion
 
