@@ -84,7 +84,11 @@ public class TableData
 
 public class InstallData : DataManager<InstallData>
 {
-    
+
+    void Awake()
+    {
+        //LoadData("플레이어 이름_0");
+    }
     public override void SaveDataTime(string PlayName)
     {
         SaveData(ref toolData, "ToolData", PlayName);
@@ -111,6 +115,7 @@ public class InstallData : DataManager<InstallData>
 
     public void LoadData(string PlayName)
     {
+        Debug.Log(toolData);
         LoadData(ref toolData, "ToolData", PlayName);
         LoadData(ref furnitureData, "FurnitureData", PlayName);
         LoadData(ref chairData, "ChairData", PlayName);
