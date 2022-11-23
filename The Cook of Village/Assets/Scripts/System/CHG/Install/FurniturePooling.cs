@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
- public class InstallPoolData
+ public class InstalledData
  {
      public String name;
      public List<GameObject> pooledObjects = new List<GameObject>();
@@ -13,14 +13,15 @@ using System;
 
 public class FurniturePooling : MultipleObjectPoolingNo
 {
+    private int index;
     private void Start()
     {
         furnitureInstallMode._installData = InstallData.Instance;
         furnitureInstallMode._furniturePooling = Instance;
         for (int i = 0; i < ItemData.Instance.ItemType[7].ItemInfos.Count; i++)
         {
-            FurnitureDatas.Add(new InstallPoolData());
-            FurnitureDatas[i].name = ItemData.Instance.ItemType[7].ItemInfos[i].Name;
+            InstalledData.Add(new InstalledData());
+            InstalledData[i].name = ItemData.Instance.ItemType[7].ItemInfos[i].Name;
         }
         furnitureInstallMode.InstallWhenStart();
     }
@@ -35,13 +36,30 @@ public class FurniturePooling : MultipleObjectPoolingNo
 
     private static FurniturePooling instance;
 
-    public List<InstallPoolData> FurnitureDatas = new List<InstallPoolData>();
+    public List<InstalledData> InstalledData = new List<InstalledData>();
     
-    public InstallPoolData FindInstallPoolData(String value)
+    public InstalledData FindInstallPoolData(String value)
     {
-        int index = FurnitureDatas.FindIndex(data => data.name == value);
+        int index = InstalledData.FindIndex(data => data.name == value);
         //Debug.Log(index); 
-        return FurnitureDatas[index];
+        return InstalledData[index];
+    }
+    
+    public InstalledData FindInstallName(GameObject value)
+    {
+        for (int i = 0; i < InstalledData.Count; i++)
+        {
+            for (int j = 0; j < InstalledData[i].pooledObjects.Count; j++)
+            {
+                if (value == InstalledData[i].pooledObjects[j])
+                {
+                    index = InstalledData.FindIndex(data => data.pooledObjects[j]);
+                    return InstalledData[index];
+                }
+                
+            }
+        }
+        return null;
     }
 
     
