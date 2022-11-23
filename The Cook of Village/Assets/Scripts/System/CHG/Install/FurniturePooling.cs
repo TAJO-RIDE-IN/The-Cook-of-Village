@@ -5,14 +5,25 @@ using System;
 
 [Serializable]
  public class InstallPoolData
- { 
+ {
      public String name;
-     public Transform[] installPosition;
-     public List<GameObject> pooledObjects;
+     public List<GameObject> pooledObjects = new List<GameObject>();
  }
+
 
 public class FurniturePooling : MultipleObjectPoolingNo
 {
+    private void Start()
+    {
+        furnitureInstallMode._installData = InstallData.Instance;
+        furnitureInstallMode._furniturePooling = Instance;
+        for (int i = 0; i < ItemData.Instance.ItemType[7].ItemInfos.Count; i++)
+        {
+            FurnitureDatas.Add(new InstallPoolData());
+            FurnitureDatas[i].name = ItemData.Instance.ItemType[7].ItemInfos[i].Name;
+        }
+        furnitureInstallMode.InstallWhenStart();
+    }
     public FurnitureInstallMode furnitureInstallMode;
 
     //[HideInInspector] 
@@ -32,6 +43,9 @@ public class FurniturePooling : MultipleObjectPoolingNo
         //Debug.Log(index); 
         return FurnitureDatas[index];
     }
+
+    
+
     public static FurniturePooling Instance
     {
         get

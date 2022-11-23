@@ -25,18 +25,20 @@ public class ToolInstallMode : InstallMode
     private int selectedToolAmount;
     private int toolItemInfosAmount;
     private ToolPooling toolPooling;
+    private InstallData _installData;
     [HideInInspector] public CookingCharacter _cookingCharacter;
 
     private void Start()
     {
         toolPooling = ToolPooling.Instance;
+        _installData = InstallData.Instance;
         isUsed = new bool[installableToolCount];
         
         //Debug.Log(InstallData.toolData._indexNames.Count);
         
-        for (int i = 0; i < InstallData.Instance.toolData._indexNames.Count; i++)
+        for (int i = 0; i < _installData.toolData._indexNames.Count; i++)
         {
-            GetAndPosition(InstallData.Instance.toolData._indexNames[i].index, InstallData.Instance.toolData._indexNames[i].name);
+            GetAndPosition(_installData.toolData._indexNames[i].index, InstallData.Instance.toolData._indexNames[i].name);
         }
 
         _cookingCharacter = ChefInventory.Instance._cookingCharacter;
