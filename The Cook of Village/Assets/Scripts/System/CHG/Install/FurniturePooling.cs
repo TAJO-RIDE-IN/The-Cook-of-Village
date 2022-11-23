@@ -15,6 +15,8 @@ public class FurniturePooling : MultipleObjectPoolingNo
 {
     private void Start()
     {
+        furnitureInstallMode._installData = InstallData.Instance;
+        furnitureInstallMode._furniturePooling = Instance;
         for (int i = 0; i < ItemData.Instance.ItemType[7].ItemInfos.Count; i++)
         {
             FurnitureDatas.Add(new InstallPoolData());

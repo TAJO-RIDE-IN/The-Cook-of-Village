@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class TableChair
 {
     public int chairCount = 0;
-    public Vector3[] chairPos = new Vector3[4];
     public Vector3 tablePos;
 }
 
@@ -36,20 +35,20 @@ public class FurnitureInstallMode : InstallMode
     private float firstDis;
     private float secondDis;
     private int selectedIndex;
+    private GameObject gameObject;
     private int uiValue;
     private Vector3 pos;
     private RaycastHit hit;
-    private InstallData _installData;
+    [HideInInspector] public InstallData _installData;
     private GameData gameData;
-    private FurniturePooling _furniturePooling;
+    [HideInInspector] public FurniturePooling _furniturePooling;
+    
     private ItemInfos _itemInfos;
     private InstallPoolData installPoolData;
 
     [SerializeField] private LayerMask layerMask;
     private void Start()
     {
-        _installData = InstallData.Instance;
-        _furniturePooling = FurniturePooling.Instance;
         gameData = GameData.Instance;
         
         //책상, 의자, 가구 순으로 설치
@@ -57,21 +56,21 @@ public class FurnitureInstallMode : InstallMode
 
     public void InstallWhenStart()
     {
-        for (int i = 0; i < InstallData.Instance.tableData.tableVector.Count; i++)
+        for (int i = 0; i < _installData.tableData.tableVector.Count; i++)
         {
-            GetAndPosition(InstallData.Instance.tableData.tableVector[i], "Table");
+            GetAndPosition(_installData.tableData.tableVector[i], _furniturePooling.poolObjectData[0].name);
         }
 
-        for (int i = 0; i < InstallData.Instance.chairData.chairPositionNames.Count; i++)
+        for (int i = 0; i < _installData.chairData.chairPositionNames.Count; i++)
         {
-            GetAndPosition(InstallData.Instance.chairData.chairPositionNames[i].vector3,
-                InstallData.Instance.chairData.chairPositionNames[i].name,
-                InstallData.Instance.chairData.chairPositionNames[i].tableIndex);
+            GetAndPosition(_installData.chairData.chairPositionNames[i].vector3,
+                _installData.chairData.chairPositionNames[i].name,
+                _installData.chairData.chairPositionNames[i].tableIndex);
         }
-        for (int i = 0; i < InstallData.Instance.furnitureData._positionNames.Count; i++)
+        for (int i = 0; i < _installData.furnitureData._positionNames.Count; i++)
         {
-            GetAndPosition(InstallData.Instance.furnitureData._positionNames[i].vector3,
-                InstallData.Instance.furnitureData._positionNames[i].name);
+            GetAndPosition(_installData.furnitureData._positionNames[i].vector3,
+                _installData.furnitureData._positionNames[i].name);
         }
     }
     void Update()
@@ -136,7 +135,7 @@ public class FurnitureInstallMode : InstallMode
             if (tableChairs[j].chairCount < 4)
             {
                 secondDis = Vector3.Distance(pendingObject.transform.position, tableChairs[j].tablePos);//테이블과의 거리차이
-                Debug.Log(secondDis);
+                //Debug.Log(secondDis);
                 if (secondDis < firstDis)
                 {
                     firstDis = secondDis;
@@ -152,6 +151,7 @@ public class FurnitureInstallMode : InstallMode
     {
         FurniturePooling.Instance.ReturnObject(pendingObject, currentObjectName);
         noticeUI.SetActive(false);
+        _itemInfos.Amount++;
         pendingObject = null;
     }
 
@@ -234,27 +234,24 @@ public class FurnitureInstallMode : InstallMode
 
     public void GetAndPosition(Vector3 vector3, string name, int tableNumber = 0)
     {
+        installPoolData = _furniturePooling.FindInstallPoolData(name);
+        gameObject = _furniturePooling.GetObject(name);
+        gameObject.transform.position = vector3;
+        installPoolData.pooledObjects.Add(gameObject);
+        
         if (ChairNameCheck(name))
         {
-            //_furniturePooling.FurnitureDatas
-            //_furniturePooling.FindInstallPoolData(name)
+            gameObject.transform.LookAt(tableChairs[tableNumber].tablePos);
+            tableChairs[tableNumber].chairCount++;
+            return;
         }
 
-         installPoolData = _furniturePooling.FindInstallPoolData(name);
-         GameObject gameObject = _furniturePooling.GetObject(name);
-         gameObject.transform.position = vector3;
-         installPoolData.pooledObjects.Add(gameObject);
-         
-        /*ToolPooling.Instance.pooledObject[index] = ToolPooling.Instance.GetObject(name);
-        ToolPooling.Instance.pooledObject[index].transform.position = ToolPooling.Instance.toolPosition[index].position;
-        ToolPooling.Instance.pooledObject[index].transform.rotation = ToolPooling.Instance.toolPosition[index].rotation;
-        ToolPooling.Instance.pooledObject[index].index = index;
-        isUsed[index] = true;
-        PositionCollider[index].SetActive(false);
-        if (isDirectInstall)
+        if (name == _furniturePooling.poolObjectData[0].name)
         {
-            _cookingCharacter.isCookPositionCollider = false;
-        }*/
+            currentData = new TableChair();
+            currentData.tablePos = vector3;
+            tableChairs.Add(currentData);
+        }
     }
 
     private void ChairInstallation(Vector3 vector3, string name, int tableNumber)
