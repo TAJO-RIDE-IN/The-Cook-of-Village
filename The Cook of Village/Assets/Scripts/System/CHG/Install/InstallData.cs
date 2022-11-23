@@ -35,6 +35,19 @@ public class ChairPositionName
 }
 
 [Serializable]
+public class TransformName
+{
+    public Transform transform;
+    public string name;
+
+    public TransformName(Transform trans, string b)
+    {
+        transform = trans;
+        name = b;
+    }
+}
+
+[Serializable]
 public class PositionName
 {
     public Vector3 vector3;
@@ -74,7 +87,7 @@ public class ChairData
 [Serializable]
 public class FurnitureData
 {
-    public List<PositionName> _positionNames = new List<PositionName>();
+    public List<TransformName> _positionNames = new List<TransformName>();
 }
 [Serializable]
 public class TableData
@@ -135,11 +148,13 @@ public class InstallData : DataManager<InstallData>
             tableData.tableVector.Add(vt3);
         }
 
+    }
+    public void PassTransformData(SortOfInstall sortOfInstall, Transform trans, string name = "", int tableNumber = 0)
+    {
         if (sortOfInstall == SortOfInstall.Furnitue)
         {
-            furnitureData._positionNames.Add(new PositionName(vt3, name));
+            furnitureData._positionNames.Add(new TransformName(trans, name));
         }
-        
     }
 
     public void PassIndexData(int index, string name, SortOfInstall sortOfInstall)

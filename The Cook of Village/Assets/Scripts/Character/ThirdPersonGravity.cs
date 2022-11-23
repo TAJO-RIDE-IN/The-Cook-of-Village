@@ -46,11 +46,13 @@ public class ThirdPersonGravity : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                
+                speed = OriginSpeed * 1.5f;
+                animator.SetBool("isRun",true);
             }
             else
             {
-                
+                speed = OriginSpeed;
+                animator.SetBool("isRun",false);
             }
             //gravity
             velocity.y += gravity * Time.deltaTime;
