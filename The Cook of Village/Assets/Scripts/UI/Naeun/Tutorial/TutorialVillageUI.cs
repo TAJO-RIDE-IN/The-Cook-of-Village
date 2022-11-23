@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialVillage : TutorialUI
+public class TutorialVillageUI : TutorialUI
 {
     public TutorialVillageController TutorialController;
 

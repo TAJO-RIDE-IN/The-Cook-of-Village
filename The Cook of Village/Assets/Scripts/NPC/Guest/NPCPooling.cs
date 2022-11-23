@@ -23,9 +23,12 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     private float VillageNPCTime;
     private float OpenTime;
 
+    private GameData gameData;
+
     private void Start()
     {
-        AddObserver(GameData.Instance);
+        gameData = GameData.Instance;
+        AddObserver(gameData);
     }
 
     private void Update()
@@ -133,16 +136,16 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
 
     private void ChangeCallTime()
     {
-        if (FirstNPC && GameData.Instance.GuestCount == 0)
+        if (FirstNPC && gameData.GuestCount == 0)
         {
             CallTime = FirstCallTime;
             FirstNPC = false;
         }
         else
         {
-            if (GameData.Instance.Fame >= 0)
+            if (gameData.Fame >= 0)
             {
-                CallTime = DefaultCallTime - GameData.Instance.Fame / 100;
+                CallTime = DefaultCallTime - gameData.Fame / 100;
             }
         }
     }

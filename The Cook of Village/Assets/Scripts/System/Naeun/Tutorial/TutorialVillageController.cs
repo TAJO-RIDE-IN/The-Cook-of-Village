@@ -14,7 +14,7 @@ public class TutorialVillageController : MonoBehaviour
     private int ActionNum;
     public void Start()
     {
-        if(GameManager.Instance.gameMode == GameManager.GameMode.Tutorial)
+        if(GameManager.Instance.gameMode.Equals(GameManager.GameMode.Tutorial))
         {
             gameManager = GameManager.Instance;
             npcData = NPCData.Instance;
