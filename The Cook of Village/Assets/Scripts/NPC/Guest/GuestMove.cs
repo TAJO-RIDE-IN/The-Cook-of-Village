@@ -11,7 +11,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     private GameObject UseChair;
     private NPCPooling chairContainer;
     private NavMeshAgent agent;
-    private GuestNPC guest;
+    protected GuestNPC guest;
     private Transform Sit;
     private int VillageSitNum;
     public CounterQueue counter;
@@ -23,9 +23,9 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     private void Awake()
     {
         chairContainer = this.gameObject.transform.parent.GetComponent<NPCPooling>();
-        agent = this.gameObject.GetComponent<NavMeshAgent>();
-        guest = this.gameObject.GetComponent<GuestNPC>();
-        if (guest.currentNPC == GuestNPC.Guest.Villge)
+        agent = GetComponent<NavMeshAgent>();
+        guest = GetComponent<GuestNPC>();
+        if (guest.currentNPC.Equals(GuestNPC.Guest.Villge))
         {
             VillageGuest VillageNPC = this.gameObject.GetComponent<VillageGuest>();
             VillageSitNum = (int)VillageNPC.npcInfos.work;
@@ -163,8 +163,6 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     {
         Move(position, "CounterLine");
     }
-
-
     public void AddObserver(IGuestOb o)
     {
         o.AddObserver(this);

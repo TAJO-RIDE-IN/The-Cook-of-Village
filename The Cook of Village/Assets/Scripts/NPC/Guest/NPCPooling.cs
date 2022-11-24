@@ -12,10 +12,8 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     public GameObject openUI;
     public GameObject closeUI;
     private bool isOpen;
-
-    [SerializeField]
     private float CallTime = 20f;
-    private float DefaultCallTime = 20f;
+    [SerializeField] private float DefaultCallTime = 20f;
     private float FirstCallTime = 4f;
     private bool FirstNPC = false;
     private bool callVillageNPC = false;
@@ -24,10 +22,12 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     private float OpenTime;
 
     private GameData gameData;
+    private GameManager gameManager;
 
     private void Start()
     {
         gameData = GameData.Instance;
+        gameManager = GameManager.Instance;
         AddObserver(gameData);
     }
 
@@ -71,7 +71,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
 
     public void OpenRestaurant()
     {
-        GameManager.Instance.IsOpen = true;
+        gameManager.IsOpen = true;
         FirstNPC = true;
         OpenTime = GameData.Instance.TimeOfDay;
         VillageNPCTime = OpenTime + Random.Range(60, 181); // 마을 주민 오는시간 -> 오픈 후 1시간~3시간 사이
@@ -85,7 +85,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
 
     public void CloseRestaurant()
     {
-        GameManager.Instance.IsOpen = false;
+        gameManager.IsOpen = false;
         callVillageNPC = false;
         if(_callNPC != null)
         {
@@ -107,7 +107,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
 
     private IEnumerator CallNPC()
     {
-        while(GameManager.Instance.IsOpen)
+        while(gameManager.IsOpen)
         {
             AvailableChair();
             ChangeCallTime();
@@ -163,7 +163,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
             {
                 CloseRestaurant();
             }
-            if(GameManager.Instance.IsOpen)
+            if(gameManager.IsOpen)
             {
                 callVillageNPC = (GameData.TimeOfDay >= VillageNPCTime) ? true : false;
             }
