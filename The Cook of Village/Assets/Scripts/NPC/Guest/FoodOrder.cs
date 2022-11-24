@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-
 public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
 {
     Probability<FoodInfos> FoodProbability = new Probability<FoodInfos>();
@@ -115,7 +113,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     public bool ReceiveFood(int ReceiveFood) //npc에게 음식 전달
     {
-        if (ReceiveFood == foodInfos.ID && CanReceive) 
+        if (ReceiveFood.Equals(foodInfos.ID) && CanReceive) 
         {
             CanReceive = false;
             Receive = true;
@@ -156,7 +154,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             StartCoroutine(ChangeWithDelay.CheckDelay(foodData.EatTime, () => EndEat())); //일정 시간 후 다 먹음
         }
     }
-    private void Order(FoodInfos infos) //음식주문
+    protected virtual void Order(FoodInfos infos) //음식주문
     {
         if(foodInfos != null)
         {

@@ -2,16 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialNPCController : NPCPooling
+public class TutorialNPCController : MonoBehaviour
 {
-    public TutorialRestaurantController Controller;
+    public TutorialRestaurantController tutorialController;
     public TutorialGuestMove GuestNPC;
-    private bool isOpen = true;
+    public GameObject openUI;
+    public ChairUse Chair;
 
-    private void Awake()
-    {
-
-    }
     public void GuestEnter()
     {
         GuestNPC.gameObject.SetActive(true);

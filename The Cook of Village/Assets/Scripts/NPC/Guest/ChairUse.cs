@@ -47,8 +47,17 @@ public class ChairUse : MonoBehaviour
     public void FoodEnable(int id, bool state)
     {
         Model(id).SetActive(state);
-        FoodEffect.Play();
+        if(state)
+        {
+            FoodEffect.Play();
+        }
     }
+    /// <summary>
+    /// 주민마다 앉는 위치를 찾는다.
+    /// </summary>
+    /// <param name="npc">NPC가 마을 주민인지 기본 주민인지 입력</param>
+    /// <param name="work">마을 주민이라면 workID 입력</param>
+    /// <returns>앉는 위치 Transform 리턴</returns>
     public Transform SitPosition(GuestNPC.Guest npc, int work = 0)
     {
         if(npc == GuestNPC.Guest.Villge)
