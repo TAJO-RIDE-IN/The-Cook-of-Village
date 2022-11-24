@@ -9,11 +9,10 @@ public class TutorialRestaurantController : MonoBehaviour
     public GameObject VillageParticle;
     public GameObject MenuIcon;
     public ThirdPersonMovement Player;
-
-    [Header("NPCControl")]
     public NPCPooling npcPooling;
-    public TutorialNPCController tutorialNPCController;
 
+    [Header("Tutorial")]
+    public TutorialNPCController tutorialNPCController;
     public TutorialRestaurantUI tutorialRestaurantUI;
     private GameManager gameManager;
     private int ActionNum;
