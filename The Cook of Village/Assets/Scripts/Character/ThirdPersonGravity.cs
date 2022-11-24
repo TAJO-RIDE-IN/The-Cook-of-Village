@@ -26,13 +26,29 @@ public class ThirdPersonGravity : MonoBehaviour
     public Animator animator;
     public CinemachineFreeLook cinemachine;
 
-    private bool isCanMove = true;
+    private GameManager _gameManager;
+
+    private bool isCanWalk = true;
+
+    private void Start()
+    {
+        _gameManager = GameManager.Instance;
+    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (isCanMove)
+        if (_gameManager.IsUI)
         {
+            StopMovingXYAxis();
+        }
+        else
+        {
+            MovingXYAxis();
+        }
+        if (isCanWalk)
+        {
+            
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
             
             if (isGrounded && velocity.y < 0)
@@ -46,11 +62,13 @@ public class ThirdPersonGravity : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                
+                speed = OriginSpeed * 1.5f;
+                animator.SetBool("isRun",true);
             }
             else
             {
-                
+                speed = OriginSpeed;
+                animator.SetBool("isRun",false);
             }
             //gravity
             velocity.y += gravity * Time.deltaTime;
@@ -76,13 +94,46 @@ public class ThirdPersonGravity : MonoBehaviour
             }
         }
     }
-    public void StopMoving()
+    public void WhenGetInStore(float XValue)
     {
-        isCanMove = false;
+        cinemachine.m_XAxis.Value = XValue;
+        cinemachine.m_YAxis.m_MaxSpeed = 0;
+        cinemachine.m_XAxis.m_Wrap = false;
+        cinemachine.m_XAxis.m_MinValue = XValue - 40;
+        cinemachine.m_XAxis.m_MaxValue = XValue + 40;
+        cinemachine.m_Orbits[0].m_Height = 4;
+        cinemachine.m_Orbits[1].m_Height = 4;
+        cinemachine.m_Orbits[2].m_Height = 4;
+
+    }
+    public void WhenGetOutStore()
+    {
+        cinemachine.m_YAxis.m_MaxSpeed = 300;
+        cinemachine.m_XAxis.m_Wrap = true;
+        cinemachine.m_XAxis.m_MinValue = -180;
+        cinemachine.m_XAxis.m_MaxValue = 180;
+        cinemachine.m_Orbits[0].m_Height = 7;
+        cinemachine.m_Orbits[1].m_Height = 4;
+        cinemachine.m_Orbits[2].m_Height = -1;
+    }
+    
+    public void StopMovingXYAxis()
+        {
+            cinemachine.m_XAxis.m_MaxSpeed = 0;
+            cinemachine.m_YAxis.m_MaxSpeed = 0;
+        }
+        public void MovingXYAxis()
+        {
+            cinemachine.m_XAxis.m_MaxSpeed = 300;
+            cinemachine.m_YAxis.m_MaxSpeed = 2;
+        }
+    public void StopWalking()
+    {
+        isCanWalk = false;
         animator.SetBool("isWalk",false);
     }
-    public void StartMoving()
+    public void StartWalking()
     {
-        isCanMove = true;
+        isCanWalk = true;
     }
 }

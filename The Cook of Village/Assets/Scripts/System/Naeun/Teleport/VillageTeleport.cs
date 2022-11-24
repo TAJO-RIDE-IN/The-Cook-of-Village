@@ -36,8 +36,8 @@ public class VillageTeleport : MonoBehaviour
     {
         MoveEffect.gameObject.SetActive(true); 
         MoveEffect.Play();
-        Player.StopMoving();
+        Player.StopWalking();
         StartCoroutine(ChangeWithDelay.CheckDelay(0.5f, () => PlayMove(gate)));
-        StartCoroutine(ChangeWithDelay.CheckDelay(1.5f, () => Player.StartMoving()));
+        StartCoroutine(ChangeWithDelay.CheckDelay(1.5f, () => Player.StartWalking()));
     }
 }

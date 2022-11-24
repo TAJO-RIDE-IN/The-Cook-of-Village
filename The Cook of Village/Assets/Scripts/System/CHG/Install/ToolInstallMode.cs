@@ -25,18 +25,20 @@ public class ToolInstallMode : InstallMode
     private int selectedToolAmount;
     private int toolItemInfosAmount;
     private ToolPooling toolPooling;
+    private InstallData _installData;
     [HideInInspector] public CookingCharacter _cookingCharacter;
 
     private void Start()
     {
         toolPooling = ToolPooling.Instance;
+        _installData = InstallData.Instance;
         isUsed = new bool[installableToolCount];
         
         //Debug.Log(InstallData.toolData._indexNames.Count);
         
-        for (int i = 0; i < InstallData.Instance.toolData._indexNames.Count; i++)
+        for (int i = 0; i < _installData.toolData._indexNames.Count; i++)
         {
-            GetAndPosition(InstallData.Instance.toolData._indexNames[i].index, InstallData.Instance.toolData._indexNames[i].name);
+            GetAndPosition(_installData.toolData._indexNames[i].index, InstallData.Instance.toolData._indexNames[i].name);
         }
 
         _cookingCharacter = ChefInventory.Instance._cookingCharacter;
@@ -169,10 +171,10 @@ public class ToolInstallMode : InstallMode
         }
 
         
-        ToolPooling.Instance.selectedItemInfos = itemInfos;
+        toolPooling.selectedItemInfos = itemInfos;
         toolItemInfosAmount = itemInfos.Amount;
         StartInstall();
-        ToolPooling.Instance.SelectedToolName = itemInfos.Name;
+        toolPooling.SelectedToolName = itemInfos.Name;
         isDirectChange = false;
     }
 
@@ -236,7 +238,7 @@ public class ToolInstallMode : InstallMode
     /// </summary>
     protected override void StartInstall()
     {
-        for (int i = 0; i < installableToolCount; i++)
+        for (int i = 0; i < installableToolCount - 1; i++)
         {
             if (!isUsed[i])
             {
@@ -244,9 +246,10 @@ public class ToolInstallMode : InstallMode
             }
             else
             {
-                
+
             }
         }
+
         ReturnColor();
         GameManager.Instance.IsInstall = true;
         //GameManager.Instance.Pause();
@@ -259,7 +262,7 @@ public class ToolInstallMode : InstallMode
     /// </summary>
     public override void CancelInstall()
     {
-        for (int i = 0; i < installableToolCount; i++)
+        for (int i = 0; i < installableToolCount - 1; i++)
         {
             toolPositionUI[i].SetActive(false);
         }
@@ -275,7 +278,7 @@ public class ToolInstallMode : InstallMode
 
     private void ReturnColor()
     {
-        for (int i = 0; i < installableToolCount; i++)
+        for (int i = 0; i < installableToolCount - 1; i++)
         {
             toolPositionUI[i].GetComponent<Image>().color = new Color32(250,250,250, 143);
         }
