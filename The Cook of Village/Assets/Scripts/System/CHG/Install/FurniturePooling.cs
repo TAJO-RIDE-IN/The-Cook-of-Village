@@ -22,8 +22,10 @@ public class FurniturePooling : MultipleObjectPoolingNo
         {
             InstalledData.Add(new InstalledData());
             InstalledData[i].name = ItemData.Instance.ItemType[7].ItemInfos[i].Name;
+            
         }
         furnitureInstallMode.InstallWhenStart();
+        
     }
     public FurnitureInstallMode furnitureInstallMode;
 
@@ -37,7 +39,7 @@ public class FurniturePooling : MultipleObjectPoolingNo
     private static FurniturePooling instance;
 
     public List<InstalledData> InstalledData = new List<InstalledData>();
-    
+
     public InstalledData FindInstallPoolData(String value)
     {
         int index = InstalledData.FindIndex(data => data.name == value);
@@ -53,7 +55,7 @@ public class FurniturePooling : MultipleObjectPoolingNo
             {
                 if (value == InstalledData[i].pooledObjects[j])
                 {
-                    index = InstalledData.FindIndex(data => data.pooledObjects[j]);
+                    Debug.Log(j);
                     return InstalledData[i];
                 }
             }

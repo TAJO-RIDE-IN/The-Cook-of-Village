@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using System.IO;
 using UnityEditor;
@@ -35,14 +36,16 @@ public class ChairPositionName
 }
 
 [Serializable]
-public class TransformName
+public class VecRotName
 {
-    public Transform transform;
+    public Vector3 vector;
+    public Vector3 rotation;
     public string name;
 
-    public TransformName(Transform trans, string b)
+    public VecRotName(Vector3 trans, Vector3 rot ,string b)
     {
-        transform = trans;
+        vector = trans;
+        rotation = rot;
         name = b;
     }
 }
@@ -81,18 +84,18 @@ public class ToolData
 [Serializable]
 public class ChairData
 {
-    public List<ChairPositionName> chairPositionNames = new List<ChairPositionName>();
+    public List<ChairPositionName> positionNames = new List<ChairPositionName>();
 }
 
 [Serializable]
 public class FurnitureData
 {
-    public List<TransformName> _positionNames = new List<TransformName>();
+    public List<VecRotName> vecRotNames = new List<VecRotName>();
 }
 [Serializable]
 public class TableData
 {
-    public List<Vector3> tableVector = new List<Vector3>();
+    public List<Vector3> vector = new List<Vector3>();
 }
 
 public class InstallData : DataManager<InstallData>
@@ -123,12 +126,10 @@ public class InstallData : DataManager<InstallData>
     public TableData tableData = new TableData();
 
     private static string toolJsonData;
-    
     private static string furnitureJsonData;
 
     public void LoadData(string PlayName)
     {
-        Debug.Log("로드완료" + PlayName);
         LoadData(ref toolData, "ToolData", PlayName);
         LoadData(ref furnitureData, "FurnitureData", PlayName);
         LoadData(ref chairData, "ChairData", PlayName);
@@ -140,20 +141,20 @@ public class InstallData : DataManager<InstallData>
     {
         if (sortOfInstall == SortOfInstall.Chair)
         {
-            chairData.chairPositionNames.Add(new ChairPositionName(vt3, name, tableNumber));
+            chairData.positionNames.Add(new ChairPositionName(vt3, name, tableNumber));
         }
 
         if (sortOfInstall == SortOfInstall.Table)
         {
-            tableData.tableVector.Add(vt3);
+            tableData.vector.Add(vt3);
         }
 
     }
-    public void PassTransformData(SortOfInstall sortOfInstall, Transform trans, string name = "", int tableNumber = 0)
+    public void PassVecRotData(SortOfInstall sortOfInstall, Vector3 trans, Vector3 rot, string name = "")
     {
         if (sortOfInstall == SortOfInstall.Furnitue)
         {
-            furnitureData._positionNames.Add(new TransformName(trans, name));
+            furnitureData.vecRotNames.Add(new VecRotName(trans, rot, name));
         }
     }
 
@@ -168,14 +169,54 @@ public class InstallData : DataManager<InstallData>
             }
         }
     }
-
-    //public void RestoreHealth(int amount) => health += amount;
-    public void DeleteData(int deleteIndex, SortOfInstall sortOfInstall)
+    public void DeleteVector3Data(Vector3 deleteVector3, SortOfInstall sortOfInstall)
     {
         switch (sortOfInstall)
         {
             case SortOfInstall.Furnitue:
             {
+                for (int i = 0; i < furnitureData.vecRotNames.Count; i++)
+                {
+                    if (furnitureData.vecRotNames[i].vector == deleteVector3)
+                    {
+                        furnitureData.vecRotNames.RemoveAt(i);
+                    }
+                }
+                break;
+            }
+            case SortOfInstall.Table:
+            {
+                for (int i = 0; i < tableData.vector.Count; i++)
+                {
+                    if (tableData.vector[i] == deleteVector3)
+                    {
+                        tableData.vector.RemoveAt(i);
+                    }
+                }
+                break;
+            }
+            case SortOfInstall.Chair:
+            {
+                for (int i = 0; i < chairData.positionNames.Count; i++)
+                {
+                    if (chairData.positionNames[i].vector3 == deleteVector3)
+                    {
+                        chairData.positionNames.RemoveAt(i);
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    //public void RestoreHealth(int amount) => health += amount;
+    public void DeleteIndexData(int deleteIndex, SortOfInstall sortOfInstall)
+    {
+        switch (sortOfInstall)
+        {
+            case SortOfInstall.Furnitue:
+            {
+                
                 break;
             }
             case SortOfInstall.Tool:
@@ -188,6 +229,16 @@ public class InstallData : DataManager<InstallData>
                         toolJsonData = JsonUtility.ToJson(toolData, true);
                     }
                 }
+                break;
+            }
+            case SortOfInstall.Table:
+            {
+                
+                break;
+            }
+            case SortOfInstall.Chair:
+            {
+                
                 break;
             }
         }
