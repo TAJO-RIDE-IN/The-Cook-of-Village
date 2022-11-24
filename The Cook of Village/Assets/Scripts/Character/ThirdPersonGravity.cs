@@ -26,12 +26,12 @@ public class ThirdPersonGravity : MonoBehaviour
     public Animator animator;
     public CinemachineFreeLook cinemachine;
 
-    private bool isCanMove = true;
+    private bool isCanWalk = true;
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (isCanMove)
+        if (isCanWalk)
         {
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
             
@@ -78,13 +78,13 @@ public class ThirdPersonGravity : MonoBehaviour
             }
         }
     }
-    public void StopMoving()
+    public void StopWalking()
     {
-        isCanMove = false;
+        isCanWalk = false;
         animator.SetBool("isWalk",false);
     }
-    public void StartMoving()
+    public void StartWalking()
     {
-        isCanMove = true;
+        isCanWalk = true;
     }
 }

@@ -237,7 +237,7 @@ public class FurnitureInstallMode : InstallMode
             tableChairs.Add(currentData);
             pendingObject = null;
             noticeUI[0].SetActive(false);
-            gameData.gameInfos.Fame += 1;
+            gameData.ChangeFame(3);
             InstallData.Instance.PassVector3Data(InstallData.SortOfInstall.Table,currentData.tablePos);
             return;
         }
@@ -247,7 +247,7 @@ public class FurnitureInstallMode : InstallMode
             if (secondDis < 1.5f && secondDis > 0.8f)
             {
                 tableChairs[selectedIndex].chairCount++;
-                gameData.gameInfos.Fame += 1;
+                gameData.ChangeFame(5);
                 InstallData.Instance.PassVector3Data(InstallData.SortOfInstall.Chair,pendingObject.transform.position, currentObjectName, selectedIndex);
                 pendingObject = null;
                 return;
@@ -258,7 +258,7 @@ public class FurnitureInstallMode : InstallMode
                 return;
             }
         }
-        gameData.gameInfos.Fame += 2;
+        gameData.ChangeFame(20);
         InstallData.Instance.PassTransformData(InstallData.SortOfInstall.Furnitue,pendingObject.transform, currentObjectName);
         FurniturePooling.Instance.FindInstallPoolData(name).pooledObjects.Add(pendingObject);
         pendingObject = null;
