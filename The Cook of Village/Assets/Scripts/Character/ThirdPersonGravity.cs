@@ -94,13 +94,27 @@ public class ThirdPersonGravity : MonoBehaviour
             }
         }
     }
-    public void WhenGetInStore()
+    public void WhenGetInStore(float XValue)
     {
+        cinemachine.m_XAxis.Value = XValue;
         cinemachine.m_YAxis.m_MaxSpeed = 0;
+        cinemachine.m_XAxis.m_Wrap = false;
+        cinemachine.m_XAxis.m_MinValue = XValue - 40;
+        cinemachine.m_XAxis.m_MaxValue = XValue + 40;
+        cinemachine.m_Orbits[0].m_Height = 4;
+        cinemachine.m_Orbits[1].m_Height = 4;
+        cinemachine.m_Orbits[2].m_Height = 4;
+
     }
     public void WhenGetOutStore()
     {
         cinemachine.m_YAxis.m_MaxSpeed = 300;
+        cinemachine.m_XAxis.m_Wrap = true;
+        cinemachine.m_XAxis.m_MinValue = -180;
+        cinemachine.m_XAxis.m_MaxValue = 180;
+        cinemachine.m_Orbits[0].m_Height = 7;
+        cinemachine.m_Orbits[1].m_Height = 4;
+        cinemachine.m_Orbits[2].m_Height = -1;
     }
     
     public void StopMovingXYAxis()
