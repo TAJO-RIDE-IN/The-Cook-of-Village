@@ -44,4 +44,8 @@ public class UIManager : Singletion<UIManager>
             GameManager.Instance.IsUI = state;
         }
     }
+    public static void UIScalePingPongAnimation(GameObject obj, Vector3 vector3, float time)
+    {
+        LeanTween.scale(obj, vector3, time).setLoopPingPong();
+    }
 }

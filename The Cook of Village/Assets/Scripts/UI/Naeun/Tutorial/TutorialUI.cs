@@ -13,7 +13,6 @@ public class TutorialUI : MonoBehaviour, IDialogue
     public GameObject BackgroundImage;
     protected DialogueManager dialogueManager;
     private DialogueData.ContentType type = DialogueData.ContentType.Tutorial;
-
     private void Awake()
     {
         AddButtonListener();

@@ -20,6 +20,7 @@ public class TutorialNPCController : MonoBehaviour
         {
             SoundManager.Instance.Play(SoundManager.Instance._audioClips["OpenRestaurant"]);
             openUI.LeanScale(Vector2.zero, 0.5f).setOnComplete(() => GuestEnter());
+            tutorialController.NextDialogue();
         }
     }
 }

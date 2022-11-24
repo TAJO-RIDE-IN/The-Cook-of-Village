@@ -49,7 +49,7 @@ public class TutorialShop : MonoBehaviour
     }
     private void ClickAnimation(int index)
     {
-        LeanTween.scale(ClickImage[index], new Vector3(1.3f, 1.3f, 1.3f), 0.5f).setLoopPingPong();
+        UIManager.UIScalePingPongAnimation(ClickImage[index], new Vector3(1.3f, 1.3f, 1.3f), 0.5f);
     }
     private void SliderChange(float _value) //Slider 값 바뀐경우 다음 이벤트
     {

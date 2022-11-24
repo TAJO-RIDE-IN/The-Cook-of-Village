@@ -156,7 +156,14 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     protected virtual void Order(FoodInfos infos) //음식주문
     {
-        if(foodInfos != null)
+        OrderInit(infos);
+        FoodWaitTime = foodData.DefaultWaitingTime + foodInfos.MakeTime * 2f;
+        SaveWaitTime = FoodWaitTime;
+        WaitingOrderCoroutine = StartCoroutine(WaitingOrder());
+    }
+    protected void OrderInit(FoodInfos infos)
+    {
+        if (foodInfos != null)
         {
             guest.chairUse.FoodEnable(foodInfos.ID, false);
         }
@@ -165,9 +172,6 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         CanReceive = true;
         foodInfos = infos;
         ChangeOrderImage();
-        FoodWaitTime = foodData.DefaultWaitingTime + foodInfos.MakeTime * 2f;
-        SaveWaitTime = FoodWaitTime;
-        WaitingOrderCoroutine = StartCoroutine(WaitingOrder());
     }
     private void ChangeOrderImage()
     {

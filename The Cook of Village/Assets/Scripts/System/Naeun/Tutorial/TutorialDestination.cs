@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class TutorialDestination : MonoBehaviour
 {
-    public TutorialVillageController VillageController;
+    public TutorialController Controller;
     public void OnTriggerEnter(Collider other)
     {
         if(other.tag.Equals("Player"))
         {
-            VillageController.VillageTutorialUI.DialogueText();
+            Controller.NextDialogue();
             GetComponent<BoxCollider>().enabled = false;
             this.gameObject.SetActive(false);
         }
