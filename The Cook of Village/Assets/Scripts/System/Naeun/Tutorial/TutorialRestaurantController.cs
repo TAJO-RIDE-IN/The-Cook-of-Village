@@ -4,24 +4,52 @@ using UnityEngine;
 
 public class TutorialRestaurantController : MonoBehaviour
 {
-    private GameManager gameManager;
+    [Header("RestaurantObject")]
+    public GameObject CookPosition;
     public GameObject VillageParticle;
-    public TutorialRestaurantUI tutorialRestaurantUI;
     public ThirdPersonMovement Player;
+
+    [Header("NPCControl")]
+    public NPCPooling npcPooling;
+    public TutorialNPCController tutorialNPCController;
+
+    public TutorialRestaurantUI tutorialRestaurantUI;
+    private GameManager gameManager;
+    private int ActionNum;
     private void Start()
     {
-        if (GameManager.Instance.gameMode.Equals(GameManager.GameMode.Tutorial))
+        gameManager = GameManager.Instance;
+        if (gameManager.gameMode.Equals(GameManager.GameMode.Tutorial))
         {
-            gameManager = GameManager.Instance;
             Init();
         }
     }
     private void Init()
     {
         //Player.StopMoving();
-        gameManager.TutorialUI = true;
+        npcPooling.enabled = false;
+        gameManager.TutorialUI = true;     
         tutorialRestaurantUI.DialogueState(true);
         tutorialRestaurantUI.CallDialogue("Restaurant");
         VillageParticle.SetActive(false);
+    }
+    public void RestaurantAction()
+    {
+        switch (ActionNum)
+        {
+            case 0: //레스토랑 문열기
+                gameManager.TutorialUI = false;
+                tutorialNPCController.enabled = true;
+                break;
+            case 1: //손님 주문 대기
+                tutorialNPCController.enabled = false;
+                break;
+        }
+        ActionNum++;
+    }
+
+    public void NextDialogue()
+    {
+        tutorialRestaurantUI.DialogueText();
     }
 }
