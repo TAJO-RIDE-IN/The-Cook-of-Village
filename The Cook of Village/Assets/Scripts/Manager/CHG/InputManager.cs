@@ -24,16 +24,32 @@ public class InputManager : MonoBehaviour
             }
             return;
         }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            //내 정보
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            //인벤토리
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            //호감도
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            //레시피
+        }
         if (Time.timeScale != 0f)
         {
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 menuUI.ClickMenu();
-            
-            
                 return;
             }
         }
+        
         
 
     }

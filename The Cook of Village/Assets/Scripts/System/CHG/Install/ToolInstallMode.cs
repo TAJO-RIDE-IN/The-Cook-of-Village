@@ -171,10 +171,10 @@ public class ToolInstallMode : InstallMode
         }
 
         
-        ToolPooling.Instance.selectedItemInfos = itemInfos;
+        toolPooling.selectedItemInfos = itemInfos;
         toolItemInfosAmount = itemInfos.Amount;
         StartInstall();
-        ToolPooling.Instance.SelectedToolName = itemInfos.Name;
+        toolPooling.SelectedToolName = itemInfos.Name;
         isDirectChange = false;
     }
 
@@ -238,7 +238,7 @@ public class ToolInstallMode : InstallMode
     /// </summary>
     protected override void StartInstall()
     {
-        for (int i = 0; i < installableToolCount; i++)
+        for (int i = 0; i < installableToolCount - 1; i++)
         {
             if (!isUsed[i])
             {
@@ -246,9 +246,10 @@ public class ToolInstallMode : InstallMode
             }
             else
             {
-                
+
             }
         }
+
         ReturnColor();
         GameManager.Instance.IsInstall = true;
         //GameManager.Instance.Pause();
@@ -261,7 +262,7 @@ public class ToolInstallMode : InstallMode
     /// </summary>
     public override void CancelInstall()
     {
-        for (int i = 0; i < installableToolCount; i++)
+        for (int i = 0; i < installableToolCount - 1; i++)
         {
             toolPositionUI[i].SetActive(false);
         }
@@ -277,7 +278,7 @@ public class ToolInstallMode : InstallMode
 
     private void ReturnColor()
     {
-        for (int i = 0; i < installableToolCount; i++)
+        for (int i = 0; i < installableToolCount - 1; i++)
         {
             toolPositionUI[i].GetComponent<Image>().color = new Color32(250,250,250, 143);
         }

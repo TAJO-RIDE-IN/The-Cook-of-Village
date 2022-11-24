@@ -111,8 +111,10 @@ public class FurnitureInstallMode : InstallMode
                     InstalledData installedData = _furniturePooling.FindInstallName(objectToDelete);
                     if (installedData != null)
                     {
-                        _furniturePooling.ReturnObject(objectToDelete, installedData.name);
                         _furniturePooling.FindInstallName(objectToDelete).pooledObjects.Remove(objectToDelete);
+                        _furniturePooling.ReturnObject(objectToDelete, installedData.name);
+                        
+                        
                     }
                 }
             }
@@ -140,21 +142,17 @@ public class FurnitureInstallMode : InstallMode
                 return;
             }
         }
-        
     }
 
     public void StartDelete()
     {
-        
         isDelete = true;
     }
 
     public void FinishDelete()
     {
-        
         isDelete = false;
     }
-    
 
     private bool ChairNameCheck(String name)
     {
@@ -166,9 +164,7 @@ public class FurnitureInstallMode : InstallMode
             }
         }
         return false;
-
     }
-
 
     private void CheckChairPosition()
     {

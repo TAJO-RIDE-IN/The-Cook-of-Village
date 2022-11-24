@@ -54,9 +54,8 @@ public class FurniturePooling : MultipleObjectPoolingNo
                 if (value == InstalledData[i].pooledObjects[j])
                 {
                     index = InstalledData.FindIndex(data => data.pooledObjects[j]);
-                    return InstalledData[index];
+                    return InstalledData[i];
                 }
-                
             }
         }
         return null;
