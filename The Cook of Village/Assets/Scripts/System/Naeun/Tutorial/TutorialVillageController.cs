@@ -24,7 +24,7 @@ public class TutorialVillageController : MonoBehaviour
     }
     private void Init()
     {
-        Player.StopMoving();
+        Player.StopWalking();
         gameManager.TutorialUI = true;
         VillageTutorialUI.DialogueState(true);
         VillageTutorialUI.CallDialogue("Control");
@@ -56,20 +56,20 @@ public class TutorialVillageController : MonoBehaviour
     {
         switch (ActionNum)
         {
-            case 0: //»óÁ¡À¸·Î ÀÌµ¿
+            case 0: //ìƒì ìœ¼ë¡œ ì´ë™
                 ArrowParticleState(true, 0);
-                Player.StartMoving();
+                Player.StartWalking();
                 gameManager.TutorialUI = false;
                 DestinationParticle.SetActive(true);
                 break;
-            case 1: //»óÁ¡ µµÂø
+            case 1: //ìƒì  ë„ì°©
                 ArrowParticleState(false, 0);
-                Player.StopMoving();
+                Player.StopWalking();
                 DestinationParticle.SetActive(false);
                 break;
-            case 2: //·¹½ºÅä¶ûÀ¸·Î ÀÌµ¿
+            case 2: //ë ˆìŠ¤í† ë‘ìœ¼ë¡œ ì´ë™
                 ArrowParticleState(true, 180);
-                Player.StartMoving();
+                Player.StartWalking();
                 npcData.AtOnceCloseNPC((int)NPCInfos.Work.FruitShop); 
                 DestinationParticle.SetActive(false);
                 RestaurantParticle.SetActive(true);

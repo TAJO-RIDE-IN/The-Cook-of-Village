@@ -26,13 +26,29 @@ public class ThirdPersonGravity : MonoBehaviour
     public Animator animator;
     public CinemachineFreeLook cinemachine;
 
-    private bool isCanMove = true;
+    private GameManager _gameManager;
+
+    private bool isCanWalk = true;
+
+    private void Start()
+    {
+        _gameManager = GameManager.Instance;
+    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (isCanMove)
+        if (_gameManager.IsUI)
         {
+            StopMovingXYAxis();
+        }
+        else
+        {
+            MovingXYAxis();
+        }
+        if (isCanWalk)
+        {
+            
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
             
             if (isGrounded && velocity.y < 0)
@@ -46,11 +62,13 @@ public class ThirdPersonGravity : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                
+                speed = OriginSpeed * 1.5f;
+                animator.SetBool("isRun",true);
             }
             else
             {
-                
+                speed = OriginSpeed;
+                animator.SetBool("isRun",false);
             }
             //gravity
             velocity.y += gravity * Time.deltaTime;
@@ -76,13 +94,32 @@ public class ThirdPersonGravity : MonoBehaviour
             }
         }
     }
-    public void StopMoving()
+    public void WhenGetInStore()
     {
-        isCanMove = false;
+        cinemachine.m_YAxis.m_MaxSpeed = 0;
+    }
+    public void WhenGetOutStore()
+    {
+        cinemachine.m_YAxis.m_MaxSpeed = 300;
+    }
+    
+    public void StopMovingXYAxis()
+        {
+            cinemachine.m_XAxis.m_MaxSpeed = 0;
+            cinemachine.m_YAxis.m_MaxSpeed = 0;
+        }
+        public void MovingXYAxis()
+        {
+            cinemachine.m_XAxis.m_MaxSpeed = 300;
+            cinemachine.m_YAxis.m_MaxSpeed = 2;
+        }
+    public void StopWalking()
+    {
+        isCanWalk = false;
         animator.SetBool("isWalk",false);
     }
-    public void StartMoving()
+    public void StartWalking()
     {
-        isCanMove = true;
+        isCanWalk = true;
     }
 }

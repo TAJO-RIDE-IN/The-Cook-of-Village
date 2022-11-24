@@ -43,16 +43,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db2a04b7c23b31c4bb8ba92c2a2f6e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goInstallUI: {fileID: 0}
-  cancelInstallUI: {fileID: 0}
-  toolPositionUI: []
-  inventoryUI: {fileID: 0}
-  receivedPositionList: 
-  toolItemInfosAmount: 0
-  selectedToolAmount: 0
-  installableTableCount: 0
-  installableChairCount: 0
-  installableDecoCount: 0
-  layerMask:
+  tableChairs: []
+  warnings:
+  - box: {fileID: 0}
+    text: {fileID: 0}
+  - box: {fileID: 0}
+    text: {fileID: 0}
+  chairTableDis: 0
+  noticeUI:
+  - {fileID: 0}
+  - {fileID: 0}
+  _installData: {fileID: 0}
+  _furniturePooling: {fileID: 0}
+  installLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
+  deleteLayer:
+    serializedVersion: 2
+    m_Bits: 1024

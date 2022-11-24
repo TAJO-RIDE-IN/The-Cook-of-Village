@@ -17,6 +17,7 @@ public class ThirdPersonMovement : MonoBehaviour
     private SoundManager soundManager;
 
     private bool isWalkSound;
+    private bool isCanWalk;
 
     private String walkSound;
 
@@ -40,7 +41,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
-            charAnimator.SetBool("isWalk",true);
+            charAnimator.SetBool("isWalk", true);
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
                 turnSmoothTime);
@@ -55,13 +56,22 @@ public class ThirdPersonMovement : MonoBehaviour
         }
         else
         {
-            charAnimator.SetBool("isWalk",false);
+            charAnimator.SetBool("isWalk", false);
             soundManager.StopEffect3D(gameObject);
             isWalkSound = false;
         }
     }
-    
-    
+    public void StopWalking()
+    {
+        isCanWalk = true;
+        charAnimator.SetBool("isWalk", false);
+    }
+    public void StartWalking()
+    {
+        isCanWalk = false;
+    }
 
-    
+
+
+
 }
