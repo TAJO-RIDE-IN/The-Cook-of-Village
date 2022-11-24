@@ -42,7 +42,6 @@ public class InventoryUI : UIController
             {
                 if (ToolPooling.Instance.toolInstallMode.isDirectInstall)
                 {
-                    Debug.Log("닫으면 false");
                     ToolPooling.Instance.toolInstallMode.isDirectInstall = false;
                 }
             }
