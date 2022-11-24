@@ -43,10 +43,12 @@ public class FurnitureInstallMode : InstallMode
     private int uiValue;
     private Vector3 pos;
     private RaycastHit hit;
-    [HideInInspector] public InstallData _installData;
-    private GameData gameData;
-    [HideInInspector] public FurniturePooling _furniturePooling;
     
+    private GameData gameData;
+    
+    
+    [HideInInspector] public InstallData _installData;
+    [HideInInspector] public FurniturePooling _furniturePooling;
     private ItemInfos _itemInfos;
     private InstalledData _installedData;
 
@@ -62,21 +64,21 @@ public class FurnitureInstallMode : InstallMode
 
     public void InstallWhenStart()
     {
-        for (int i = 0; i < _installData.tableData.tableVector.Count; i++)
+        for (int i = 0; i < _installData.tableData.vector.Count; i++)
         {
-            GetAndPosition(_installData.tableData.tableVector[i], _furniturePooling.poolObjectData[0].name);
+            GetAndPosition(_installData.tableData.vector[i], _furniturePooling.poolObjectData[0].name);
         }
 
-        for (int i = 0; i < _installData.chairData.chairPositionNames.Count; i++)
+        for (int i = 0; i < _installData.chairData.positionNames.Count; i++)
         {
-            GetAndPosition(_installData.chairData.chairPositionNames[i].vector3,
-                _installData.chairData.chairPositionNames[i].name,
-                _installData.chairData.chairPositionNames[i].tableIndex);
+            GetAndPosition(_installData.chairData.positionNames[i].vector3,
+                _installData.chairData.positionNames[i].name,
+                _installData.chairData.positionNames[i].tableIndex);
         }
-        for (int i = 0; i < _installData.furnitureData._positionNames.Count; i++)
+        for (int i = 0; i < _installData.furnitureData.vecRotNames.Count; i++)
         {
-            GetAndTransform(_installData.furnitureData._positionNames[i].transform,
-                _installData.furnitureData._positionNames[i].name);
+            GetAndPosition(_installData.furnitureData.vecRotNames[i].vector,
+                _installData.furnitureData.vecRotNames[i].name);
         }
     }
     void Update()
@@ -111,14 +113,30 @@ public class FurnitureInstallMode : InstallMode
                     InstalledData installedData = _furniturePooling.FindInstallName(objectToDelete);
                     if (installedData != null)
                     {
-                        _furniturePooling.FindInstallName(objectToDelete).pooledObjects.Remove(objectToDelete);
+                        installedData.pooledObjects.Remove(objectToDelete);
                         _furniturePooling.ReturnObject(objectToDelete, installedData.name);
-                        
-                        
+                        _installData.DeleteVector3Data(objectToDelete.transform.position,
+                            FindSortOfInstall(installedData));
+
                     }
                 }
             }
         }
+    }
+
+    private InstallData.SortOfInstall FindSortOfInstall(InstalledData installedData)
+    {
+        if (installedData.name == FurniturePooling.Instance.InstalledData[0].name)
+        {
+            return InstallData.SortOfInstall.Table;
+        }
+
+        if (ChairNameCheck(installedData.name))
+        {
+            return InstallData.SortOfInstall.Chair;
+        }
+
+        return InstallData.SortOfInstall.Furnitue;
     }
     private void FixedUpdate()
     {
@@ -245,6 +263,7 @@ public class FurnitureInstallMode : InstallMode
                 gameData.ChangeFame(5);
                 InstallData.Instance.PassVector3Data(InstallData.SortOfInstall.Chair,pendingObject.transform.position, currentObjectName, selectedIndex);
                 pendingObject = null;
+                noticeUI[0].SetActive(false);
                 return;
             }
             else
@@ -254,9 +273,11 @@ public class FurnitureInstallMode : InstallMode
             }
         }
         gameData.ChangeFame(20);
-        InstallData.Instance.PassTransformData(InstallData.SortOfInstall.Furnitue,pendingObject.transform, currentObjectName);
+        InstallData.Instance.PassVecRotData(InstallData.SortOfInstall.Furnitue, pendingObject.transform.position,
+            pendingObject.transform.localEulerAngles, currentObjectName);
         FurniturePooling.Instance.FindInstallPoolData(name).pooledObjects.Add(pendingObject);
         pendingObject = null;
+        noticeUI[0].SetActive(false);
     }
 
 

@@ -14,7 +14,7 @@ public class MultipleObjectPoolingNo : MonoBehaviour
         public String name;
         public GameObject poolObject;
         public Queue<GameObject> objectQueue = new Queue<GameObject>();
-        public GameObject objectContatiner;
+        public GameObject objectContainer;
         public int initCount;
     }
     
@@ -27,17 +27,16 @@ public class MultipleObjectPoolingNo : MonoBehaviour
     }
 
     private PoolObjectData _poolObjectData;
-    //protected static GameObject[] ObjectContatiner;
     
     protected virtual void Awake()
     {
         Initialize();
     }
-    
+
     protected virtual GameObject CreateNewObject(string value)
     {
         _poolObjectData = FindPoolObjectData(value);
-        var newObj = Instantiate(_poolObjectData.poolObject, _poolObjectData.objectContatiner.transform);
+        var newObj = Instantiate(_poolObjectData.poolObject, _poolObjectData.objectContainer.transform);
         newObj.gameObject.SetActive(false);
         return newObj;
     }
@@ -51,6 +50,7 @@ public class MultipleObjectPoolingNo : MonoBehaviour
             }
         }
     }
+
     public GameObject GetObject(string name)
     {
         _poolObjectData = FindPoolObjectData(name);
@@ -71,7 +71,7 @@ public class MultipleObjectPoolingNo : MonoBehaviour
         else
         {
             var newObj = CreateNewObject(name);
-            newObj.transform.SetParent(_poolObjectData.objectContatiner.transform);
+            newObj.transform.SetParent(_poolObjectData.objectContainer.transform);
             newObj.gameObject.SetActive(true);
             return newObj;
         }
@@ -84,7 +84,7 @@ public class MultipleObjectPoolingNo : MonoBehaviour
     public void ReturnObject(GameObject returnObject, String name)
     {
         _poolObjectData = FindPoolObjectData(name);
-        returnObject.transform.SetParent(_poolObjectData.objectContatiner.transform);
+        returnObject.transform.SetParent(_poolObjectData.objectContainer.transform);
         _poolObjectData.objectQueue.Enqueue(returnObject);
         returnObject.gameObject.SetActive(false);
     }
