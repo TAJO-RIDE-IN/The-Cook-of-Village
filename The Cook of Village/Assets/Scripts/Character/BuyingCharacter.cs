@@ -8,7 +8,6 @@ public class BuyingCharacter : MonoBehaviour
 {
     private bool isShopCollider;
     private bool isRestNameCollider;
-    public CinemachineFreeLook cinemachine;
     public RestaurantName _restaurantName;
     private VillageNPC _npc;
     private GameManager _gameManager;
@@ -16,7 +15,6 @@ public class BuyingCharacter : MonoBehaviour
     private void Start()
     {
         _gameManager = GameManager.Instance;
-        cinemachine = cinemachine.GetComponent<CinemachineFreeLook>();
     }
 
     private void WhenSpaceDown()
@@ -43,18 +41,6 @@ public class BuyingCharacter : MonoBehaviour
         {
             WhenSpaceDown();
         }
-
-        if(GameManager.Instance != null)
-        {
-            if (GameManager.Instance.IsUI)
-            {
-                StopMovingXYAxis();
-            }
-            else
-            {
-                MovingXYAxis();
-            }
-        }    
     }
     
     private void OnTriggerEnter(Collider other)
@@ -88,14 +74,5 @@ public class BuyingCharacter : MonoBehaviour
         }
     }
 
-    public void StopMovingXYAxis()
-    {
-        cinemachine.m_XAxis.m_MaxSpeed = 0;
-        cinemachine.m_YAxis.m_MaxSpeed = 0;
-    }
-    public void MovingXYAxis()
-    {
-        cinemachine.m_XAxis.m_MaxSpeed = 300;
-        cinemachine.m_YAxis.m_MaxSpeed = 2;
-    }
+
 }

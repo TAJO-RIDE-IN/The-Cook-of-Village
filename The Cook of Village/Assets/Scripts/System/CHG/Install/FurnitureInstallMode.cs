@@ -114,7 +114,6 @@ public class FurnitureInstallMode : InstallMode
                         _furniturePooling.ReturnObject(objectToDelete, installedData.name);
                         _furniturePooling.FindInstallName(objectToDelete).pooledObjects.Remove(objectToDelete);
                     }
-                    
                 }
             }
         }
