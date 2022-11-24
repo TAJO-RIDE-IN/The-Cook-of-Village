@@ -5,6 +5,7 @@ using UnityEngine;
 public class TutorialVillageUI : TutorialUI
 {
     public TutorialVillageController TutorialController;
+    public GameObject Key;
 
     protected override void Disable()
     {
@@ -19,6 +20,7 @@ public class TutorialVillageUI : TutorialUI
         if (dialogueManager.CurrentSentencesName.Equals("Purchase"))
         {
             TutorialController.PurchaseAction();
+            Key.SetActive(false);
         }
     }
 }

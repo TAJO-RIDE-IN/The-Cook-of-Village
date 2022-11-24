@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class TutorialGuestMove : GuestMove
 {
-    public TutorialNPCController chairContainer;
-    private void Awake()
+    public TutorialNPCController tutorialNPCController;
+    private void OutChair()
     {
-        chairContainer = this.gameObject.transform.parent.GetComponent<TutorialNPCController>();
+
+    }
+
+    protected override void ChairUse() //사용하지 않은 의자의 위치을 랜덤으로 출력, 사용중인 의자 저장
+    {
+        guest.chairUse = tutorialNPCController.Chair;
+        Sit = guest.chairUse.SitPosition(guest.currentNPC);
     }
 }

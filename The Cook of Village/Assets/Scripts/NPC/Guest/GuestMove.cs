@@ -12,7 +12,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
     private NPCPooling chairContainer;
     private NavMeshAgent agent;
     protected GuestNPC guest;
-    private Transform Sit;
+    protected Transform Sit;
     private int VillageSitNum;
     public CounterQueue counter;
 
@@ -43,7 +43,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         UseChair = null;
     }
 
-    private void ChairUse() //사용하지 않은 의자의 위치을 랜덤으로 출력, 사용중인 의자 저장
+    protected virtual void ChairUse() //사용하지 않은 의자의 위치을 랜덤으로 출력, 사용중인 의자 저장
     {
         int chairNum = UnityEngine.Random.Range(0, chairContainer.WaitChair.Count);
         UseChair = chairContainer.WaitChair[chairNum];
@@ -87,13 +87,12 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
             yield return null;
         }
     }
-
-    private void NPCLook(Vector3 lookPosition)
+    protected void NPCLook(Vector3 lookPosition)
     {
         Vector3 table = new Vector3(lookPosition.x, this.transform.position.y, lookPosition.z);
         transform.LookAt(table);
     }
-    private void NPCState(string destination_name) //도착지에 따른 NPC상태 변화
+    protected virtual void NPCState(string destination_name) //도착지에 따른 NPC상태 변화
    {
         switch (destination_name)
         {
