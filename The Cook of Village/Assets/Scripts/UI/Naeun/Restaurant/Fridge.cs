@@ -18,7 +18,12 @@ public class Fridge : MonoBehaviour
 
     public void FridgeAnimaion(bool state)
     {
-        //frigdeAnimation.SetBool("isOpen", state);
+        if (state)
+        {
+            frigdeAnimation.Play("FridgeOpen");
+        }
+        frigdeAnimation.Play("FridgeClose");
+        
     }
     public void UseRefrigerator(bool state)
     {
