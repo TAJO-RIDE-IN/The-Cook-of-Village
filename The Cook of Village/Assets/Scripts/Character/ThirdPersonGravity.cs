@@ -27,12 +27,14 @@ public class ThirdPersonGravity : MonoBehaviour
     public CinemachineFreeLook cinemachine;
 
     private GameManager _gameManager;
+    private SoundManager _soundManager;
 
     private bool isCanWalk = true;
 
     private void Start()
     {
         _gameManager = GameManager.Instance;
+        _soundManager = SoundManager.Instance;
     }
 
     // Update is called once per frame
@@ -80,6 +82,7 @@ public class ThirdPersonGravity : MonoBehaviour
 
             if(direction.magnitude >= 0.1f)
             {
+                _soundManager.PlayEffect3D(_soundManager._audioClips["CookWalk2"], gameObject, true);
                 animator.SetBool("isWalk",true);
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
