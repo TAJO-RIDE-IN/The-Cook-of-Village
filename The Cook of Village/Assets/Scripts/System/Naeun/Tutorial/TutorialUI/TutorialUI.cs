@@ -68,9 +68,6 @@ public class TutorialUI : MonoBehaviour, IDialogue
         {
             Action();
         }
-        if (Dialogue.Item3)
-        {
-            DialogueState(false);
-        }
+        DialogueState(!Dialogue.Item3);
     }
 }

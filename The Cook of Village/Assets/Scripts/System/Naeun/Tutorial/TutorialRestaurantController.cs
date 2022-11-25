@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,17 +11,24 @@ public class TutorialRestaurantController : TutorialController
     public GameObject MenuIcon;
     public List<BoxCollider> ObjectCollider = new List<BoxCollider>();
     public ThirdPersonMovement Player;
+    public CookingCharacter PlayerCook;
     public NPCPooling npcPooling;
 
     [Header("Tutorial")]
     public TutorialNPCController tutorialNPCController;
     public TutorialRestaurantUI tutorialRestaurantUI;
     public TutorialDestination FridgeDestination;
-
     private int ActionNum;
+    private Dictionary<string, Action> CurrentAction = new Dictionary<string, Action>();
+    private Dictionary<string, string> NextDialogueName = new Dictionary<string, string>()
+    {
+        {"Control", "Purchase"}, {"Purchase", "Restaurant"}, {"Restaurant", "Fridge"},
+        {"Fridge", "Cooking"}, {"Cooking", "Serving"}
+    };
     public override void Init()
     {
-        foreach(var col in ObjectCollider)
+        AddActionDictionary();
+        foreach (var col in ObjectCollider)
         {
             if(col.isTrigger)
             {
@@ -30,13 +38,21 @@ public class TutorialRestaurantController : TutorialController
         //Player.StopMoving();
         npcPooling.enabled = false;
         gameManager.TutorialUI = true;
-        tutorialRestaurantUI.DialogueState(true);
-        tutorialRestaurantUI.CallDialogue("Restaurant");
         VillageParticle.SetActive(false);
         CookPosition.SetActive(false);
         FridgeDestination.gameObject.SetActive(false);
         MenuIcon.SetActive(false);
         ChangeData();
+        tutorialRestaurantUI.DialogueState(true);
+        tutorialRestaurantUI.CallDialogue("Restaurant");
+    }
+    private void AddActionDictionary()
+    {
+        CurrentAction.Add("Restaurant", () => RestaurantAction());
+        CurrentAction.Add("Fridge", () => FridgeAction());
+        CurrentAction.Add("Cooking", () => CookingAction());
+        CurrentAction.Add("CharredFood", () => RestaurantAction());
+        CurrentAction.Add("Serving", () => RestaurantAction());
     }
     private void ChangeData()
     {
@@ -61,13 +77,23 @@ public class TutorialRestaurantController : TutorialController
             case 1: //º’¥‘ ¡÷πÆ ¥Î±‚
                 tutorialNPCController.enabled = false;
                 break;
-            case 2: //≥√¿Â∞Ì∑Œ ¿Ãµø
+        }
+        ActionNum++;
+    }
+    public void FridgeAction()
+    {
+        switch (ActionNum)
+        {
+            case 0: //≥√¿Â∞Ì∑Œ ¿Ãµø
                 FridgeDestination.gameObject.SetActive(true);
                 ObjectCollider[3].enabled = true;
                 break;
-            case 3: //≥√¿Â∞Ì ƒ—±‚
+            case 1: //≥√¿Â∞Ì µµ¬¯
+                FridgeDestination.gameObject.SetActive(false);
                 ObjectCollider[3].enabled = false;
-                //Player.StopMoving(); 
+                break;
+            case 3: //≥√¿Â∞Ì ¿Á∑· ≤®≥ª±‚
+                PlayerCook.isFridgeCollider = false;
                 break;
         }
         ActionNum++;
@@ -88,11 +114,14 @@ public class TutorialRestaurantController : TutorialController
         }
         ActionNum++;
     }
-
+    public void PlayAction()
+    {
+        CurrentAction[dialogueManager.CurrentSentencesName]();
+    }
     public override void EndEvent()
     {
-        tutorialRestaurantUI.CallDialogue("Cooking");
         ActionNum = 0;
+        tutorialRestaurantUI.CallDialogue(NextDialogueName[dialogueManager.CurrentSentencesName]);
     }
     public override void NextDialogue()
     {
