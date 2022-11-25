@@ -16,10 +16,14 @@ public class InputManager : MonoBehaviour
         {
             if(UIManager.UIObject.Count == 0)
             {
-                if (!FurniturePooling.Instance.furnitureInstallMode.isActive)
+                if (GameManager.Instance.NextSceneIndex == 3)
                 {
-                    pauseUI.PauseUIState(true);
+                    if (!FurniturePooling.Instance.furnitureInstallMode.isActive)
+                    {
+                        pauseUI.PauseUIState(true);
+                    }
                 }
+                pauseUI.PauseUIState(true);
             }
             else
             {
