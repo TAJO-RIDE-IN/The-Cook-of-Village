@@ -2,28 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialVillageController : MonoBehaviour
+public class TutorialVillageController : TutorialController
 {
     public TutorialUI VillageTutorialUI;
     public ThirdPersonGravity Player;
     public GameObject DestinationParticle, RestaurantParticle;
     public List<GameObject> RoadArrowParticle = new List<GameObject>();
     public List<GameObject> Wall = new List<GameObject>();
-    private GameManager gameManager;
     private NPCData npcData;
     private int ActionNum;
-    public void Start()
+    public override void Init()
     {
-        if(GameManager.Instance.gameMode.Equals(GameManager.GameMode.Tutorial))
-        {
-            gameManager = GameManager.Instance;
-            npcData = NPCData.Instance;
-            Init();
-            NPCDisable();
-        }
-    }
-    private void Init()
-    {
+        npcData = NPCData.Instance;
+        NPCDisable();
         Player.StopWalking();
         gameManager.TutorialUI = true;
         VillageTutorialUI.DialogueState(true);
@@ -76,5 +67,9 @@ public class TutorialVillageController : MonoBehaviour
                 break;
         }
         ActionNum++;
+    }
+    public override void NextDialogue()
+    {
+        VillageTutorialUI.DialogueText();
     }
 }

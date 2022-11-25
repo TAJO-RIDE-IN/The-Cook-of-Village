@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialRestaurantController : MonoBehaviour
+public class TutorialRestaurantController : TutorialController
 {
     [Header("RestaurantObject")]
     public GameObject CookPosition;
@@ -14,17 +14,10 @@ public class TutorialRestaurantController : MonoBehaviour
     [Header("Tutorial")]
     public TutorialNPCController tutorialNPCController;
     public TutorialRestaurantUI tutorialRestaurantUI;
-    private GameManager gameManager;
+    public TutorialDestination FridgeDestination;
+
     private int ActionNum;
-    private void Start()
-    {
-        gameManager = GameManager.Instance;
-        if (gameManager.gameMode.Equals(GameManager.GameMode.Tutorial))
-        {
-            Init();
-        }
-    }
-    private void Init()
+    public override void Init()
     {
         //Player.StopMoving();
         npcPooling.enabled = false;
@@ -43,6 +36,10 @@ public class TutorialRestaurantController : MonoBehaviour
         foodData.foodTool[(int)FoodTool.Type.Blender].foodInfos[1].OrderProbability = 0;
         foodData.foodTool[(int)FoodTool.Type.Blender].foodInfos[2].OrderProbability = 0;
     }
+    /// <summary>
+    /// Dialogue의 이름이 Restaurant인 경우 실행
+    /// &(Action)이 있는 문장이 나올 경우 한 단계식 진행시킨다.
+    /// </summary>
     public void RestaurantAction()
     {
         switch (ActionNum)
@@ -54,11 +51,17 @@ public class TutorialRestaurantController : MonoBehaviour
             case 1: //손님 주문 대기
                 tutorialNPCController.enabled = false;
                 break;
+            case 2: //냉장고로 이동
+                FridgeDestination.gameObject.SetActive(true);
+                break;
+            case 3: //냉장고 켜기
+                //Player.StopMoving(); 
+                break;
         }
         ActionNum++;
     }
 
-    public void NextDialogue()
+    public override void NextDialogue()
     {
         tutorialRestaurantUI.DialogueText();
     }

@@ -5,13 +5,14 @@ using UnityEngine;
 public class TutorialRestaurantUI : TutorialUI
 {
     public TutorialRestaurantController TutorialController;
-
+    protected Dictionary<string, string> NextDialogue = new Dictionary<string, string>()
+    {
+        {"Control", "Purchase"}, {"Purchase", "Restaurant"}, {"Restaurant", "InstallTool"},
+        {"InstallTool", "CookingFood" }, {"CookingFood", "Serving"}
+    };
     protected override void Disable()
     {
-        if (dialogueManager.CurrentSentencesName.Equals("Control"))
-        {
-            CallDialogue("Purchase");
-        }
+        CallDialogue(dialogueManager.CurrentSentencesName);
     }
     protected override void Action()
     {
