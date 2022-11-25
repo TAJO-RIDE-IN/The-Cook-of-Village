@@ -43,7 +43,7 @@ public abstract class TutorialDetailsUI : MonoBehaviour
         AddInit();
     }
     protected virtual void AddInit(){ }
-    protected virtual void ControlClickBlock(int index) { }
+    protected virtual void AddEvent(int index) { }
     private void ClickAnimation(int index)
     {
         UIManager.UIScalePingPongAnimation(ClickImage[index], new Vector3(1.3f, 1.3f, 1.3f), 0.5f);
@@ -67,6 +67,6 @@ public abstract class TutorialDetailsUI : MonoBehaviour
         {
             EventButton[index + 1].interactable = true;
         }
-        ControlClickBlock(index);
+        AddEvent(index);
     }
 }

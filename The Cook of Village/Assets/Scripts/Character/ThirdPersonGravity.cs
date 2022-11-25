@@ -30,6 +30,7 @@ public class ThirdPersonGravity : MonoBehaviour
     private SoundManager _soundManager;
 
     private bool isCanWalk = true;
+    private bool isWalkSound = true;
 
     private void Start()
     {
@@ -82,7 +83,12 @@ public class ThirdPersonGravity : MonoBehaviour
 
             if(direction.magnitude >= 0.1f)
             {
-                _soundManager.PlayEffect3D(_soundManager._audioClips["CookWalk2"], gameObject, true);
+                if (!isWalkSound)
+                {
+                    _soundManager.PlayEffect3D(_soundManager._audioClips["CookWalk2"], gameObject, true);
+                    isWalkSound = true;
+                }
+                
                 animator.SetBool("isWalk",true);
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
@@ -94,6 +100,8 @@ public class ThirdPersonGravity : MonoBehaviour
             else
             {
                 animator.SetBool("isWalk",false);
+                _soundManager.StopEffect3D(gameObject);
+                isWalkSound = false;
             }
         }
     }

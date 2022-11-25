@@ -114,6 +114,7 @@ public class DialogueManager : Singletion<DialogueManager>
         Question = false;
         Action = false;
         EndUse = false;
+        NextEnd = false;
         Replace = "";
         Replace = sentence.Replace("&PlayerName", GameData.Instance.PlayerName);
         if (sentence.Contains("&(Question" + QuestionNum + ")"))
