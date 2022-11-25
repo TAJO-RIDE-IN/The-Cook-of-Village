@@ -11,11 +11,22 @@ public class TutorialUI : MonoBehaviour, IDialogue
     public Button NoButton;
     public GameObject ChoiceButton;
     public GameObject BackgroundImage;
+    public bool CanNextSpace;
     protected DialogueManager dialogueManager;
     private DialogueData.ContentType type = DialogueData.ContentType.Tutorial;
     private void Awake()
     {
         AddButtonListener();
+    }
+    private void Update()
+    {
+        if(CanNextSpace)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                DialogueText();
+            }
+        }
     }
     protected virtual void AddButtonListener()
     {
@@ -38,6 +49,7 @@ public class TutorialUI : MonoBehaviour, IDialogue
         NextButton.gameObject.SetActive(NextButtonState);
         BackgroundImage.gameObject.SetActive(!Stay);
         ChoiceButton.SetActive(QuestionState);
+        CanNextSpace = NextButtonState && this.gameObject.activeSelf;
     }
     protected virtual void Action(){ }
     public void CallDialogue(string name)

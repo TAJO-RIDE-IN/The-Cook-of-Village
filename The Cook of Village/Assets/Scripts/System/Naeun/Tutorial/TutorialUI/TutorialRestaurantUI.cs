@@ -12,7 +12,7 @@ public class TutorialRestaurantUI : TutorialUI
     };
     protected override void Disable()
     {
-        CallDialogue(dialogueManager.CurrentSentencesName);
+        //CallDialogue(NextDialogue[dialogueManager.CurrentSentencesName]);
     }
     protected override void Action()
     {

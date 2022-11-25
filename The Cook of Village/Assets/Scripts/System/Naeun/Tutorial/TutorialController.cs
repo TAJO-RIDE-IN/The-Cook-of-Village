@@ -15,4 +15,5 @@ public abstract class TutorialController : MonoBehaviour
     }
     public abstract void Init();
     public abstract void NextDialogue();
+    public virtual void EndEvent() { }
 }

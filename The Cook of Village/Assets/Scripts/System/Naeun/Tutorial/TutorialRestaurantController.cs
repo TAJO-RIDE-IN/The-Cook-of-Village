@@ -8,6 +8,7 @@ public class TutorialRestaurantController : TutorialController
     public GameObject CookPosition;
     public GameObject VillageParticle;
     public GameObject MenuIcon;
+    public List<BoxCollider> ObjectCollider = new List<BoxCollider>();
     public ThirdPersonMovement Player;
     public NPCPooling npcPooling;
 
@@ -19,12 +20,21 @@ public class TutorialRestaurantController : TutorialController
     private int ActionNum;
     public override void Init()
     {
+        foreach(var col in ObjectCollider)
+        {
+            if(col.isTrigger)
+            {
+                col.enabled = false;
+            }
+        }
         //Player.StopMoving();
         npcPooling.enabled = false;
-        gameManager.TutorialUI = true;     
+        gameManager.TutorialUI = true;
         tutorialRestaurantUI.DialogueState(true);
         tutorialRestaurantUI.CallDialogue("Restaurant");
         VillageParticle.SetActive(false);
+        CookPosition.SetActive(false);
+        FridgeDestination.gameObject.SetActive(false);
         MenuIcon.SetActive(false);
         ChangeData();
     }
@@ -53,14 +63,37 @@ public class TutorialRestaurantController : TutorialController
                 break;
             case 2: //냉장고로 이동
                 FridgeDestination.gameObject.SetActive(true);
+                ObjectCollider[3].enabled = true;
                 break;
             case 3: //냉장고 켜기
+                ObjectCollider[3].enabled = false;
                 //Player.StopMoving(); 
                 break;
         }
         ActionNum++;
     }
+    public void CookingAction()
+    {
+        switch (ActionNum)
+        {
+            case 0: //조리대로 이동
 
+                break;
+            case 1: //믹서기 설치
+
+                break;
+            case 2: //믹서기에 레몬 넣기
+
+                break;
+        }
+        ActionNum++;
+    }
+
+    public override void EndEvent()
+    {
+        tutorialRestaurantUI.CallDialogue("Cooking");
+        ActionNum = 0;
+    }
     public override void NextDialogue()
     {
         tutorialRestaurantUI.DialogueText();
