@@ -18,8 +18,11 @@ public class ThirdPersonMovement : MonoBehaviour
 
     private bool isWalkSound;
     private bool isCanWalk = true;
+    
 
     private String walkSound;
+
+    
 
     private void Awake()
     {

@@ -28,6 +28,7 @@ public class CameraMovement : MonoBehaviour
     private float preOuterDown;
 
     private bool isAngle = true;
+    private bool isLocked;
     
     private void Start()
     {
@@ -39,6 +40,18 @@ public class CameraMovement : MonoBehaviour
     }
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Y))
+        {
+            if (!isLocked)
+            {
+
+                isLocked = true;
+            }
+            else
+            {
+                isLocked = false;
+            }
+        }
         if (!_gameManager.IsUI)
         {
             if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButton(1))
