@@ -6,18 +6,18 @@ using UnityEngine;
 public class TutorialRestaurantController : TutorialController
 {
     [Header("RestaurantObject")]
-    public GameObject CookPosition;
+    public List<BoxCollider> ObjectCollider = new List<BoxCollider>();
+    public GameObject[] CookPosition;
     public GameObject VillageParticle;
     public GameObject MenuIcon;
-    public List<BoxCollider> ObjectCollider = new List<BoxCollider>();
     public ThirdPersonMovement Player;
     public CookingCharacter PlayerCook;
     public NPCPooling npcPooling;
 
     [Header("Tutorial")]
+    public GameObject[] RestaurantDestination;
     public TutorialNPCController tutorialNPCController;
     public TutorialRestaurantUI tutorialRestaurantUI;
-    public TutorialDestination FridgeDestination;
     private int ActionNum;
     private Dictionary<string, Action> CurrentAction = new Dictionary<string, Action>();
     private Dictionary<string, string> NextDialogueName = new Dictionary<string, string>()
@@ -35,12 +35,18 @@ public class TutorialRestaurantController : TutorialController
                 col.enabled = false;
             }
         }
+        foreach(var destination in RestaurantDestination)
+        {
+            destination.SetActive(false);
+        }
+        foreach(var cook in CookPosition)
+        {
+            cook.SetActive(false);
+        }
         //Player.StopMoving();
         npcPooling.enabled = false;
         gameManager.TutorialUI = true;
         VillageParticle.SetActive(false);
-        CookPosition.SetActive(false);
-        FridgeDestination.gameObject.SetActive(false);
         MenuIcon.SetActive(false);
         ChangeData();
         tutorialRestaurantUI.DialogueState(true);
@@ -85,11 +91,11 @@ public class TutorialRestaurantController : TutorialController
         switch (ActionNum)
         {
             case 0: //≥√¿Â∞Ì∑Œ ¿Ãµø
-                FridgeDestination.gameObject.SetActive(true);
+                RestaurantDestination[0].SetActive(true);
                 ObjectCollider[3].enabled = true;
                 break;
             case 1: //≥√¿Â∞Ì µµ¬¯
-                FridgeDestination.gameObject.SetActive(false);
+                RestaurantDestination[0].gameObject.SetActive(false);
                 ObjectCollider[3].enabled = false;
                 break;
             case 3: //≥√¿Â∞Ì ¿Á∑· ≤®≥ª±‚
@@ -103,7 +109,8 @@ public class TutorialRestaurantController : TutorialController
         switch (ActionNum)
         {
             case 0: //¡∂∏Æ¥Î∑Œ ¿Ãµø
-
+                CookPosition[0].SetActive(true);
+                CookPosition[12].SetActive(true);
                 break;
             case 1: //πÕº≠±‚ º≥ƒ°
 

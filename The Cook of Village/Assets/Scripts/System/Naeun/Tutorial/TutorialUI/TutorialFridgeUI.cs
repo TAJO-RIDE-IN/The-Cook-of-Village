@@ -16,6 +16,7 @@ public class TutorialFridgeUI : TutorialDetailsUI
                 ClickBlock.SetActive(true);
                 Controller.NextDialogue();
                 EventButton[index].interactable = true;
+                EventButton[index].onClick.RemoveListener(() => NextEvent(index));
                 break;
         }
     }
