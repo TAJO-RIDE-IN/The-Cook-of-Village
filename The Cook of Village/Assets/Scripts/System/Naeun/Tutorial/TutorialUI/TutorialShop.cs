@@ -15,7 +15,7 @@ public class TutorialShop : TutorialDetailsUI
         EventSlider.onValueChanged.AddListener(SliderChange);
         Resell.interactable = false;
     }
-    protected override void ControlClickBlock(int index)
+    protected override void AddEvent(int index)
     {
         ClickBlock.SetActive(!index.Equals(0));
     }
