@@ -16,7 +16,10 @@ public class InputManager : MonoBehaviour
         {
             if(UIManager.UIObject.Count == 0)
             {
-                pauseUI.PauseUIState(true);
+                if (!FurniturePooling.Instance.furnitureInstallMode.isActive)
+                {
+                    pauseUI.PauseUIState(true);
+                }
             }
             else
             {

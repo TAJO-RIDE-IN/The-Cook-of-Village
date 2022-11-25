@@ -23,7 +23,7 @@ public class FurnitureInstallMode : InstallMode
     public List<Warning> warnings = new List<Warning>();
     public float chairTableDis;
     public GameObject[] noticeUI;
-    
+    public bool isActive;
 
     private bool gridOn;
     private GameObject pendingObject;
@@ -39,7 +39,8 @@ public class FurnitureInstallMode : InstallMode
     private float secondDis;
     private int selectedIndex;
     private GameObject objectToInstall;
-    public GameObject objectToDelete;
+    private GameObject beforObjectToDelete;
+    private GameObject objectToDelete;
     private int uiValue;
     private Vector3 pos;
     private RaycastHit hit;
@@ -97,6 +98,7 @@ public class FurnitureInstallMode : InstallMode
             {
                 uiValue--;
                 Cancel();
+                isActive = false;
             }
             if (Input.GetMouseButtonDown(0))
             {
@@ -120,6 +122,11 @@ public class FurnitureInstallMode : InstallMode
 
                     }
                 }
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                FinishDelete();
+                isActive = false;
             }
         }
     }
@@ -157,20 +164,29 @@ public class FurnitureInstallMode : InstallMode
             if (Physics.Raycast(ray, out hit, 1000, deleteLayer))
             {
                 objectToDelete = hit.transform.gameObject;
+                if (beforObjectToDelete != null)
+                {
+                    if (objectToDelete != beforObjectToDelete)
+                    {
+                        beforObjectToDelete.transform.localScale = new Vector3(1f, 1f, 1f);
+                    }
+                }
+                beforObjectToDelete = objectToDelete;
+                objectToDelete.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
                 return;
+            }
+            else
+            {
+                if (objectToDelete != null)
+                {
+                    objectToDelete.transform.localScale = new Vector3(1f, 1f, 1f);
+                    objectToDelete = null;
+                }
+                
             }
         }
     }
 
-    public void StartDelete()
-    {
-        isDelete = true;
-    }
-
-    public void FinishDelete()
-    {
-        isDelete = false;
-    }
 
     private bool ChairNameCheck(String name)
     {
@@ -206,14 +222,7 @@ public class FurnitureInstallMode : InstallMode
             tableChairs[selectedIndex].tablePos.y, tableChairs[selectedIndex].tablePos.z));
     }
 
-    private void Cancel()
-    {
-        FurniturePooling.Instance.ReturnObject(pendingObject, currentObjectName);
-        noticeUI[0].SetActive(false);
-        _itemInfos.Amount++;
-        pendingObject = null;
-    }
-
+    
     public void UseFurniture(ItemInfos infos)
     {
         _itemInfos = infos;
@@ -227,6 +236,7 @@ public class FurnitureInstallMode : InstallMode
                     uiValue++;
                     pendingObject = FurniturePooling.Instance.GetObject(infos.Name);
                     noticeUI[0].SetActive(true);
+                    isActive = true;
                     return;
                 }
             }
@@ -237,6 +247,7 @@ public class FurnitureInstallMode : InstallMode
         uiValue++;
         noticeUI[0].SetActive(true);
         currentObjectName = infos.Name;
+        isActive = true;
         pendingObject = FurniturePooling.Instance.GetObject(infos.Name);
     }
 
@@ -248,10 +259,13 @@ public class FurnitureInstallMode : InstallMode
             currentData = new TableChair();
             currentData.tablePos = pendingObject.transform.position;
             tableChairs.Add(currentData);
-            pendingObject = null;
+            pendingObject.layer = 10;
             noticeUI[0].SetActive(false);
             gameData.ChangeFame(3);
             InstallData.Instance.PassVector3Data(InstallData.SortOfInstall.Table,currentData.tablePos);
+            pendingObject = null;
+            _installedData = _furniturePooling.FindInstallPoolData(name);
+            _installedData.pooledObjects.Add(pendingObject);
             return;
         }
 
@@ -259,11 +273,14 @@ public class FurnitureInstallMode : InstallMode
         {
             if (secondDis < 1.5f && secondDis > 0.8f)
             {
+                pendingObject.layer = 10;
                 tableChairs[selectedIndex].chairCount++;
                 gameData.ChangeFame(5);
                 InstallData.Instance.PassVector3Data(InstallData.SortOfInstall.Chair,pendingObject.transform.position, currentObjectName, selectedIndex);
-                pendingObject = null;
                 noticeUI[0].SetActive(false);
+                _installedData = _furniturePooling.FindInstallPoolData(name);
+                _installedData.pooledObjects.Add(pendingObject);
+                pendingObject = null;
                 return;
             }
             else
@@ -272,6 +289,9 @@ public class FurnitureInstallMode : InstallMode
                 return;
             }
         }
+        _installedData = _furniturePooling.FindInstallPoolData(name);
+        _installedData.pooledObjects.Add(pendingObject);
+        pendingObject.layer = 10;
         gameData.ChangeFame(20);
         InstallData.Instance.PassVecRotData(InstallData.SortOfInstall.Furnitue, pendingObject.transform.position,
             pendingObject.transform.localEulerAngles, currentObjectName);
@@ -281,18 +301,7 @@ public class FurnitureInstallMode : InstallMode
     }
 
 
-    public IEnumerator TextFade(GameObject box, Text text)
-    {
-        box.SetActive(true);
-        text.color = new Color(text.color.r, text.color.g, text.color.b, 1f);
-        while (text.color.a > 0.0f)
-        {
-            text.color = new Color(text.color.r, text.color.g, text.color.b, text.color.a - (Time.deltaTime / 3.0f));
-            yield return null;
-        }
-        box.SetActive(false);
-    }
-
+    
     private void GetAndTransform(Transform trans, String name)
     {
         _installedData = _furniturePooling.FindInstallPoolData(name);
@@ -326,9 +335,38 @@ public class FurnitureInstallMode : InstallMode
         }
     }
 
-    private void ChairInstallation(Vector3 vector3, string name, int tableNumber)
+    public void StartDelete()
     {
-        
+        noticeUI[1].SetActive(true);
+        isDelete = true;
+        isActive = true;
     }
+
+    public void FinishDelete()
+    {
+        noticeUI[1].SetActive(false);
+        isDelete = false;
+        isActive = false;
+    }
+    public IEnumerator TextFade(GameObject box, Text text)
+    {
+        box.SetActive(true);
+        text.color = new Color(text.color.r, text.color.g, text.color.b, 1f);
+        while (text.color.a > 0.0f)
+        {
+            text.color = new Color(text.color.r, text.color.g, text.color.b, text.color.a - (Time.deltaTime / 3.0f));
+            yield return null;
+        }
+        box.SetActive(false);
+    }
+    private void Cancel()
+    {
+        FurniturePooling.Instance.ReturnObject(pendingObject, currentObjectName);
+        noticeUI[0].SetActive(false);
+        _itemInfos.Amount++;
+        pendingObject = null;
+    }
+
+
     
 }

@@ -9,8 +9,6 @@ using System;
      public String name;
      public List<GameObject> pooledObjects = new List<GameObject>();
  }
-
-
 public class FurniturePooling : MultipleObjectPoolingNo
 {
     private int index;

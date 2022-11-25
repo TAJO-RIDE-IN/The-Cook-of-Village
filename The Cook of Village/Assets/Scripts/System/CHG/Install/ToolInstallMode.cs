@@ -204,32 +204,35 @@ public class ToolInstallMode : InstallMode
     }
     public override void GoInstall()//UI만 꺼주기
     {
-        foreach (var index in receivedPositionList)
+        if (receivedPositionList.Count > 0)
         {
-            if (! isUsed[index])
+            foreach (var index in receivedPositionList)
             {
-                isUsed[index] = true;
-                ToolPooling.Instance.SelectedPositionIndex = index;
-                GetAndPosition(index, ToolPooling.Instance.SelectedToolName);
-                InstallData.Instance.PassIndexData(index, ToolPooling.Instance.SelectedToolName, InstallData.SortOfInstall.Tool);
-                ToolPooling.Instance.pooledObject[index].index = index;
+                if (! isUsed[index])
+                {
+                    isUsed[index] = true;
+                    ToolPooling.Instance.SelectedPositionIndex = index;
+                    GetAndPosition(index, ToolPooling.Instance.SelectedToolName);
+                    InstallData.Instance.PassIndexData(index, ToolPooling.Instance.SelectedToolName, InstallData.SortOfInstall.Tool);
+                    ToolPooling.Instance.pooledObject[index].index = index;
+                    PositionCollider[index].SetActive(false);
+                }
             }
-        }
-        for (int i = 0; i < installableToolCount; i++)
-        {
-            toolPositionUI[i].SetActive(false);
-        }
+            for (int i = 0; i < installableToolCount -1; i++)
+            {
+                toolPositionUI[i].SetActive(false);
+            }
 
-        ItemData.Instance.ChangeAmount(ToolPooling.Instance.selectedItemInfos.ID,
-            ToolPooling.Instance.selectedItemInfos.Amount - (selectedToolAmount - 1));//나은이 함수에서 한번 빼줘서
-        toolItemInfosAmount = 0;
-        selectedToolAmount = 0;
-        cancelInstallUI.SetActive(false);
-        goInstallUI.SetActive(false);
-        isDirectChange = false;
-        GameManager.Instance.IsInstall = false;
-        receivedPositionList.Clear();
-        //GameManager.Instance.Pause();
+            ItemData.Instance.ChangeAmount(ToolPooling.Instance.selectedItemInfos.ID,
+                ToolPooling.Instance.selectedItemInfos.Amount - (selectedToolAmount - 1));//나은이 함수에서 한번 빼줘서
+            toolItemInfosAmount = 0;
+            selectedToolAmount = 0;
+            cancelInstallUI.SetActive(false);
+            goInstallUI.SetActive(false);
+            isDirectChange = false;
+            GameManager.Instance.IsInstall = false;
+            receivedPositionList.Clear();
+        }
     }
 
     

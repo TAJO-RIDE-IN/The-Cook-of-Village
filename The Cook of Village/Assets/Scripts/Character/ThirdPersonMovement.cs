@@ -17,7 +17,7 @@ public class ThirdPersonMovement : MonoBehaviour
     private SoundManager soundManager;
 
     private bool isWalkSound;
-    private bool isCanWalk;
+    private bool isCanWalk = true;
 
     private String walkSound;
 
@@ -35,30 +35,33 @@ public class ThirdPersonMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertival = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertival).normalized;
+        if (isCanWalk)
+        {
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertival = Input.GetAxisRaw("Vertical");
+            Vector3 direction = new Vector3(horizontal, 0f, vertival).normalized;
 
-        if (direction.magnitude >= 0.1f)
-        {
-            charAnimator.SetBool("isWalk", true);
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
-                turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.SimpleMove(moveDir.normalized * speed * Time.deltaTime);
-            if (!isWalkSound)
+            if (direction.magnitude >= 0.1f)
             {
-                soundManager.PlayEffect3D(soundManager._audioClips["CookWalk"], gameObject, true);
-                isWalkSound = true;
+                charAnimator.SetBool("isWalk", true);
+                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
+                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
+                    turnSmoothTime);
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+                controller.SimpleMove(moveDir.normalized * speed * Time.deltaTime);
+                if (!isWalkSound)
+                {
+                    soundManager.PlayEffect3D(soundManager._audioClips["CookWalk"], gameObject, true);
+                    isWalkSound = true;
+                }
             }
-        }
-        else
-        {
-            charAnimator.SetBool("isWalk", false);
-            soundManager.StopEffect3D(gameObject);
-            isWalkSound = false;
+            else
+            {
+                charAnimator.SetBool("isWalk", false);
+                soundManager.StopEffect3D(gameObject);
+                isWalkSound = false;
+            }
         }
     }
     public void StopWalking()

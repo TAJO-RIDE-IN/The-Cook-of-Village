@@ -68,7 +68,6 @@ public class CookPosition : MonoBehaviour
 
     private void FadeInFadeOut()
     {
-
         LeanTween.color(ovenObject, new Color(1, 1, 1, 0.2f), 1)
             .setOnComplete(() => LeanTween.color(ovenObject, Color.clear, 1));
     }
