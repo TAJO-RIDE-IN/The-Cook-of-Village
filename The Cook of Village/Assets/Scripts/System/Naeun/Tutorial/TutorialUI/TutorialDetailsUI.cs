@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public abstract class TutorialDetailsUI : MonoBehaviour
@@ -10,7 +12,7 @@ public abstract class TutorialDetailsUI : MonoBehaviour
     public Button[] EventButton;
     public GameObject ClickBlock;
     public TutorialController Controller;
-
+    private int ActionNum;
     public void Start()
     {
         if (GameManager.Instance.gameMode.Equals(GameManager.GameMode.Tutorial))
@@ -21,6 +23,7 @@ public abstract class TutorialDetailsUI : MonoBehaviour
     }
     private void Init()
     {
+        ActionNum = 0;
         foreach (var button in UIButton)
         {
             button.interactable = false;
@@ -34,7 +37,7 @@ public abstract class TutorialDetailsUI : MonoBehaviour
             int index = i;
             if (EventButton[i] != null)
             {
-                EventButton[i].onClick.AddListener(() => NextEvent(index));
+                EventButton[i].onClick.AddListener(NextEvent);
             }
         }
         ClickBlock.SetActive(true);
@@ -49,24 +52,26 @@ public abstract class TutorialDetailsUI : MonoBehaviour
         UIManager.UIScalePingPongAnimation(ClickImage[index], new Vector3(1.3f, 1.3f, 1.3f), 0.5f);
     }
     protected abstract void EndEvent();
-    protected void NextEvent(int index) //다음 클릭 이미지 활성화
+    protected void NextEvent() //다음 클릭 이미지 활성화
     {
-        if (index.Equals(ClickImage.Count - 1)) //exit버튼 누를경우 다음 대사
+        if (ActionNum.Equals(ClickImage.Count - 1)) //exit버튼 누를경우 다음 대사
         {
             EndEvent();
             return;
         }
-        ClickImage[index].SetActive(false); //이전 이미지, 버튼 비활성화
-        ClickImage[index + 1].SetActive(true); //다음 이미지, 버튼 활성화
-        ClickAnimation(index + 1);
-        if (EventButton[index] != null)
+        ClickImage[ActionNum].SetActive(false); //이전 이미지, 버튼 비활성화
+        ClickImage[ActionNum + 1].SetActive(true); //다음 이미지, 버튼 활성화
+        ClickAnimation(ActionNum + 1);
+        if (EventButton[ActionNum] != null)
         {
-            EventButton[index].interactable = false;
+            EventButton[ActionNum].interactable = false;
+            EventButton[ActionNum].onClick.RemoveListener(NextEvent);
         }
-        if (EventButton[index + 1] != null)
+        if (EventButton[ActionNum + 1] != null)
         {
-            EventButton[index + 1].interactable = true;
+            EventButton[ActionNum + 1].interactable = true;
         }
-        AddEvent(index);
+        AddEvent(ActionNum);
+        ActionNum++;
     }
 }

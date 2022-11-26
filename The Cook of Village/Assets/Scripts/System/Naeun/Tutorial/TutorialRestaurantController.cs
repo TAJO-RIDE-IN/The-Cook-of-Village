@@ -95,10 +95,10 @@ public class TutorialRestaurantController : TutorialController
                 ObjectCollider[3].enabled = true;
                 break;
             case 1: //≥√¿Â∞Ì µµ¬¯
-                RestaurantDestination[0].gameObject.SetActive(false);
-                ObjectCollider[3].enabled = false;
+                RestaurantDestination[0].gameObject.SetActive(false);             
                 break;
             case 3: //≥√¿Â∞Ì ¿Á∑· ≤®≥ª±‚
+                ObjectCollider[3].enabled = false;
                 PlayerCook.isFridgeCollider = false;
                 break;
         }
@@ -110,7 +110,7 @@ public class TutorialRestaurantController : TutorialController
         {
             case 0: //¡∂∏Æ¥Î∑Œ ¿Ãµø
                 CookPosition[0].SetActive(true);
-                CookPosition[12].SetActive(true);
+                RestaurantDestination[1].SetActive(true);
                 break;
             case 1: //πÕº≠±‚ º≥ƒ°
 
