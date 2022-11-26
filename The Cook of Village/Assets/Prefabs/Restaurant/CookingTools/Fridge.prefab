@@ -30,7 +30,7 @@ Transform:
   - {fileID: 7624092696572723790}
   m_Father: {fileID: 6878373398724012035}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 90, z: 90}
 --- !u!1 &4642742291731007094
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 2914705143199196363}
   - component: {fileID: 6319997144347309314}
   - component: {fileID: 8443036372265219482}
-  - component: {fileID: 8151853540770326812}
+  - component: {fileID: 8125631285283023253}
   m_Layer: 0
   m_Name: PROP_fridge
   m_TagString: Fridge
@@ -299,22 +299,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FridgeUI: {fileID: 1976810947272809443, guid: e8d7afab64dcb814d900a008307ef3e7, type: 3}
---- !u!95 &8151853540770326812
-Animator:
-  serializedVersion: 3
+--- !u!111 &8125631285283023253
+Animation:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6070628569321616057}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1cc5b96b0a121044a86cf61a41df164a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: baee5daafc3dc814fbaab9beaf777344, type: 2}
+  - {fileID: 7400000, guid: 8e7d67fbe8559024ba0e3195921dfe9a, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 1
