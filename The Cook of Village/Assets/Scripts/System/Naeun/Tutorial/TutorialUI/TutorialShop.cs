@@ -21,7 +21,7 @@ public class TutorialShop : TutorialDetailsUI
     }
     private void SliderChange(float _value) //Slider 값 바뀐경우 다음 이벤트
     {
-        NextEvent(1);
+        NextEvent();
         EventSlider.onValueChanged.RemoveListener(SliderChange); //한번 이벤트 실행한 후 삭제
     }
     protected override void EndEvent()
