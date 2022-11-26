@@ -9,9 +9,7 @@ public class Fridge : MonoBehaviour
 {
     public FridgeUI FridgeUI;
     private Animation frigdeAnimation;
-
-    private bool isUsing;
-    
+    public bool isUsing;
 
     private void Start()
     {
@@ -32,25 +30,17 @@ public class Fridge : MonoBehaviour
     {
         if (state)
         {
-            isUsing = true;
-            FridgeAnimaion(state);
-            FridgeUI.FridgeUIState(state);
             FridgeUI.fridge = this;
-            string open = (state) ? " Open" : " Close";
-            SoundManager.Instance.Play(SoundManager.Instance._audioClips["Refrigerator" + open]);
         }
-        else
-        {
-            if (isUsing)
-            {
-                isUsing = false;
-                FridgeAnimaion(state);
-                FridgeUI.FridgeUIState(state);
-                FridgeUI.fridge = this;
-                string open = (state) ? " Open" : " Close";
-                SoundManager.Instance.Play(SoundManager.Instance._audioClips["Refrigerator" + open]);
-            }
-        }
-        
+        FridgeUI.FridgeUIState(state);
+        ChangeState(state);
+    }
+    public void ChangeState(bool state)
+    {
+        isUsing = state;
+        FridgeAnimaion(state);
+        string open = (state) ? " Open" : " Close";
+        SoundManager.Instance.Play(SoundManager.Instance._audioClips["Refrigerator" + open]);
+        Debug.Log(isUsing);
     }
 }

@@ -26,9 +26,13 @@ public class CameraMovement : MonoBehaviour
     private Vector3 rightDirection;
     private float preAngle;
     private float preOuterDown;
+    public Transform cameraTrans;
 
+    private float rotationY;
+    private float characterY;
     private bool isAngle = true;
     private bool isLocked;
+    public Transform characterTrans;
     
     private void Start()
     {
@@ -36,19 +40,36 @@ public class CameraMovement : MonoBehaviour
         upDirection = Vector3.forward;
         rightDirection = Vector3.right;//이거
         _gameManager = GameManager.Instance;
+        characterTrans = GameObject.FindWithTag("Player").transform;
 
+    }
+
+    public void sdfef()
+    {
+        
     }
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Y))
         {
-            if (!isLocked)
+            if (!isLocked)//캐릭터로 이동
             {
-
+                cameraPosition.transform.position = characterTrans.position;
+                /*characterY = characterTrans.localEulerAngles.y;
+                characterTrans.localEulerAngles = new Vector3(0, cameraTrans.localEulerAngles.y, 0);*/
+                rotationY = cameraPosition.transform.localEulerAngles.y;
+                Debug.Log(rotationY);
+                cinemachine.Follow = characterTrans;
+                cinemachine.LookAt = characterTrans;
                 isLocked = true;
             }
-            else
-            {
+            else//카메라 포지션으로 이동
+            {   
+                cameraPosition.transform.position = characterTrans.position;
+                cameraTrans.localEulerAngles = new Vector3(0, rotationY, 0);
+                Debug.Log(rotationY);
+                cinemachine.Follow = cameraPosition.transform;
+                cinemachine.LookAt = cameraPosition.transform;
                 isLocked = false;
             }
         }
