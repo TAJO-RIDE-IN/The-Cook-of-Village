@@ -178,7 +178,7 @@ public class ToolInstallMode : InstallMode
         isDirectChange = false;
     }
 
-    private void DirectUICloseSetting()
+    public void DirectUICloseSetting()
     {
         _cookingCharacter._cookPosition.isDirect = true;
         _cookingCharacter._cookPosition.CloseUI(0.5f);
@@ -188,7 +188,7 @@ public class ToolInstallMode : InstallMode
     /// <summary>
     /// InventoryBig 켜지게 하고 isSpace도 true로 해줘서 스페이스바 누르면 바로 UI 꺼지도록
     /// </summary>
-    private void DirectUIOpenSetting()
+    public void DirectUIOpenSetting()
     {
         _cookingCharacter._cookingTool = toolPooling.pooledObject[ToolPooling.Instance.indexToChange];
         _cookingCharacter.isToolCollider = true;

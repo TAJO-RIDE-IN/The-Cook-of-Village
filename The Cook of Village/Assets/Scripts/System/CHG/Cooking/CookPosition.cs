@@ -17,7 +17,6 @@ public class CookPosition : MonoBehaviour
     
     private ToolPooling _toolPooling;
     private ChefInventory _chefInventory;
-    private int fadeCount = 5;
 
     private void Start()
     {
@@ -58,6 +57,7 @@ public class CookPosition : MonoBehaviour
 
     public void OpenUI(float time)
     {
+        CookPositionUI.SetActive(true);
         CookPositionUI.LeanScale(Vector3.one, time).setEaseOutElastic();
         if (index == 6)//오븐이면 깜빡이는것
         {
@@ -77,11 +77,17 @@ public class CookPosition : MonoBehaviour
     {
         if (isDirect)
         {
-            CookPositionUI.LeanScale(Vector2.zero, time).setEaseInBack().setOnComplete(() =>
-                _chefInventory._cookingCharacter._cookingTool.OpenUI(0.5f));
+            CookPositionUI.LeanScale(Vector2.zero, time).setEaseInBack().setOnComplete(() => AfterClose());
             isDirect = false;
+            return;
         }
         CookPositionUI.LeanScale(Vector2.zero, time).setEaseInBack();
+    }
+
+    private void AfterClose()
+    {
+        CookPositionUI.SetActive(false);
+        _chefInventory._cookingCharacter._cookingTool.OpenUI(0.5f);
     }
     public IEnumerator TextFade(GameObject box, Text text)
         {

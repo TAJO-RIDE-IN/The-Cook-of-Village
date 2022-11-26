@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 
 public class ThirdPersonMovement : MonoBehaviour
@@ -11,6 +12,9 @@ public class ThirdPersonMovement : MonoBehaviour
     public CharacterController controller;
     public float speed = 80f;
     public float originSpeed = 80f;
+    public GameObject cameraPosition;
+
+    public bool isLocked;
     private float turnSmoothTime = 0.1f;
     private float turnSmoothVelocity;
 
@@ -58,6 +62,11 @@ public class ThirdPersonMovement : MonoBehaviour
                     soundManager.PlayEffect3D(soundManager._audioClips["CookWalk"], gameObject, true);
                     isWalkSound = true;
                 }
+
+                if (isLocked)
+                {
+                    cameraPosition.transform.position = transform.position;
+                }
             }
             else
             {
@@ -69,12 +78,12 @@ public class ThirdPersonMovement : MonoBehaviour
     }
     public void StopWalking()
     {
-        isCanWalk = true;
+        isCanWalk = false;
         charAnimator.SetBool("isWalk", false);
     }
     public void StartWalking()
     {
-        isCanWalk = false;
+        isCanWalk = true;
     }
 
 

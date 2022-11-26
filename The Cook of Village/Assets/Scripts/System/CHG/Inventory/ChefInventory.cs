@@ -207,12 +207,9 @@ public class ChefInventory : MonoBehaviour
                         {
                             toolPooling.toolInstallMode.GetAndPosition(
                                 _cookingCharacter._cookPosition.index, "Plate");
-                            
-                            _cookingCharacter._cookPosition.CloseUI(0);
-                            
-                            toolPooling.pooledObject[_cookingCharacter._cookPosition.index].OpenUI(1);
                             ChangeInventoryEmpty(i);
-                            _cookingCharacter.isCookPositionCollider = false;
+                            toolPooling.toolInstallMode.DirectUICloseSetting();
+                            toolPooling.toolInstallMode.DirectUIOpenSetting();
                             return;
                         }
                     }
