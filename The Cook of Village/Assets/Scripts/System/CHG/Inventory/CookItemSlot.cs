@@ -13,10 +13,20 @@ public class CookItemSlot : ItemSlot
 
     public bool isUsed = false;
     public int ingridientId;
+
+    private SoundManager _soundManager;
+
+    private ChefInventory _chefInventory;
     // Start is called before the first frame update
     private void Awake()
     {
         slotUI = transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();
+    }
+
+    private void Start()
+    {
+        _soundManager = SoundManager.Instance;
+        _chefInventory = ChefInventory.Instance;
     }
 
 
@@ -27,10 +37,10 @@ public class CookItemSlot : ItemSlot
 
     public void ReturnTrash()
     {
-        if (ChefInventory.Instance._cookingCharacter.trash.trashEdibleItems[index]._itemType ==
-            ChefInventory.EdibleItem.ItemType.Ingredient)
+        if ( _chefInventory._cookingCharacter.trash.trashEdibleItems[index]._itemType ==
+             ChefInventory.EdibleItem.ItemType.Ingredient)
         {
-            if (ChefInventory.Instance.AddIngredient(ChefInventory.Instance._cookingCharacter.trash
+            if ( _chefInventory.AddIngredient(ChefInventory.Instance._cookingCharacter.trash
                 .trashEdibleItems[index]._ingredientsInfos))
             {
                 isUsed = false;
@@ -38,12 +48,12 @@ public class CookItemSlot : ItemSlot
             }
             else
             {
-                ChefInventory.Instance.chefSlotManager.ShowWarning();
+                _chefInventory.chefSlotManager.ShowWarning();
             }
         }
         else
         {
-            if (ChefInventory.Instance.AddFood(ChefInventory.Instance._cookingCharacter.trash
+            if ( _chefInventory.AddFood(ChefInventory.Instance._cookingCharacter.trash
                 .trashEdibleItems[index]._foodInfos))
             {
                 isUsed = false;
@@ -51,7 +61,7 @@ public class CookItemSlot : ItemSlot
             }
             else
             {
-                ChefInventory.Instance.chefSlotManager.ShowWarning();
+                _chefInventory.chefSlotManager.ShowWarning();
             }
         }
         
@@ -60,6 +70,7 @@ public class CookItemSlot : ItemSlot
     public void ThrowTrash()
     {
         itemSlotManager.RefreshSlot();
+        _soundManager.Play(_soundManager._audioClips["Garbage Can"]);
     }
 
     public void FoodSlotClick()
@@ -69,11 +80,12 @@ public class CookItemSlot : ItemSlot
         if (itemSlotManager.cookingTool.isCooked)
         {
             //Debug.Log("요리 완료");
-            if (ChefInventory.Instance.AddFood(itemSlotManager.cookingTool.FoodInfos))
+            if ( _chefInventory.AddFood(itemSlotManager.cookingTool.FoodInfos))
             {
                 //itemSlotManager.cookingTool.toolBeforeCook
                 //Debug.Log("요리 추가 완료");
                 ChangeSlotUI(itemSlotManager.cookingTool.toolBeforeCook);
+                _soundManager.Play(_soundManager._audioClips["Plate"]);
                 itemSlotManager.cookingTool.RemoveFood();
             }
             return;
