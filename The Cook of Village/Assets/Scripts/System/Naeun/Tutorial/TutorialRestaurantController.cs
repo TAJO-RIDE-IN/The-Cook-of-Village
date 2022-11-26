@@ -43,7 +43,7 @@ public class TutorialRestaurantController : TutorialController
         {
             cook.SetActive(false);
         }
-        //Player.StopMoving();
+        Player.StopWalking();
         npcPooling.enabled = false;
         gameManager.TutorialUI = true;
         VillageParticle.SetActive(false);
@@ -81,6 +81,7 @@ public class TutorialRestaurantController : TutorialController
                 tutorialNPCController.enabled = true;
                 break;
             case 1: //손님 주문 대기
+                Player.StartWalking();
                 tutorialNPCController.enabled = false;
                 break;
         }
@@ -91,15 +92,16 @@ public class TutorialRestaurantController : TutorialController
         switch (ActionNum)
         {
             case 0: //냉장고로 이동
+                Player.StartWalking();
                 RestaurantDestination[0].SetActive(true);
                 ObjectCollider[3].enabled = true;
                 break;
             case 1: //냉장고 도착
+                Player.StopWalking();
                 RestaurantDestination[0].gameObject.SetActive(false);             
                 break;
             case 3: //냉장고 재료 꺼내기
                 ObjectCollider[3].enabled = false;
-                PlayerCook.isFridgeCollider = false;
                 break;
         }
         ActionNum++;
@@ -109,21 +111,46 @@ public class TutorialRestaurantController : TutorialController
         switch (ActionNum)
         {
             case 0: //조리대로 이동
+                Player.StartWalking();
                 CookPosition[0].SetActive(true);
                 RestaurantDestination[1].SetActive(true);
                 break;
-            case 1: //믹서기 설치
-
-                break;
-            case 2: //믹서기에 레몬 넣기
-
+            case 1: //조리대 도착, 믹서기 설치
+                Player.StopWalking();
                 break;
         }
         ActionNum++;
     }
-    public void PlayAction()
+    private Dictionary<string, bool> PlayerColliderBool = new Dictionary<string, bool>();
+
+    public override void PlayerControl(bool state, string name)
     {
-        CurrentAction[dialogueManager.CurrentSentencesName]();
+        switch (name)
+        {
+            case "Fridge":
+                PlayerCook.isFridgeCollider = state;
+                break;
+            case "Tool":
+                PlayerCook.isToolCollider = state;
+                break;
+            case "CookPosition":
+                PlayerCook.isCookPositionCollider = state;
+                break;
+            case "Guest":
+                PlayerCook.isGuestCollider = state;
+                break;
+        }
+    }
+    public override void PlayAction(bool state)
+    {
+        if(state)
+        {
+            CurrentAction[dialogueManager.CurrentSentencesName]();
+        }
+        else
+        {
+            Player.StopWalking();
+        }
     }
     public override void EndEvent()
     {

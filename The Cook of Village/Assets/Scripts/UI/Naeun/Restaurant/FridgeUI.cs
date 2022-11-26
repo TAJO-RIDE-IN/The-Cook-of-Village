@@ -14,6 +14,10 @@ public class FridgeUI : UIController
         itemdata = ItemData.Instance;
         ingredients = itemdata.IngredientList();
     }
+    protected override void Disable()
+    {
+        FridgeUIState(false);
+    }
     public void LoadSlotData()
     {
         foreach (var Infos in ingredients.Select((value, index) => (value, index)))
@@ -45,7 +49,7 @@ public class FridgeUI : UIController
         {
             if (fridge != null)
             {
-                fridge.GetComponent<Fridge>().FridgeAnimaion(false);
+                fridge.ChangeState(false);
             }
         }
     }

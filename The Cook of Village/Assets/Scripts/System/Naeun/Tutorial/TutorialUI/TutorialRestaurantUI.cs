@@ -14,8 +14,8 @@ public class TutorialRestaurantUI : TutorialUI
         }
         //CallDialogue(NextDialogue[dialogueManager.CurrentSentencesName]);
     }
-    protected override void Action()
+    protected override void Action(bool state)
     {
-        tutorialController.PlayAction();
+        tutorialController.PlayAction(state);
     }
 }

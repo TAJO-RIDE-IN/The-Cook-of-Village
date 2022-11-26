@@ -17,7 +17,7 @@ public abstract class TutorialDetailsUI : MonoBehaviour
     {
         if (GameManager.Instance.gameMode.Equals(GameManager.GameMode.Tutorial))
         {
-            Controller.NextDialogue();
+            Controller = GameObject.FindGameObjectWithTag("TutorialController").GetComponent<TutorialController>();
             Init();
         }
     }
@@ -34,13 +34,15 @@ public abstract class TutorialDetailsUI : MonoBehaviour
         }
         for (int i = 0; i < EventButton.Length; i++) //클릭 이벤트 할당
         {
-            int index = i;
             if (EventButton[i] != null)
             {
                 EventButton[i].onClick.AddListener(NextEvent);
             }
         }
-        ClickBlock.SetActive(true);
+        if (ClickBlock != null)
+        {
+            ClickBlock.SetActive(true);
+        }
         ClickImage[0].SetActive(true);
         ClickAnimation(0);
         AddInit();
@@ -61,7 +63,6 @@ public abstract class TutorialDetailsUI : MonoBehaviour
         }
         ClickImage[ActionNum].SetActive(false); //이전 이미지, 버튼 비활성화
         ClickImage[ActionNum + 1].SetActive(true); //다음 이미지, 버튼 활성화
-        ClickAnimation(ActionNum + 1);
         if (EventButton[ActionNum] != null)
         {
             EventButton[ActionNum].interactable = false;
@@ -71,6 +72,7 @@ public abstract class TutorialDetailsUI : MonoBehaviour
         {
             EventButton[ActionNum + 1].interactable = true;
         }
+        ClickAnimation(ActionNum + 1);
         AddEvent(ActionNum);
         ActionNum++;
     }

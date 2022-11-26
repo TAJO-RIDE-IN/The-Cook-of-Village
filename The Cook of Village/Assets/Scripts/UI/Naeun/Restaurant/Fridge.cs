@@ -9,13 +9,13 @@ public class Fridge : MonoBehaviour
 {
     public FridgeUI FridgeUI;
     private Animation frigdeAnimation;
-
-    private bool isUsing;
-    
+    private SoundManager soundManager;
+    public bool isUsing;
 
     private void Start()
     {
         frigdeAnimation = transform.GetComponent<Animation>();
+        soundManager = SoundManager.Instance;
     }
 
     public void FridgeAnimaion(bool state)
@@ -32,25 +32,16 @@ public class Fridge : MonoBehaviour
     {
         if (state)
         {
-            isUsing = true;
-            FridgeAnimaion(state);
-            FridgeUI.FridgeUIState(state);
             FridgeUI.fridge = this;
-            string open = (state) ? " Open" : " Close";
-            SoundManager.Instance.Play(SoundManager.Instance._audioClips["Refrigerator" + open]);
         }
-        else
-        {
-            if (isUsing)
-            {
-                isUsing = false;
-                FridgeAnimaion(state);
-                FridgeUI.FridgeUIState(state);
-                FridgeUI.fridge = this;
-                string open = (state) ? " Open" : " Close";
-                SoundManager.Instance.Play(SoundManager.Instance._audioClips["Refrigerator" + open]);
-            }
-        }
-        
+        FridgeUI.FridgeUIState(state);
+        ChangeState(state);
+    }
+    public void ChangeState(bool state)
+    {
+        isUsing = state;
+        FridgeAnimaion(state);
+        string open = (state) ? " Open" : " Close";
+        soundManager.Play(soundManager._audioClips["Refrigerator" + open]);
     }
 }

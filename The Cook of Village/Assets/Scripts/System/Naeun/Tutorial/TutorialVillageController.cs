@@ -68,6 +68,17 @@ public class TutorialVillageController : TutorialController
         }
         ActionNum++;
     }
+    public override void PlayAction(bool state)
+    {
+        if (state)
+        {
+            PurchaseAction();
+        }
+        else
+        {
+            Player.StopWalking();
+        }
+    }
     public override void NextDialogue()
     {
         VillageTutorialUI.DialogueText();

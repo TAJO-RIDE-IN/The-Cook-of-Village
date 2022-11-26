@@ -16,7 +16,9 @@ public abstract class TutorialController : MonoBehaviour
             Init();
         }
     }
+    public virtual void PlayerControl(bool state, string name = "") { }
     public abstract void Init();
+    public abstract void PlayAction(bool state);
     public abstract void NextDialogue();
     public virtual void EndEvent() { }
 }
