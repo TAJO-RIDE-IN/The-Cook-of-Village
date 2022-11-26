@@ -12,7 +12,8 @@ public class MakeParent : MonoBehaviour
         {
             GameObject parentObject;
             parentObject = Instantiate(EmptyObject);
-            parentObject.AddComponent<BoxCollider>();
+            obj.AddComponent<MeshCollider>();
+            obj.GetComponent<MeshCollider>().convex = true;
             parentObject.name = obj.name;
             obj.transform.position = Vector3.zero;
             obj.transform.parent = parentObject.transform;
