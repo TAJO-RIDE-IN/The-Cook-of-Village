@@ -69,12 +69,12 @@ public class ThirdPersonMovement : MonoBehaviour
     }
     public void StopWalking()
     {
-        isCanWalk = true;
+        isCanWalk = false;
         charAnimator.SetBool("isWalk", false);
     }
     public void StartWalking()
     {
-        isCanWalk = false;
+        isCanWalk = true;
     }
 
 

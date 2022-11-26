@@ -18,7 +18,6 @@ public abstract class TutorialDetailsUI : MonoBehaviour
         if (GameManager.Instance.gameMode.Equals(GameManager.GameMode.Tutorial))
         {
             Controller = GameObject.FindGameObjectWithTag("TutorialController").GetComponent<TutorialController>();
-            Controller.NextDialogue();
             Init();
         }
     }

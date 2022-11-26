@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class TutorialFridgeUI : TutorialDetailsUI
 {
+    protected override void AddInit()
+    {
+        Controller.NextDialogue();
+        Controller.PlayerControl(false, "Fridge");
+    }
     protected override void AddEvent(int index)
     {
         switch (index)
@@ -15,6 +20,9 @@ public class TutorialFridgeUI : TutorialDetailsUI
             case 1:
                 ClickBlock.SetActive(true);
                 Controller.NextDialogue();
+                Controller.PlayerControl(true, "Fridge");
+                EventButton[index].onClick.Invoke();
+                Controller.PlayerControl(false, "Fridge");
                 EventButton[index].interactable = true;
                 EventButton[index-1].interactable = false;
                 break;

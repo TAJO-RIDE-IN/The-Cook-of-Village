@@ -2,18 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialInventoryUI : TutorialDetailsUI
+public class TutorialCookToolUI : TutorialDetailsUI
 {
     protected override void AddInit()
     {
-        Controller.NextDialogue();
+        Controller.PlayerControl(false, "CookPosition");
     }
     protected override void EndEvent()
     {
         Controller.NextDialogue();
-    }
-    private void OnDisable()
-    {
-        EndEvent();
     }
 }

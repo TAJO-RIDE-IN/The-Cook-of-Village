@@ -12,6 +12,7 @@ public class TutorialShop : TutorialDetailsUI
 
     protected override void AddInit()
     {
+        Controller.NextDialogue();
         EventSlider.onValueChanged.AddListener(SliderChange);
         Resell.interactable = false;
     }

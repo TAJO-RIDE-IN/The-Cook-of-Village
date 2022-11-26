@@ -15,11 +15,11 @@ public class TutorialVillageUI : TutorialUI
         }
     }
 
-    protected override void Action()
+    protected override void Action(bool state)
     {
         if (dialogueManager.CurrentSentencesName.Equals("Purchase"))
         {
-            TutorialController.PurchaseAction();
+            TutorialController.PlayAction(state);
             Key.SetActive(false);
         }
     }

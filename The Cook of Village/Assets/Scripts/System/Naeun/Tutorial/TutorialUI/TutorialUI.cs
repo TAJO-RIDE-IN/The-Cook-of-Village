@@ -43,15 +43,15 @@ public class TutorialUI : MonoBehaviour, IDialogue
         }
     }
     protected virtual void Disable() { }
-    private void ButtonState(bool QuestionState, bool Stay)
+    private void ButtonState(bool QuestionState, bool Stay, bool state)
     {
         bool NextButtonState = (QuestionState) ? false : !Stay;
         NextButton.gameObject.SetActive(NextButtonState);
         BackgroundImage.gameObject.SetActive(!Stay);
         ChoiceButton.SetActive(QuestionState);
-        CanNextSpace = NextButtonState && this.gameObject.activeSelf;
+        CanNextSpace = NextButtonState && state;
     }
-    protected virtual void Action(){ }
+    protected virtual void Action(bool state){ }
     public void CallDialogue(string name)
     {
         dialogueManager = DialogueManager.Instance;
@@ -62,12 +62,9 @@ public class TutorialUI : MonoBehaviour, IDialogue
     public void DialogueText(int answer = 0)
     {
         (string, bool, bool, bool) Dialogue = dialogueManager.Dialogue(answer);
-        ButtonState(Dialogue.Item2, Dialogue.Item4);
         dialogueManager.TypingEffet(SentenceText, Dialogue.Item1);
-        if (Dialogue.Item4)
-        {
-            Action();
-        }
+        ButtonState(Dialogue.Item2, Dialogue.Item4, !Dialogue.Item3);
+        Action(Dialogue.Item4);
         DialogueState(!Dialogue.Item3);
     }
 }
