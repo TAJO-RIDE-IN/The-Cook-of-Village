@@ -96,10 +96,13 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     private void EndOrder() //주문종료
     {
-        StopCoroutine(WaitingOrderCoroutine);
+        if(WaitingOrderCoroutine != null)
+        {
+            StopCoroutine(WaitingOrderCoroutine);
+        }
         NPCUI.SetActive(false);
         currentOrderUI.EndOrder(); //주문서
-        if(Receive == false)
+        if(!Receive)
         {
             guest.ChangeState(GuestNPC.State.StandUP);
             guest.ChangeState(GuestNPC.State.ChaseUP);

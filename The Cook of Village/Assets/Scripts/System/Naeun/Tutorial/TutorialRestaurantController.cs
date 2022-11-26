@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TutorialRestaurantController : TutorialController
 {
@@ -13,6 +14,7 @@ public class TutorialRestaurantController : TutorialController
     public ThirdPersonMovement Player;
     public CookingCharacter PlayerCook;
     public NPCPooling npcPooling;
+    public Button IngredientBox;
 
     [Header("Tutorial")]
     public GameObject[] RestaurantDestination;
@@ -23,7 +25,7 @@ public class TutorialRestaurantController : TutorialController
     private Dictionary<string, string> NextDialogueName = new Dictionary<string, string>()
     {
         {"Control", "Purchase"}, {"Purchase", "Restaurant"}, {"Restaurant", "Fridge"},
-        {"Fridge", "Cooking"}, {"Cooking", "Serving"}
+        {"Fridge", "Cooking"}, {"Cooking", "Serving"}, {"CharredFood", "Fridge"}
     };
     public override void Init()
     {
@@ -57,8 +59,8 @@ public class TutorialRestaurantController : TutorialController
         CurrentAction.Add("Restaurant", () => RestaurantAction());
         CurrentAction.Add("Fridge", () => FridgeAction());
         CurrentAction.Add("Cooking", () => CookingAction());
-        CurrentAction.Add("CharredFood", () => RestaurantAction());
-        CurrentAction.Add("Serving", () => RestaurantAction());
+        CurrentAction.Add("CharredFood", () => CharredFoodAcation());
+        CurrentAction.Add("Serving", () => ServingAcation());
     }
     private void ChangeData()
     {
@@ -68,6 +70,7 @@ public class TutorialRestaurantController : TutorialController
         foodData.foodTool[(int)FoodTool.Type.Blender].foodInfos[1].OrderProbability = 0;
         foodData.foodTool[(int)FoodTool.Type.Blender].foodInfos[2].OrderProbability = 0;
     }
+    #region Action
     /// <summary>
     /// Dialogue의 이름이 Restaurant인 경우 실행
     /// &(Action)이 있는 문장이 나올 경우 한 단계식 진행시킨다.
@@ -120,9 +123,39 @@ public class TutorialRestaurantController : TutorialController
                 break;
         }
         ActionNum++;
-    }
-    private Dictionary<string, bool> PlayerColliderBool = new Dictionary<string, bool>();
 
+    }
+    public void ServingAcation()
+    {
+        switch (ActionNum)
+        {
+            case 0: //손님에게 이동
+                Player.StartWalking();
+                RestaurantDestination[3].SetActive(true);
+                break;
+            case 1:
+                break;
+            case 2:
+                RestaurantDestination[4].SetActive(true);
+                break;
+        }
+        ActionNum++;
+    }
+    public void CharredFoodAcation()
+    {
+        switch (ActionNum)
+        {
+            case 0: //쓰레기통으로 이동
+                Player.StartWalking();
+                ObjectCollider[4].enabled = true;
+                RestaurantDestination[2].SetActive(true);
+                break;
+            case 1:
+                break;
+        }
+        ActionNum++;
+    }
+    #endregion
     public override void PlayerControl(bool state, string name)
     {
         switch (name)
@@ -156,6 +189,14 @@ public class TutorialRestaurantController : TutorialController
     {
         ActionNum = 0;
         tutorialRestaurantUI.CallDialogue(NextDialogueName[dialogueManager.CurrentSentencesName]);
+    }
+    /// <summary>
+    /// 음식이 탔을 경우 쓰레기통에 음식을 버림
+    /// </summary>
+    public void CookingAgain()
+    {
+        ActionNum = 0;
+        tutorialRestaurantUI.CallDialogue("CharredFood");
     }
     public override void NextDialogue()
     {

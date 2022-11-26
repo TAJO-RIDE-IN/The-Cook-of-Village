@@ -8,6 +8,7 @@ public class TutorialFridgeUI : TutorialDetailsUI
     {
         Controller.NextDialogue();
         Controller.PlayerControl(false, "Fridge");
+        EventButton[1] = RestaurantController.IngredientBox;
     }
     protected override void AddEvent(int index)
     {

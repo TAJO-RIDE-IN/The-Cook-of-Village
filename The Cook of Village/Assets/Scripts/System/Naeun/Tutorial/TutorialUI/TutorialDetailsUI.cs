@@ -12,18 +12,21 @@ public abstract class TutorialDetailsUI : MonoBehaviour
     public Button[] EventButton;
     public GameObject ClickBlock;
     public TutorialController Controller;
+    public TutorialRestaurantController RestaurantController;
     private int ActionNum;
     public void Start()
     {
         if (GameManager.Instance.gameMode.Equals(GameManager.GameMode.Tutorial))
         {
             Controller = GameObject.FindGameObjectWithTag("TutorialController").GetComponent<TutorialController>();
+            RestaurantController = Controller.GetComponent<TutorialRestaurantController>();
             Init();
         }
     }
     private void Init()
     {
         ActionNum = 0;
+        AddInit();
         foreach (var button in UIButton)
         {
             button.interactable = false;
@@ -45,7 +48,6 @@ public abstract class TutorialDetailsUI : MonoBehaviour
         }
         ClickImage[0].SetActive(true);
         ClickAnimation(0);
-        AddInit();
     }
     protected virtual void AddInit(){ }
     protected virtual void AddEvent(int index) { }
