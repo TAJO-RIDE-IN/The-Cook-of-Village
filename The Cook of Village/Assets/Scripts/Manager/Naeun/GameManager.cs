@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singletion<GameManager>
 {
-    public enum GameMode {Default, Tutorial}
+    public enum GameMode {Default, Tutorial, Ending}
     [SerializeField]private GameMode mode;
     public GameMode gameMode
     {
