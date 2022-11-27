@@ -10,10 +10,11 @@ public class TutorialInventoryUI : TutorialDetailsUI
     }
     protected override void EndEvent()
     {
-        Controller.NextDialogue();
+        Controller.EndEvent();
     }
     private void OnDisable()
     {
+        RestaurantController.ToolEnable();
         EndEvent();
     }
 }

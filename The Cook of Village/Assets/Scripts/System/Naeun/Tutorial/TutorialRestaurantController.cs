@@ -18,14 +18,23 @@ public class TutorialRestaurantController : TutorialController
 
     [Header("Tutorial")]
     public GameObject[] RestaurantDestination;
+    public TutorialDetailsUI[] tutorialDetailsUI;
     public TutorialNPCController tutorialNPCController;
+    public TutorialGuestOrder tutorialGuestOrder;
     public TutorialRestaurantUI tutorialRestaurantUI;
+    public ChangeScene changeScene;
+
     private int ActionNum;
+    [HideInInspector]public bool ToolInstall;
     private Dictionary<string, Action> CurrentAction = new Dictionary<string, Action>();
     private Dictionary<string, string> NextDialogueName = new Dictionary<string, string>()
     {
-        {"Control", "Purchase"}, {"Purchase", "Restaurant"}, {"Restaurant", "Fridge"},
-        {"Fridge", "Cooking"}, {"Cooking", "Serving"}, {"CharredFood", "Fridge"}
+        {"Restaurant", "Fridge"},{"Fridge", "InstallTool"}, {"InstallTool", "Cooking"}, 
+        {"Cooking", "Serving"}, {"CharredFood", "Fridge"}, {"Serving", "EndTutorial"}
+    };
+    private Dictionary<string, string> NextAgainDialogueName = new Dictionary<string, string>()
+    {
+        {"Restaurant", "Fridge"},{"Fridge", "Cooking"}, {"Cooking", "Serving"}, {"CharredFood", "Fridge"}, {"Serving", "EndTutorial"}
     };
     public override void Init()
     {
@@ -37,6 +46,10 @@ public class TutorialRestaurantController : TutorialController
                 col.enabled = false;
             }
         }
+        foreach(var details in tutorialDetailsUI)
+        {
+            details.enabled = true;
+        }
         foreach(var destination in RestaurantDestination)
         {
             destination.SetActive(false);
@@ -46,6 +59,7 @@ public class TutorialRestaurantController : TutorialController
             cook.SetActive(false);
         }
         Player.StopWalking();
+        ToolInstall = false;
         npcPooling.enabled = false;
         gameManager.TutorialUI = true;
         VillageParticle.SetActive(false);
@@ -58,6 +72,7 @@ public class TutorialRestaurantController : TutorialController
     {
         CurrentAction.Add("Restaurant", () => RestaurantAction());
         CurrentAction.Add("Fridge", () => FridgeAction());
+        CurrentAction.Add("InstallTool", () => InstallToolAction());
         CurrentAction.Add("Cooking", () => CookingAction());
         CurrentAction.Add("CharredFood", () => CharredFoodAcation());
         CurrentAction.Add("Serving", () => ServingAcation());
@@ -97,19 +112,18 @@ public class TutorialRestaurantController : TutorialController
             case 0: //냉장고로 이동
                 Player.StartWalking();
                 RestaurantDestination[0].SetActive(true);
-                ObjectCollider[3].enabled = true;
                 break;
             case 1: //냉장고 도착
                 Player.StopWalking();
+                PlayerCook.isFridgeCollider = true;
                 RestaurantDestination[0].gameObject.SetActive(false);             
                 break;
             case 3: //냉장고 재료 꺼내기
-                ObjectCollider[3].enabled = false;
                 break;
         }
         ActionNum++;
     }
-    public void CookingAction()
+    public void InstallToolAction()
     {
         switch (ActionNum)
         {
@@ -123,7 +137,24 @@ public class TutorialRestaurantController : TutorialController
                 break;
         }
         ActionNum++;
-
+    }
+    public void CookingAction()
+    {
+        //대사
+        if(ToolInstall)
+        {
+            switch (ActionNum)
+            {
+                case 0: //조리대로 이동 
+                    Player.StartWalking();
+                    RestaurantDestination[1].SetActive(true);
+                    break;
+                case 1: //조리대 도착 및 레몬 넣기
+                    Player.StopWalking();
+                    break;
+            }
+        }
+        ActionNum++;
     }
     public void ServingAcation()
     {
@@ -133,24 +164,61 @@ public class TutorialRestaurantController : TutorialController
                 Player.StartWalking();
                 RestaurantDestination[3].SetActive(true);
                 break;
-            case 1:
+            case 1: //손님 옆에 도착
+                Player.StopWalking();
+                PlayerCook._foodOrder = tutorialGuestOrder;
+                PlayerCook.isGuestCollider = true;
+                StartCoroutine(CheckSpace());
                 break;
-            case 2:
+            case 2: //계산대로 이동
+                Player.StartWalking();
                 RestaurantDestination[4].SetActive(true);
+                break;
+            case 3: //계산대 도착
+                Player.StopWalking();
                 break;
         }
         ActionNum++;
     }
+    private IEnumerator CheckSpace()
+    {
+        bool check = false;
+        while(!check)
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                tutorialRestaurantUI.ClickImage.gameObject.SetActive(true);
+                UIManager.UIScalePingPongAnimation(tutorialRestaurantUI.ClickImage.gameObject, new Vector3(1.3f, 1.3f, 1.3f), 0.5f);
+                IngredientBox.onClick.AddListener(ServingButton); //주문서가 위에서 내려오는 형식이기 때문에 따로 할당해줌
+                tutorialRestaurantUI.gameObject.SetActive(false);
+                check = true;
+            }
+            yield return null;
+        }
+    }
+    public void ToolEnable()
+    {
+        Transform tool = PlayerCook._cookingTool.InventoryBig.transform;
+        tool.Find("TutorialCooking").GetComponent<TutorialCookingUI>().enabled = true;
+    }
+    private void ServingButton() //요리 서빙 버튼이벤트
+    {
+        Player.StartWalking();
+        tutorialRestaurantUI.ClickImage.gameObject.SetActive(false);
+        IngredientBox.onClick.RemoveListener(ServingButton);
+    }
     public void CharredFoodAcation()
     {
+        ToolInstall = true;
         switch (ActionNum)
         {
             case 0: //쓰레기통으로 이동
                 Player.StartWalking();
-                ObjectCollider[4].enabled = true;
                 RestaurantDestination[2].SetActive(true);
                 break;
-            case 1:
+            case 1://쓰레기통 도착
+                Player.StopWalking();
+                StartCoroutine(ChangeWithDelay.CheckDelay(0.01f, () => { PlayerCook.objectName = "Trash"; })); //Cooking스크립트의 인식이 늦게 되기 때문에
                 break;
         }
         ActionNum++;
@@ -169,9 +237,6 @@ public class TutorialRestaurantController : TutorialController
             case "CookPosition":
                 PlayerCook.isCookPositionCollider = state;
                 break;
-            case "Guest":
-                PlayerCook.isGuestCollider = state;
-                break;
         }
     }
     public override void PlayAction(bool state)
@@ -188,7 +253,12 @@ public class TutorialRestaurantController : TutorialController
     public override void EndEvent()
     {
         ActionNum = 0;
-        tutorialRestaurantUI.CallDialogue(NextDialogueName[dialogueManager.CurrentSentencesName]);
+        string dialogueName = (ToolInstall) ? NextAgainDialogueName[dialogueManager.CurrentSentencesName] : NextDialogueName[dialogueManager.CurrentSentencesName];
+        tutorialRestaurantUI.CallDialogue(dialogueName);
+    }
+    public void EndTutorial()
+    {
+        changeScene.MoveScene();
     }
     /// <summary>
     /// 음식이 탔을 경우 쓰레기통에 음식을 버림

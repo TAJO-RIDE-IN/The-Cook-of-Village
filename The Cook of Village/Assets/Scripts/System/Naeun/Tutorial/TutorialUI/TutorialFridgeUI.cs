@@ -6,6 +6,7 @@ public class TutorialFridgeUI : TutorialDetailsUI
 {
     protected override void AddInit()
     {
+        ClickBlock.SetActive(true);
         Controller.NextDialogue();
         Controller.PlayerControl(false, "Fridge");
         EventButton[1] = RestaurantController.IngredientBox;
@@ -32,5 +33,6 @@ public class TutorialFridgeUI : TutorialDetailsUI
     protected override void EndEvent()
     {
         Controller.EndEvent();
+        RestaurantController.PlayerCook.isSpace = false;
     }
 }

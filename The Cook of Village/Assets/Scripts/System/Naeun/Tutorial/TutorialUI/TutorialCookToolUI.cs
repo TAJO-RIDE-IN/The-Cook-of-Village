@@ -10,6 +10,6 @@ public class TutorialCookToolUI : TutorialDetailsUI
     }
     protected override void EndEvent()
     {
-        Controller.NextDialogue();
+
     }
 }

@@ -11,8 +11,8 @@ public abstract class TutorialDetailsUI : MonoBehaviour
     public List<Button> UIButton = new List<Button>();
     public Button[] EventButton;
     public GameObject ClickBlock;
-    public TutorialController Controller;
-    public TutorialRestaurantController RestaurantController;
+    [HideInInspector] public TutorialController Controller;
+    [HideInInspector] public TutorialRestaurantController RestaurantController;
     private int ActionNum;
     public void Start()
     {
@@ -23,7 +23,16 @@ public abstract class TutorialDetailsUI : MonoBehaviour
             Init();
         }
     }
-    private void Init()
+    private bool Use = false;
+    private void OnEnable()
+    {
+        if (Use)
+        {
+            Init();
+        }
+        Use = true;
+    }
+    protected void Init()
     {
         ActionNum = 0;
         AddInit();
@@ -61,10 +70,9 @@ public abstract class TutorialDetailsUI : MonoBehaviour
         if (ActionNum.Equals(ClickImage.Count - 1)) //exit버튼 누를경우 다음 대사
         {
             EndEvent();
+            EventButton[ActionNum].onClick.RemoveListener(NextEvent);
             return;
         }
-        ClickImage[ActionNum].SetActive(false); //이전 이미지, 버튼 비활성화
-        ClickImage[ActionNum + 1].SetActive(true); //다음 이미지, 버튼 활성화
         if (EventButton[ActionNum] != null)
         {
             EventButton[ActionNum].interactable = false;
@@ -74,6 +82,8 @@ public abstract class TutorialDetailsUI : MonoBehaviour
         {
             EventButton[ActionNum + 1].interactable = true;
         }
+        ClickImage[ActionNum].SetActive(false); //이전 이미지, 버튼 비활성화
+        ClickImage[ActionNum + 1].SetActive(true); //다음 이미지, 버튼 활성화
         ClickAnimation(ActionNum + 1);
         AddEvent(ActionNum);
         ActionNum++;

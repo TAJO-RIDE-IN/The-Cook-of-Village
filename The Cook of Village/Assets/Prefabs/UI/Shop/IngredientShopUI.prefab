@@ -222,7 +222,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2921839235878802273
 Transform:
   m_ObjectHideFlags: 0
@@ -397,6 +397,7 @@ MonoBehaviour:
   CountSlider: {fileID: 4124301441996953565}
   NPC: {fileID: 0}
   shopUI: {fileID: 3737772530475140279}
+  totalprice: 0
 --- !u!1 &1471775462090583446
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,6 +685,7 @@ MonoBehaviour:
   - {fileID: 3000301137073027584}
   - {fileID: 6647890514474571183}
   CurrentShop: 0
+  npcWork: 0
   shopNPC: {fileID: 0}
   shopSelect: {fileID: 4423636558958281137}
   ShopName: {fileID: 1664100297813800472}
@@ -1004,7 +1006,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3681175199139196923}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a64791695b6b5f4a818e55927e3afe3, type: 3}
   m_Name: 
@@ -1014,21 +1016,23 @@ MonoBehaviour:
   - {fileID: 8121317970842532384}
   - {fileID: 2546796566566333968}
   - {fileID: 8859174694925186613}
+  UIButton: []
+  EventButton:
+  - {fileID: 2862374852967072456}
+  - {fileID: 0}
+  - {fileID: 3665223863845773903}
+  - {fileID: 1669600848031571675}
+  ClickBlock: {fileID: 6917114142397951513}
+  Controller: {fileID: 0}
+  RestaurantController: {fileID: 0}
   ShopButton:
   - {fileID: 2171304984746708718}
   - {fileID: 4959200454917172724}
   - {fileID: 3545360152989860443}
   - {fileID: 3665223863845773903}
   - {fileID: 1669600848031571675}
-  EventButton:
-  - {fileID: 2862374852967072456}
-  - {fileID: 0}
-  - {fileID: 3665223863845773903}
-  - {fileID: 1669600848031571675}
   EventSlider: {fileID: 4124301441996953565}
   Resell: {fileID: 5795444164067016965}
-  ClickBlock: {fileID: 6917114142397951513}
-  Controller: {fileID: 0}
 --- !u!1 &4038638331097423099
 GameObject:
   m_ObjectHideFlags: 0

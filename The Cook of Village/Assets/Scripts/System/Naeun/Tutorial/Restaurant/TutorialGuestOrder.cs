@@ -10,4 +10,9 @@ public class TutorialGuestOrder : FoodOrder
         OrderInit(infos);
         tutorialNPCController.tutorialController.NextDialogue();
     }
+    protected override void EndEat()
+    {
+        base.EndEat();
+        tutorialNPCController.tutorialController.NextDialogue();
+    }
 }

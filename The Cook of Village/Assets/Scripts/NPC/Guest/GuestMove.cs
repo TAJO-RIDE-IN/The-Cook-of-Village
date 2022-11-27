@@ -37,7 +37,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
         ChairUse();
         Move(guest.chairUse.CloseDestination(transform).position, "Chair");
     }
-    private void OutChair()
+    protected virtual void OutChair()
     {
         chairContainer.UseChair.Remove(UseChair);
         UseChair = null;
