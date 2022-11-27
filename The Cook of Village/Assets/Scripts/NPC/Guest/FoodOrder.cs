@@ -109,7 +109,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             GameData.Instance.GuestCountData(-1);
         }
     }
-    private void EndEat() //음식 다 먹음
+    protected virtual void EndEat() //음식 다 먹음
     {
         guest.ChangeState(GuestNPC.State.StandUP);
         guest.chairUse.FoodEnable(foodInfos.ID, false);
@@ -195,7 +195,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         currentOrderUI = ObjectPooling<OrderUI>.GetObject(); //화면 상단 주문서 표시
         currentOrderUI.ModifyOrderUI(foodInfos, favorite, VillageNPC);
     }
-    public void PayFood(float multiple) //계산
+    public virtual void PayFood(float multiple) //계산
     {
         GameData.Instance.ChangeFame(+3);
         GameData.Instance.GuestCountData(1);

@@ -8,6 +8,7 @@ public class TutorialCookingUI : TutorialDetailsUI
     private int CookType;
     protected override void AddInit()
     {
+        EventButton[2] = null;
         EventButton[0] = RestaurantController.IngredientBox;
         StartCoroutine(ChangeWithDelay.CheckDelay(0.1f,() => Controller.PlayerControl(false, "Tool")));
     }
@@ -20,10 +21,15 @@ public class TutorialCookingUI : TutorialDetailsUI
                 EventButton[0].onClick.Invoke();
                 EventButton[0].interactable = true;
                 Controller.PlayerControl(false, "Tool");
+                if(!RestaurantController.ToolInstall)
+                {
+                    Controller.NextDialogue();
+                }
                 ClickBlock.SetActive(false);
                 break;
             case 1:
                 ClickBlock.SetActive(true);
+                ClickImage[2].SetActive(false);
                 EventButton[1].interactable = true;
                 EventButton[2] = EventButton[1];
                 EventButton[2].onClick.AddListener(NextEvent);
@@ -39,6 +45,8 @@ public class TutorialCookingUI : TutorialDetailsUI
             if (BlenderTool.isCooked)
             {
                 ClickBlock.SetActive(false);
+                ClickImage[2].SetActive(true);
+                Controller.NextDialogue(); //시간 안에 꺼내지 않는다면 요리가 타버려요 출력
                 StartCoroutine(CheckFailure());
                 EndCook = true;
             }
@@ -65,5 +73,6 @@ public class TutorialCookingUI : TutorialDetailsUI
         {
             Controller.EndEvent();
         }
+        RestaurantController.PlayerCook.isSpace = false;
     }
 }

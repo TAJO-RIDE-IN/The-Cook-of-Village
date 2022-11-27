@@ -10,7 +10,6 @@ public class TutorialDestination : MonoBehaviour
         if(other.tag.Equals("Player"))
         {
             Controller.NextDialogue();
-            GetComponent<BoxCollider>().enabled = false;
             this.gameObject.SetActive(false);
         }
     }

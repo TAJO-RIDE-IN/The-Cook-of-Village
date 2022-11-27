@@ -7,6 +7,8 @@ public class TutorialVillageController : TutorialController
     public TutorialUI VillageTutorialUI;
     public ThirdPersonGravity Player;
     public GameObject DestinationParticle, RestaurantParticle;
+    public Collider shopCllider;
+    public TutorialDetailsUI TutorialShop;
     public List<GameObject> RoadArrowParticle = new List<GameObject>();
     public List<GameObject> Wall = new List<GameObject>();
     private NPCData npcData;
@@ -20,6 +22,8 @@ public class TutorialVillageController : TutorialController
         VillageTutorialUI.DialogueState(true);
         VillageTutorialUI.CallDialogue("Control");
         RestaurantParticle.SetActive(false);
+        shopCllider.enabled = false;
+        TutorialShop.enabled = true;
         foreach (var obj in Wall)
         {
             obj.SetActive(true);
@@ -55,6 +59,7 @@ public class TutorialVillageController : TutorialController
                 break;
             case 1: //상점 도착
                 ArrowParticleState(false, 0);
+                shopCllider.enabled = true;
                 Player.StopWalking();
                 DestinationParticle.SetActive(false);
                 break;
