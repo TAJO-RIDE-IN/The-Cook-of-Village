@@ -250,12 +250,14 @@ public class CookingTool : MonoBehaviour
         foodBig.sprite = ImageData.Instance.FindImageData(FoodInfos.ImageID);
         if (FoodInfos.ID != 100000)
         {
+            _burntCoroutine = BurntFood();
             StartCoroutine(_burntCoroutine);
         }
     }
 
     IEnumerator BurntFood()
     {
+        Debug.Log("코루틴 시작함");
         while (blackCircle.fillAmount > 0)
         {
             //Debug.Log(currentValue / FoodInfos.MakeTime * 1.25f);
@@ -267,7 +269,7 @@ public class CookingTool : MonoBehaviour
         currentValue = 0;
         food.sprite = ImageData.Instance.FindImageData(FoodData.Instance.foodTool[6].foodInfos[1].ImageID);
         foodBig.sprite = ImageData.Instance.FindImageData(FoodData.Instance.foodTool[6].foodInfos[1].ImageID); 
-        FoodInfos = FoodData.Instance.foodTool[6].foodInfos[1];       
+        FoodInfos = FoodData.Instance.foodTool[6].foodInfos[1];
 
     }
 
