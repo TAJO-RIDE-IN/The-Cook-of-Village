@@ -65,6 +65,7 @@ public class TutorialRestaurantController : TutorialController
         VillageParticle.SetActive(false);
         MenuIcon.SetActive(false);
         ChangeData();
+        tutorialRestaurantUI.enabled = true;
         tutorialRestaurantUI.DialogueState(true);
         tutorialRestaurantUI.CallDialogue("Restaurant");
     }

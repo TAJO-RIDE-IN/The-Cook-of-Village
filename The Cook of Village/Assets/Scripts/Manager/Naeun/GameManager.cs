@@ -13,7 +13,7 @@ public class GameManager : Singletion<GameManager>
         set 
         {
             mode = value;
-            if (mode == GameMode.Default)
+            if (mode.Equals(GameMode.Default))
             {
                 gameData.orbitSpeed = 2;
             }

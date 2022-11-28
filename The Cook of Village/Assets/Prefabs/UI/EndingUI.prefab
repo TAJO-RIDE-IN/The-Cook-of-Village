@@ -120,7 +120,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1662995766188082996}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7842924521787136793}
+        m_TargetAssemblyTypeName: EndingUI, Assembly-CSharp
+        m_MethodName: DialogueText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1130329360035692489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,13 +189,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2942445103496141249}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 860f6ea9687827a42ac6417be32073d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SentenceText: {fileID: 8660701889697667328}
   NameText: {fileID: 8925825180549155958}
+  Name: {fileID: 3473466010568333514}
+  NextButton: {fileID: 2867185803333515427}
+  endingController: {fileID: 0}
 --- !u!1 &3473466010568333514
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,8 +309,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.362, y: -12}
-  m_SizeDelta: {x: 772.7744, y: 183.6194}
+  m_AnchoredPosition: {x: -1.362, y: -28.8605}
+  m_SizeDelta: {x: 772.7744, y: 149.8983}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &757740701679824366
 CanvasRenderer:
@@ -332,7 +347,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
