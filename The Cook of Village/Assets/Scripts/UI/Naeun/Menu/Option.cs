@@ -9,14 +9,9 @@ public class Option : MonoBehaviour
 {
     private List<Resolution> resolutions = new List<Resolution>();
     public Dropdown ResolutionDrop;
-    public Toggle WindowToggle;
-    public GameObject BgmIcon;
-    public Toggle BgmToggle;
-    public Slider BgmSlider;
-    public GameObject EffectIcon;
-    public Toggle EffectToggle;
-    public Slider EffectSlider;
-    private int optionNum;
+    public GameObject BgmIcon, EffectIcon, KeyboardOperate;
+    public Toggle BgmToggle, EffectToggle, WindowToggle;
+    public Slider BgmSlider, EffectSlider;
     private SoundManager soundManager;
 
     private Dictionary<int, Toggle> DicToggle = new Dictionary<int, Toggle>();
@@ -25,6 +20,14 @@ public class Option : MonoBehaviour
     public void OptionUIState()
     {
         this.gameObject.SetActive(!this.gameObject.activeSelf);
+        if (this.gameObject.activeSelf)
+        {
+            OptionSetting();
+        }
+    }
+    public void KeyboardState()
+    {
+        KeyboardOperate.SetActive(!KeyboardOperate.activeSelf);
     }
     private void Awake()
     {
@@ -35,7 +38,7 @@ public class Option : MonoBehaviour
         DicSlider.Add(1, EffectSlider);
         DicSlider.Add(2, EffectSlider);
     }
-    private void OnEnable()
+    private void OptionSetting()
     {
         soundManager = SoundManager.Instance;
         BgmToggle.isOn = soundManager.audioSources[(int)SoundData.Type.Bgm].audioSources[0].mute;
@@ -43,7 +46,7 @@ public class Option : MonoBehaviour
         MuteSound(0);
         MuteSound(1);
         MuteSound(2);
-        if(!BgmToggle.isOn)
+        if (!BgmToggle.isOn)
         {
             BgmSlider.value = soundManager.audioSources[(int)SoundData.Type.Bgm].audioSources[0].volume;
         }
@@ -52,6 +55,24 @@ public class Option : MonoBehaviour
             EffectSlider.value = soundManager.audioSources[(int)SoundData.Type.Effect].audioSources[0].volume;
         }
         Init();
+    }
+    public void Init()
+    {
+        ResolutionDrop.options.Clear();
+        resolutions.Clear();
+        resolutions = GetResolutions();
+        foreach (var res in resolutions.Select((value, index) => (value, index)))
+        {
+            Dropdown.OptionData option = new Dropdown.OptionData();
+            option.text = res.value.width + "X" + res.value.height;
+            ResolutionDrop.options.Add(option);
+            if (res.value.width == Screen.width && res.value.height == Screen.height)
+            {
+                ResolutionDrop.value = res.index;
+            }
+        }
+        WindowToggle.isOn = Screen.fullScreenMode.Equals(FullScreenMode.Windowed) ? true : false;
+        ResolutionDrop.RefreshShownValue();
     }
     public List<Resolution> GetResolutions()
     {
@@ -85,24 +106,8 @@ public class Option : MonoBehaviour
         }
         return uniqResolutionsList;
     }
-    public void Init()
-    {
-        ResolutionDrop.options.Clear();
-        resolutions.Clear();
-        resolutions = GetResolutions();   
-        foreach(var res in resolutions.Select((value, index) => (value, index)))
-        {
-            Dropdown.OptionData option = new Dropdown.OptionData();
-            option.text = res.value.width + "X" + res.value.height;
-            ResolutionDrop.options.Add(option);
-            if(res.value.width == Screen.width && res.value.height == Screen.height)
-            {
-                ResolutionDrop.value = res.index;
-            }
-        }
-        WindowToggle.isOn = Screen.fullScreenMode.Equals(FullScreenMode.Windowed) ? true : false;
-        ResolutionDrop.RefreshShownValue();
-    }
+
+
     public void ChangeScreen()
     {
         int _width = resolutions[ResolutionDrop.value].width;
@@ -125,7 +130,7 @@ public class Option : MonoBehaviour
         {
             soundManager.MuteSound(type, EffectToggle.isOn);
             StopEffectSlider = true;
-            EffectSlider.value = (EffectToggle.isOn) ? 0 : SoundManager.Instance.audioSources[(int)SoundData.Type.Effect].audioSources[0].volume;
+            EffectSlider.value = (EffectToggle.isOn) ? 0 : soundManager.audioSources[(int)SoundData.Type.Effect].audioSources[0].volume;
             StopEffectSlider = false;
             EffectIcon.SetActive(!EffectToggle.isOn);
         }

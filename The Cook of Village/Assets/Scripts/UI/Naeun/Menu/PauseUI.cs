@@ -30,12 +30,4 @@ public class PauseUI : UIController
     {
         PauseUIState(false);
     }
-    public void OptionButtonClick()
-    {
-        OptionUI.SetActive(!OptionUI.activeSelf);
-    }
-    public void ExitButtonClick()
-    {
-        ExitUI.SetActive(!ExitUI.activeSelf);
-    }
 }
