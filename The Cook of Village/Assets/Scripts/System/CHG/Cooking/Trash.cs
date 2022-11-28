@@ -5,10 +5,8 @@ using UnityEngine;
 public class Trash : MonoBehaviour
 {
     public CookItemSlotManager cookSlotManager;
-    
-    
-    
     public ChefInventory.EdibleItem[] trashEdibleItems;
+    public GameObject BigInventory;
     
     public bool AddIngredient(ItemInfos ingredient)
     {
@@ -51,7 +49,11 @@ public class Trash : MonoBehaviour
         cookSlotManager.ShowWarning();
         return false;
     }
-    
+
+    public void CloseUI()
+    {
+        BigInventory.SetActive(false);
+    }
     public bool PutTrash(int id, Sprite sprite) //이걸 현재 들고있는게 null이 아닐때만 실행시켜주면 되는데 혹시몰라서 한번 더 조건문 넣음
     {
         
