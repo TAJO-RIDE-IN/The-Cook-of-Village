@@ -24,7 +24,6 @@ public class EndingUI : MonoBehaviour
     private DialogueData.ContentType type = DialogueData.ContentType.Ending;
     private void Update()
     {
-        Debug.Log("s");
         if(CanNext)
         {
             if (Input.GetKeyDown(KeyCode.Space))

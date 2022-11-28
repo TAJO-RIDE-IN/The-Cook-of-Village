@@ -8,6 +8,7 @@ public class TutorialCookingUI : TutorialDetailsUI
     private int CookType;
     protected override void AddInit()
     {
+        isCheck = false;
         EventButton[2] = null;
         EventButton[0] = RestaurantController.IngredientBox;
         StartCoroutine(ChangeWithDelay.CheckDelay(0.1f,() => Controller.PlayerControl(false, "Tool")));
