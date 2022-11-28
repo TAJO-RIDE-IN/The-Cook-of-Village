@@ -9,8 +9,8 @@ public class TutorialVillageController : TutorialController
     public GameObject DestinationParticle, RestaurantParticle;
     public Collider shopCllider;
     public TutorialDetailsUI TutorialShop;
+    public GameObject Wall;
     public List<GameObject> RoadArrowParticle = new List<GameObject>();
-    public List<GameObject> Wall = new List<GameObject>();
     private NPCData npcData;
     private int ActionNum;
     public override void Init()
@@ -19,15 +19,14 @@ public class TutorialVillageController : TutorialController
         NPCDisable();
         Player.StopWalking();
         gameManager.TutorialUI = true;
+        VillageTutorialUI.enabled = true;
         VillageTutorialUI.DialogueState(true);
         VillageTutorialUI.CallDialogue("Control");
         RestaurantParticle.SetActive(false);
         shopCllider.enabled = false;
         TutorialShop.enabled = true;
-        foreach (var obj in Wall)
-        {
-            obj.SetActive(true);
-        }
+        Wall.SetActive(true);
+
     }
     private void NPCDisable()
     {

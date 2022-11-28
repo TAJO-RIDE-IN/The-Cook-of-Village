@@ -65,6 +65,7 @@ public class TutorialRestaurantController : TutorialController
         VillageParticle.SetActive(false);
         MenuIcon.SetActive(false);
         ChangeData();
+        tutorialRestaurantUI.enabled = true;
         tutorialRestaurantUI.DialogueState(true);
         tutorialRestaurantUI.CallDialogue("Restaurant");
     }
@@ -115,8 +116,8 @@ public class TutorialRestaurantController : TutorialController
                 break;
             case 1: //≥√¿Â∞Ì µµ¬¯
                 Player.StopWalking();
-                PlayerCook.isFridgeCollider = true;
-                RestaurantDestination[0].gameObject.SetActive(false);             
+                RestaurantDestination[0].gameObject.SetActive(false);
+                ObjectCollider[3].enabled = true;
                 break;
             case 3: //≥√¿Â∞Ì ¿Á∑· ≤®≥ª±‚
                 break;
@@ -226,6 +227,10 @@ public class TutorialRestaurantController : TutorialController
     #endregion
     public override void PlayerControl(bool state, string name)
     {
+        if(state)
+        {
+            PlayerCook.isSpace = true;
+        }
         switch (name)
         {
             case "Fridge":

@@ -5,40 +5,27 @@ using UnityEngine;
 
 public class TransparentWall : MonoBehaviour
 {
-    public Material wallMaterial;
-    public Material doorMaterial;
-    public bool isIn;
+    public GameObject wallObject;
+    public Material[] materialToChange;
+    
+    public Material[] usedMaterial;
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if(other.gameObject.CompareTag("Player"))
         {
-            if (isIn)
-            {
-                StartCoroutine(MaterialFadeOut(wallMaterial, 50));
-                StartCoroutine(MaterialFadeOut(doorMaterial, 50));
-                return;
-            }
+            Debug.Log(wallObject.GetComponent<MeshRenderer>().materials[0]);
+            wallObject.GetComponent<MeshRenderer>().materials[0] = usedMaterial[0];
+            LeanTween.color(wallObject, new Color(1, 1, 1, 0), 0.5f);
+        }
+    }
 
-            StartCoroutine(MaterialFadeIn(wallMaterial, 255));
-            StartCoroutine(MaterialFadeIn(doorMaterial, 255));
-        }
-    }
-    public IEnumerator MaterialFadeOut(Material material,float fadeOutValue)
+    private void OnTriggerExit(Collider other)
     {
-        while (material.color.a > fadeOutValue)
+        if(other.gameObject.CompareTag("Player"))
         {
-            material.color = new Color(material.color.r, material.color.g, material.color.b, material.color.a - (Time.deltaTime / 3.0f));
-            yield return null;
+            LeanTween.color(wallObject, Color.white, 1).setOnComplete(() =>
+                wallObject.GetComponent<MeshRenderer>().materials[0] = materialToChange[0]);
         }
-        
-    }
-    public IEnumerator MaterialFadeIn(Material material,float fadeInValue)
-    {
-        while (material.color.a < fadeInValue)
-        {
-            material.color = new Color(material.color.r, material.color.g, material.color.b, material.color.a + (Time.deltaTime / 3.0f));
-            yield return null;
-        }
-        
     }
 }

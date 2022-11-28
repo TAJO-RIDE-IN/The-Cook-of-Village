@@ -10,6 +10,7 @@ public class TutorialFridgeUI : TutorialDetailsUI
         Controller.NextDialogue();
         Controller.PlayerControl(false, "Fridge");
         EventButton[1] = RestaurantController.IngredientBox;
+        RestaurantController.ObjectCollider[3].enabled = false;
     }
     protected override void AddEvent(int index)
     {
