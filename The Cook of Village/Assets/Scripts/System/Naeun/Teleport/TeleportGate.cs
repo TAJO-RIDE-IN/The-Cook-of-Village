@@ -6,11 +6,13 @@ public class TeleportGate : MonoBehaviour
 {
     [SerializeField]public VillageTeleport.Gate gate;
     public VillageTeleport villgaeTeleprt;
+    public float CameraX;
+    public bool isOut;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.tag.Equals("Player"))
         {
-            villgaeTeleprt.MoveGate(gate);
+            villgaeTeleprt.MoveGate(gate, isOut,CameraX);
         }    
     }
 }

@@ -32,12 +32,25 @@ public class VillageTeleport : MonoBehaviour
         Player.transform.rotation = GateDictionary[gate].rotation;  
     }
 
-    public void MoveGate(Gate gate)
+    public void MoveGate(Gate gate, bool isOut, float CameraX)
     {
         MoveEffect.gameObject.SetActive(true); 
         MoveEffect.Play();
         Player.StopWalking();
         StartCoroutine(ChangeWithDelay.CheckDelay(0.5f, () => PlayMove(gate)));
         StartCoroutine(ChangeWithDelay.CheckDelay(1.5f, () => Player.StartWalking()));
+        ChangeCamera(isOut, CameraX);
+    }
+
+    private void ChangeCamera(bool isOut, float CameraX)
+    {
+        if(isOut)
+        {
+            Player.WhenGetOutStore();
+        }
+        else
+        {
+            Player.WhenGetInStore(CameraX);
+        }
     }
 }
