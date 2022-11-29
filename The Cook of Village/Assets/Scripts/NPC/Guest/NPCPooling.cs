@@ -23,9 +23,11 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
 
     private GameData gameData;
     private GameManager gameManager;
+    private SoundManager soundManager;
 
     private void Start()
     {
+        soundManager = SoundManager.Instance;
         gameData = GameData.Instance;
         gameManager = GameManager.Instance;
         AddObserver(gameData);
@@ -40,13 +42,13 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
             {
                 if (isOpen)
                 {
-                    SoundManager.Instance.Play(SoundManager.Instance._audioClips["CloseRestaurant"]);
+                    soundManager.Play(SoundManager.Instance._audioClips["CloseRestaurant"]);
                     closeUI.LeanScale(Vector2.zero, 0.5f).setOnComplete(() => CloseSetting());
                     return;
                 }
                 else
                 {
-                    SoundManager.Instance.Play(SoundManager.Instance._audioClips["OpenRestaurant"]);
+                    soundManager.Play(SoundManager.Instance._audioClips["OpenRestaurant"]);
                     openUI.LeanScale(Vector2.zero, 0.5f).setOnComplete(() => OpenSetting());
                 }
             }

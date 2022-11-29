@@ -65,7 +65,7 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
 
     private IEnumerator NPCMove(Vector3 destination, string destination_name) //NPC이동
     {
-        float stopDistance = (destination_name.Equals("Chair")) ? 0.3f : 0.1f;
+        float stopDistance = (destination_name.Equals("Chair")) ? 0.4f : 0.1f;
         isArrive = false;
         agent.enabled = true;
         guest.ChangeState(GuestNPC.State.Walk);

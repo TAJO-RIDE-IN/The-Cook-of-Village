@@ -38,20 +38,26 @@ public class GuestNPC : MonoBehaviour, IGuestOb
     public NPCUIImage NPCImage;
     private GameObject CurrentModel;
     public Animator ModelsAni;
-    public ChairUse chairUse;
     public Collider DefalutCollider, FoodCollider; //foodCollider -> 음식 받을 때 영역
-    public bool isDrink;
-    public SoundManager soundManager;
-    public GameData gameData;
+    public bool isMan; //true -> man, false -> Woman
+    private Dictionary<bool, string> GenderDic = new Dictionary<bool, string>()
+    {
+        {true, "Man"}, {false, "Woman"}
+    };
 
+    [HideInInspector] public bool isDrink;
+    [HideInInspector] public ChairUse chairUse;
+    [HideInInspector] public SoundManager soundManager;
+    [HideInInspector] public GameData gameData;
     #region Model 변경
     private void OnEnable()
     {
-        ColliderState(true);
-        SetNPCModel(true);
         gameData = GameData.Instance;
         soundManager = SoundManager.Instance;
         gameData.GuestCount++;
+        NPCSound("ComeInRestaurant", false, true); //레스토랑 입장
+        ColliderState(true);
+        SetNPCModel(true);
     }
 
     private void OnDisable()
@@ -73,6 +79,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
         {
             int model = Random.Range(0, Models.Length);
             CurrentModel = Models[model];
+            isMan = (model > 6);
         }
         CurrentModel.SetActive(state);
         ModelsAni = CurrentModel.GetComponent<Animator>();
@@ -116,7 +123,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
             case State.ChaseUP:
                 NPCImage.AngryParticle.Play();
                 ModelsAni.SetBool("isChaseUp", true);
-                NPCSound("Angry", false, false);
+                ManWomanSound("Angry");
                 break;
             case State.Pay:
                 ModelsAni.SetTrigger("Pay");
@@ -130,7 +137,15 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 break;
         }
     }
-
+    public void OrderSound()
+    {
+        NPCSound("Order", false, true);
+    }
+    private void ManWomanSound(string soundName)
+    {
+        string gender = "(" + GenderDic[isMan] + ")";
+        NPCSound(soundName + gender, false, false);
+    }
     private void EatSound()
     {
         string sound = (isDrink) ? "Drink" : "Eat";
