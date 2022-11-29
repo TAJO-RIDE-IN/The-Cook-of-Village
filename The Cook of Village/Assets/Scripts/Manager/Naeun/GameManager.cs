@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.AI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -44,7 +45,7 @@ public class GameManager : Singletion<GameManager>
         }
     }
     
-    private bool isInstall = false;
+    [SerializeField]private bool isInstall = false;
 
     public bool IsInstall
     {
@@ -52,10 +53,15 @@ public class GameManager : Singletion<GameManager>
         set 
         {
             isInstall = value;
+            if(!value)
+            {
+                NavMeshBuilder.ClearAllNavMeshes();
+                NavMeshBuilder.BuildNavMesh();
+            }    
         }
     }
 
-    [SerializeField] private bool tutorialUI = false;
+    private bool tutorialUI = false;
     public bool TutorialUI
     {
         get { return tutorialUI; }
