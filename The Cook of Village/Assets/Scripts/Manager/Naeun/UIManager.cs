@@ -44,8 +44,19 @@ public class UIManager : Singletion<UIManager>
             GameManager.Instance.IsUI = state;
         }
     }
-    public static void UIScalePingPongAnimation(GameObject obj, Vector3 vector3, float time)
+    public static Vector3 ZeroVector = new Vector3(0, 0, 0);
+    public static Vector3 DefaultVector = new Vector3(1, 1, 1);
+    public static void UIScalePingPongAnimation(GameObject obj)
     {
-        LeanTween.scale(obj, vector3, time).setLoopPingPong();
+        LeanTween.scale(obj, new Vector3(1.3f, 1.3f, 1.3f), 0.5f).setLoopPingPong();
+    }
+    public static void UIScalePunchAnimation(GameObject obj)
+    {
+        obj.transform.localScale = DefaultVector;
+        LeanTween.scale(obj, new Vector3(1.3f, 1.3f, 1.3f), 0.5f).setEasePunch();
+    }
+    public static void UIMoveAnimation(GameObject obj, Vector3 vector)
+    {
+        LeanTween.moveLocal(obj, vector, 0.1f);
     }
 }

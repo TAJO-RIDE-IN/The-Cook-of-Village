@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -122,17 +122,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 5093168522670694079}
         m_TargetAssemblyTypeName: RestaurantName, Assembly-CSharp
-        m_MethodName: ChangeButton
-        m_Mode: 1
+        m_MethodName: NameUIButton
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &5050450275059255587
 MonoBehaviour:
@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e32b94e1578ed48be3c6ed10ed6115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AnimationType: 1
 --- !u!1 &1729498514553519280
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,7 +317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -347,9 +348,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 5093168522670694079}
         m_TargetAssemblyTypeName: RestaurantName, Assembly-CSharp
-        m_MethodName: RestaurantNameUIState
+        m_MethodName: NameUIButton
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -371,6 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e32b94e1578ed48be3c6ed10ed6115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AnimationType: 1
 --- !u!1 &3335106648742422527
 GameObject:
   m_ObjectHideFlags: 0
@@ -506,7 +508,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 5093168522670694079}
         m_TargetAssemblyTypeName: RestaurantName, Assembly-CSharp
         m_MethodName: InputText
         m_Mode: 1
@@ -1108,7 +1110,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4509514270000846539}
-  - component: {fileID: 3303581422663665941}
+  - component: {fileID: 5093168522670694079}
   m_Layer: 5
   m_Name: RestaurantName
   m_TagString: Untagged
@@ -1139,7 +1141,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3303581422663665941
+--- !u!114 &5093168522670694079
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1148,9 +1150,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8915777758836587175}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4b061b8938bcf145871a7c7d6587f22, type: 3}
+  m_Script: {fileID: 11500000, guid: ad15cac6fe5adb644b94c183696c397c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NameChangeUI: {fileID: 8915777758836587175}
+  NameText: {fileID: 2446195909230966791}
+  NameInput: {fileID: 2820804551553832234}
 --- !u!1 &8942730925649431643
 GameObject:
   m_ObjectHideFlags: 0
@@ -3001,22 +3006,6 @@ PrefabInstance:
       propertyPath: m_Value
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 5059103552804018614, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5059103552804018614, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5059103552804018614, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 200.00003
-      objectReference: {fileID: 0}
-    - target: {fileID: 5059103552804018614, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -136.81425
-      objectReference: {fileID: 0}
     - target: {fileID: 5059103553907024216, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3108,54 +3097,6 @@ PrefabInstance:
     - target: {fileID: 5059103553907024217, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8642256648082327058, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8642256648082327058, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8642256648082327058, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 200.00003
-      objectReference: {fileID: 0}
-    - target: {fileID: 8642256648082327058, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -311.81424
-      objectReference: {fileID: 0}
-    - target: {fileID: 8988378348258974329, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8988378348258974329, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8988378348258974329, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 200.00003
-      objectReference: {fileID: 0}
-    - target: {fileID: 8988378348258974329, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -403.4809
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100793443923686666, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100793443923686666, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100793443923686666, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 200.00003
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100793443923686666, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -270.14758
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9661a6d74a8e8b84bac5be70f28ae68a, type: 3}
@@ -4211,22 +4152,6 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 5394f1ced963cb74ea072458ff35e4b3, type: 3}
-    - target: {fileID: 110501127747595683, guid: 0b4a1a1a192ba22428f2a4ebae10c6a5, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 110501127747595683, guid: 0b4a1a1a192ba22428f2a4ebae10c6a5, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 110501127747595683, guid: 0b4a1a1a192ba22428f2a4ebae10c6a5, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -23.0923
-      objectReference: {fileID: 0}
-    - target: {fileID: 110501127747595683, guid: 0b4a1a1a192ba22428f2a4ebae10c6a5, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -29.6183
-      objectReference: {fileID: 0}
     - target: {fileID: 470523721920855809, guid: 0b4a1a1a192ba22428f2a4ebae10c6a5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
