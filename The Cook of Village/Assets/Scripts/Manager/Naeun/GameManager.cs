@@ -87,7 +87,7 @@ public class GameManager : Singletion<GameManager>
         }
     }
 
-    public int NextSceneIndex = 2;
+    public int NextSceneIndex = 3;
     private int currentSceneIndex;
     public int CurrentSceneIndex
     {

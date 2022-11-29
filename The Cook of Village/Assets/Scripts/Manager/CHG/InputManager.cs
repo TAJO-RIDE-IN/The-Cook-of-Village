@@ -20,8 +20,11 @@ public class InputManager : MonoBehaviour
                 {
                     if (!FurniturePooling.Instance.furnitureInstallMode.isActive)
                     {
+                        Debug.Log("isActive false임");
                         pauseUI.PauseUIState(true);
+                        return;
                     }
+                    return;
                 }
                 pauseUI.PauseUIState(true);
             }

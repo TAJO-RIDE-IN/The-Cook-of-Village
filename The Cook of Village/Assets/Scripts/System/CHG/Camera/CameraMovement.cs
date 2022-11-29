@@ -62,7 +62,7 @@ public class CameraMovement : MonoBehaviour
 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         helloWorld = character.transform.position;
         if(Input.GetKeyDown(KeyCode.LeftAlt))

@@ -21,27 +21,28 @@ public class FurnitureInstallMode : InstallMode
 {
     public List<TableChair> tableChairs = new List<TableChair>();
     public List<Warning> warnings = new List<Warning>();
-    public float chairTableDis;
     public GameObject[] noticeUI;
+    public float rotateSpeed;
     public bool isActive;
 
-    private bool gridOn;
-    private GameObject pendingObject;
+
+    public GameObject pendingObject;
     private String currentObjectName;
     private bool[] isUsedTable;
     private bool[] isUsedChair;
     private bool[] isUsedDeco;
     private bool isFirst;
     private bool isDelete;
+    private bool isRotation;
     private TableChair currentData;
-    
+
+    private float xRotate;
     private float firstDis;
     private float secondDis;
     private int selectedIndex;
     private GameObject objectToInstall;
     private GameObject beforObjectToDelete;
     private GameObject objectToDelete;
-    private int uiValue;
     private Vector3 pos;
     private RaycastHit hit;
     
@@ -78,7 +79,8 @@ public class FurnitureInstallMode : InstallMode
         }
         for (int i = 0; i < _installData.furnitureData.vecRotNames.Count; i++)
         {
-            GetAndPosition(_installData.furnitureData.vecRotNames[i].vector,
+            GetAndTransform(_installData.furnitureData.vecRotNames[i].vector,
+                _installData.furnitureData.vecRotNames[i].rotation,
                 _installData.furnitureData.vecRotNames[i].name);
         }
     }
@@ -86,17 +88,23 @@ public class FurnitureInstallMode : InstallMode
     {
         if (pendingObject != null)
         {
-            pendingObject.transform.position = pos;
-            for (int i = 1; i < 3; i++) //의자면 
+            if (ChairNameCheck(currentObjectName))
             {
-                if (currentObjectName == FurniturePooling.Instance.InstalledData[i].name)
+                CheckChairPosition();
+                if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    CheckChairPosition();
+                    Cancel();
+                    isActive = false;
+                }
+                if (Input.GetMouseButtonUp(0))
+                {
+                    //Debug.Log("실행");
+                    PlaceObject(currentObjectName);
                 }
             }
+            
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                uiValue--;
                 Cancel();
                 isActive = false;
             }
@@ -152,9 +160,33 @@ public class FurnitureInstallMode : InstallMode
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 1000, installLayer))
             {
-                pos = hit.point;
+                if (isRotation)
+                {
+                    if (Input.GetKey(KeyCode.Q))
+                    {
+                        pendingObject.transform.localEulerAngles = new Vector3(
+                            pendingObject.transform.localEulerAngles.x,
+                            pendingObject.transform.localEulerAngles.y - rotateSpeed,
+                            pendingObject.transform.localEulerAngles.z);
+                        return;
+                    }
+                    if(Input.GetKey(KeyCode.E))
+                    {
+                        pendingObject.transform.localEulerAngles = new Vector3(
+                            pendingObject.transform.localEulerAngles.x,
+                            pendingObject.transform.localEulerAngles.y + rotateSpeed,
+                            pendingObject.transform.localEulerAngles.z);
+                    }
+                    else
+                    {
+                        pendingObject.transform.position = hit.point;
+                    }
+                }
+                else
+                {
+                    pendingObject.transform.position = hit.point;
+                }
                 return;
-                //Debug.Log(hit.transform.name);
             }
         }
 
@@ -232,35 +264,33 @@ public class FurnitureInstallMode : InstallMode
             {
                 if (tableChairs[j].chairCount < 4)
                 {
-                    currentObjectName = infos.Name;
-                    uiValue++;
-                    pendingObject = FurniturePooling.Instance.GetObject(infos.Name);
                     noticeUI[0].SetActive(true);
-                    isActive = true;
+                    currentObjectName = infos.Name;
+                    pendingObject = FurniturePooling.Instance.GetObject(infos.Name);
+                    
                     return;
                 }
             }
             StartCoroutine(TextFade(warnings[0].box,warnings[0].text));
             return;
         }
-        
-        uiValue++;
-        noticeUI[0].SetActive(true);
+        isRotation = true;
         currentObjectName = infos.Name;
         isActive = true;
         pendingObject = FurniturePooling.Instance.GetObject(infos.Name);
     }
 
+
     public void PlaceObject(String name)//테이블과 의자 정보는 테이블의자 클래스에 저장, 그 외는 pooledObjects에 저장
     {
-        if (name == FurniturePooling.Instance.InstalledData[0].name)//테이블이면 클래스 리스트 하나 추가
+        if (name == FurniturePooling.Instance.poolObjectData[0].name)//테이블이면 클래스 리스트 하나 추가
         {
             //gameData.Fame += _itemInfos.
             currentData = new TableChair();
             currentData.tablePos = pendingObject.transform.position;
             tableChairs.Add(currentData);
             pendingObject.layer = 10;
-            noticeUI[0].SetActive(false);
+            OffNoticeUI(2);
             gameData.ChangeFame(3);
             InstallData.Instance.PassVector3Data(InstallData.SortOfInstall.Table,currentData.tablePos);
             pendingObject = null;
@@ -277,7 +307,7 @@ public class FurnitureInstallMode : InstallMode
                 tableChairs[selectedIndex].chairCount++;
                 gameData.ChangeFame(5);
                 InstallData.Instance.PassVector3Data(InstallData.SortOfInstall.Chair,pendingObject.transform.position, currentObjectName, selectedIndex);
-                noticeUI[0].SetActive(false);
+                OffNoticeUI(0);
                 _installedData = _furniturePooling.FindInstallPoolData(name);
                 _installedData.pooledObjects.Add(pendingObject);
                 pendingObject = null;
@@ -297,17 +327,24 @@ public class FurnitureInstallMode : InstallMode
             pendingObject.transform.localEulerAngles, currentObjectName);
         FurniturePooling.Instance.FindInstallPoolData(name).pooledObjects.Add(pendingObject);
         pendingObject = null;
-        noticeUI[0].SetActive(false);
+        OffNoticeUI(2);
     }
+
+    private void OffNoticeUI(int i)
+    {
+        noticeUI[i].SetActive(false);
+    }
+    
+    
 
 
     
-    private void GetAndTransform(Transform trans, String name)
+    private void GetAndTransform(Vector3 vector3, Vector3 rotation, String name)
     {
         _installedData = _furniturePooling.FindInstallPoolData(name);
         objectToInstall = _furniturePooling.GetObject(name);
-        objectToInstall.transform.position = trans.position;
-        objectToInstall.transform.rotation = trans.rotation;
+        objectToInstall.transform.position = vector3;
+        objectToInstall.transform.localEulerAngles = rotation;
         objectToInstall.layer = 10;
         _installedData.pooledObjects.Add(objectToInstall);
     }
@@ -335,8 +372,21 @@ public class FurnitureInstallMode : InstallMode
         }
     }
 
+    /// <summary>
+    /// 책상 설치할 때 
+    /// </summary>
+    private void ChangeLayerToInstallPlace()
+    {
+        
+    }
+
+    private void ChangeLayerToDeleteObject()
+    {
+        
+    }
     public void StartDelete()
     {
+        
         noticeUI[1].SetActive(true);
         isDelete = true;
         isActive = true;
