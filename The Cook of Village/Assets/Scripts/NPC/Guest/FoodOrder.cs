@@ -159,6 +159,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     }
     protected virtual void Order(FoodInfos infos) //음식주문
     {
+        guest.OrderSound();
         OrderInit(infos);
         FoodWaitTime = foodData.DefaultWaitingTime + foodInfos.MakeTime * 2f;
         SaveWaitTime = FoodWaitTime;

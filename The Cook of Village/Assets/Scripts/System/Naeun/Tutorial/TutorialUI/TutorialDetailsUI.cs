@@ -62,7 +62,7 @@ public abstract class TutorialDetailsUI : MonoBehaviour
     protected virtual void AddEvent(int index) { }
     private void ClickAnimation(int index)
     {
-        UIManager.UIScalePingPongAnimation(ClickImage[index], new Vector3(1.3f, 1.3f, 1.3f), 0.5f);
+        UIManager.UIScalePingPongAnimation(ClickImage[index]);
     }
     protected abstract void EndEvent();
     protected void NextEvent() //다음 클릭 이미지 활성화

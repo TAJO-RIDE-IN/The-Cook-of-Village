@@ -87,6 +87,7 @@ public class StateUI : UIController, IObserver<MoneyData>, IObserver<GameData>
             _toggle.isOn = false;
         }
         int fame = (int)(gameData.Fame / 100);
+        fame = (fame > 4) ? 4 : fame;
         FameToggle[fame].isOn = true;
     }
 

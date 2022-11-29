@@ -189,7 +189,7 @@ public class TutorialRestaurantController : TutorialController
             if(Input.GetKeyDown(KeyCode.Space))
             {
                 tutorialRestaurantUI.ClickImage.gameObject.SetActive(true);
-                UIManager.UIScalePingPongAnimation(tutorialRestaurantUI.ClickImage.gameObject, new Vector3(1.3f, 1.3f, 1.3f), 0.5f);
+                UIManager.UIScalePingPongAnimation(tutorialRestaurantUI.ClickImage.gameObject);
                 IngredientBox.onClick.AddListener(ServingButton); //주문서가 위에서 내려오는 형식이기 때문에 따로 할당해줌
                 tutorialRestaurantUI.gameObject.SetActive(false);
                 check = true;

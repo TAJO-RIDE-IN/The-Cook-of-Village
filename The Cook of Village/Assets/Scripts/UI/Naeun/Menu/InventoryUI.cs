@@ -21,7 +21,8 @@ public class InventoryUI : UIController
     }
     [SerializeField] private GameObject ItemExplanation;
     public ToggleControl toggleControl;
-
+    private ToolPooling toolPooling;
+    private ItemData itemData;
     public void TabClick(int _tab)
     {
         CurrentTab = (ItemType.Type)_tab;
@@ -29,6 +30,7 @@ public class InventoryUI : UIController
 
     public void InventoryState()
     {
+        itemData = ItemData.Instance;
         this.gameObject.SetActive(!this.gameObject.activeSelf);
         if(this.gameObject.activeSelf)
         {
@@ -40,9 +42,10 @@ public class InventoryUI : UIController
         {
             if(ToolPooling.Instance != null)
             {
-                if (ToolPooling.Instance.toolInstallMode.isDirectInstall)
+                toolPooling = ToolPooling.Instance;
+                if (toolPooling.toolInstallMode.isDirectInstall)
                 {
-                    ToolPooling.Instance.toolInstallMode.isDirectInstall = false;
+                    toolPooling.toolInstallMode.isDirectInstall = false;
                 }
             }
         }
@@ -72,10 +75,10 @@ public class InventoryUI : UIController
     {
         ResetInventory();
         int slotIndex = 0;
-        List <ItemInfos> _iteminfos = ItemData.Instance.ItemType[(int)CurrentTab].ItemInfos;
+        List <ItemInfos> _iteminfos = itemData.ItemType[(int)CurrentTab].ItemInfos;
         if((int)tab == 1)
         {
-            _iteminfos = ItemData.Instance.IngredientList();
+            _iteminfos = itemData.IngredientList();
         }
         foreach (var infos in _iteminfos.Select((value, index) => (value, index)))
         {

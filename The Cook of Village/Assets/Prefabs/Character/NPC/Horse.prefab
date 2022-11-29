@@ -583,7 +583,7 @@ Transform:
   m_GameObject: {fileID: 3788942628080388673}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -124.070694, y: -5.413352, z: -69.28237}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8326739404063191151}
   - {fileID: 5768944694351147884}
@@ -628,12 +628,12 @@ MonoBehaviour:
     OpenTime: 0
     CloseTime: 0
     Holiday: 0
-    likeability: 0
+    Likeability: 0
     FavoriteFood: 0
     EatFavriteFood: 0
     VisitRestaurant: 0
-    ProfileImage: {fileID: 0}
-    NPCModel: {fileID: 0}
+    VisitPlayer: 0
+    ImageID: 0
   NPCState: 0
   isOpen: 0
   ani: {fileID: 8688879903130569513}
@@ -650,7 +650,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1.5}
-  m_Center: {x: 0, y: 0.6, z: 0.5}
+  m_Center: {x: 0, y: 0.56, z: 0.5}
 --- !u!1 &3986088587571554586
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,8 +675,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3986088587571554586}
   m_LocalRotation: {x: 2.6323796e-10, y: -0.00000012291983, z: -0.000000010062511, w: 1}
-  m_LocalPosition: {x: -0.0000005870162, y: 0.5118174, z: 0.002771988}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.5118174, z: 0}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_Children:
   - {fileID: 2004108459843782931}
   - {fileID: 5263323132320319312}
@@ -1039,7 +1039,7 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 8326739404063191151}
   m_AABB:
-    m_Center: {x: 0.0019289106, y: -0.01466012, z: -0.017867729}
+    m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.46509475, y: 0.5610977, z: 0.22628103}
   m_DirtyAABB: 0
 --- !u!1 &6269535342117476915
