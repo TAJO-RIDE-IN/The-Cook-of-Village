@@ -601,17 +601,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8915777758836587175, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
   m_PrefabInstance: {fileID: 3079373238880203001}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &617402862 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2820804551553832234, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
-  m_PrefabInstance: {fileID: 3079373238880203001}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d199490a83bb2b844b9695cbf13b01ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &623669108 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2902521456814801779, guid: b9dee856c2bc88941b237eb728b8c8de, type: 3}
@@ -1013,8 +1002,6 @@ GameObject:
   - component: {fileID: 1348885717}
   - component: {fileID: 1348885720}
   - component: {fileID: 1348885719}
-  - component: {fileID: 1348885718}
-  - component: {fileID: 1348885721}
   m_Layer: 0
   m_Name: RestaurantNameText
   m_TagString: Untagged
@@ -1041,62 +1028,6 @@ RectTransform:
   m_AnchoredPosition: {x: -111.06, y: -3.87}
   m_SizeDelta: {x: 250, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1348885718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348885716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 0
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1348885719}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 576023119}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!114 &1348885719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1139,21 +1070,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1348885716}
   m_CullTransparentMesh: 1
---- !u!114 &1348885721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348885716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad15cac6fe5adb644b94c183696c397c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NameChangeUI: {fileID: 576023119}
-  NameText: {fileID: 1348885719}
-  NameInput: {fileID: 617402862}
 --- !u!1 &1358932599
 GameObject:
   m_ObjectHideFlags: 0
@@ -1830,7 +1746,7 @@ PrefabInstance:
     - target: {fileID: 1099943699252035442, guid: d7b79714848ebec439aed3b64c8b72a1, type: 3}
       propertyPath: _restaurantName
       value: 
-      objectReference: {fileID: 1348885721}
+      objectReference: {fileID: 3079373238880203002}
     - target: {fileID: 6279720511474634079, guid: d7b79714848ebec439aed3b64c8b72a1, type: 3}
       propertyPath: m_ScreenX
       value: 0.5
@@ -2892,7 +2808,7 @@ PrefabInstance:
     - target: {fileID: 774007416761645314, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1348885721}
+      objectReference: {fileID: 0}
     - target: {fileID: 801481401728609634, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3512,7 +3428,7 @@ PrefabInstance:
     - target: {fileID: 2820804551553832234, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1348885721}
+      objectReference: {fileID: 0}
     - target: {fileID: 2820804551553832234, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: InputText
@@ -3736,6 +3652,10 @@ PrefabInstance:
     - target: {fileID: 3128365476366259927, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -115
+      objectReference: {fileID: 0}
+    - target: {fileID: 3190138772596489270, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3264390029804780675, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_AnchorMax.y
@@ -6052,6 +5972,17 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6602700125932570328, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
+--- !u!114 &3079373238880203002 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5093168522670694079, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
+  m_PrefabInstance: {fileID: 3079373238880203001}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576023119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad15cac6fe5adb644b94c183696c397c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3395852734875546947
 PrefabInstance:
   m_ObjectHideFlags: 0
