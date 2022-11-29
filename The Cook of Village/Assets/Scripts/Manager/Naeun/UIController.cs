@@ -7,7 +7,7 @@ public class UIController : MonoBehaviour
 {
     protected void OnDisable()
     {
-        if(UIManager.UIObject != null)
+        if (UIManager.UIObject != null)
         {
             UIManager.RemoveList(this.gameObject);
         }
@@ -15,6 +15,7 @@ public class UIController : MonoBehaviour
     }
     protected void OnEnable()
     {
+        UIManager.UIOpenScaleAnimation(this.gameObject);
         UIManager.AddList(this.gameObject);
         Enable();
     }

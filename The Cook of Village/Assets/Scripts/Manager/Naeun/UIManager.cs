@@ -45,18 +45,25 @@ public class UIManager : Singletion<UIManager>
         }
     }
     public static Vector3 ZeroVector = new Vector3(0, 0, 0);
+    public static Vector3 HalfVector = new Vector3(0.5f, 0.5f, 0.5f);
     public static Vector3 DefaultVector = new Vector3(1, 1, 1);
+    private static Vector3 ScaleVector = new Vector3(1.3f, 1.3f, 1.3f);
     public static void UIScalePingPongAnimation(GameObject obj)
     {
-        LeanTween.scale(obj, new Vector3(1.3f, 1.3f, 1.3f), 0.5f).setLoopPingPong();
+        LeanTween.scale(obj, ScaleVector, 0.5f).setLoopPingPong();
+    }
+    public static void UIOpenScaleAnimation(GameObject obj)
+    {
+        obj.transform.localScale = HalfVector;
+        LeanTween.scale(obj, DefaultVector, 0.5f).setEaseOutElastic().setIgnoreTimeScale(true);
     }
     public static void UIScalePunchAnimation(GameObject obj)
     {
         obj.transform.localScale = DefaultVector;
-        LeanTween.scale(obj, new Vector3(1.3f, 1.3f, 1.3f), 0.5f).setEasePunch();
+        LeanTween.scale(obj, ScaleVector, 0.5f).setEasePunch().setIgnoreTimeScale(true);
     }
     public static void UIMoveAnimation(GameObject obj, Vector3 vector)
     {
-        LeanTween.moveLocal(obj, vector, 0.1f);
+        LeanTween.moveLocal(obj, vector, 0.1f).setIgnoreTimeScale(true);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RestaurantName : MonoBehaviour
+public class RestaurantName : UIController
 {
     public GameObject NameChangeUI;
     public Text NameText;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Calendar : UIController, IObserver<GameData>
+public class CalendarUI : UIController, IObserver<GameData>
 {
     public Image[] DayImage;
     public Image YesterDayImage;

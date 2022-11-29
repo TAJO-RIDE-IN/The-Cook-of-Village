@@ -22,6 +22,7 @@ public class Option : MonoBehaviour
         this.gameObject.SetActive(!this.gameObject.activeSelf);
         if (this.gameObject.activeSelf)
         {
+            UIManager.UIOpenScaleAnimation(this.gameObject);
             OptionSetting();
         }
     }
