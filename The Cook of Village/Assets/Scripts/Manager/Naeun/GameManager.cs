@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.AI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -55,8 +54,8 @@ public class GameManager : Singletion<GameManager>
             isInstall = value;
             if(!value)
             {
-                NavMeshBuilder.ClearAllNavMeshes();
-                NavMeshBuilder.BuildNavMesh();
+/*                NavMeshBuilder.ClearAllNavMeshes();
+                NavMeshBuilder.BuildNavMesh();*/
             }    
         }
     }
