@@ -26,12 +26,15 @@ public class ToolInstallMode : InstallMode
     private int toolItemInfosAmount;
     private ToolPooling toolPooling;
     private InstallData _installData;
+    private SoundManager _soundManager;
     [HideInInspector] public CookingCharacter _cookingCharacter;
 
     private void Start()
     {
         toolPooling = ToolPooling.Instance;
         _installData = InstallData.Instance;
+
+        _soundManager = SoundManager.Instance;
         isUsed = new bool[installableToolCount];
         
         //Debug.Log(InstallData.toolData._indexNames.Count);
@@ -137,7 +140,6 @@ public class ToolInstallMode : InstallMode
     }
     public override void Use(ItemInfos itemInfos)
     {
-        
         if (isDirectChange)
         {
             if (itemInfos.Name == "Oven")
@@ -151,6 +153,7 @@ public class ToolInstallMode : InstallMode
             InstallData.Instance.PassIndexData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
             DirectUIOpenSetting();
             isDirectChange = false;
+            _soundManager.Play(_soundManager._audioClips["Install Cooker02"]);
             return;
         }
         if (isDirectInstall)
@@ -167,6 +170,7 @@ public class ToolInstallMode : InstallMode
             DirectUICloseSetting();
             DirectUIOpenSetting();
             isDirectInstall = false;
+            _soundManager.Play(_soundManager._audioClips["Install Cooker02"]);
             return;
         }
 
@@ -232,6 +236,7 @@ public class ToolInstallMode : InstallMode
             isDirectChange = false;
             GameManager.Instance.IsInstall = false;
             receivedPositionList.Clear();
+            _soundManager.Play(_soundManager._audioClips["Install Cooker02"]);
         }
     }
 

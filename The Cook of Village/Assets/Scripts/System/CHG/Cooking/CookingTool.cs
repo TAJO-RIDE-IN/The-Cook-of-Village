@@ -39,7 +39,7 @@ public class CookingTool : MonoBehaviour
     private IEnumerator _burntCoroutine;
     private Vector3 cameraVector;
     private ToolPooling toolPooling;
-    private SoundManager soundManager;
+    private SoundManager _soundManager;
 
     
 
@@ -51,7 +51,7 @@ public class CookingTool : MonoBehaviour
     private void Start()
     {
         //InventoryBig.SetActive(false);
-        soundManager = SoundManager.Instance;
+        _soundManager = SoundManager.Instance;
         toolPooling = ToolPooling.Instance;
         _animation = transform.GetComponent<Animation>();
         _burntCoroutine = BurntFood();
@@ -124,7 +124,7 @@ public class CookingTool : MonoBehaviour
             {
                 if (ingredientList.Count > 0)
                 {
-                    soundManager.PlayEffect3D(soundManager._audioClips[toolID.ToString()], gameObject, true);
+                    _soundManager.PlayEffect3D(_soundManager._audioClips[toolID.ToString()], gameObject, true);
                     isBeforeCooking = false;
                     ingredientList.Sort();
                     FoodInfos = FoodData.Instance.RecipeFood((int)toolID, ingredientList);
@@ -242,12 +242,13 @@ public class CookingTool : MonoBehaviour
             circleUIBig.transform.Rotate(0, 0, 1);
             yield return null;
         }
-        soundManager.StopEffect3D(gameObject);
+        _soundManager.StopEffect3D(gameObject);
         isBeforeCooking = true;
         currentValue = 0;
         isCooked = true;
         food.sprite = ImageData.Instance.FindImageData(FoodInfos.ImageID);
         foodBig.sprite = ImageData.Instance.FindImageData(FoodInfos.ImageID);
+        //_soundManager.Play(_soundManager._audioClips[]);
         if (FoodInfos.ID != 100000)
         {
             _burntCoroutine = BurntFood();
