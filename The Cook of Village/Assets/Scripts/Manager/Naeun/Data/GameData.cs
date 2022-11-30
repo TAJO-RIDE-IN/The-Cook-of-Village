@@ -8,6 +8,7 @@ public interface IGameDataOb
 {
     void AddObserver(IObserver<GameData> o);
     void AddDayObserver(IObserver<GameData> o);
+    void AddSleepObserver(IObserver<GameData> o);
     void AddGuestObserver(IObserver<GameData> o);
     void RemoveObserver(IObserver<GameData> o);
     void NotifyObserver(List<IObserver<GameData>> observer);
@@ -46,6 +47,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
 {
     private List<IObserver<GameData>> Observers = new List<IObserver<GameData>>();
     private List<IObserver<GameData>> DayObservers = new List<IObserver<GameData>>();
+    private List<IObserver<GameData>> SleepObservers = new List<IObserver<GameData>>();
     private List<IObserver<GameData>> GuestObservers = new List<IObserver<GameData>>();
     private Coroutine runningCoroutine = null;
     public GameInfos gameInfos;
@@ -123,6 +125,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
                 UseSave = false;
                 SaveDataTime("Save");
             }
+            CheckForciblySleep();
             NotifyObserver(Observers); 
         }
     }
@@ -188,10 +191,28 @@ public class GameData : DataManager<GameData>, IGameDataOb
         return MonthDate;
     }
 
+    private bool forciblySleep = false;
+    public bool ForciblySleep
+    {
+        get { return forciblySleep; }
+        set
+        {
+            forciblySleep = value;
+            NotifyObserver(SleepObservers);
+        }
+    }
+    private void CheckForciblySleep()
+    {
+        ForciblySleep = (TimeOfDay > 120 && TimeOfDay < 480 && !ForciblySleep);
+    }
     public void SetTimeMorning()
     {
         TimeOfDay = 480;
-        Day++;
+        ForciblySleep = false;
+        if (TimeOfDay < 1440 && TimeOfDay > 120)
+        {
+            Day++;
+        }
     }
 
     public int Fame
@@ -307,6 +328,11 @@ public class GameData : DataManager<GameData>, IGameDataOb
     {
         DayObservers.Add(o);
     }
+    public void AddSleepObserver(IObserver<GameData> o)
+    {
+        SleepObservers.Add(o);
+    }
+
     public void AddGuestObserver(IObserver<GameData> o)
     {
         GuestObservers.Add(o);
