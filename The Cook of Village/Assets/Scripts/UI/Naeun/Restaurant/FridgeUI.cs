@@ -8,24 +8,24 @@ public class FridgeUI : UIController
     [HideInInspector]public Fridge fridge;
     public List<ItemInfos> ingredients = new List<ItemInfos>();
     private ItemData itemdata;
-
-    protected override void Enable()
-    {
-        itemdata = ItemData.Instance;
-        ingredients = itemdata.IngredientList();
-    }
     protected override void Disable()
     {
         FridgeUIState(false);
     }
     public void LoadSlotData()
     {
+        itemdata = ItemData.Instance;
+        ingredients = itemdata.IngredientList();
         foreach (var Infos in ingredients.Select((value, index) => (value, index)))
         {
             slotFridge[Infos.index].itemInfos = Infos.value;
         }
     }
-
+    /// <summary>
+    /// 냉장고에 재료를 다시 넣을 때 사용
+    /// </summary>
+    /// <param name="id">재료의 ItemID</param>
+    /// <param name="amount">넣을 양</param>
     public void InputRefrigerator(int id, int amount)
     {
         itemdata.ChangeAmount(id, amount);

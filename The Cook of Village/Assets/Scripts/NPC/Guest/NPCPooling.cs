@@ -42,12 +42,12 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
             {
                 if (gameManager.IsOpen)
                 {
-                    OpenRestaurant();
+                    CloseRestaurant();
                     return;
                 }
                 else
                 {
-                    CloseRestaurant();
+                    OpenRestaurant();
                 }
             }
             
