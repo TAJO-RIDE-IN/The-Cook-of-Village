@@ -198,7 +198,10 @@ public class GameData : DataManager<GameData>, IGameDataOb
         set
         {
             forciblySleep = value;
-            NotifyObserver(SleepObservers);
+            if(value)
+            {
+                NotifyObserver(SleepObservers);
+            }
         }
     }
     private void CheckForciblySleep()
