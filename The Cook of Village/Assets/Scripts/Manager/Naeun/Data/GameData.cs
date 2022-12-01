@@ -39,6 +39,7 @@ public class GameInfos
     public PlayerInfos playerInfos;
     [Range(0, 1440)] public float TimeOfDay;
     public int Fame; //명성
+    public bool Ending;
     public int RainbowDrinking;
     public List<GuestCountInfos> CountInfos;
 }
@@ -212,12 +213,27 @@ public class GameData : DataManager<GameData>, IGameDataOb
     {
         TimeOfDay = 480;
         ForciblySleep = false;
+        CheckEndingQualification();
         if (TimeOfDay < 1440 && TimeOfDay > 120)
         {
             Day++;
         }
     }
-
+    private void CheckEndingQualification()
+    {
+        if(Fame >= 400 && moneyData.Money >= 500000)
+        {
+            gameManaer.gameMode = GameManager.GameMode.Ending;
+        }
+    }
+    public bool Ending
+    {
+        get { return gameInfos.Ending; }
+        set
+        {
+            gameInfos.Ending = value;
+        }
+    }
     public int Fame
     {
         get { return gameInfos.Fame; }

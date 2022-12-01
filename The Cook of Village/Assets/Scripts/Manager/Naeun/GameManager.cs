@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class GameManager : Singletion<GameManager>
+public interface IGameManagerOb
 {
+    void AddObserver(IObserver<GameManager> o);
+    void RemoveObserver(IObserver<GameManager> o);
+    void NotifyObserver(List<IObserver<GameManager>> observer);
+}
+public class GameManager : Singletion<GameManager>, IGameManagerOb
+{
+    private List<IObserver<GameManager>> observers = new List<IObserver<GameManager>>();
     public enum GameMode {Default, Tutorial, Ending}
     [SerializeField]private GameMode mode;
     public GameMode gameMode
@@ -20,6 +26,7 @@ public class GameManager : Singletion<GameManager>
             else
             {
                 gameData.orbitSpeed = 0;
+                NotifyObserver(observers);
             }
         }
     }
@@ -174,5 +181,21 @@ public class GameManager : Singletion<GameManager>
     {
         gameData.SaveDataTime("ExitSave");
         Application.Quit();
+    }
+
+    public void AddObserver(IObserver<GameManager> o)
+    {
+        observers.Add(o);
+    }
+    public void RemoveObserver(IObserver<GameManager> o)
+    {
+        observers.Remove(o);
+    }
+    public void NotifyObserver(List<IObserver<GameManager>> observer)
+    {
+        foreach(var obs in observers)
+        {
+            obs.Change(this);
+        }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EndingController : MonoBehaviour
+public class EndingController : MonoBehaviour, IObserver<GameManager>
 {
     [Header ("RestaurantObject")]
     public GameObject[] Object;
@@ -14,26 +14,27 @@ public class EndingController : MonoBehaviour
     public GameObject EndingDoorParticle;
 
     private int ActionNum;
+    private bool PlayEnding;
+    private GameManager gameManager;
+    private GameData gameData;
     private DialogueManager dialogueManager;
     private SoundManager soundManager;
     private Dictionary<string, Action> DialogueAction = new Dictionary<string, Action>();
-    private void Start() //테스트를 위한 start 이후 삭제
+    private void Start()
     {
-        if(GameManager.Instance.gameMode.Equals(GameManager.GameMode.Ending))
-        {
-            dialogueManager = DialogueManager.Instance;
-            soundManager = SoundManager.Instance;
-            Init();
-        }
+        gameManager = GameManager.Instance;
+        gameData = GameData.Instance;
+        dialogueManager = DialogueManager.Instance;
+        soundManager = SoundManager.Instance;
+        AddObserver(gameManager);
     }
     /// <summary>
     /// 게임모드가 Ending이 될 경우 다음날 아침에 실행 된다.
     /// </summary>
     public void EndingStart()
     {
-        dialogueManager = DialogueManager.Instance;
-        soundManager = SoundManager.Instance;
         Init();
+        PlayEnding = true;
     }
     private void Init()
     {
@@ -84,7 +85,7 @@ public class EndingController : MonoBehaviour
     /// <summary>
     /// Ending 대화인 경우 Action
     /// </summary>
-    private void EndingAction()
+    private void EndingAction() 
     {
 
     }
@@ -94,5 +95,29 @@ public class EndingController : MonoBehaviour
         ActionNum = 0;
         endingUI.CanNext = true;
         endingUI.CallDialogue("Ending");
+    }
+
+    public void FinishEnding() //Ending끝났을 경우
+    {
+        gameData.Ending = true;
+        RemoveObserver(gameManager);
+    }
+    public void AddObserver(IGameManagerOb o)
+    {
+        o.AddObserver(this);
+    }
+    public void RemoveObserver(IGameManagerOb o)
+    {
+        o.RemoveObserver(this);
+    }
+    public void Change(GameManager obj)
+    {
+        if(obj is GameManager)
+        {
+            if(obj.gameMode.Equals(GameManager.GameMode.Ending) || !PlayEnding || !gameData.Ending)
+            {
+                EndingStart();
+            }
+        }
     }
 }
