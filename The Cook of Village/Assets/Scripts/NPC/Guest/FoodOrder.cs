@@ -161,9 +161,19 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     {
         guest.OrderSound();
         OrderInit(infos);
-        FoodWaitTime = foodData.DefaultWaitingTime + foodInfos.MakeTime * 2f;
+        FoodWaitTime = WaitTime();
         SaveWaitTime = FoodWaitTime;
         WaitingOrderCoroutine = StartCoroutine(WaitingOrder());
+    }
+    private float WaitTime()
+    {
+        float time = foodData.DefaultWaitingTime + foodInfos.MakeTime * 2f;
+        if (this.gameObject.layer.Equals(7))
+        {
+            time += 20f;
+            Debug.Log(time);
+        }
+        return time;
     }
     protected void OrderInit(FoodInfos infos)
     {

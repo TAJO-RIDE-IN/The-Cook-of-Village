@@ -8,7 +8,7 @@ public class BuyingCharacter : MonoBehaviour
 {
     private bool isShopCollider;
     private bool isRestNameCollider;
-    public RestaurantName _restaurantName;
+    public RestaurantNameUI _restaurantName;
     private VillageNPC _npc;
     private GameManager _gameManager;
 

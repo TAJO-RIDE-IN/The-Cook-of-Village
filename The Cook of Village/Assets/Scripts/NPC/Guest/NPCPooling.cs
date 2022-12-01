@@ -11,7 +11,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
 
     public GameObject openUI;
     public GameObject closeUI;
-    private bool isOpen;
+    private bool isOpenTime;
     private float CallTime = 20f;
     [SerializeField] private float DefaultCallTime = 20f;
     private float FirstCallTime = 4f;
@@ -38,41 +38,39 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
         //일시정지 상태가 아닐 때, isOpen에 따라
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (Time.timeScale != 0.0f)
+            if (Time.timeScale != 0.0f && isOpenTime)
             {
-                if (isOpen)
+                if (gameManager.IsOpen)
                 {
-                    soundManager.Play(SoundManager.Instance._audioClips["CloseRestaurant"]);
-                    closeUI.LeanScale(Vector2.zero, 0.5f).setOnComplete(() => CloseSetting());
+                    CloseRestaurant();
                     return;
                 }
                 else
                 {
-                    soundManager.Play(SoundManager.Instance._audioClips["OpenRestaurant"]);
-                    openUI.LeanScale(Vector2.zero, 0.5f).setOnComplete(() => OpenSetting());
+                    OpenRestaurant();
                 }
             }
             
         }
     }
 
-    private void OpenSetting()
+    private void OpenUI()
     {
-        isOpen = true;
-        OpenRestaurant();
-        closeUI.LeanScale(Vector2.one, 0.5f);
+        soundManager.Play(SoundManager.Instance._audioClips["OpenRestaurant"]);
+        openUI.LeanScale(Vector2.zero, 0.5f).setOnComplete(() => closeUI.LeanScale(Vector2.one, 0.5f));
+
     }
 
-    private void CloseSetting()
+    private void CloseUI()
     {
-        isOpen = false;
-        CloseRestaurant();
-        openUI.LeanScale(Vector2.one, 0.5f);
+        soundManager.Play(SoundManager.Instance._audioClips["CloseRestaurant"]);
+        closeUI.LeanScale(Vector2.zero, 0.5f).setOnComplete(() => openUI.LeanScale(Vector2.one, 0.5f));
     }
 
 
     public void OpenRestaurant()
     {
+        OpenUI();
         gameManager.IsOpen = true;
         FirstNPC = true;
         OpenTime = GameData.Instance.TimeOfDay;
@@ -87,6 +85,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
 
     public void CloseRestaurant()
     {
+        CloseUI();
         gameManager.IsOpen = false;
         callVillageNPC = false;
         if(_callNPC != null)
@@ -123,6 +122,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
                     {
                         village.gameObject.SetActive(true);
                         village.VisitRestaurant();
+                        yield return null;
                     }
                 }
                 GetObject();
@@ -161,9 +161,14 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
         if (obj is GameData)
         {
             var GameData = obj;
-            if(obj.TimeOfDay >= 1320)
+            if(obj.TimeOfDay >= 1320 && isOpenTime)
             {
                 CloseRestaurant();
+                isOpenTime = false;
+            }
+            else
+            {
+                isOpenTime = true;
             }
             if(gameManager.IsOpen)
             {

@@ -34,7 +34,7 @@ public class GameManager : Singletion<GameManager>
         DontDestroyOnLoad(this.gameObject);
     }
 
-    private bool isOpen = false;
+    [SerializeField] private bool isOpen = false;
     public bool IsOpen
     {
         get { return isOpen; }
@@ -54,8 +54,7 @@ public class GameManager : Singletion<GameManager>
             isInstall = value;
             if(!value)
             {
-/*                NavMeshBuilder.ClearAllNavMeshes();
-                NavMeshBuilder.BuildNavMesh();*/
+                NavMeshBaker.NavMeshBake();
             }    
         }
     }
