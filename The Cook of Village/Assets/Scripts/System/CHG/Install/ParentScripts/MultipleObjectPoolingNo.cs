@@ -16,9 +16,24 @@ public class MultipleObjectPoolingNo : MonoBehaviour
         public Queue<GameObject> objectQueue = new Queue<GameObject>();
         public GameObject objectContainer;
         public int initCount;
+        public List<GameObject> pooledObjects = new List<GameObject>();
     }
-    
+
     public List<PoolObjectData> poolObjectData;
+    public PoolObjectData FindPooledObject(GameObject value)
+    {
+        for (int i = 0; i < poolObjectData.Count; i++)
+        {
+            for (int j = 0; j < poolObjectData[i].pooledObjects.Count; j++)
+            {
+                if (value == poolObjectData[i].pooledObjects[j])
+                {
+                    return poolObjectData[i];
+                }
+            }
+        }
+        return null;
+    }
     public PoolObjectData FindPoolObjectData(String value)
     {
         int index = poolObjectData.FindIndex(data => data.name == value);

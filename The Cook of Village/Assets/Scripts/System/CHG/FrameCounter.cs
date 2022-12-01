@@ -13,12 +13,6 @@ public class FrameCounter : MonoBehaviour
 
     public float fps;
     public bool isShow;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
