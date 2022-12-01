@@ -122,6 +122,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
                     {
                         village.gameObject.SetActive(true);
                         village.VisitRestaurant();
+                        yield return null;
                     }
                 }
                 GetObject();
