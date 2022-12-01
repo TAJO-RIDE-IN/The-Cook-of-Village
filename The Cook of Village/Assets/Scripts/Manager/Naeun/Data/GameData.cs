@@ -130,7 +130,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
         }
     }
 
-    private bool UseSave = true;
+    [HideInInspector]public bool UseSave = true;
     /// <summary>
     /// 데이터를 저장할 수 있는지 확인
     /// </summary>
