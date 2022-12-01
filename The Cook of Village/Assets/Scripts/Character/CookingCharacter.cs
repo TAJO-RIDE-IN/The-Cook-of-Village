@@ -1,7 +1,20 @@
 using UnityEngine;
 
-public class CookingCharacter : MonoBehaviour
+public class CookingCharacter : MonoBehaviour, IObserver<GameData>
 {
+    public void Change(GameData obj)
+    {
+        if (obj is GameData)
+        {
+            Debug.Log("쓰러짐");
+            obj.SetTimeMorning();
+        }
+    }
+    public void AddObserver(IGameDataOb o)
+    {
+        o.AddSleepObserver(this);
+    }
+    
     public Animator charAnimator;
     public GameObject HandPosition;
     public GameObject TrashUI;
@@ -12,6 +25,7 @@ public class CookingCharacter : MonoBehaviour
     [HideInInspector] public FoodOrder _foodOrder;
     [HideInInspector] public CookPosition _cookPosition;
     private Fridge fridge;
+    private GameData _gameData;
     private AnimatorOverrideController animatorOverrideController;
     private SoundManager soundManager;
     public AnimationClip[] Idle;
@@ -41,6 +55,8 @@ public class CookingCharacter : MonoBehaviour
         animatorOverrideController = new AnimatorOverrideController(charAnimator.runtimeAnimatorController);
         charAnimator.runtimeAnimatorController = animatorOverrideController;
         _gameManager = GameManager.Instance;
+        _gameData = GameData.Instance;
+        AddObserver(_gameData);
     }
 
     private void Update()
