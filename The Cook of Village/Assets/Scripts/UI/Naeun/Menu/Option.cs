@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,14 +8,18 @@ public class Option : MonoBehaviour
 {
     private List<Resolution> resolutions = new List<Resolution>();
     public Dropdown ResolutionDrop;
-    public GameObject BgmIcon, EffectIcon, KeyboardOperate;
-    public Toggle BgmToggle, EffectToggle, WindowToggle;
+    public GameObject KeyboardOperate;
+    public Toggle WindowToggle;
     public Slider BgmSlider, EffectSlider;
-    private SoundManager soundManager;
+    public Image BgmImage, EffectImage;
+    public Sprite[] BgmSprite;
+    public Sprite[] EffectSprite;
 
-    private Dictionary<int, Toggle> DicToggle = new Dictionary<int, Toggle>();
+    private Dictionary<int, bool> DicBool = new Dictionary<int, bool>();
     private Dictionary<int, Slider> DicSlider = new Dictionary<int, Slider>();
-
+    private SoundManager soundManager;
+    private bool BgmMute;
+    private bool EffectMute;
     public void OptionUIState()
     {
         this.gameObject.SetActive(!this.gameObject.activeSelf);
@@ -32,9 +35,9 @@ public class Option : MonoBehaviour
     }
     private void Awake()
     {
-        DicToggle.Add(0, BgmToggle);
-        DicToggle.Add(1, EffectToggle);
-        DicToggle.Add(2, EffectToggle);
+        DicBool.Add(0, BgmMute);
+        DicBool.Add(1, EffectMute);
+        DicBool.Add(2, EffectMute);
         DicSlider.Add(0, BgmSlider);
         DicSlider.Add(1, EffectSlider);
         DicSlider.Add(2, EffectSlider);
@@ -42,22 +45,32 @@ public class Option : MonoBehaviour
     private void OptionSetting()
     {
         soundManager = SoundManager.Instance;
-        BgmToggle.isOn = soundManager.audioSources[(int)SoundData.Type.Bgm].audioSources[0].mute;
-        BgmToggle.isOn = soundManager.audioSources[(int)SoundData.Type.Effect].audioSources[0].mute;
-        MuteSound(0);
-        MuteSound(1);
-        MuteSound(2);
-        if (!BgmToggle.isOn)
+        SoundInit();
+        WindowInit();
+    }
+    private void SoundInit()
+    {
+        BgmMute = soundManager.audioSources[(int)SoundData.Type.Bgm].audioSources[0].mute;
+        EffectMute = soundManager.audioSources[(int)SoundData.Type.Effect].audioSources[0].mute;
+        if (!BgmMute)
         {
             BgmSlider.value = soundManager.audioSources[(int)SoundData.Type.Bgm].audioSources[0].volume;
         }
-        if (!EffectToggle.isOn)
+        else
+        {
+            MuteSound(0);
+        }
+        if (!EffectMute)
         {
             EffectSlider.value = soundManager.audioSources[(int)SoundData.Type.Effect].audioSources[0].volume;
         }
-        Init();
+        else
+        {
+            MuteSound(1);
+            MuteSound(2);
+        }
     }
-    public void Init()
+    public void WindowInit()
     {
         ResolutionDrop.options.Clear();
         resolutions.Clear();
@@ -119,31 +132,70 @@ public class Option : MonoBehaviour
     private bool StopEffectSlider;
     public void MuteSound(int type)
     {
-        if(type == 0)
+        if (type.Equals(0)) //Bgm
         {
-            soundManager.MuteSound(type, BgmToggle.isOn);
+            BgmMute = !BgmMute;
+            soundManager.MuteSound(type, BgmMute);
             StopBgmSlider = true;
-            BgmSlider.value = (BgmToggle.isOn) ? 0 : soundManager.audioSources[(int)SoundData.Type.Bgm].audioSources[0].volume;
+            BgmSlider.value = (BgmMute) ? 0 : soundManager.audioSources[(int)SoundData.Type.Bgm].audioSources[0].volume;
             StopBgmSlider = false;
-            BgmIcon.SetActive(!BgmToggle.isOn);
         }
-        else
+        else //Effect
         {
-            soundManager.MuteSound(type, EffectToggle.isOn);
+            EffectMute = !EffectMute;
+            soundManager.MuteSound(type, EffectMute);
             StopEffectSlider = true;
-            EffectSlider.value = (EffectToggle.isOn) ? 0 : soundManager.audioSources[(int)SoundData.Type.Effect].audioSources[0].volume;
+            EffectSlider.value = (EffectMute) ? 0 : soundManager.audioSources[(int)SoundData.Type.Effect].audioSources[0].volume;
             StopEffectSlider = false;
-            EffectIcon.SetActive(!EffectToggle.isOn);
         }
+        ChangeSoundImage(type);
     }
 
     public void ChangeSound(int type)
     {
-        bool stopSlider = (type == 0) ? StopBgmSlider : StopEffectSlider;
-        if(!stopSlider)
+        bool stopSlider = (type.Equals(0)) ? StopBgmSlider : StopEffectSlider;
+        if (!stopSlider)
         {
-            SoundManager.Instance.AudioVolume(type, DicSlider[type].value);
-            DicToggle[type].isOn = false;
+            soundManager.AudioVolume(type, DicSlider[type].value);
+            if (DicBool[type] && !DicSlider[type].value.Equals(0))
+            {
+                MuteSound(type);
+            }
+            ChangeSoundImage(type);
         }
     }
+    private void ChangeSoundImage(int type)
+    {
+        if (type.Equals(0)) //Bgm
+        {
+            if (BgmMute)
+            {
+                BgmImage.sprite = BgmSprite[0];
+            }
+            else
+            {
+                if (BgmSlider.value.Equals(0))
+                {
+                    BgmImage.sprite = BgmSprite[0];
+                }
+                else if (BgmSlider.value < 0.3)
+                {
+                    BgmImage.sprite = BgmSprite[1];
+                }
+                else if (BgmSlider.value < 0.6)
+                {
+                    BgmImage.sprite = BgmSprite[2];
+                }
+                else
+                {
+                    BgmImage.sprite = BgmSprite[3];
+                }
+            }
+        }
+        else //Effect
+        {
+            EffectImage.sprite = (EffectSlider.value.Equals(0)) ? EffectSprite[0] : EffectSprite[1];
+        }
+    }
+
 }
