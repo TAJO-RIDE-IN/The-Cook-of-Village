@@ -20,8 +20,9 @@ public class CookingCharacter : MonoBehaviour, IObserver<GameData>
     public GameObject TrashUI;
 
 
-    [HideInInspector] public CookingTool _cookingTool;
+    public CalendarUI calendarUI;
     public Trash trash;
+    [HideInInspector] public CookingTool _cookingTool;
     [HideInInspector] public FoodOrder _foodOrder;
     [HideInInspector] public CookPosition _cookPosition;
     private Fridge fridge;
@@ -44,8 +45,8 @@ public class CookingCharacter : MonoBehaviour, IObserver<GameData>
     private bool isDestroy;
     private GameManager _gameManager;
 
-    //[HideInInspector]
-    public string objectName;
+    //
+    [HideInInspector] public string objectName;
 
 
     void Start()
@@ -210,8 +211,21 @@ public class CookingCharacter : MonoBehaviour, IObserver<GameData>
                     }
                 }
 
-                if (objectName == "Calender")
+                if (objectName == "Calendar")
                 {
+                    if (!isSpace) //여는 상황
+                    {
+                        isSpace = true;
+                        calendarUI.CalendarUIState(true);
+                        return;
+                    }
+                    else
+                    {
+                        isSpace = false;
+                        calendarUI.CalendarUIState(false);
+                        return;
+                    }
+                    
 
                 }
             }
@@ -317,6 +331,12 @@ public class CookingCharacter : MonoBehaviour, IObserver<GameData>
         if (other.gameObject.name.Equals("Trash"))
         {
             TrashUI.SetActive(false);
+            isSpace = false;
+            isObjectCollider = false;
+        }
+        if (other.gameObject.name.Equals("Calendar"))
+        {
+            calendarUI.CalendarUIState(false);
             isSpace = false;
             isObjectCollider = false;
         }

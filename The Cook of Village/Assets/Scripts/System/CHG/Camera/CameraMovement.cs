@@ -29,7 +29,6 @@ public class CameraMovement : MonoBehaviour
     public GameObject cameraPosition;
     public GameObject flatCamera;
 
-    public Vector3 helloWorld;
     public float zoomValue;
     public CinemachineName[] cinemachineName; 
     private GameManager _gameManager;
@@ -38,7 +37,6 @@ public class CameraMovement : MonoBehaviour
     private Vector3 upDirection;
     private float preAngle;
     private float preOuterDown;
-    public Transform characterTrans;
     
     
     private float rotationY;
@@ -57,65 +55,19 @@ public class CameraMovement : MonoBehaviour
         //Debug.Log(Input.GetAxis("Mouse ScrollWheel"));
         upDirection = Vector3.forward;
         _gameManager = GameManager.Instance;
-        characterTrans = GameObject.FindWithTag("Player").transform;
         character = GameObject.FindWithTag("Player").GetComponent<ThirdPersonMovement>();
 
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        helloWorld = character.transform.position;
-        if(Input.GetKeyDown(KeyCode.LeftAlt))
-        {
-            if (!isLocked)//캐릭터로 이동
-            {
-                cameraPosition.transform.position = character.transform.position;
-                zoomValue = 0;
-                character.isLocked = true;
-                isLocked = true;
-            }
-            else//카메라 포지션으로 이동
-            {
-                outerLeft = outerLeftOriginal;
-                outerRight = outerRightOriginal;
-                outerDown = outerDownOriginal;
-                outerUp = outerUpOriginal;
-                character.isLocked = false;
-                isLocked = false;
-            }
-        }
-        if (!_gameManager.IsUI)
-        {
-            if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButton(1))
-            {
-                isAngle = false;
-                cinemachineName[0].cinemachine.m_XAxis.m_MaxSpeed = 300;
-                //cameraPosition.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
-                cinemachineName[0].cinemachine.m_XAxis.Value += Input.GetAxis("Mouse X");
-                cameraPosition.transform.rotation = Quaternion.Euler(0, flatCamera.transform.eulerAngles.y, 0);
-                //Debug.Log(flatCamera.transform.rotation.y);
-            }
-            else
-            {
-                if (!isAngle)
-                {
-                    upDirection = Quaternion.Euler(0, cinemachineName[0].cinemachine.m_XAxis.Value - preAngle, 0) *
-                                  upDirection; //이게 upDirection을 이 회전각도에 따라서 바꿔주는것
-                    preAngle = cinemachineName[0].cinemachine.m_XAxis.Value;
-                    isAngle = true;
-                }
-
-                cinemachineName[0].cinemachine.m_XAxis.m_MaxSpeed = 0;
-            }
-        }
-
         if (!_gameManager.IsUI)
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0)
             {
                 preOuterDown = cameraPosition.transform.position.z;
                 distance = Input.GetAxis("Mouse ScrollWheel");
-                if (zoomValue < 2)
+                if (zoomValue < 1.5)
                 {
                     cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
                     zoomValue += distance;
@@ -130,7 +82,7 @@ public class CameraMovement : MonoBehaviour
             {
                 preOuterDown = cameraPosition.transform.position.z;
                 distance = Input.GetAxis("Mouse ScrollWheel");
-                if (zoomValue > -2)
+                if (zoomValue > -1.5)
                 {
                     cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
                     zoomValue += distance;
@@ -140,7 +92,59 @@ public class CameraMovement : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
         
+        if (!_gameManager.IsUI)
+        {
+            if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButton(1))
+            {
+                isAngle = false;
+                cinemachineName[0].cinemachine.m_XAxis.m_MaxSpeed = 300;
+                //cameraPosition.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
+                cinemachineName[0].cinemachine.m_XAxis.Value += Input.GetAxis("Mouse X");
+                cameraPosition.transform.rotation = Quaternion.Euler(0, flatCamera.transform.eulerAngles.y, 0);
+                return;
+                //Debug.Log(flatCamera.transform.rotation.y);
+            }
+            else
+            {
+                if (!isAngle)
+                {
+                    upDirection = Quaternion.Euler(0, cinemachineName[0].cinemachine.m_XAxis.Value - preAngle, 0) *
+                                  upDirection; //이게 upDirection을 이 회전각도에 따라서 바꿔주는것
+                    preAngle = cinemachineName[0].cinemachine.m_XAxis.Value;
+                    isAngle = true;
+                    return;
+                }
+                cinemachineName[0].cinemachine.m_XAxis.m_MaxSpeed = 0;
+            }
+            if(Input.GetKeyDown(KeyCode.LeftAlt))
+            {
+                if (!isLocked)//캐릭터로 이동
+                {
+                    cameraPosition.transform.position = character.transform.position;
+                    zoomValue = 0;
+                    character.isLocked = true;
+                    isLocked = true;
+                    return;
+                }
+                else//카메라 포지션으로 이동
+                {
+                    outerLeft = outerLeftOriginal;
+                    outerRight = outerRightOriginal;
+                    outerDown = outerDownOriginal;
+                    outerUp = outerUpOriginal;
+                    character.isLocked = false;
+                    isLocked = false;
+                    return;
+                }
+            }
+            
+        }
+
     }
     void LateUpdate()
     {

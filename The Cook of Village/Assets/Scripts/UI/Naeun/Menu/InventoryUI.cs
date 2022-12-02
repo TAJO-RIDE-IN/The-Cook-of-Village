@@ -28,6 +28,12 @@ public class InventoryUI : UIController
         CurrentTab = (ItemType.Type)_tab;
     }
 
+    public void InstallItemTab()
+    {
+        InventoryState();
+        TabClick(7);
+    }
+
     public void InventoryState()
     {
         itemData = ItemData.Instance;
