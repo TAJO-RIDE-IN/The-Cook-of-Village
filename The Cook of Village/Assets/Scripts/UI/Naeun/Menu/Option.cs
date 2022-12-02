@@ -15,7 +15,6 @@ public class Option : MonoBehaviour
     public Sprite[] BgmSprite;
     public Sprite[] EffectSprite;
 
-    private Dictionary<int, bool> DicBool = new Dictionary<int, bool>();
     private Dictionary<int, Slider> DicSlider = new Dictionary<int, Slider>();
     private SoundManager soundManager;
     private bool BgmMute;
@@ -35,9 +34,6 @@ public class Option : MonoBehaviour
     }
     private void Awake()
     {
-        DicBool.Add(0, BgmMute);
-        DicBool.Add(1, EffectMute);
-        DicBool.Add(2, EffectMute);
         DicSlider.Add(0, BgmSlider);
         DicSlider.Add(1, EffectSlider);
         DicSlider.Add(2, EffectSlider);
@@ -143,7 +139,8 @@ public class Option : MonoBehaviour
         else //Effect
         {
             EffectMute = !EffectMute;
-            soundManager.MuteSound(type, EffectMute);
+            soundManager.MuteSound(1, EffectMute);
+            soundManager.MuteSound(2, EffectMute);
             StopEffectSlider = true;
             EffectSlider.value = (EffectMute) ? 0 : soundManager.audioSources[(int)SoundData.Type.Effect].audioSources[0].volume;
             StopEffectSlider = false;
@@ -151,13 +148,18 @@ public class Option : MonoBehaviour
         ChangeSoundImage(type);
     }
 
+    private bool Mute(int type)
+    {
+        bool mute = type.Equals(0) ? BgmMute : EffectMute;
+        return mute;
+    }
     public void ChangeSound(int type)
     {
         bool stopSlider = (type.Equals(0)) ? StopBgmSlider : StopEffectSlider;
         if (!stopSlider)
         {
             soundManager.AudioVolume(type, DicSlider[type].value);
-            if (DicBool[type] && !DicSlider[type].value.Equals(0))
+            if (Mute(type) && !DicSlider[type].value.Equals(0))
             {
                 MuteSound(type);
             }
