@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class BuyingCharacter : MonoBehaviour
 {
-    private bool isShopCollider;
+    public bool isShopCollider;
     private bool isRestNameCollider;
     public RestaurantNameUI _restaurantName;
     private VillageNPC _npc;

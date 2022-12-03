@@ -16,18 +16,16 @@ public class LoadingScene : MonoBehaviour
  
     private IEnumerator LoadSceneAsync(int sceneID)
     {
-        float load;
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
         operation.allowSceneActivation = false;
-        load = (operation.progress > LoadingTime) ? operation.progress : LoadingTime;
         float time = 0;
-        while (time < LoadingTime || !operation.isDone)
+        while (!operation.isDone)
         {
             yield return null;
             time += Time.deltaTime;
             if (operation.progress < 0.9f)
             {
-                LoadingBarFill.value = Mathf.Lerp(LoadingBarFill.value, load, time);
+                LoadingBarFill.value = Mathf.Lerp(LoadingBarFill.value, operation.progress, time);
                 if (LoadingBarFill.value >= operation.progress)
                 {
                     time = 0f;
@@ -36,7 +34,7 @@ public class LoadingScene : MonoBehaviour
             else
             {
                 LoadingBarFill.value = Mathf.Lerp(LoadingBarFill.value, 1f, time);
-                if (LoadingBarFill.value == 1.0f)
+                if (LoadingBarFill.value.Equals(1.0f))
                 {
                     operation.allowSceneActivation = true;
                     yield break;
