@@ -7,7 +7,6 @@ public class LoadingScene : MonoBehaviour
 {
     public Slider LoadingBarFill;
     public Text TipText;
-    private float LoadingTime = 2f;
     private void Awake()
     {
         StartCoroutine(LoadSceneAsync(GameManager.Instance.NextSceneIndex));
