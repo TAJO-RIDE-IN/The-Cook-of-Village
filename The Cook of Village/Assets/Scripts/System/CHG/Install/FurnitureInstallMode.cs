@@ -142,14 +142,17 @@ public class FurnitureInstallMode : InstallMode
     {
         if (data.name == _furniturePooling.poolObjectData[0].name)
         {
+            gameData.ChangeFame(3);
             return InstallData.SortOfInstall.Table;
+            
         }
 
         if (ChairNameCheck(data.name))
         {
+            gameData.ChangeFame(5);
             return InstallData.SortOfInstall.Chair;
         }
-
+        gameData.ChangeFame(20);
         return InstallData.SortOfInstall.Furnitue;
     }
     private void FixedUpdate()
