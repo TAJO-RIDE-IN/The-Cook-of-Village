@@ -604,11 +604,6 @@ BoxCollider:
   m_CorrespondingSourceObject: {fileID: 741068099734383112, guid: f9711b98edc455d4cb791eb7bcce75b2, type: 3}
   m_PrefabInstance: {fileID: 741068100443633098}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &576023119 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8915777758836587175, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
-  m_PrefabInstance: {fileID: 3079373238880203001}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &623669108 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2902521456814801779, guid: b9dee856c2bc88941b237eb728b8c8de, type: 3}
@@ -2795,6 +2790,14 @@ PrefabInstance:
     - target: {fileID: 774007416761645314, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 3079373238880203002}
+    - target: {fileID: 774007416761645314, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NameUIButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 774007416761645314, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: RestaurantNameUI, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 801481401728609634, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3399,10 +3402,14 @@ PrefabInstance:
     - target: {fileID: 2820804551553832234, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3079373238880203002}
     - target: {fileID: 2820804551553832234, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: InputText
+      objectReference: {fileID: 0}
+    - target: {fileID: 2820804551553832234, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: RestaurantNameUI, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2855679963156826191, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_FontData.m_Font
@@ -5255,10 +5262,14 @@ PrefabInstance:
     - target: {fileID: 7270170880185264015, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 576023119}
+      objectReference: {fileID: 3079373238880203002}
     - target: {fileID: 7270170880185264015, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: NameUIButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7270170880185264015, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: RestaurantNameUI, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7333859542590434019, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
       propertyPath: m_IsActive
@@ -5916,7 +5927,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5093168522670694079, guid: ac10a62977564b647b78ff090c06eab5, type: 3}
   m_PrefabInstance: {fileID: 3079373238880203001}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 576023119}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad15cac6fe5adb644b94c183696c397c, type: 3}
@@ -6078,7 +6089,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2753781223019779924, guid: cd26d50cfeaa477449a7ae660b32db47, type: 3}
       propertyPath: mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2753781223019779924, guid: cd26d50cfeaa477449a7ae660b32db47, type: 3}
       propertyPath: CurrentSceneIndex
