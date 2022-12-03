@@ -75,8 +75,11 @@ public class SoundManager : Singletion<SoundManager>
     public void SceneLoadSound(string SceneName)
     {
         Audio3DList();
-        string name = SceneName + "BGM";
-        Play(_audioClips[name]);
+        if(!SceneName.Equals("GameLoad"))
+        {
+            string name = SceneName + "BGM";
+            Play(_audioClips[name]);
+        }
     }
 
     public void Play(Sound sound, float pitch = 1.0f)
