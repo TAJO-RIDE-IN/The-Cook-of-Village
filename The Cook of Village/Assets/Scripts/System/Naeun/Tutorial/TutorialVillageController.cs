@@ -6,7 +6,8 @@ public class TutorialVillageController : TutorialController
 {
     public TutorialUI VillageTutorialUI;
     public ThirdPersonGravity Player;
-    public GameObject DestinationParticle, RestaurantParticle;
+    public BuyingCharacter PlayerBuying;
+    public GameObject DestinationParticle, RestaurantParticle,RestaurantName;
     public Collider shopCllider;
     public TutorialDetailsUI TutorialShop;
     public GameObject Wall;
@@ -63,6 +64,8 @@ public class TutorialVillageController : TutorialController
                 DestinationParticle.SetActive(false);
                 break;
             case 2: //레스토랑으로 이동
+                shopCllider.enabled = false;
+                PlayerBuying.enabled = false;
                 ArrowParticleState(true, 180);
                 Player.StartWalking();
                 npcData.AtOnceCloseNPC((int)NPCInfos.Work.FruitShop); 
