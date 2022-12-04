@@ -228,6 +228,11 @@ public class CookingCharacter : MonoBehaviour, IObserver<GameData>
                     
 
                 }
+
+                if (objectName == "PROP_bed")
+                {
+                    
+                }
             }
 
 
@@ -247,9 +252,6 @@ public class CookingCharacter : MonoBehaviour, IObserver<GameData>
                     //먼저 요리도구를 비우세요! 출력
                 }
             }
-
-
-
         }
     }
 
@@ -340,7 +342,7 @@ public class CookingCharacter : MonoBehaviour, IObserver<GameData>
             isSpace = false;
             isObjectCollider = false;
         }
-
+        
         else
         {
             isObjectCollider = false;

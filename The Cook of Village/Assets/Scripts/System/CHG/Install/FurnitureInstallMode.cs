@@ -442,17 +442,7 @@ public class FurnitureInstallMode : InstallMode
         isDelete = false;
         isActive = false;
     }
-    public IEnumerator TextFade(GameObject box, Text text)
-    {
-        box.SetActive(true);
-        text.color = new Color(text.color.r, text.color.g, text.color.b, 1f);
-        while (text.color.a > 0.0f)
-        {
-            text.color = new Color(text.color.r, text.color.g, text.color.b, text.color.a - (Time.deltaTime / 3.0f));
-            yield return null;
-        }
-        box.SetActive(false);
-    }
+    
     private void Cancel()
     {
         canvas.enabled = true;
@@ -474,7 +464,17 @@ public class FurnitureInstallMode : InstallMode
     {
         InstallUI.SetActive(false);
     }
-    
+    public IEnumerator TextFade(GameObject box, Text text)
+    {
+        box.SetActive(true);
+        text.color = new Color(text.color.r, text.color.g, text.color.b, 1f);
+        while (text.color.a > 0.0f)
+        {
+            text.color = new Color(text.color.r, text.color.g, text.color.b, text.color.a - (Time.deltaTime / 3.0f));
+            yield return null;
+        }
+        box.SetActive(false);
+    }
 
 
     
