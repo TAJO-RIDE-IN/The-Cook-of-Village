@@ -16,6 +16,10 @@ public class ThirdPersonGravity : MonoBehaviour
     Vector3 velocity;
     bool isGrounded;
 
+    private float zoomSpeed = 2;
+    public float zoomValue;
+    private float distance;
+
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
@@ -38,7 +42,43 @@ public class ThirdPersonGravity : MonoBehaviour
         _soundManager = SoundManager.Instance;
     }
 
-    // Update is called once per frame
+    private void Update()
+    {
+        
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            if (zoomValue <= 2f)
+            {
+                zoomValue += 0.1f;
+                distance = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+                ValueChange();
+            }
+            
+        }
+        else if(Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            if (zoomValue > -2f)
+            {
+                distance = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+                zoomValue -= 0.1f;
+                ValueChange();
+            }
+            
+        }
+        
+    }
+
+    private void ValueChange()
+    {
+        cinemachine.m_Orbits[0].m_Height -= distance;
+        cinemachine.m_Orbits[1].m_Height -= distance;
+        //cinemachine.m_Orbits[2].m_Height -= distance;
+        cinemachine.m_Orbits[0].m_Radius -= distance;
+        cinemachine.m_Orbits[1].m_Radius -= distance;
+        cinemachine.m_Orbits[2].m_Radius -= distance;
+    }
+    
+
     void FixedUpdate()
     {
         if (_gameManager.IsUI)

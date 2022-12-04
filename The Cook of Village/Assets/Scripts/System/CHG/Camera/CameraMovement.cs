@@ -13,12 +13,15 @@ public class CinemachineName
 public class CameraMovement : MonoBehaviour
 {
     public float dragSpeed;
-    public float zoomSpeed;
     public float outerLeft;
     public float outerRight;
     public float outerDown;
     public float outerUp;
     public float distance;
+    public float zoomSpeed;
+    public float zoomValue;
+    public float lockedZoomSpeed;
+    public float lockedZoomValue;
     
     
     private float outerLeftOriginal;
@@ -29,8 +32,8 @@ public class CameraMovement : MonoBehaviour
     public GameObject cameraPosition;
     public GameObject flatCamera;
 
-    public float zoomValue;
-    public CinemachineName[] cinemachineName; 
+    
+    public CinemachineFreeLook cinemachine;
     private GameManager _gameManager;
     
     private Vector3 TargetPosition;
@@ -63,35 +66,73 @@ public class CameraMovement : MonoBehaviour
     {
         if (!_gameManager.IsUI)
         {
-            if (Input.GetAxis("Mouse ScrollWheel") > 0)
+            if (isLocked)
             {
-                preOuterDown = cameraPosition.transform.position.z;
-                distance = Input.GetAxis("Mouse ScrollWheel");
-                if (zoomValue < 1.5)
+                if (Input.GetAxis("Mouse ScrollWheel") > 0)
                 {
-                    cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
-                    zoomValue += distance;
-                    //outerDown += Mathf.Abs(distance);
-                    outerDown += Math.Abs(preOuterDown - cameraPosition.transform.position.z);
-                    outerUp += Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+                    if (lockedZoomValue <= 0.2f)
+                    {
+                        lockedZoomValue += 0.1f;
+                        distance = Input.GetAxis("Mouse ScrollWheel") * lockedZoomSpeed;
+                        ValueChange();
+                    }
+            
+                }
+                else if(Input.GetAxis("Mouse ScrollWheel") < 0)
+                {
+                    if (lockedZoomValue > -0.7f)
+                    {
+                        distance = Input.GetAxis("Mouse ScrollWheel") * lockedZoomSpeed;
+                        lockedZoomValue -= 0.1f;
+                        ValueChange();
+                    }
+            
+                }
+                
+            }
+            if(!isLocked)
+            {
+                if (Input.GetAxis("Mouse ScrollWheel") > 0)
+                {
+                    preOuterDown = cameraPosition.transform.position.z;
+                    distance = Input.GetAxis("Mouse ScrollWheel");
+                    if (zoomValue < 1.5)
+                    {
+                        cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
+                        zoomValue += distance;
+                        //outerDown += Mathf.Abs(distance);
+                        outerDown += Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+                        outerUp += Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+
+                    }
 
                 }
-
-            }
-            else
-            {
-                preOuterDown = cameraPosition.transform.position.z;
-                distance = Input.GetAxis("Mouse ScrollWheel");
-                if (zoomValue > -1.5)
+                else if(Input.GetAxis("Mouse ScrollWheel") < 0)
                 {
-                    cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
-                    zoomValue += distance;
-                    //outerDown -= Mathf.Abs(distance);
-                    outerDown -= Math.Abs(preOuterDown - cameraPosition.transform.position.z);
-                    outerUp -= Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+                    preOuterDown = cameraPosition.transform.position.z;
+                    distance = Input.GetAxis("Mouse ScrollWheel");
+                    if (zoomValue > -1.5)
+                    {
+                        cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
+                        zoomValue += distance;
+                        //outerDown -= Mathf.Abs(distance);
+                        outerDown -= Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+                        outerUp -= Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+                    }
                 }
             }
+            
         }
+    }
+
+    private void ValueChange()
+    {
+        cinemachine.m_Orbits[0].m_Height -= distance;
+        cinemachine.m_Orbits[1].m_Height -= distance;
+        cinemachine.m_Orbits[2].m_Height -= distance;
+        cinemachine.m_Orbits[0].m_Radius -= distance;
+        cinemachine.m_Orbits[1].m_Radius -= distance;
+        cinemachine.m_Orbits[2].m_Radius -= distance;
     }
 
     private void FixedUpdate()
@@ -102,9 +143,9 @@ public class CameraMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButton(1))
             {
                 isAngle = false;
-                cinemachineName[0].cinemachine.m_XAxis.m_MaxSpeed = 300;
+                cinemachine.m_XAxis.m_MaxSpeed = 300;
                 //cameraPosition.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
-                cinemachineName[0].cinemachine.m_XAxis.Value += Input.GetAxis("Mouse X");
+                cinemachine.m_XAxis.Value += Input.GetAxis("Mouse X");
                 cameraPosition.transform.rotation = Quaternion.Euler(0, flatCamera.transform.eulerAngles.y, 0);
                 return;
                 //Debug.Log(flatCamera.transform.rotation.y);
@@ -113,13 +154,13 @@ public class CameraMovement : MonoBehaviour
             {
                 if (!isAngle)
                 {
-                    upDirection = Quaternion.Euler(0, cinemachineName[0].cinemachine.m_XAxis.Value - preAngle, 0) *
+                    upDirection = Quaternion.Euler(0, cinemachine.m_XAxis.Value - preAngle, 0) *
                                   upDirection; //이게 upDirection을 이 회전각도에 따라서 바꿔주는것
-                    preAngle = cinemachineName[0].cinemachine.m_XAxis.Value;
+                    preAngle = cinemachine.m_XAxis.Value;
                     isAngle = true;
                     return;
                 }
-                cinemachineName[0].cinemachine.m_XAxis.m_MaxSpeed = 0;
+                cinemachine.m_XAxis.m_MaxSpeed = 0;
             }
             if(Input.GetKeyDown(KeyCode.LeftAlt))
             {
