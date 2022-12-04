@@ -39,13 +39,10 @@ public class InventoryUI : UIController
     {
         CurrentTab = (ItemType.Type)_tab;
     }
-
-    public void InstallItemTab()
+    public void ChangeToggle(int _tab)
     {
-        InventoryState();
-        TabClick(7);
+        ToggleIndex[_tab].isOn = true;
     }
-
     public void InventoryState()
     {
         itemData = ItemData.Instance;
