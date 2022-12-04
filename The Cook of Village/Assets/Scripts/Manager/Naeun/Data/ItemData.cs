@@ -7,10 +7,10 @@ using UnityEngine.UI;
 [System.Serializable]
 public class ItemInfos
 {
-    public ItemType.Type type;
-    public int ID;
     public string Name;
     public string KoreanName;
+    public ItemType.Type type;
+    public int ID;
     [Multiline]
     public string Explanation;
     public int Price;
@@ -54,8 +54,8 @@ public class ItemData : DataManager<ItemData>
     public ItemInfos ItemInfos(int id)
     {
         int dataIndex;
-        dataIndex = ItemType[IngredientType(id)].ItemInfos.FindIndex(m => m.ID == id);
-        return ItemType[IngredientType(id)].ItemInfos[dataIndex];
+        dataIndex = ItemType[ItemIDType(id)].ItemInfos.FindIndex(m => m.ID == id);
+        return ItemType[ItemIDType(id)].ItemInfos[dataIndex];
     }
     public List<ItemInfos> IngredientList()
     {
@@ -66,9 +66,10 @@ public class ItemData : DataManager<ItemData>
         }
         return _itemInfos;
     }
-    private int IngredientType(int id)
+    private int ItemIDType(int id)
     {
-        return id / 10;
+        id = (id < 70) ? id / 10 : 7;
+        return id;
     }
     /// <summary>
     /// TooId로 ItemInfos 찾기

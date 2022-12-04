@@ -130,6 +130,7 @@ public class GameManager : Singletion<GameManager>, IGameManagerOb
         }
         Pause(false);
         SceneInitControl(CurrentSceneIndex);
+        IsUI = false;
         isOpen = false;
     }
     #endregion
