@@ -150,7 +150,7 @@ public class GameManager : Singletion<GameManager>, IGameManagerOb
             case 2: //마을
                 potionController.VillageSceneInit();
                 gameData.PlaySceneInit();
-                CursorControl(false);
+                CursorControl(true);
                 break;
             case 3: //레스토랑
                 potionController.RestaurantSceneInit();
