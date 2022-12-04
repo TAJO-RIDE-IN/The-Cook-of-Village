@@ -27,6 +27,7 @@ public class ShopUI : UIController
     public ShopSelect shopSelect;
     public Text ShopName;
     public Toggle ResellToggle;
+    public Scrollbar ShopScrollbar;
     public Image BackgroundImage;
     public Image ServiceButton;
     public Sprite ResellButtonImage;
@@ -50,6 +51,10 @@ public class ShopUI : UIController
         this.gameObject.SetActive(state);
         if (state)
         {
+            if (ShopScrollbar != null)
+            {
+                ShopScrollbar.value = 1;
+            }
             LoadSlotData();
             ChangeSelectSlotData();
         }

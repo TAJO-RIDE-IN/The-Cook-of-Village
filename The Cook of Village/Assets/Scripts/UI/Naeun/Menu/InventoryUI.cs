@@ -21,6 +21,7 @@ public class InventoryUI : UIController
     public Toggle[] TabToggle;
     [SerializeField] private SlotInventory[] slotInventory;
     [SerializeField] private GameObject ItemExplanation;
+    public Scrollbar InventoryScrollbar;
     private ToolPooling toolPooling;
     private ItemData itemData;
     private Dictionary<int, Toggle> ToggleIndex = new Dictionary<int, Toggle>();
@@ -50,7 +51,8 @@ public class InventoryUI : UIController
         if(this.gameObject.activeSelf)
         {
             CurrentTab = ItemType.Type.Fruit;
-            LoadInventorySlot();           
+            InventoryScrollbar.value = 1;
+            LoadInventorySlot();
         }
         else
         {
