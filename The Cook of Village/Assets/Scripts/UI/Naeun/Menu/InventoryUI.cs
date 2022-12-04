@@ -6,23 +6,35 @@ using UnityEngine.UI;
 
 public class InventoryUI : UIController
 {
-    [SerializeField] private SlotInventory[] slotInventory;
-    [SerializeField]
-    private ItemType.Type tab;
+    [SerializeField] private ItemType.Type tab;
     public ItemType.Type CurrentTab
     {
         get { return tab; }
-        set 
-        { 
+        set
+        {
             tab = value;
             ResetInventory();
             LoadInventorySlot();
         }
     }
-    [SerializeField] private GameObject ItemExplanation;
     public ToggleControl toggleControl;
+    public Toggle[] TabToggle;
+    [SerializeField] private SlotInventory[] slotInventory;
+    [SerializeField] private GameObject ItemExplanation;
     private ToolPooling toolPooling;
     private ItemData itemData;
+    private Dictionary<int, Toggle> ToggleIndex = new Dictionary<int, Toggle>();
+    private void AddToggleDic()
+    {
+        ToggleIndex.Add(1, TabToggle[0]);
+        ToggleIndex.Add(5, TabToggle[1]);
+        ToggleIndex.Add(6, TabToggle[2]);
+        ToggleIndex.Add(7, TabToggle[3]);
+    }
+    private void Awake()
+    {
+        AddToggleDic();
+    }
     public void TabClick(int _tab)
     {
         CurrentTab = (ItemType.Type)_tab;
@@ -41,8 +53,7 @@ public class InventoryUI : UIController
         if(this.gameObject.activeSelf)
         {
             CurrentTab = ItemType.Type.Fruit;
-            LoadInventorySlot();
-            
+            LoadInventorySlot();           
         }
         else
         {
@@ -56,16 +67,6 @@ public class InventoryUI : UIController
             }
         }
         toggleControl.ResetToggle(1);
-    }
-    public void InventoryStateBool(bool state)
-    {
-        this.gameObject.SetActive(state);
-        if (state)
-        {
-            
-            CurrentTab = ItemType.Type.Fruit;
-            LoadInventorySlot();
-        }
     }
 
     private void ResetInventory()
