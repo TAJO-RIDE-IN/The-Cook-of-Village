@@ -113,14 +113,14 @@ public class ToolInstallMode : InstallMode
     {
         isDirectChange = true;
         inventoryUI.InventoryState();
-        inventoryUI.TabClick(6);
+        inventoryUI.ChangeToggle(6);
     }
     
     public void DirectInstall()
     {
         isDirectInstall = true;
         inventoryUI.InventoryState();
-        inventoryUI.TabClick(6);
+        inventoryUI.ChangeToggle(6);
         
     }
 

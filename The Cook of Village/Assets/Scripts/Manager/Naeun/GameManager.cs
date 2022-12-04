@@ -130,8 +130,9 @@ public class GameManager : Singletion<GameManager>, IGameManagerOb
         }
         Pause(false);
         SceneInitControl(CurrentSceneIndex);
-        IsUI = false;
         isOpen = false;
+        IsUI = false;
+        UIManager.SubMenuActive = false;
     }
     #endregion
 
