@@ -59,8 +59,9 @@ public class GameManager : Singletion<GameManager>, IGameManagerOb
         set 
         {
             isInstall = value;
-            if(!value)
+            if(value)
             {
+                isInstall = false;
                 NavMeshBaker.NavMeshBake();
             }    
         }
@@ -151,7 +152,7 @@ public class GameManager : Singletion<GameManager>, IGameManagerOb
             case 2: //마을
                 potionController.VillageSceneInit();
                 gameData.PlaySceneInit();
-                CursorControl(true);
+                CursorControl(false);
                 break;
             case 3: //레스토랑
                 potionController.RestaurantSceneInit();

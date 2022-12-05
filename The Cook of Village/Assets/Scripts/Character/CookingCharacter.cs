@@ -18,6 +18,7 @@ public class CookingCharacter : MonoBehaviour, IObserver<GameData>
     public Animator charAnimator;
     public GameObject HandPosition;
     public GameObject TrashUI;
+    
 
 
     public CalendarUI calendarUI;
@@ -232,6 +233,7 @@ public class CookingCharacter : MonoBehaviour, IObserver<GameData>
                 if (objectName == "PROP_bed")
                 {
                     
+                    _gameData.SetTimeMorning();
                 }
             }
 
