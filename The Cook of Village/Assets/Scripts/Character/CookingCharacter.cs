@@ -239,22 +239,6 @@ public class CookingCharacter : MonoBehaviour, IObserver<GameData>
 
 
         }
-
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (isToolCollider)
-            {
-                if (_cookingTool.isBeforeCooking)//요리 전일때
-                {
-                    _cookingTool.Cook();
-                    //SoundManager.Instance.PlaySE("StartCookOfPan");
-                }
-                else
-                {
-                    //먼저 요리도구를 비우세요! 출력
-                }
-            }
-        }
     }
 
 

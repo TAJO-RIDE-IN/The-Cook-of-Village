@@ -44,28 +44,27 @@ public class ThirdPersonGravity : MonoBehaviour
 
     private void Update()
     {
-        
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        if (!_gameManager.IsUI)
         {
-            if (zoomValue <= 2f)
+            if (Input.GetAxis("Mouse ScrollWheel") > 0)
             {
-                zoomValue += 0.1f;
-                distance = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
-                ValueChange();
+                if (zoomValue <= 2f)
+                {
+                    zoomValue += 0.1f;
+                    distance = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+                    ValueChange();
+                }
             }
-            
-        }
-        else if(Input.GetAxis("Mouse ScrollWheel") < 0)
-        {
-            if (zoomValue > -2f)
+            else if(Input.GetAxis("Mouse ScrollWheel") < 0)
             {
-                distance = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
-                zoomValue -= 0.1f;
-                ValueChange();
+                if (zoomValue > -2f)
+                {
+                    distance = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+                    zoomValue -= 0.1f;
+                    ValueChange();
+                }
             }
-            
         }
-        
     }
 
     private void ValueChange()

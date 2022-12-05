@@ -26,7 +26,8 @@ public class FurnitureInstallMode : InstallMode
     public bool isActive;
     public GameObject InstallUI;
     public Canvas canvas;
-
+    public CameraLayer cameraLayer;
+    
 
     public GameObject pendingObject;
     private String currentObjectName;
@@ -226,14 +227,45 @@ public class FurnitureInstallMode : InstallMode
 
     private bool ChairNameCheck(String name)
     {
-        for (int i = 1; i < 3; i++)//의자만 특수한 UI 띄움
+        for (int i = 11; i < 13; i++)//의자만 특수한 UI 띄움
         {
-            if (name == FurniturePooling.Instance.poolObjectData[i].name)
+            if (name == _furniturePooling.poolObjectData[i].name)
             {
                 return true;
             }
         }
         return false;
+    }
+    private bool NameCheckWall(String name)
+    {
+        for (int i = 0; i < 2; i++)//의자만 특수한 UI 띄움
+        {
+            if (name == _furniturePooling.poolObjectData[i].name)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private void InstallPossible()
+    {
+        for (int i = 2; i < 10; i++)//의자만 특수한 UI 띄움
+        {
+            for (int j = 0; j < _furniturePooling.poolObjectData[i].pooledObjects.Count; j++)
+            {
+                _furniturePooling.poolObjectData[i].pooledObjects[j].layer = 9;
+            }
+        }
+    }
+    private void InstallImpossible()
+    {
+        for (int i = 2; i < 10; i++)//의자만 특수한 UI 띄움
+        {
+            for (int j = 0; j < _furniturePooling.poolObjectData[i].pooledObjects.Count; j++)
+            {
+                _furniturePooling.poolObjectData[i].pooledObjects[j].layer = 10;
+            }
+        }
     }
 
     private void CheckChairPosition()
@@ -258,34 +290,7 @@ public class FurnitureInstallMode : InstallMode
             tableChairs[selectedIndex].tablePos.y, tableChairs[selectedIndex].tablePos.z));
     }
 
-    public void UseFurniture12(String name)
-    {
-        //_gameManager.Pause(true);
-        canvas.enabled = false;
-        
-        if (ChairNameCheck(name))
-        {
-            for (int j = 0; j < tableChairs.Count; j++)//의자를 설치할 수 있는지 확인하는 과정
-            {
-                if (tableChairs[j].chairCount < 4)
-                {
-                    TurnOnNoticeUI(0);
-                    currentObjectName = name;
-                    pendingObject = FurniturePooling.Instance.GetObject(name);
-                    
-                    return;
-                }
-            }
-            StartCoroutine(TextFade(warnings[0].box,warnings[0].text));
-            return;
-        }
-        TurnOnNoticeUI(2);
-        isRotation = true;
-        currentObjectName = name;
-        isActive = true;
-        pendingObject = FurniturePooling.Instance.GetObject(name);
-        ChangeLayerToInstallPlace();
-    }
+    
     public void UseFurniture(ItemInfos infos)
     {
         _itemInfos = infos;
@@ -305,12 +310,26 @@ public class FurnitureInstallMode : InstallMode
             StartCoroutine(TextFade(warnings[0].box,warnings[0].text));
             return;
         }
+
+        if (NameCheckWall(infos.Name))
+        {
+            UseSetting(infos.Name);
+            installLayer = 1 << 11;
+            return;
+        }
+        UseSetting(infos.Name);
+        InstallPossible();
+
+    }
+
+    private void UseSetting(String name)
+    {
+        
         TurnOnNoticeUI(2);
         isRotation = true;
-        currentObjectName = infos.Name;
+        currentObjectName = name;
         isActive = true;
-        pendingObject = FurniturePooling.Instance.GetObject(infos.Name);
-        ChangeLayerToInstallPlace();
+        pendingObject = FurniturePooling.Instance.GetObject(name);
     }
 
 
@@ -321,7 +340,6 @@ public class FurnitureInstallMode : InstallMode
             currentData = new TableChair();
             currentData.tablePos = pendingObject.transform.position;
             tableChairs.Add(currentData);
-            pendingObject.layer = 10;
             TurnOffNoticeUI(2);
             gameData.ChangeFame(3);
             InstallData.Instance.PassVector3Data(InstallData.SortOfInstall.Table,currentData.tablePos);
@@ -333,7 +351,6 @@ public class FurnitureInstallMode : InstallMode
         {
             if (secondDis < 1.5f && secondDis > 0.8f)
             {
-                pendingObject.layer = 10;
                 tableChairs[selectedIndex].chairCount++;
                 gameData.ChangeFame(5);
                 InstallData.Instance.PassVector3Data(InstallData.SortOfInstall.Chair,pendingObject.transform.position, currentObjectName, selectedIndex);
@@ -347,18 +364,20 @@ public class FurnitureInstallMode : InstallMode
                 return;
             }
         }
-        pendingObject.layer = 10;
+        
         gameData.ChangeFame(20);
         InstallData.Instance.PassVecRotData(InstallData.SortOfInstall.Furnitue, pendingObject.transform.position,
             pendingObject.transform.localEulerAngles, currentObjectName);
         InstallSetting(name);
         TurnOffNoticeUI(2);
-        ChangeLayerToDeleteObject();
     }
 
     private void InstallSetting(String name)
     {
         canvas.enabled = true;
+        installLayer = 1 << 9;
+        InstallImpossible();
+        pendingObject.layer = 10;
         AddPooledObject(name, pendingObject);
         pendingObject = null;
     }
@@ -408,27 +427,7 @@ public class FurnitureInstallMode : InstallMode
         }
     }
 
-    /// <summary>
-    /// 사용하기 눌렀을 때 책상이랑 의자 아니면 아일랜드테이블 레이어 InstallPlace로 바꾸기
-    /// </summary>
-    private void ChangeLayerToInstallPlace()
-    {
-        for (int i = 0; i < _furniturePooling.poolObjectData[5].pooledObjects.Count; i++)
-        {
-            _furniturePooling.poolObjectData[5].pooledObjects[i].layer = 9;
-        }
-    }
-
-    /// <summary>
-    /// 책상 레이어 원래대로
-    /// </summary>
-    private void ChangeLayerToDeleteObject()
-    {
-        for (int i = 0; i < _furniturePooling.poolObjectData[5].pooledObjects.Count; i++)
-        {
-            _furniturePooling.poolObjectData[5].pooledObjects[i].layer = 10;
-        }
-    }
+    
     public void StartDelete()
     {
         noticeUI[1].SetActive(true);
@@ -453,7 +452,8 @@ public class FurnitureInstallMode : InstallMode
         _itemInfos.Amount++;
         pendingObject = null;
         isActive = false;
-        ChangeLayerToDeleteObject();
+        InstallImpossible();
+        installLayer = 1 << 9;
     }
 
     public void InstallTabButton()
