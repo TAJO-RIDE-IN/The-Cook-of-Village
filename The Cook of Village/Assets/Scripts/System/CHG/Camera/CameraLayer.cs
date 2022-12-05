@@ -22,6 +22,10 @@ public class CameraLayer : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 secondInstallPlace.layer = 9;
+                foreach(Transform child in secondInstallPlace.transform)
+                {
+                    child.gameObject.layer = 9;
+                }
                 //2층 바닥 레이어 InstallPlace로 변경해주기, 위에 설치 가능한 것들 레이어 Install
                 _camera.cullingMask |= 1 << LayerMask.NameToLayer("SecondFloor");
                 isSecondFloor = true;
@@ -31,6 +35,10 @@ public class CameraLayer : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             secondInstallPlace.layer = 7;
+            foreach(Transform child in secondInstallPlace.transform)
+            {
+                child.gameObject.layer = 7;
+            }
             _camera.cullingMask = ~(1 << LayerMask.NameToLayer("SecondFloor"));
             isSecondFloor = false;
         }
