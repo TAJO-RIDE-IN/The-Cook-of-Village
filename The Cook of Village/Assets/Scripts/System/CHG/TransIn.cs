@@ -6,9 +6,13 @@ using UnityEngine;
 public class TransIn : MonoBehaviour
 {
     public bool isIn;
-    public TransOut transOut;
-    
     public GameObject transObject;
+
+    public GameObject[] transObjects;
+    public GameObject[] transRevert;
+    public Material[] transMaterials;
+
+    private Material[] _materials;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,10 +20,26 @@ public class TransIn : MonoBehaviour
         {
             if (!isIn)
             {
-                
-                LeanTween.color(transObject, Color.white, 0.5f);
+                ChangeMaterial();
+                LeanTween.color(transObject, Color.clear, 0.5f);
                 isIn = true;
             }
+        }
+    }
+
+    private void ChangeMaterial()
+    {
+        for (int i = 0; i < transObjects.Length; i++)
+        {
+            transObjects[i].transform.GetComponent<MeshRenderer>().material = transMaterials[0];
+        }
+
+        for (int t = 0; t < transRevert.Length; t++)
+        {
+            _materials = transRevert[t].transform.GetComponent<MeshRenderer>().materials;
+            _materials[0] = transMaterials[1];
+            _materials[1] = transMaterials[0];
+            transRevert[t].transform.GetComponent<MeshRenderer>().materials = _materials;
         }
     }
 

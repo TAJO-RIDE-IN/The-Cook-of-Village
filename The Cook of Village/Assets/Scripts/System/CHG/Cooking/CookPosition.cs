@@ -58,7 +58,8 @@ public class CookPosition : MonoBehaviour
     public void OpenUI(float time)
     {
         CookPositionUI.SetActive(true);
-        CookPositionUI.LeanScale(Vector3.one, time).setEaseOutElastic();
+        UIManager.UIScalePunchAnimation(CookPositionUI);
+        //CookPositionUI.LeanScale(Vector3.one, time).setEaseOutElastic();
         if (index == 6)//오븐이면 깜빡이는것
         {
             Debug.Log("오븐어쩌구");
@@ -81,7 +82,8 @@ public class CookPosition : MonoBehaviour
             isDirect = false;
             return;
         }
-        CookPositionUI.LeanScale(Vector2.zero, time).setEaseInBack();
+        CookPositionUI.SetActive(false);
+        //CookPositionUI.LeanScale(Vector2.zero, time).setEaseInBack();
     }
 
     private void AfterClose()

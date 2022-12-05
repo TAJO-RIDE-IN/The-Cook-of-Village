@@ -9,7 +9,7 @@ public class EndingDestination : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
-            Controller.NextEvent();
+            Controller.FatherAppearance(0); //아빠등장
             this.gameObject.SetActive(false);
         }
     }
