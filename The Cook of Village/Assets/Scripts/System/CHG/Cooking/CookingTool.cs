@@ -173,20 +173,23 @@ public class CookingTool : MonoBehaviour
     public void OpenUI(float time)
     {
         InventoryBig.SetActive(true);
-        InventoryBig.LeanScale(Vector3.one, time).setEaseOutElastic();
+        UIManager.UIScalePunchAnimation(InventoryBig);
+        //InventoryBig.LeanScale(Vector3.one, time).setEaseOutElastic();
     }
 
     public void CloseUI()
     {
         if (toolPooling.toolInstallMode.isDirectChange)
         {
-            InventoryBig.LeanScale(Vector2.zero, 0f);
+            //InventoryBig.LeanScale(Vector2.zero, 0f);
             InventoryBig.SetActive(false);
             ChefInventory.Instance._cookingCharacter.isSpace = false;
             return;
         }
 
-        InventoryBig.LeanScale(Vector2.zero, 1f).setEaseInBack().setOnComplete(() => InventoryBig.SetActive(false));
+        InventoryBig.SetActive(false);
+
+        //InventoryBig.LeanScale(Vector2.zero, 1f).setEaseInBack().setOnComplete(() => );
 
     }
     /// <summary>
