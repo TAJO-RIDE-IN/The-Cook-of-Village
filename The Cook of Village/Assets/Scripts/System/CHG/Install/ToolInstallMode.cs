@@ -234,7 +234,6 @@ public class ToolInstallMode : InstallMode
             cancelInstallUI.SetActive(false);
             goInstallUI.SetActive(false);
             isDirectChange = false;
-            GameManager.Instance.IsInstall = false;
             receivedPositionList.Clear();
             _soundManager.Play(_soundManager._audioClips["Install Cooker02"]);
         }
@@ -259,7 +258,6 @@ public class ToolInstallMode : InstallMode
         }
 
         ReturnColor();
-        GameManager.Instance.IsInstall = true;
         //GameManager.Instance.Pause();
         cancelInstallUI.SetActive(true);
     }
@@ -281,7 +279,6 @@ public class ToolInstallMode : InstallMode
         goInstallUI.SetActive(false);
         ReturnColor();
         isDirectChange = false;
-        GameManager.Instance.IsInstall = false;
     }
 
     private void ReturnColor()
