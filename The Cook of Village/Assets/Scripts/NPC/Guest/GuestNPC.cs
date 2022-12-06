@@ -116,6 +116,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
                 soundManager.StopEffect3D(this.gameObject);
                 break;
             case State.StandUP:
+                ColliderState(true); 
                 ModelsAni.SetBool("isEat", false);
                 ModelsAni.SetTrigger("StandUp");
                 soundManager.StopEffect3D(this.gameObject);
