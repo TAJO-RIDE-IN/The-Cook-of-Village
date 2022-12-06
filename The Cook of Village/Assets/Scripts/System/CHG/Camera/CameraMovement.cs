@@ -96,7 +96,7 @@ public class CameraMovement : MonoBehaviour
                 {
                     preOuterDown = cameraPosition.transform.position.z;
                     distance = Input.GetAxis("Mouse ScrollWheel");
-                    if (zoomValue < 1.5)
+                    if (zoomValue < 2)
                     {
                         cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
                         zoomValue += distance;
@@ -111,7 +111,7 @@ public class CameraMovement : MonoBehaviour
                 {
                     preOuterDown = cameraPosition.transform.position.z;
                     distance = Input.GetAxis("Mouse ScrollWheel");
-                    if (zoomValue > -1.5)
+                    if (zoomValue > -2)
                     {
                         cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
                         zoomValue += distance;
