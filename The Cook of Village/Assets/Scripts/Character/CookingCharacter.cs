@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CookingCharacter : MonoBehaviour
 {
@@ -17,6 +19,7 @@ public class CookingCharacter : MonoBehaviour
     private GameData _gameData;
     private AnimatorOverrideController animatorOverrideController;
     private SoundManager soundManager;
+    private ThirdPersonMovement _thirdPersonMovement;
     public AnimationClip[] Idle;
     public AnimationClip[] Walk;
     public UIMovement uiMovement;
@@ -29,6 +32,8 @@ public class CookingCharacter : MonoBehaviour
     private bool isObjectCollider;
     public bool isHand;
     public bool isSpace;
+    public GameObject box;
+    public Text text;
 
     private bool isDestroy;
     private GameManager _gameManager;
@@ -39,6 +44,7 @@ public class CookingCharacter : MonoBehaviour
 
     void Start()
     {
+        _thirdPersonMovement = GameObject.FindWithTag("Player").GetComponent<ThirdPersonMovement>();
         isSpace = false;
         fridge = GameObject.FindGameObjectWithTag("Fridge").GetComponent<Fridge>();
         animatorOverrideController = new AnimatorOverrideController(charAnimator.runtimeAnimatorController);
@@ -221,11 +227,12 @@ public class CookingCharacter : MonoBehaviour
                 {
                     if (_gameData.TimeOfDay > 1200 && _gameData.TimeOfDay < 1440)
                     {
+                        StartCoroutine(_thirdPersonMovement.WaitParticle());
                         _gameData.SetTimeMorning();
                     }
                     else
                     {
-                        
+                        StartCoroutine(TextFade(box, text));
                     }
                     
                 }
@@ -331,5 +338,17 @@ public class CookingCharacter : MonoBehaviour
 
         }
     }
+    public IEnumerator TextFade(GameObject box, Text text)
+    {
+        box.SetActive(true);
+        text.color = new Color(text.color.r, text.color.g, text.color.b, 1f);
+        while (text.color.a > 0.0f)
+        {
+            text.color = new Color(text.color.r, text.color.g, text.color.b, text.color.a - (Time.deltaTime / 3.0f));
+            yield return null;
+        }
+        box.SetActive(false);
+    }
+    
 
 }
