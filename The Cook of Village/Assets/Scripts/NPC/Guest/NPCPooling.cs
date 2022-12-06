@@ -125,7 +125,10 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
                         yield return null;
                     }
                 }
-                GetObject();
+                else
+                {
+                    GetObject();
+                }
             }
         }
     }
