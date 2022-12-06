@@ -91,7 +91,7 @@ public class MoneyGraph : MonoBehaviour
 
     private void WeekMoneyData(int day)
     {
-        int TotalProceeds = moneyData.Proceeds[day].SalesProceeds + moneyData.Proceeds[day].TipMoney;
+        int TotalProceeds = moneyData.Proceeds[day].SalesProceeds + moneyData.Proceeds[day].TipMoney + moneyData.Proceeds[day].ResellMoney;
         int TotalConsumption = moneyData.Consumption[day];
         WeekProceeds.Add(TotalProceeds);
         WeekConsumption.Add(TotalConsumption);
@@ -117,7 +117,7 @@ public class MoneyGraph : MonoBehaviour
                 space = (int)IntRound(totalMax, -3) / 2;
                 break;
         }
-        space = (space == 0) ? MoneySpace : space;
+        space = (space.Equals(0)) ? MoneySpace : space;
         ChangeYaxisText(type, space);
         ArrangeDot(type, space);
         ArrangeLine();
@@ -151,6 +151,11 @@ public class MoneyGraph : MonoBehaviour
                 break;
         }
     }
+    /// <summary>
+    /// 점 배치
+    /// </summary>
+    /// <param name="type">데이터 타입 입력</param>
+    /// <param name="space"></param>
     private void ArrangeDot(DataType type, float space)
     {
         float dotSpace = yAxisSpace / space;
@@ -160,17 +165,17 @@ public class MoneyGraph : MonoBehaviour
             Dot[i].gameObject.SetActive(true);
             Vector3 dotPosition = Dot[i].transform.localPosition;
             Vector3 container = new Vector3(0, 0, 0);
-            if (type == DataType.Proceeds)
+            if (type.Equals(DataType.Proceeds))
             {
                 container = new Vector3(0, -yAxisSpace * 2, 0);
                 YPosition = WeekProceeds[i] * dotSpace;
             }
-            else if (type == DataType.Consumption)
+            else if (type.Equals(DataType.Consumption))
             {
                 container = new Vector3(0, yAxisSpace * 2, 0);
                 YPosition = WeekConsumption[i] * -dotSpace;
             }
-            else if (type == DataType.Total)
+            else if (type.Equals(DataType.Total))
             {
                 container = new Vector3(0, 0, 0);
                 int total = WeekProceeds[i] - WeekConsumption[i];
@@ -181,6 +186,11 @@ public class MoneyGraph : MonoBehaviour
             Dot[i].transform.localPosition = new Vector3(dotPosition.x, YPosition, dotPosition.z);
         }
     }
+    /// <summary>
+    /// 그래프 색 변경
+    /// </summary>
+    /// <param name="type">데이터 타입 입력</param>
+    /// <returns>색 리턴</returns>
     private Color GraphColor(DataType type)
     {
         switch (type)
@@ -194,6 +204,9 @@ public class MoneyGraph : MonoBehaviour
         }
         return PlusColor;
     }
+    /// <summary>
+    /// 점과 점 사이 라인을 그림
+    /// </summary>
     private void ArrangeLine()
     {
         for (int i = 0; i < WeekDay.Count - 1; i++)

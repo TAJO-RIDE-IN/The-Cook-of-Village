@@ -8,6 +8,7 @@ public class MoneyText
 {
     public Text SellText;
     public Text TipText;
+    public Text ResellText;
     public Text ConsumptionText;
     public Text TotalMoneyText;
 }
@@ -47,10 +48,12 @@ public class StateUI : UIController, IObserver<MoneyData>, IObserver<GameData>
     {
         int salesProceeds = moneyData.Proceeds[day - 1].SalesProceeds;
         int TipProceeds = moneyData.Proceeds[day - 1].TipMoney;
+        int ResellProceeds = moneyData.Proceeds[day - 1].ResellMoney;
         int Consumption = moneyData.Consumption[day - 1];
-        int total = salesProceeds + TipProceeds - Consumption;
+        int total = salesProceeds + ResellProceeds + TipProceeds - Consumption;
         MoneyText(salesProceeds, moneyText.SellText);
         MoneyText(TipProceeds, moneyText.TipText);
+        MoneyText(ResellProceeds, moneyText.ResellText);
         MoneyText(-Consumption, moneyText.ConsumptionText);
         MoneyText(total, moneyText.TotalMoneyText);
     }
