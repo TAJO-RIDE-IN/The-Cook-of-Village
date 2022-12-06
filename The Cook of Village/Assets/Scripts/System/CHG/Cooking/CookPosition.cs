@@ -50,6 +50,7 @@ public class CookPosition : MonoBehaviour
 
     public void DirectSetUp()
     {
+        CloseUI(0);
         _toolPooling.toolInstallMode._cookingCharacter.isSpace = false;
         _toolPooling.toolInstallMode.DirectInstall();
         _toolPooling.indexToChange = index;
