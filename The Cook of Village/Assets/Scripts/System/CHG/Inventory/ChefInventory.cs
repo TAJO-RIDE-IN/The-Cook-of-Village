@@ -185,14 +185,18 @@ public class ChefInventory : MonoBehaviour
                 {
                     if (_cookingCharacter.isToolCollider) //스페이스바를 냉장고안이나에서 누른건 아닌지 확인 => 스위치로 변경
                     {
-                        if (_cookingCharacter._cookingTool.PutIngredient(EdibleItems[i]._ingredientsInfos.ID,
-                            ImageData.Instance.FindImageData(EdibleItems[i]._ingredientsInfos.ImageID)) && EdibleItems[i]._ingredientsInfos.ID != 63)
+                        if (EdibleItems[i]._ingredientsInfos.ID != 63)
                         {
+                            if (_cookingCharacter._cookingTool.PutIngredient(EdibleItems[i]._ingredientsInfos.ID,
+                                ImageData.Instance.FindImageData(EdibleItems[i]._ingredientsInfos.ImageID)) && EdibleItems[i]._ingredientsInfos.ID != 63)
+                            {
                             
-                            SoundManager.Instance.Play(SoundManager.Instance._audioClips["PanIn"]);
-                            ChangeInventoryEmpty(i);
-                            return;
-                        };
+                                SoundManager.Instance.Play(SoundManager.Instance._audioClips["PanIn"]);
+                                ChangeInventoryEmpty(i);
+                                return;
+                            };
+                        }
+                        
                     }
 
                     if (_cookingCharacter.isFridgeCollider)
@@ -248,6 +252,7 @@ public class ChefInventory : MonoBehaviour
                     {
                         if (_cookingCharacter.trash.AddFood(EdibleItems[i]._foodInfos))
                         {
+                            _cookingCharacter.HoldDish(false);
                             SoundManager.Instance.Play(SoundManager.Instance._audioClips["PanIn"]);
                             ChangeInventoryEmpty(i);
                             return;

@@ -29,8 +29,8 @@ public class FurnitureInstallMode : InstallMode
     public CameraLayer cameraLayer;
     
 
-    public GameObject pendingObject;
-    private String currentObjectName;
+    public GameObject pendingObject = null;
+    public String currentObjectName;
     private bool[] isUsedTable;
     private bool[] isUsedChair;
     private bool[] isUsedDeco;
@@ -99,9 +99,9 @@ public class FurnitureInstallMode : InstallMode
                     Cancel();
                     isActive = false;
                 }
-                if (Input.GetMouseButtonUp(0))
+                if (Input.GetMouseButtonDown(0))
                 {
-                    //Debug.Log("실행");
+                    Debug.Log("실행");
                     PlaceObject(currentObjectName);
                 }
             }
@@ -147,7 +147,6 @@ public class FurnitureInstallMode : InstallMode
         {
             gameData.ChangeFame(3);
             return InstallData.SortOfInstall.Table;
-            
         }
 
         if (ChairNameCheck(data.name))
@@ -307,6 +306,7 @@ public class FurnitureInstallMode : InstallMode
                     return;
                 }
             }
+            infos.Amount++;
             StartCoroutine(TextFade(warnings[0].box,warnings[0].text));
             return;
         }
@@ -336,14 +336,14 @@ public class FurnitureInstallMode : InstallMode
 
     public void PlaceObject(String name)//테이블과 의자 정보는 테이블의자 클래스에 저장, 그 외는 pooledObjects에 저장
     {
-        if (name == FurniturePooling.Instance.poolObjectData[0].name)//테이블이면 클래스 리스트 하나 추가
+        if (name == "WoodTable")//테이블이면 클래스 리스트 하나 추가
         {
             currentData = new TableChair();
             currentData.tablePos = pendingObject.transform.position;
             tableChairs.Add(currentData);
             TurnOffNoticeUI(2);
             gameData.ChangeFame(3);
-            InstallData.Instance.PassVector3Data(InstallData.SortOfInstall.Table,currentData.tablePos);
+            _installData.PassVector3Data(InstallData.SortOfInstall.Table,currentData.tablePos);
             InstallSetting(name);
             return;
         }
@@ -354,7 +354,7 @@ public class FurnitureInstallMode : InstallMode
             {
                 tableChairs[selectedIndex].chairCount++;
                 gameData.ChangeFame(5);
-                InstallData.Instance.PassVector3Data(InstallData.SortOfInstall.Chair,pendingObject.transform.position, currentObjectName, selectedIndex);
+                _installData.PassVector3Data(InstallData.SortOfInstall.Chair,pendingObject.transform.position, currentObjectName, selectedIndex);
                 TurnOffNoticeUI(0);
                 InstallSetting(name);
                 return;
@@ -448,6 +448,7 @@ public class FurnitureInstallMode : InstallMode
         canvas.enabled = true;
         _gameManager.Pause(false);
         FurniturePooling.Instance.ReturnObject(pendingObject, currentObjectName);
+        Debug.Log(currentObjectName);
         noticeUI[0].SetActive(false);
         noticeUI[2].SetActive(false);
         _itemInfos.Amount++;

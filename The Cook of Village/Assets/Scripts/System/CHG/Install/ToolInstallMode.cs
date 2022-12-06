@@ -15,6 +15,7 @@ public class ToolInstallMode : InstallMode
     public GameObject cancelInstallUI;
     public GameObject[] toolPositionUI;
     public GameObject[] PositionCollider;
+    public GameObject[] PositionCanvas;
     public List<int> receivedPositionList = new List<int>();
     //[HideInInspector] 
     public bool isDirectChange;
@@ -132,11 +133,13 @@ public class ToolInstallMode : InstallMode
         toolPooling.pooledObject[index].index = index;
         isUsed[index] = true;
         PositionCollider[index].SetActive(false);
+        PositionCanvas[index].SetActive(false);
     }
 
     public void ActviePositionCollider(int index)
     {
         PositionCollider[index].SetActive(true);
+        PositionCanvas[index].SetActive(false);
     }
     public override void Use(ItemInfos itemInfos)
     {
@@ -220,6 +223,7 @@ public class ToolInstallMode : InstallMode
                     InstallData.Instance.PassIndexData(index, ToolPooling.Instance.SelectedToolName, InstallData.SortOfInstall.Tool);
                     ToolPooling.Instance.pooledObject[index].index = index;
                     PositionCollider[index].SetActive(false);
+                    PositionCanvas[index].SetActive(false);
                 }
             }
             for (int i = 0; i < installableToolCount -1; i++)

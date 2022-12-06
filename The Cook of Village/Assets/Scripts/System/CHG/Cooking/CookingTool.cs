@@ -186,7 +186,6 @@ public class CookingTool : MonoBehaviour
             ChefInventory.Instance._cookingCharacter.isSpace = false;
             return;
         }
-
         InventoryBig.SetActive(false);
 
         //InventoryBig.LeanScale(Vector2.zero, 1f).setEaseInBack().setOnComplete(() => );
@@ -211,6 +210,7 @@ public class CookingTool : MonoBehaviour
         InstallData.Instance.DeleteIndexData(index, InstallData.SortOfInstall.Tool);
         toolPooling.toolInstallMode._cookingCharacter.isToolCollider = false;
         toolPooling.toolInstallMode.PositionCollider[index].SetActive(true);
+        toolPooling.toolInstallMode.PositionCanvas[index].SetActive(false);
         toolPooling.toolInstallMode.ActviePositionCollider(index);
         toolPooling.toolInstallMode.isUsed[index] = false;
         if (!toolPooling.toolInstallMode.isDirectChange)
