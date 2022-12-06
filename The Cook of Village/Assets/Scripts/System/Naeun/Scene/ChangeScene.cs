@@ -10,13 +10,25 @@ public class ChangeScene : MonoBehaviour
     public enum SceneToGo { Intro, SceneLoad, Village, Restaurant }
     public SceneToGo sceneToGo;
 
+    private bool isMove;
+
+    private void Start()
+    {
+        isMove = false;
+    }
+
     public void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space))
             {
-                MoveScene();
+                if (!isMove)
+                {
+                    MoveScene();
+                    isMove = true;
+                }
+                
             }
         }
     }

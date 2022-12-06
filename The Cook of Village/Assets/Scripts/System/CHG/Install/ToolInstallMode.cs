@@ -28,7 +28,7 @@ public class ToolInstallMode : InstallMode
     private ToolPooling toolPooling;
     private InstallData _installData;
     private SoundManager _soundManager;
-    [HideInInspector] public CookingCharacter _cookingCharacter;
+    public CookingCharacter _cookingCharacter;
 
     private void Start()
     {
@@ -45,7 +45,6 @@ public class ToolInstallMode : InstallMode
             GetAndPosition(_installData.toolData._indexNames[i].index, InstallData.Instance.toolData._indexNames[i].name);
         }
 
-        _cookingCharacter = ChefInventory.Instance._cookingCharacter;
     }
 
     private void PreviewPositionUpdate()
@@ -188,7 +187,7 @@ public class ToolInstallMode : InstallMode
     public void DirectUICloseSetting()
     {
         _cookingCharacter._cookPosition.isDirect = true;
-        _cookingCharacter._cookPosition.CloseUI(0.5f);
+        _cookingCharacter._cookPosition.CloseUI(0f);
         _cookingCharacter.isCookPositionCollider = false;
     }
 
