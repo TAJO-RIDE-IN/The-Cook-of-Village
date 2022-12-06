@@ -29,6 +29,7 @@ public class EndingController : MonoBehaviour, IObserver<GameManager>
         dialogueManager = DialogueManager.Instance;
         soundManager = SoundManager.Instance;
         AddObserver(gameManager);
+        EndingStart();
     }
     /// <summary>
     /// 게임모드가 Ending이 될 경우 다음날 아침에 실행 된다.
@@ -77,10 +78,10 @@ public class EndingController : MonoBehaviour, IObserver<GameManager>
     {
         switch(ActionNum)
         {
-            case 0:
-                
+            case 0:                
                 break;
             case 1:
+                SoundManager.Instance.Play(SoundManager.Instance._audioClips["Knock"]);
                 break;
             case 2:
                 EndingDoorParticle.SetActive(true);
@@ -99,40 +100,19 @@ public class EndingController : MonoBehaviour, IObserver<GameManager>
         switch (ActionNum)
         {
             case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
-            case 7:
-                break;
-            case 8:
-                break;
-            case 9:
-                break;
-            case 10:
-                break;
-            case 11:
                 Father.currentState = EndingFather.FatherState.Nod;
                 break;
-            case 12:
+            case 1:
                 FatherAppearance(1);
                 endingUI.CanNext = true;
                 break;
-            case 13:
+            case 2:
                 FinishEnding();
                 break;
 
         }
         ActionNum++;
+        Debug.Log(ActionNum);
     }
     
     public void FatherAppearance(int index)
