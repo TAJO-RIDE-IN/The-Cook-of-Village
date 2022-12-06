@@ -7,10 +7,9 @@ public class LightControl : MonoBehaviour, IObserver<GameData>
     public List<Light> ObjectLight = new List<Light>();
     private void Start()
     {
+        LightIntensity = 0.8f;
         AddObserver(GameData.Instance);
     }
-
-    [Range(0.8f, 2.5f)]
     public float LightIntensity;
     private bool isMoning = false;
     private bool isChange = false;
