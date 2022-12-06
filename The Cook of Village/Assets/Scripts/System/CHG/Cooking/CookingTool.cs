@@ -211,6 +211,7 @@ public class CookingTool : MonoBehaviour
         InstallData.Instance.DeleteIndexData(index, InstallData.SortOfInstall.Tool);
         toolPooling.toolInstallMode._cookingCharacter.isToolCollider = false;
         toolPooling.toolInstallMode.PositionCollider[index].SetActive(true);
+        toolPooling.toolInstallMode.PositionCanvas[index].SetActive(false);
         toolPooling.toolInstallMode.ActviePositionCollider(index);
         toolPooling.toolInstallMode.isUsed[index] = false;
         if (!toolPooling.toolInstallMode.isDirectChange)

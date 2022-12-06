@@ -82,6 +82,7 @@ public class CookPosition : MonoBehaviour
             isDirect = false;
             return;
         }
+        
         CookPositionUI.SetActive(false);
         //CookPositionUI.LeanScale(Vector2.zero, time).setEaseInBack();
     }

@@ -99,7 +99,7 @@ public class MultipleObjectPoolingNo : MonoBehaviour
     public void ReturnObject(GameObject returnObject, String name)
     {
         _poolObjectData = FindPoolObjectData(name);
-        returnObject.transform.SetParent(_poolObjectData.objectContainer.transform);
+        //returnObject.transform.SetParent(_poolObjectData.objectContainer.transform);
         _poolObjectData.objectQueue.Enqueue(returnObject);
         returnObject.gameObject.SetActive(false);
     }
