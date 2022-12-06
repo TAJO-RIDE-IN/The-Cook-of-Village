@@ -1,0 +1,394 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &613835442509466327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 613835442509466324}
+  m_Layer: 0
+  m_Name: Chair2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &613835442509466324
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613835442509466327}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 613835443630776039}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &613835442539897109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 613835442539897106}
+  m_Layer: 0
+  m_Name: Table
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &613835442539897106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613835442539897109}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 613835443630776039}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &613835443630776038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 613835443630776039}
+  - component: {fileID: 613835443630776040}
+  m_Layer: 0
+  m_Name: FurniturePooling
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &613835443630776039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613835443630776038}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 613835442539897106}
+  - {fileID: 3310251315727316597}
+  - {fileID: 613835442509466324}
+  - {fileID: 4500524971076363240}
+  - {fileID: 613835443850369732}
+  - {fileID: 3310251314927187500}
+  - {fileID: 3310251314691339978}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &613835443630776040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613835443630776038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9b32e1e239b4041a49f0e3d854e379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolObjectData:
+  - name: WallMountedPot
+    poolObject: {fileID: 7034297489079663076, guid: c163b97aeccf79848968dc354ad7eb31, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: Lantern
+    poolObject: {fileID: 390111272111325863, guid: 9d5ab0d33f49a764f8b888deab9e2402, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: Book 1
+    poolObject: {fileID: 2207254875945916326, guid: fe24c17ff66d4dc49a87f8677a3b7c05, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: Book 2
+    poolObject: {fileID: 5137145147253525619, guid: 1e568172f5b573c47a2ce77c02a6e2a0, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: Pumpkin
+    poolObject: {fileID: 904108986477238844, guid: 7b2c740ab33b706438d1e5d282885054, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: Barrel
+    poolObject: {fileID: 5497652533801241179, guid: 26a080add73e29e49842ef6d8496ce06, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: Log
+    poolObject: {fileID: 1084208235867747189, guid: 3c15b4773d41b5e478accd9dfe91ecb7, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: Desk 1
+    poolObject: {fileID: 6510413823108906133, guid: 92c9fc35c563e2c459276a325aac6881, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: Desk 2
+    poolObject: {fileID: 6411755934402808460, guid: e6f1b611d1a85434b939185607da37f0, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: SideTable
+    poolObject: {fileID: 3544678335765372946, guid: 3b3d622f90bc09d4ebb219bb2ffbc19d, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: WoodTable
+    poolObject: {fileID: 5758044148823545179, guid: 78c5dd7b81020a947b3fd300212f6f18, type: 3}
+    objectContainer: {fileID: 613835442539897109}
+    initCount: 2
+    pooledObjects: []
+  - name: WoodChair
+    poolObject: {fileID: 6295299675071575157, guid: f110021ca71ab2a4eb02cae263b628e6, type: 3}
+    objectContainer: {fileID: 3310251315727316596}
+    initCount: 2
+    pooledObjects: []
+  - name: WoodBackrestChair
+    poolObject: {fileID: 8440810166997032401, guid: 42d6f6d9b59cdba4e9dc06741c9d38c6, type: 3}
+    objectContainer: {fileID: 613835442509466327}
+    initCount: 2
+    pooledObjects: []
+  - name: PlantPot
+    poolObject: {fileID: 236647967140637060, guid: 2567fa04e4f4a0741a9d444ba526f26e, type: 3}
+    objectContainer: {fileID: 7756429472298481511}
+    initCount: 2
+    pooledObjects: []
+  - name: OrchidPlantPot
+    poolObject: {fileID: 5340964913523084223, guid: 968b40065594fa84a851118ad4dfe891, type: 3}
+    objectContainer: {fileID: 613835443850369735}
+    initCount: 2
+    pooledObjects: []
+  - name: Basket
+    poolObject: {fileID: 8829122556991153424, guid: cd84b69865b3746418c3e113111f819e, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 1
+    pooledObjects: []
+  - name: Pouch
+    poolObject: {fileID: 66280888385029739, guid: ca5bece3131170a4d974ebf049e47810, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: Sack
+    poolObject: {fileID: 721851473038497469, guid: 13037253b07294a44bc7838076663be3, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: WoodBox
+    poolObject: {fileID: 265133352835954376, guid: f3e98b609aba9c04583da132dfb4d2f6, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: BookOpen
+    poolObject: {fileID: 4792707166216135850, guid: 2973def373ac1af489c404fe3d28c307, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: Broom
+    poolObject: {fileID: 4891347085294745024, guid: d6ecb7a87814cd84099fa589374fd91f, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: Candle 1
+    poolObject: {fileID: 6752776286280950166, guid: 63d55a5e248ccb74995feb0770878c05, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: Candle 2
+    poolObject: {fileID: 8739438837814840768, guid: f290a1b2df9c0e94c9b0e34b061bf8e0, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: DeskChair
+    poolObject: {fileID: 5841514364617019697, guid: b626c444d48d2ea47b7fec926ce3f1f1, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: Sofa
+    poolObject: {fileID: 2471558984565187595, guid: 668bbbfdd6de0e24bbaa057f8dbdba8e, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  - name: Shelf
+    poolObject: {fileID: 4384704253346212442, guid: 8b55f72d96286bc4d84de117fd8b682e, type: 3}
+    objectContainer: {fileID: 3310251314927187499}
+    initCount: 2
+    pooledObjects: []
+  furnitureInstallMode: {fileID: 0}
+--- !u!1 &613835443850369735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 613835443850369732}
+  m_Layer: 0
+  m_Name: Deco (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &613835443850369732
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613835443850369735}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 613835443630776039}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3310251314691339977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3310251314691339978}
+  m_Layer: 0
+  m_Name: Deco (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3310251314691339978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3310251314691339977}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 613835443630776039}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3310251314927187499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3310251314927187500}
+  m_Layer: 0
+  m_Name: Deco (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3310251314927187500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3310251314927187499}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 613835443630776039}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3310251315727316596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3310251315727316597}
+  m_Layer: 0
+  m_Name: Chair1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3310251315727316597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3310251315727316596}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 613835443630776039}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7756429472298481511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4500524971076363240}
+  m_Layer: 0
+  m_Name: Deco
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4500524971076363240
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7756429472298481511}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 613835443630776039}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
