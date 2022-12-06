@@ -6,8 +6,12 @@ public class InputManager : MonoBehaviour
 {
     public MenuUI menuUI;
     public PauseUI pauseUI;
+    public StateUI stateUI;
+    public InventoryUI inventoryUI;
+    public LikeabliltyUI likeabliltyUI;
+    public RecipeUI recipeUI;
 
-    
+
     private bool isPause;
     // Gamemanager.NextSceneIndex에 따라서 다르게 해줘야할듯
     void Update()
@@ -37,19 +41,19 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.U))
         {
-            //내 정보
+            stateUI.StateUIState();
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            //인벤토리
+            inventoryUI.InventoryState();
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            //호감도
+            likeabliltyUI.LikeabliltyUIState();
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            //레시피
+            recipeUI.RecipeUIState();
         }
         if (Time.timeScale != 0f)
         {
