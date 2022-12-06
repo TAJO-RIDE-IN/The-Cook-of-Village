@@ -10,10 +10,13 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
         if (obj is GameData)
         {
             StartCoroutine(WaitParticle());
-            obj.SetTimeMorning();
             transform.position = new Vector3(-8, 2.238f, 8);
-            cameraLayer.IsSecondFloor = true;
-            cameraPosition.transform.position = new Vector3(-7, 1.9f, 8.7f);
+            cameraMovement.outerUp = 13;
+            cameraMovement.outerDown = -11;
+            cameraLayer.SecondFloor();
+            cameraPosition.transform.position = transform.position;
+            cameraLayer.transIn.Change();
+            obj.SetTimeMorning();
         }
     }
 
@@ -89,8 +92,11 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
         if (GameData.Instance.isPassOut)
         {
             transform.position = new Vector3(-8, 2.238f, 8);
-            cameraMovement.transform.position = new Vector3(-8, 2.238f, 8);
-            cameraLayer.IsSecondFloor = true;
+            cameraPosition.transform.position = new Vector3(-8, 2.238f, 8);
+            cameraMovement.outerUp = 13;
+            cameraMovement.outerDown = -11;
+            cameraLayer.SecondFloor();
+            cameraLayer.transIn.Change();
             GameData.Instance.isPassOut = false;
 
         }
