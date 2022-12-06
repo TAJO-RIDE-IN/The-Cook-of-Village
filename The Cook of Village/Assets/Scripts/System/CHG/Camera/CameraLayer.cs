@@ -9,6 +9,7 @@ public class CameraLayer : MonoBehaviour
     public SecondFloor secondFloor;
     private Camera _camera;
     private bool isSecondFloor;
+    
 
     public bool IsSecondFloor
     {
@@ -22,10 +23,14 @@ public class CameraLayer : MonoBehaviour
             secondFloor.isSecond = value;
             if (value)
             {
+                cameraMovement.outerUp = 13;
+                cameraMovement.outerDown = -11;
                 SecondFloor();
             }
             else
             {
+                cameraMovement.outerUp = 9;
+                cameraMovement.outerDown = -9;
                 NoSecondFloor();
             }
         }

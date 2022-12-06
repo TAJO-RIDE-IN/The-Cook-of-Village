@@ -96,13 +96,13 @@ public class CameraMovement : MonoBehaviour
                 {
                     preOuterDown = cameraPosition.transform.position.z;
                     distance = Input.GetAxis("Mouse ScrollWheel");
-                    if (zoomValue < 2)
+                    if (cameraPosition.transform.position.y > 0)
                     {
                         cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
                         zoomValue += distance;
                         //outerDown += Mathf.Abs(distance);
-                        outerDown += Math.Abs(preOuterDown - cameraPosition.transform.position.z);
-                        outerUp += Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+                        //outerDown += Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+                        //outerUp += Math.Abs(preOuterDown - cameraPosition.transform.position.z);
 
                     }
 
@@ -111,13 +111,14 @@ public class CameraMovement : MonoBehaviour
                 {
                     preOuterDown = cameraPosition.transform.position.z;
                     distance = Input.GetAxis("Mouse ScrollWheel");
-                    if (zoomValue > -2)
+                    //위로
+                    if (cameraPosition.transform.position.y < 8)
                     {
                         cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
                         zoomValue += distance;
                         //outerDown -= Mathf.Abs(distance);
-                        outerDown -= Math.Abs(preOuterDown - cameraPosition.transform.position.z);
-                        outerUp -= Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+                        //outerDown -= Math.Abs(preOuterDown - cameraPosition.transform.position.z);
+                        //outerUp -= Math.Abs(preOuterDown - cameraPosition.transform.position.z);
                     }
                 }
             }

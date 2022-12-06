@@ -14,7 +14,6 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
             transform.position = new Vector3(-8, 2.238f, 8);
             cameraLayer.IsSecondFloor = true;
             cameraPosition.transform.position = new Vector3(-7, 1.9f, 8.7f);
-
         }
     }
 
