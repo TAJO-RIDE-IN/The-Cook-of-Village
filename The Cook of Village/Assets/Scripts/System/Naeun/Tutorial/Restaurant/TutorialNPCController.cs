@@ -6,7 +6,6 @@ public class TutorialNPCController : MonoBehaviour
 {
     public TutorialRestaurantController tutorialController;
     public TutorialGuestMove GuestNPC;
-    public GameObject openUI;
     public ChairUse Chair;
 
     public void GuestEnter()
@@ -19,7 +18,7 @@ public class TutorialNPCController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             SoundManager.Instance.Play(SoundManager.Instance._audioClips["OpenRestaurant"]);
-            openUI.LeanScale(Vector2.zero, 0.5f).setOnComplete(() => GuestEnter());
+            GuestEnter();
             tutorialController.NextDialogue();
         }
     }

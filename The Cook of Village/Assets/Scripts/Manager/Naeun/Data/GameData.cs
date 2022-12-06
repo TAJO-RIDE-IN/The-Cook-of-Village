@@ -223,6 +223,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
     {
         TimeOfDay = 480;
         ForciblySleep = false;
+        SaveDataTime(PlayerName);//자다 일어났을때 저장
         CheckEndingQualification();
         if (TimeOfDay < 1440 && TimeOfDay > 120)
         {
