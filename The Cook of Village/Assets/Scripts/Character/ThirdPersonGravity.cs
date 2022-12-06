@@ -4,8 +4,19 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 
-public class ThirdPersonGravity : MonoBehaviour
+public class ThirdPersonGravity : MonoBehaviour, IObserver<GameData>
 {
+    public void Change(GameData obj)
+    {
+        if (obj is GameData)
+        {
+            animator.SetBool("isSleep",true);
+        }
+    }
+    public void AddObserver(IGameDataOb o)
+    {
+        o.AddSleepObserver(this);
+    }
     public CharacterController controller;
     public Transform cam;
 
@@ -28,18 +39,36 @@ public class ThirdPersonGravity : MonoBehaviour
     public float turnSmoothTime = 0.1f;
 
     public Animator animator;
+    public Animation animation;
     public CinemachineFreeLook cinemachine;
 
     private GameManager _gameManager;
     private SoundManager _soundManager;
 
     private bool isCanWalk = true;
-    private bool isWalkSound = true;
+    private bool isWalkSound = false;
+    private bool isShift;
+    private bool isShiftUp;
+    private float pitch = 1;
+
+    public float Pitch
+    {
+        get
+        {
+            return pitch;
+        }
+        set
+        {
+            pitch = value;
+            isWalkSound = false;
+        }
+    }
 
     private void Start()
     {
         _gameManager = GameManager.Instance;
         _soundManager = SoundManager.Instance;
+        AddObserver(GameData.Instance);
     }
 
     private void Update()
@@ -64,6 +93,12 @@ public class ThirdPersonGravity : MonoBehaviour
                     ValueChange();
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            Debug.Log("재생");
+            animator.SetBool("isSleep" ,true);
         }
     }
 
@@ -104,13 +139,28 @@ public class ThirdPersonGravity : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                speed = OriginSpeed * 1.5f;
-                animator.SetBool("isRun",true);
+                if (!isShift)
+                {
+                    speed = OriginSpeed * 1.5f;
+                    animator.SetBool("isRun",true);
+                    Pitch = 1.3f;
+                    isShift = true;
+                    isShiftUp = false;
+                }
             }
-            else
+            if(Input.GetKeyUp(KeyCode.LeftShift))
             {
-                speed = OriginSpeed;
-                animator.SetBool("isRun",false);
+                
+                if (!isShiftUp)
+                {
+                    Pitch = 1f;
+                    speed = OriginSpeed;
+                    animator.SetBool("isRun", false);
+                    isShift = false;
+                    isShiftUp = true;
+                }
+                
+                
             }
             //gravity
             velocity.y += gravity * Time.deltaTime;
@@ -124,7 +174,8 @@ public class ThirdPersonGravity : MonoBehaviour
             {
                 if (!isWalkSound)
                 {
-                    _soundManager.PlayEffect3D(_soundManager._audioClips["CookWalk2"], gameObject, true);
+                    _soundManager.PlayEffect3D(_soundManager._audioClips["CookWalk2"], gameObject, true, pitch);
+                    Debug.Log(pitch);
                     isWalkSound = true;
                 }
                 

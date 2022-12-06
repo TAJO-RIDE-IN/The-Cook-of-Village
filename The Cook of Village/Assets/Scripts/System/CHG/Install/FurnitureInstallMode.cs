@@ -315,6 +315,7 @@ public class FurnitureInstallMode : InstallMode
         {
             UseSetting(infos.Name);
             installLayer = 1 << 11;
+            pendingObject.transform.localEulerAngles = new Vector3(0, 180, 0);
             return;
         }
         UseSetting(infos.Name);
