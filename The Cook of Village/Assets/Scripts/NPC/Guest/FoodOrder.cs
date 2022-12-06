@@ -16,7 +16,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     private OrderUI currentOrderUI;
     private GuestNPC guest;
 
-    private new Transform camera;
+    public Transform MainCamera;
     private Coroutine WaitingOrderCoroutine;
     private bool Receive = false;
     public bool CanReceive = false;
@@ -36,14 +36,13 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
             Village = true;
             VillageNPC = GetComponent<VillageGuest>();
         }
-        camera = Camera.main.transform;
         foodData = FoodData.Instance;
         AddObserver(guest);
         AddProbability();
     }
     private void Update() //손님 머리위 UI가 항상 카메라를 보도록 함.
     {
-        NPCUI.transform.LookAt(NPCUI.transform.position + camera.rotation * Vector3.forward, camera.rotation * Vector3.up);
+        NPCUI.transform.LookAt(NPCUI.transform.position + MainCamera.rotation * Vector3.forward, MainCamera.rotation * Vector3.up);
     }
     private void OnEnable()
     {
