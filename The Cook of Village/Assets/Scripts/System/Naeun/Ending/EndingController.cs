@@ -29,7 +29,6 @@ public class EndingController : MonoBehaviour, IObserver<GameManager>
         dialogueManager = DialogueManager.Instance;
         soundManager = SoundManager.Instance;
         AddObserver(gameManager);
-        EndingStart();
     }
     /// <summary>
     /// 게임모드가 Ending이 될 경우 다음날 아침에 실행 된다.
@@ -112,7 +111,6 @@ public class EndingController : MonoBehaviour, IObserver<GameManager>
 
         }
         ActionNum++;
-        Debug.Log(ActionNum);
     }
     
     public void FatherAppearance(int index)
