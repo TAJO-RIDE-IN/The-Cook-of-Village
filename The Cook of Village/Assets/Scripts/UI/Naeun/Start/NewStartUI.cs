@@ -22,6 +22,9 @@ public class NewStartUI : MonoBehaviour
     
     public void NewData()
     {
-        playControl.NewStartGame(playerInfos);
+        if(!PlayerNameInput.text.Equals("")&& !RestaurantNameInput.text.Equals(""))
+        {
+            playControl.NewStartGame(playerInfos);
+        }
     }
 }
