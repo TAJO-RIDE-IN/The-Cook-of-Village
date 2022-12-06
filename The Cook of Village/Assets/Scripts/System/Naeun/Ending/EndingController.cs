@@ -94,7 +94,7 @@ public class EndingController : MonoBehaviour, IObserver<GameManager>
     /// </summary>
     private void EndingAction() 
     {
-        Player.isLocked = true;
+        Player.IsLocked = true;
         
         switch (ActionNum)
         {

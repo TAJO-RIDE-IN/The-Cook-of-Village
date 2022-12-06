@@ -24,10 +24,10 @@ public class CameraMovement : MonoBehaviour
     public float lockedZoomValue;
     
     
-    private float outerLeftOriginal;
-    private float outerRightOriginal;
-    private float outerDownOriginal;
-    private float outerUpOriginal;
+    public float outerLeftOriginal;
+    public float outerRightOriginal;
+    public float outerDownOriginal;
+    public float outerUpOriginal;
 
     public GameObject cameraPosition;
     public GameObject flatCamera;
@@ -166,19 +166,14 @@ public class CameraMovement : MonoBehaviour
             {
                 if (!isLocked)//캐릭터로 이동
                 {
-                    cameraPosition.transform.position = character.transform.position;
-                    zoomValue = 0;
-                    character.isLocked = true;
+                    character.IsLocked = true;
                     isLocked = true;
                     return;
                 }
                 else//카메라 포지션으로 이동
                 {
-                    outerLeft = outerLeftOriginal;
-                    outerRight = outerRightOriginal;
-                    outerDown = outerDownOriginal;
-                    outerUp = outerUpOriginal;
-                    character.isLocked = false;
+                    
+                    character.IsLocked = false;
                     isLocked = false;
                     return;
                 }
@@ -189,7 +184,7 @@ public class CameraMovement : MonoBehaviour
     }
     void LateUpdate()
     {
-        if (!character.isLocked)
+        if (!character.IsLocked)
         {
             if (Input.GetMouseButton(1) && !Input.GetKey(KeyCode.LeftControl))
             {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,13 +9,18 @@ public class ChangeScene : MonoBehaviour
 {
     public enum SceneToGo { Intro, SceneLoad, Village, Restaurant }
     public SceneToGo sceneToGo;
-    public void OnTriggerEnter(Collider other)
+
+    public void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            MoveScene();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                MoveScene();
+            }
         }
     }
+
     public void MoveScene()
     {
         GameManager.Instance.NextSceneIndex = (int)sceneToGo;
