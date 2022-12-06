@@ -8,8 +8,29 @@ public class CameraLayer : MonoBehaviour
     // Start is called before the first frame update]
     private Camera _camera;
     private bool isSecondFloor;
+
+    public bool IsSecondFloor
+    {
+        get
+        {
+            return isSecondFloor;
+        }
+        set
+        {
+            isSecondFloor = value;
+            if (value)
+            {
+                SecondFloor();
+            }
+            else
+            {
+                NoSecondFloor();
+            }
+        }
+    }
     public GameObject secondInstallPlace;
     public GameObject secondInstallWall;
+    public CameraMovement cameraMovement;
 
     void Start()
     {
@@ -22,22 +43,32 @@ public class CameraLayer : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                secondInstallPlace.layer = 9;
-                foreach(Transform child in secondInstallPlace.transform)
-                {
-                    child.gameObject.layer = 9;
-                }
-                secondInstallWall.layer = 11;
-                foreach(Transform child in secondInstallWall.transform)
-                {
-                    child.gameObject.layer = 11;
-                }
-                //2층 바닥 레이어 InstallPlace로 변경해주기, 위에 설치 가능한 것들 레이어 Install
-                _camera.cullingMask |= 1 << LayerMask.NameToLayer("SecondFloor");
-                isSecondFloor = true;
-                return;
+                
             }
         }
+        
+        
+    }
+
+    private void SecondFloor()
+    {
+        secondInstallPlace.layer = 9;
+        foreach(Transform child in secondInstallPlace.transform)
+        {
+            child.gameObject.layer = 9;
+        }
+        secondInstallWall.layer = 11;
+        foreach(Transform child in secondInstallWall.transform)
+        {
+            child.gameObject.layer = 11;
+        }
+        //2층 바닥 레이어 InstallPlace로 변경해주기, 위에 설치 가능한 것들 레이어 Install
+        _camera.cullingMask |= 1 << LayerMask.NameToLayer("SecondFloor");
+        isSecondFloor = true;
+        return;
+    }
+    private void NoSecondFloor()
+    {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             secondInstallPlace.layer = 7;
@@ -53,6 +84,14 @@ public class CameraLayer : MonoBehaviour
             _camera.cullingMask = ~(1 << LayerMask.NameToLayer("SecondFloor"));
             isSecondFloor = false;
         }
+    }
+
+    private void SecondFloorCamera()
+    {
+        
+    }
+    private void FirstFloorCamera()
+    {
         
     }
 }

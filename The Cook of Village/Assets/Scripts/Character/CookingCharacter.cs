@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class CookingCharacter : MonoBehaviour
 {
-    
-    
     public Animator charAnimator;
     public GameObject HandPosition;
     public GameObject TrashUI;
@@ -221,8 +219,15 @@ public class CookingCharacter : MonoBehaviour
 
                 if (objectName == "PROP_bed")
                 {
+                    if (_gameData.TimeOfDay > 1200 && _gameData.TimeOfDay < 1440)
+                    {
+                        _gameData.SetTimeMorning();
+                    }
+                    else
+                    {
+                        
+                    }
                     
-                    _gameData.SetTimeMorning();
                 }
             }
 
@@ -288,6 +293,7 @@ public class CookingCharacter : MonoBehaviour
 
         if (other.CompareTag("CookingTools"))
         {
+            _cookingTool.InventoryBig.SetActive(false);
             isToolCollider = false;
             isSpace = false;
             _cookingTool.CloseUI();
