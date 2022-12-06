@@ -31,7 +31,7 @@ public class EndingController : MonoBehaviour, IObserver<GameManager>
         AddObserver(gameManager);
     }
     /// <summary>
-    /// °ÔÀÓ¸ğµå°¡ EndingÀÌ µÉ °æ¿ì ´ÙÀ½³¯ ¾ÆÄ§¿¡ ½ÇÇà µÈ´Ù.
+    /// ê²Œì„ëª¨ë“œê°€ Endingì´ ë  ê²½ìš° ë‹¤ìŒë‚  ì•„ì¹¨ì— ì‹¤í–‰ ëœë‹¤.
     /// </summary>
     public void EndingStart()
     {
@@ -64,20 +64,21 @@ public class EndingController : MonoBehaviour, IObserver<GameManager>
         DialogueAction.Add("Ending", () => EndingAction());
     }
     /// <summary>
-    /// ¹®Àå¿¡¼­ &(Action)ÀÌ ÀÖÀ» °æ¿ì ½ÇÇà
+    /// ë¬¸ì¥ì—ì„œ &(Action)ì´ ìˆì„ ê²½ìš° ì‹¤í–‰
     /// </summary>
     public void Action()
     {
         DialogueAction[dialogueManager.CurrentSentencesName]();
     }
     /// <summary>
-    /// EndingStart ´ëÈ­ÀÎ °æ¿ì Action
+    /// EndingStart ëŒ€í™”ì¸ ê²½ìš° Action
     /// </summary>
     private void StartAction()
     {
         switch(ActionNum)
         {
             case 0:
+                
                 break;
             case 1:
                 break;
@@ -89,10 +90,12 @@ public class EndingController : MonoBehaviour, IObserver<GameManager>
         ActionNum++;
     }
     /// <summary>
-    /// Ending ´ëÈ­ÀÎ °æ¿ì Action
+    /// Ending ëŒ€í™”ì¸ ê²½ìš° Action
     /// </summary>
     private void EndingAction() 
     {
+        Player.isLocked = true;
+        
         switch (ActionNum)
         {
             case 0:
@@ -137,7 +140,7 @@ public class EndingController : MonoBehaviour, IObserver<GameManager>
         if(index.Equals(0))
         {
             Player.StopWalking();
-            Player.gameObject.transform.LookAt(Object[0].transform); //¹® ÃÄ´Ùº¸±â
+            Player.gameObject.transform.LookAt(Object[0].transform); //ë¬¸ ì³ë‹¤ë³´ê¸°
         }
         StartCoroutine(Father.FatherAppearance(index));
     }
@@ -153,7 +156,7 @@ public class EndingController : MonoBehaviour, IObserver<GameManager>
         endingUI.CanNext = true;
         endingUI.DialogueText();
     }
-    public void FinishEnding() //Ending³¡³µÀ» °æ¿ì
+    public void FinishEnding() //Endingëë‚¬ì„ ê²½ìš°
     {
         Player.StartWalking();
         gameData.Ending = true;

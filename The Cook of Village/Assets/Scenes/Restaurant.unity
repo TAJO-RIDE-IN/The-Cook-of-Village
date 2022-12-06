@@ -168,7 +168,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 42222167}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0.18}
@@ -185,7 +185,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cae491e89688b4780abad9d4a71637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraLayer: {fileID: 0}
+  isGoUp: 1
+  isSecond: 0
+  cameraLayer: {fileID: 1274419263}
 --- !u!65 &44731170 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 7757726590187343870, guid: 8ff72eb41c7e7ca418b8517d2005d79e, type: 3}
@@ -8529,6 +8531,10 @@ PrefabInstance:
       propertyPath: OriginSpeed
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 466699733000371441, guid: 3daa178e865bbba4ea2a902117881c3a, type: 3}
+      propertyPath: cameraLayer
+      value: 
+      objectReference: {fileID: 1274419263}
     - target: {fileID: 466699733000371441, guid: 3daa178e865bbba4ea2a902117881c3a, type: 3}
       propertyPath: originSpeed
       value: 320
@@ -16970,11 +16976,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 409557907149596865, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000016973884
+      value: 0.000000016973585
       objectReference: {fileID: 0}
     - target: {fileID: 409557907149596865, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000004969725
+      value: -0.0000000049687805
       objectReference: {fileID: 0}
     - target: {fileID: 409557907149596865, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -17018,7 +17024,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1209217659801006737, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.31622776
+      value: 0.31622773
       objectReference: {fileID: 0}
     - target: {fileID: 1209217659801006737, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_LocalRotation.y
@@ -17048,6 +17054,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.0000000048445976
       objectReference: {fileID: 0}
+    - target: {fileID: 1869801790019203983, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
+      propertyPath: secondFloor
+      value: 
+      objectReference: {fileID: 42222170}
     - target: {fileID: 1869801790019203983, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: secondInstallWall
       value: 
@@ -17098,11 +17108,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5125355705719011845, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000016510283
+      value: -0.000000016510285
       objectReference: {fileID: 0}
     - target: {fileID: 5125355705719011845, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000004844597
+      value: 0.0000000048445976
       objectReference: {fileID: 0}
     - target: {fileID: 5298908737138479073, guid: a52cf8f2a438a9e43a78768522fc78a6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17499,7 +17509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 706872024674531357, guid: 8ff72eb41c7e7ca418b8517d2005d79e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 895445156741777878, guid: 8ff72eb41c7e7ca418b8517d2005d79e, type: 3}
       propertyPath: m_IsActive
@@ -17567,7 +17577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4865044998699339262, guid: 8ff72eb41c7e7ca418b8517d2005d79e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ff72eb41c7e7ca418b8517d2005d79e, type: 3}
