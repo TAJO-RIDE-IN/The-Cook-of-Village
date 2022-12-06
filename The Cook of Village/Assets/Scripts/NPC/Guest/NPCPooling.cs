@@ -24,6 +24,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
     private GameData gameData;
     private GameManager gameManager;
     private SoundManager soundManager;
+    private bool isWorking;
 
     private void Start()
     {
@@ -56,42 +57,57 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
 
     private void OpenUI()
     {
+        isWorking = true;
         soundManager.Play(SoundManager.Instance._audioClips["OpenRestaurant"]);
-        openUI.LeanScale(Vector2.zero, 0.5f).setOnComplete(() => closeUI.LeanScale(Vector2.one, 0.5f));
-
+        openUI.transform.LeanMoveLocalY(0, 0.5f).setEaseOutExpo().setOnComplete(() => StartCoroutine(Wait(openUI)));
     }
 
+    private IEnumerator Wait(GameObject gameObject)
+    {
+        yield return new WaitForSeconds(0.5f);
+        gameObject.transform.LeanMoveLocalY(725, 0.5f).setEaseOutExpo();
+        isWorking = false;
+    }
     private void CloseUI()
     {
+        isWorking = true;
         soundManager.Play(SoundManager.Instance._audioClips["CloseRestaurant"]);
-        closeUI.LeanScale(Vector2.zero, 0.5f).setOnComplete(() => openUI.LeanScale(Vector2.one, 0.5f));
+        closeUI.transform.LeanMoveLocalY(0, 0.5f).setEaseOutExpo().setOnComplete(() => StartCoroutine(Wait(closeUI)));
     }
 
 
     public void OpenRestaurant()
     {
-        OpenUI();
-        gameManager.IsOpen = true;
-        FirstNPC = true;
-        OpenTime = GameData.Instance.TimeOfDay;
-        VillageNPCTime = OpenTime + Random.Range(60, 181); // 마을 주민 오는시간 -> 오픈 후 1시간~3시간 사이
-
-        if(_callNPC != null)
+        if (!isWorking)
         {
-            StopCoroutine(_callNPC);
+            OpenUI();
+            gameManager.IsOpen = true;
+            FirstNPC = true;
+            OpenTime = GameData.Instance.TimeOfDay;
+            VillageNPCTime = OpenTime + Random.Range(60, 181); // 마을 주민 오는시간 -> 오픈 후 1시간~3시간 사이
+        
+            if(_callNPC != null)
+            {
+                StopCoroutine(_callNPC);
+            }
+            _callNPC = StartCoroutine(CallNPC());
         }
-        _callNPC = StartCoroutine(CallNPC());
+        
     }
 
     public void CloseRestaurant()
     {
-        CloseUI();
-        gameManager.IsOpen = false;
-        callVillageNPC = false;
-        if(_callNPC != null)
+        if (!isWorking)
         {
-            StopCoroutine(_callNPC);
+            CloseUI();
+            gameManager.IsOpen = false;
+            callVillageNPC = false;
+            if(_callNPC != null)
+            {
+                StopCoroutine(_callNPC);
+            }
         }
+        
     }
 
     private VillageGuest EnterNPC()

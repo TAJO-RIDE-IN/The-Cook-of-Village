@@ -51,6 +51,7 @@ public class FurnitureInstallMode : InstallMode
     
     private GameData gameData;
     private GameManager _gameManager;
+    private SoundManager _soundManager;
     
     
     [HideInInspector] public InstallData _installData;
@@ -63,6 +64,7 @@ public class FurnitureInstallMode : InstallMode
     {
         gameData = GameData.Instance;
         _gameManager = GameManager.Instance;
+        _soundManager = SoundManager.Instance;
 
         //책상, 의자, 가구 순으로 설치
     }
@@ -375,6 +377,7 @@ public class FurnitureInstallMode : InstallMode
 
     private void InstallSetting(String name)
     {
+        _soundManager.Play(_soundManager._audioClips["Install Object"]);
         canvas.enabled = true;
         installLayer = 1 << 9;
         InstallImpossible();

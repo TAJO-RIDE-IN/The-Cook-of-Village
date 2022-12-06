@@ -17,7 +17,7 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
         }
     }
 
-    private IEnumerator WaitParticle()
+    public IEnumerator WaitParticle()
     {
         particle.gameObject.SetActive(true);
         particle.Play();
