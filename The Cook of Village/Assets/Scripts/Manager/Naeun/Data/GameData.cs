@@ -61,7 +61,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
     [HideInInspector] public bool isExtension;
     public void LoadObject()
     {
-        Observers.Clear();
+        ObserverClear();
         moneyData.TipCount = 0;
         if (runningCoroutine != null) { StopCoroutine(runningCoroutine); }//한 개의 코루틴만 실행
         if (GuestCount > 0)
@@ -69,6 +69,14 @@ public class GameData : DataManager<GameData>, IGameDataOb
             ChangeFame(-3 * GuestCount);
             GuestCountInfos[Day - 1].FailGuest = +GuestCount;
         }
+    }
+    private void ObserverClear()
+    {
+        moneyData.ClearObserver();
+        Observers.Clear();
+        DayObservers.Clear();
+        SleepObservers.Clear();
+        GuestObservers.Clear();
     }
     public void PlaySceneInit()
     {

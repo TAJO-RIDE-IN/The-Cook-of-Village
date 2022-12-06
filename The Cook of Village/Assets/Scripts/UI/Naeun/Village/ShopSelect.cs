@@ -89,10 +89,14 @@ public class ShopSelect : MonoBehaviour
                 NPCData.Instance.ChangeLikeability(NPC.npcInfos.work, "PlayerUse");
                 Infos.PurchasesCount += (int)CountSlider.value;
                 totalprice = totalprice * -1;
+                MoneyData.Instance.Money += totalprice;
+            }
+            else
+            {
+                MoneyData.Instance.ResellingItem(totalprice);
             }
             NPC.CurrentState = ShopNPC.State.Sell;
             ItemData.Instance.ChangeAmount(Infos.ID, CurrentAmount());
-            MoneyData.Instance.Money += totalprice;
             shopUI.LoadSlotData();
             Init();
         }
