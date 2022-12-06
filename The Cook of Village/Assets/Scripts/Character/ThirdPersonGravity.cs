@@ -10,6 +10,7 @@ public class ThirdPersonGravity : MonoBehaviour, IObserver<GameData>
     {
         if (obj is GameData)
         {
+            isCanWalk = false;
             animator.SetBool("isSleep",true);
         }
     }

@@ -18,6 +18,7 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
         o.AddSleepObserver(this);
     }
 
+    public CameraLayer cameraLayer;
     public Animator charAnimator;
     private Transform _camera;
     public CharacterController controller;
@@ -48,15 +49,15 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
 
     private void Start()
     {
-        /*particle.Play();
-        particle.Stop();
+        
         if (GameData.Instance.isPassOut)
         {
-            particleCamera.depth = 1;
-            particle.Play();
             transform.position = new Vector3(-8, 2.238f, 8);
-            
-        }*/
+            cameraPosition.transform.position = new Vector3(-8, 2.238f, 8);
+            cameraLayer.IsSecondFloor = true;
+            GameData.Instance.isPassOut = false;
+
+        }
         AddObserver(GameData.Instance);
         soundManager = SoundManager.Instance;
         _camera = Camera.main.transform;
