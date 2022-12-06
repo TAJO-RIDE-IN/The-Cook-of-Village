@@ -7,9 +7,9 @@ public class CameraLayer : MonoBehaviour
 {
     // Start is called before the first frame update]
     public SecondFloor secondFloor;
-    private Camera _camera;
-    private bool isSecondFloor;
-    
+    public Camera _camera;
+    private bool isSecondFloor = false;
+    public TransIn transIn;
 
     public bool IsSecondFloor
     {
@@ -60,7 +60,7 @@ public class CameraLayer : MonoBehaviour
         }
     }
 
-    private void SecondFloor()
+    public void SecondFloor()
     {
         Debug.Log("2층으로 변경");
         secondInstallPlace.layer = 9;
@@ -76,7 +76,7 @@ public class CameraLayer : MonoBehaviour
         //2층 바닥 레이어 InstallPlace로 변경해주기, 위에 설치 가능한 것들 레이어 Install
         _camera.cullingMask |= 1 << LayerMask.NameToLayer("SecondFloor");
     }
-    private void NoSecondFloor()
+    public void NoSecondFloor()
     {
         Debug.Log("1층으로 변경");
         if (Input.GetKeyDown(KeyCode.LeftShift))

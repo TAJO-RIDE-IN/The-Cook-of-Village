@@ -20,14 +20,19 @@ public class TransIn : MonoBehaviour
         {
             if (!isIn)
             {
-                ChangeMaterial();
-                LeanTween.color(transObject, Color.clear, 0.5f);
-                isIn = true;
+                Change();
             }
         }
     }
 
-    private void ChangeMaterial()
+    public void Change()
+    {
+        ChangeMaterial();
+        LeanTween.color(transObject, Color.clear, 0.5f);
+        isIn = true;
+    }
+
+    public void ChangeMaterial()
     {
         for (int i = 0; i < transObjects.Length; i++)
         {
