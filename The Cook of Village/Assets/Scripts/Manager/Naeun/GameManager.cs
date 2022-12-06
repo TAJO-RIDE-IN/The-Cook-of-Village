@@ -93,7 +93,7 @@ public class GameManager : Singletion<GameManager>, IGameManagerOb
         }
     }
 
-    public int NextSceneIndex = 3;
+    public int NextSceneIndex;
     private int currentSceneIndex;
     public int CurrentSceneIndex
     {

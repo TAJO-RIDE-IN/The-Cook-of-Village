@@ -3,8 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThirdPersonMovement : MonoBehaviour
+public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
 {
+    public void Change(GameData obj)
+    {
+        if (obj is GameData)
+        {
+            Debug.Log("쓰러짐");
+            obj.SetTimeMorning();
+        }
+    }
+    public void AddObserver(IGameDataOb o)
+    {
+        o.AddSleepObserver(this);
+    }
 
     public Animator charAnimator;
     private Transform _camera;
@@ -12,6 +24,8 @@ public class ThirdPersonMovement : MonoBehaviour
     public float speed = 80f;
     public float originSpeed = 80f;
     public GameObject cameraPosition;
+    public ParticleSystem particle;
+    public Camera particleCamera;
 
     public bool isLocked;
     private float turnSmoothTime = 0.1f;
@@ -34,6 +48,16 @@ public class ThirdPersonMovement : MonoBehaviour
 
     private void Start()
     {
+        /*particle.Play();
+        particle.Stop();
+        if (GameData.Instance.isPassOut)
+        {
+            particleCamera.depth = 1;
+            particle.Play();
+            transform.position = new Vector3(-8, 2.238f, 8);
+            
+        }*/
+        AddObserver(GameData.Instance);
         soundManager = SoundManager.Instance;
         _camera = Camera.main.transform;
     }

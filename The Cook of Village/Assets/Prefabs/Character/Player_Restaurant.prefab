@@ -52,8 +52,9 @@ MonoBehaviour:
   charAnimator: {fileID: 8689249436096407534}
   controller: {fileID: 466699733000371447}
   speed: 90
-  OriginSpeed: 160
-  turnSmoothTime: 0.1
+  originSpeed: 80
+  cameraPosition: {fileID: 0}
+  isLocked: 0
 --- !u!143 &466699733000371447
 CharacterController:
   m_ObjectHideFlags: 0
@@ -87,8 +88,9 @@ MonoBehaviour:
   charAnimator: {fileID: 8689249436096407534}
   HandPosition: {fileID: 4928002929507418811}
   TrashUI: {fileID: 0}
-  _cookingTool: {fileID: 0}
+  calendarUI: {fileID: 0}
   trash: {fileID: 0}
+  _cookingTool: {fileID: 0}
   _foodOrder: {fileID: 0}
   _cookPosition: {fileID: 0}
   Idle:
@@ -1042,3 +1044,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8172159154407019578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7342321531664268238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9339ac6ff226f7c419cfcb0c1dc74ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

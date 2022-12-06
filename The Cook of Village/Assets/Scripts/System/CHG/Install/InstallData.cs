@@ -100,10 +100,6 @@ public class TableData
 
 public class InstallData : DataManager<InstallData>
 {
-    protected override void Init()
-    {
-        LoadData("플레이어 이름_0");
-    }
 
     public override void SaveDataTime(string PlayName)
     {

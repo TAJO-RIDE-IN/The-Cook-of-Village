@@ -192,6 +192,8 @@ public class GameData : DataManager<GameData>, IGameDataOb
         return MonthDate;
     }
 
+    public bool isPassOut;
+
     private bool forciblySleep = false;
     public bool ForciblySleep
     {
