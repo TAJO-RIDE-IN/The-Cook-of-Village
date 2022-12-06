@@ -67,6 +67,7 @@ public class ThirdPersonGravity : MonoBehaviour, IObserver<GameData>
 
     private void Start()
     {
+        isShiftUp = false;
         _gameManager = GameManager.Instance;
         _soundManager = SoundManager.Instance;
         AddObserver(GameData.Instance);
@@ -149,9 +150,8 @@ public class ThirdPersonGravity : MonoBehaviour, IObserver<GameData>
                     isShiftUp = false;
                 }
             }
-            if(Input.GetKeyUp(KeyCode.LeftShift))
+            else
             {
-                
                 if (!isShiftUp)
                 {
                     Pitch = 1f;
@@ -160,8 +160,6 @@ public class ThirdPersonGravity : MonoBehaviour, IObserver<GameData>
                     isShift = false;
                     isShiftUp = true;
                 }
-                
-                
             }
             //gravity
             velocity.y += gravity * Time.deltaTime;
@@ -232,6 +230,7 @@ public class ThirdPersonGravity : MonoBehaviour, IObserver<GameData>
     public void StopWalking()
     {
         isCanWalk = false;
+        isWalkSound = false;
         animator.SetBool("isWalk",false);
     }
     public void StartWalking()

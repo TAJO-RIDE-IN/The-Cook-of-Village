@@ -9,9 +9,21 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
     {
         if (obj is GameData)
         {
-            Debug.Log("쓰러짐");
+            StartCoroutine(WaitParticle());
             obj.SetTimeMorning();
+            transform.position = new Vector3(-8, 2.238f, 8);
+            cameraLayer.IsSecondFloor = true;
+            cameraPosition.transform.position = new Vector3(-7, 1.9f, 8.7f);
+
         }
+    }
+
+    private IEnumerator WaitParticle()
+    {
+        particle.gameObject.SetActive(true);
+        particle.Play();
+        yield return new WaitForSeconds(2);
+        particle.gameObject.SetActive(false);
     }
     public void AddObserver(IGameDataOb o)
     {
@@ -25,10 +37,35 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
     public float speed = 80f;
     public float originSpeed = 80f;
     public GameObject cameraPosition;
+    public CameraMovement cameraMovement;
     public ParticleSystem particle;
     public Camera particleCamera;
 
-    public bool isLocked;
+    private bool isLocked;
+
+    public bool IsLocked
+    {
+        get
+        {
+            return isLocked;
+        }
+        set
+        {
+            isLocked = value;
+            if (value)
+            {
+                cameraPosition.transform.position = transform.position;
+                cameraMovement.zoomValue = 0;
+            }
+            else
+            {
+                cameraMovement.outerLeft = cameraMovement.outerLeftOriginal;
+                cameraMovement.outerRight = cameraMovement.outerRightOriginal;
+                cameraMovement.outerDown = cameraMovement.outerDownOriginal;
+                cameraMovement.outerUp = cameraMovement.outerUpOriginal;
+            }
+        }
+    }
     private float turnSmoothTime = 0.1f;
     private float turnSmoothVelocity;
 
@@ -49,11 +86,11 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
 
     private void Start()
     {
-        
+        //particleCamera.depth = 1;
         if (GameData.Instance.isPassOut)
         {
             transform.position = new Vector3(-8, 2.238f, 8);
-            cameraPosition.transform.position = new Vector3(-8, 2.238f, 8);
+            cameraMovement.transform.position = new Vector3(-8, 2.238f, 8);
             cameraLayer.IsSecondFloor = true;
             GameData.Instance.isPassOut = false;
 
@@ -87,7 +124,7 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
                     isWalkSound = true;
                 }
 
-                if (isLocked)
+                if (IsLocked)
                 {
                     cameraPosition.transform.position = transform.position;
                 }
@@ -103,6 +140,7 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
     public void StopWalking()
     {
         isCanWalk = false;
+        isWalkSound = false;
         charAnimator.SetBool("isWalk", false);
     }
     public void StartWalking()

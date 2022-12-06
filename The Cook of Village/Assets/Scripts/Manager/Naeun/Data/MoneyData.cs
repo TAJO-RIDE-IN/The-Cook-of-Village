@@ -6,6 +6,7 @@ using UnityEngine;
 public interface IMoneyDataOb
 {
     void AddObserver(IObserver<MoneyData> o);
+    void RemoveObserver(IObserver<MoneyData> o);
     void NotifyObserver();
 }
 
@@ -14,6 +15,7 @@ public class Proceeds
 {
     public int SalesProceeds;
     public int TipMoney;
+    public int ResellMoney;
 }
 
 [System.Serializable]
@@ -39,7 +41,7 @@ public class MoneyData : DataManager<MoneyData>, IMoneyDataOb
         get { return gameData.gameInfos.playerInfos.Money; }
         set
         {
-            if(!BankData)
+            if(!BankData && !ResellData)
             {
                 ChangeMoneyData(value);
                 if (TipCount >= 5)
@@ -50,18 +52,26 @@ public class MoneyData : DataManager<MoneyData>, IMoneyDataOb
                 }
             }
             BankData = false;
+            ResellData = false;
             gameData.gameInfos.playerInfos.Money = value;
             NotifyObserver();
         }
     }
-
+    private bool ResellData = false;
+    public void ResellingItem(int money)
+    {
+        ResellData = true;
+        Proceeds[GameData.Instance.Day - 1].ResellMoney += money;
+        TotalProceeds += money;
+        Money += money;
+    }
     public void ChangeMoneyData(int value)
     {
         if (Money < value)
         {
             int money = value - Money;
             TotalProceeds += money;
-           Proceeds[GameData.Instance.Day - 1].SalesProceeds += (value - TipMoney);
+            Proceeds[GameData.Instance.Day - 1].SalesProceeds += (value - TipMoney);
         }
         else
         {
@@ -146,16 +156,26 @@ public class MoneyData : DataManager<MoneyData>, IMoneyDataOb
         SaveData<MoneyInfos>(ref moneyInfos, "MoneyData", PlayName);
     }
 
+    public void ClearObserver()
+    {
+        _observers.Clear();
+    }
     public void AddObserver(IObserver<MoneyData> o)
     {
         _observers.Add(o);
     }
-
+    public void RemoveObserver(IObserver<MoneyData> o)
+    {
+        _observers.Remove(o);
+    }
     public void NotifyObserver()
     {
         foreach(var observer in _observers)
         {
-            observer.Change(this);
+            if(observer != null)
+            {
+                observer.Change(this);
+            }
         }
     }
 }
