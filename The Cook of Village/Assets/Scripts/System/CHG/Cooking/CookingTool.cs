@@ -59,8 +59,7 @@ public class CookingTool : MonoBehaviour
         {
             InventoryBig.SetActive(true);
         }
-        
-        InventoryBig.transform.localScale = Vector2.zero;
+        //InventoryBig.transform.localScale = Vector2.zero;
     }
 
     public void OpenBigUI()
