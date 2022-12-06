@@ -161,10 +161,13 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
         if (obj is GameData)
         {
             var GameData = obj;
-            if(obj.TimeOfDay >= 1320 && isOpenTime)
+            if(obj.TimeOfDay >= 1320)
             {
-                CloseRestaurant();
-                isOpenTime = false;
+                if(isOpenTime)
+                {
+                    CloseRestaurant();
+                    isOpenTime = false;
+                }
             }
             else
             {
