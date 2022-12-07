@@ -82,24 +82,28 @@ public class TutorialRestaurantController : TutorialController
     {
         FoodData foodData = FoodData.Instance;
         foodData.EatTime = 3;
-        foodData.foodTool[(int)FoodTool.Type.Plate].CanUse = false;
+        foreach(var tool in foodData.foodTool)
+        {
+            tool.CanUse = false;
+        }
+        foodData.foodTool[(int)FoodTool.Type.Blender].CanUse = true;
         foodData.foodTool[(int)FoodTool.Type.Blender].foodInfos[1].OrderProbability = 0;
         foodData.foodTool[(int)FoodTool.Type.Blender].foodInfos[2].OrderProbability = 0;
     }
     #region Action
     /// <summary>
-    /// DialogueÀÇ ÀÌ¸§ÀÌ RestaurantÀÎ °æ¿ì ½ÇÇà
-    /// &(Action)ÀÌ ÀÖ´Â ¹®ÀåÀÌ ³ª¿Ã °æ¿ì ÇÑ ´Ü°è½Ä ÁøÇà½ÃÅ²´Ù.
+    /// Dialogueì˜ ì´ë¦„ì´ Restaurantì¸ ê²½ìš° ì‹¤í–‰
+    /// &(Action)ì´ ìˆëŠ” ë¬¸ì¥ì´ ë‚˜ì˜¬ ê²½ìš° í•œ ë‹¨ê³„ì‹ ì§„í–‰ì‹œí‚¨ë‹¤.
     /// </summary>
     public void RestaurantAction()
     {
         switch (ActionNum)
         {
-            case 0: //·¹½ºÅä¶û ¹®¿­±â
+            case 0: //ë ˆìŠ¤í† ë‘ ë¬¸ì—´ê¸°
                 gameManager.TutorialUI = false;
                 tutorialNPCController.enabled = true;
                 break;
-            case 1: //¼Õ´Ô ÁÖ¹® ´ë±â
+            case 1: //ì†ë‹˜ ì£¼ë¬¸ ëŒ€ê¸°
                 Player.StartWalking();
                 tutorialNPCController.enabled = false;
                 break;
@@ -110,16 +114,16 @@ public class TutorialRestaurantController : TutorialController
     {
         switch (ActionNum)
         {
-            case 0: //³ÃÀå°í·Î ÀÌµ¿
+            case 0: //ëƒ‰ì¥ê³ ë¡œ ì´ë™
                 Player.StartWalking();
                 RestaurantDestination[0].SetActive(true);
                 break;
-            case 1: //³ÃÀå°í µµÂø
+            case 1: //ëƒ‰ì¥ê³  ë„ì°©
                 Player.StopWalking();
                 RestaurantDestination[0].gameObject.SetActive(false);
                 ObjectCollider[3].enabled = true;
                 break;
-            case 3: //³ÃÀå°í Àç·á ²¨³»±â
+            case 3: //ëƒ‰ì¥ê³  ì¬ë£Œ êº¼ë‚´ê¸°
                 break;
         }
         ActionNum++;
@@ -128,12 +132,12 @@ public class TutorialRestaurantController : TutorialController
     {
         switch (ActionNum)
         {
-            case 0: //Á¶¸®´ë·Î ÀÌµ¿
+            case 0: //ì¡°ë¦¬ëŒ€ë¡œ ì´ë™
                 Player.StartWalking();
                 CookPosition[0].SetActive(true);
                 RestaurantDestination[1].SetActive(true);
                 break;
-            case 1: //Á¶¸®´ë µµÂø, ¹Í¼­±â ¼³Ä¡
+            case 1: //ì¡°ë¦¬ëŒ€ ë„ì°©, ë¯¹ì„œê¸° ì„¤ì¹˜
                 Player.StopWalking();
                 break;
         }
@@ -141,16 +145,16 @@ public class TutorialRestaurantController : TutorialController
     }
     public void CookingAction()
     {
-        //´ë»ç
+        //ëŒ€ì‚¬
         if(ToolInstall)
         {
             switch (ActionNum)
             {
-                case 0: //Á¶¸®´ë·Î ÀÌµ¿ 
+                case 0: //ì¡°ë¦¬ëŒ€ë¡œ ì´ë™ 
                     Player.StartWalking();
                     RestaurantDestination[1].SetActive(true);
                     break;
-                case 1: //Á¶¸®´ë µµÂø ¹× ·¹¸ó ³Ö±â
+                case 1: //ì¡°ë¦¬ëŒ€ ë„ì°© ë° ë ˆëª¬ ë„£ê¸°
                     Player.StopWalking();
                     break;
             }
@@ -161,21 +165,21 @@ public class TutorialRestaurantController : TutorialController
     {
         switch (ActionNum)
         {
-            case 0: //¼Õ´Ô¿¡°Ô ÀÌµ¿
+            case 0: //ì†ë‹˜ì—ê²Œ ì´ë™
                 Player.StartWalking();
                 RestaurantDestination[3].SetActive(true);
                 break;
-            case 1: //¼Õ´Ô ¿·¿¡ µµÂø
+            case 1: //ì†ë‹˜ ì˜†ì— ë„ì°©
                 Player.StopWalking();
                 PlayerCook._foodOrder = tutorialGuestOrder;
                 PlayerCook.isGuestCollider = true;
                 StartCoroutine(CheckSpace());
                 break;
-            case 2: //°è»ê´ë·Î ÀÌµ¿
+            case 2: //ê³„ì‚°ëŒ€ë¡œ ì´ë™
                 Player.StartWalking();
                 RestaurantDestination[4].SetActive(true);
                 break;
-            case 3: //°è»ê´ë µµÂø
+            case 3: //ê³„ì‚°ëŒ€ ë„ì°©
                 Player.StopWalking();
                 break;
         }
@@ -190,7 +194,7 @@ public class TutorialRestaurantController : TutorialController
             {
                 tutorialRestaurantUI.ClickImage.gameObject.SetActive(true);
                 UIManager.UIScalePingPongAnimation(tutorialRestaurantUI.ClickImage.gameObject);
-                IngredientBox.onClick.AddListener(ServingButton); //ÁÖ¹®¼­°¡ À§¿¡¼­ ³»·Á¿À´Â Çü½ÄÀÌ±â ¶§¹®¿¡ µû·Î ÇÒ´çÇØÁÜ
+                IngredientBox.onClick.AddListener(ServingButton); //ì£¼ë¬¸ì„œê°€ ìœ„ì—ì„œ ë‚´ë ¤ì˜¤ëŠ” í˜•ì‹ì´ê¸° ë•Œë¬¸ì— ë”°ë¡œ í• ë‹¹í•´ì¤Œ
                 tutorialRestaurantUI.gameObject.SetActive(false);
                 check = true;
             }
@@ -202,7 +206,7 @@ public class TutorialRestaurantController : TutorialController
         Transform tool = PlayerCook._cookingTool.InventoryBig.transform;
         tool.Find("TutorialCooking").GetComponent<TutorialCookingUI>().enabled = true;
     }
-    private void ServingButton() //¿ä¸® ¼­ºù ¹öÆ°ÀÌº¥Æ®
+    private void ServingButton() //ìš”ë¦¬ ì„œë¹™ ë²„íŠ¼ì´ë²¤íŠ¸
     {
         Player.StartWalking();
         tutorialRestaurantUI.ClickImage.gameObject.SetActive(false);
@@ -213,13 +217,13 @@ public class TutorialRestaurantController : TutorialController
         ToolInstall = true;
         switch (ActionNum)
         {
-            case 0: //¾²·¹±âÅëÀ¸·Î ÀÌµ¿
+            case 0: //ì“°ë ˆê¸°í†µìœ¼ë¡œ ì´ë™
                 Player.StartWalking();
                 RestaurantDestination[2].SetActive(true);
                 break;
-            case 1://¾²·¹±âÅë µµÂø
+            case 1://ì“°ë ˆê¸°í†µ ë„ì°©
                 Player.StopWalking();
-                StartCoroutine(ChangeWithDelay.CheckDelay(0.01f, () => { PlayerCook.objectName = "Trash"; })); //Cooking½ºÅ©¸³Æ®ÀÇ ÀÎ½ÄÀÌ ´Ê°Ô µÇ±â ¶§¹®¿¡
+                StartCoroutine(ChangeWithDelay.CheckDelay(0.01f, () => { PlayerCook.objectName = "Trash"; })); //CookingìŠ¤í¬ë¦½íŠ¸ì˜ ì¸ì‹ì´ ëŠ¦ê²Œ ë˜ê¸° ë•Œë¬¸ì—
                 break;
         }
         ActionNum++;
@@ -266,7 +270,7 @@ public class TutorialRestaurantController : TutorialController
         changeScene.MoveScene();
     }
     /// <summary>
-    /// À½½ÄÀÌ ÅÀÀ» °æ¿ì ¾²·¹±âÅë¿¡ À½½ÄÀ» ¹ö¸²
+    /// ìŒì‹ì´ íƒ”ì„ ê²½ìš° ì“°ë ˆê¸°í†µì— ìŒì‹ì„ ë²„ë¦¼
     /// </summary>
     public void CookingAgain()
     {
