@@ -46,6 +46,7 @@ public class Option : MonoBehaviour
     }
     private void SoundInit()
     {
+        isStart = true;
         BgmMute = soundManager.audioSources[(int)SoundData.Type.Bgm].audioSources[0].mute;
         EffectMute = soundManager.audioSources[(int)SoundData.Type.Effect].audioSources[0].mute;
         if (!BgmMute)
@@ -63,8 +64,8 @@ public class Option : MonoBehaviour
         else
         {
             MuteSound(1);
-            MuteSound(2);
         }
+        isStart = false;
     }
     public void WindowInit()
     {
@@ -126,21 +127,32 @@ public class Option : MonoBehaviour
     }
     private bool StopBgmSlider;
     private bool StopEffectSlider;
+    private bool isStart;
+    /// <summary>
+    /// 소리를 뮤트한다.
+    /// </summary>
+    /// <param name="type">Bgm인경우 0, Effect 또는 Effect3D인 경우 1</param>
     public void MuteSound(int type)
     {
         if (type.Equals(0)) //Bgm
         {
-            BgmMute = !BgmMute;
-            soundManager.MuteSound(type, BgmMute);
+            if(!isStart)
+            {
+                BgmMute = !BgmMute;
+                soundManager.MuteSound(type, BgmMute);
+            }
             StopBgmSlider = true;
             BgmSlider.value = (BgmMute) ? 0 : soundManager.audioSources[(int)SoundData.Type.Bgm].audioSources[0].volume;
             StopBgmSlider = false;
         }
         else //Effect
         {
-            EffectMute = !EffectMute;
-            soundManager.MuteSound(1, EffectMute);
-            soundManager.MuteSound(2, EffectMute);
+            if (!isStart)
+            {
+                EffectMute = !EffectMute;
+                soundManager.MuteSound(1, EffectMute);
+                soundManager.MuteSound(2, EffectMute);
+            }
             StopEffectSlider = true;
             EffectSlider.value = (EffectMute) ? 0 : soundManager.audioSources[(int)SoundData.Type.Effect].audioSources[0].volume;
             StopEffectSlider = false;

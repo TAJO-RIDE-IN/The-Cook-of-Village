@@ -146,6 +146,10 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
     {
         isCanWalk = false;
         isWalkSound = false;
+        if (soundManager != null)
+        {
+            soundManager.StopEffect3D(this.gameObject);
+        }
         charAnimator.SetBool("isWalk", false);
     }
     public void StartWalking()

@@ -11,6 +11,7 @@ public abstract class TutorialDetailsUI : MonoBehaviour
     public List<Button> UIButton = new List<Button>();
     public Button[] EventButton;
     public GameObject ClickBlock;
+    public GameObject[] StaticClickBlock;
     [HideInInspector] public TutorialController Controller;
     [HideInInspector] public TutorialRestaurantController RestaurantController;
     private int ActionNum;
@@ -43,6 +44,10 @@ public abstract class TutorialDetailsUI : MonoBehaviour
         foreach (var image in ClickImage)
         {
             image.SetActive(false);
+        }
+        foreach(var block in StaticClickBlock)
+        {
+            block.SetActive(true);
         }
         for (int i = 0; i < EventButton.Length; i++) //클릭 이벤트 할당
         {

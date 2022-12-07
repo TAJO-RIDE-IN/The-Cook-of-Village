@@ -321,7 +321,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
     }
     public override void SaveDataTime(string PlayName)
     {
-        if(Instance.Equals(this)&& gameManaer.gameMode.Equals(GameManager.GameMode.Default) && !PlayerID.Equals("0"))
+        if(Instance.Equals(this)&& gameManaer.gameMode.Equals(GameManager.GameMode.Default))
         {
             if (!PlayName.Equals("Default"))
             {
