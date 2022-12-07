@@ -7,10 +7,11 @@ public class LightControl : MonoBehaviour, IObserver<GameData>
     public List<Light> ObjectLight = new List<Light>();
     private void Start()
     {
-        LightIntensity = 0.2f;
+        LightIntensity = MinLight;
         AddObserver(GameData.Instance);
     }
     public float LightIntensity;
+    public float MinLight;
     public float MaxLight;
     private bool isMoning = false;
     private bool isChange = false;
@@ -46,7 +47,7 @@ public class LightControl : MonoBehaviour, IObserver<GameData>
             {
                 isMoning = true;
                 isChange = false;
-                LightIntensity = 0.2f;
+                LightIntensity = MinLight;
                 ChangeLightBrightness();
             }
         }
