@@ -127,8 +127,8 @@ public class ToolInstallMode : InstallMode
     public void GetAndPosition(int index, string name)
     {
         toolPooling.pooledObject[index] = toolPooling.GetObject(name);
-        toolPooling.pooledObject[index].transform.position = ToolPooling.Instance.toolPosition[index].position;
-        toolPooling.pooledObject[index].transform.rotation = ToolPooling.Instance.toolPosition[index].rotation;
+        toolPooling.pooledObject[index].transform.position = toolPooling.toolPosition[index].position;
+        toolPooling.pooledObject[index].transform.rotation = toolPooling.toolPosition[index].rotation;
         toolPooling.pooledObject[index].index = index;
         isUsed[index] = true;
         PositionCollider[index].SetActive(false);
@@ -149,11 +149,12 @@ public class ToolInstallMode : InstallMode
                 //오븐은 특정 자리에만 설치할 수 있습니다! 출력
                 return;
             }
-            ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange].DeleteTool();
+            
+            toolPooling.pooledObject[toolPooling.indexToChange].DeleteTool();
             ReturnPooledObject();
-            GetAndPosition(ToolPooling.Instance.indexToChange, itemInfos.Name);
-            InstallData.Instance.PassIndexData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
+            GetAndPosition(toolPooling.indexToChange, itemInfos.Name);
             DirectUIOpenSetting();
+            InstallData.Instance.PassIndexData(toolPooling.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
             isDirectChange = false;
             _soundManager.Play(_soundManager._audioClips["Install Cooker02"]);
             return;
@@ -166,9 +167,8 @@ public class ToolInstallMode : InstallMode
                 //오븐은 특정 자리에만 설치할 수 있습니다! 출력
                 return;
             }
-            
             GetAndPosition(toolPooling.indexToChange, itemInfos.Name);
-            InstallData.Instance.PassIndexData(ToolPooling.Instance.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
+            InstallData.Instance.PassIndexData(toolPooling.indexToChange, itemInfos.Name, InstallData.SortOfInstall.Tool);
             DirectUICloseSetting();
             DirectUIOpenSetting();
             isDirectInstall = false;
@@ -196,7 +196,7 @@ public class ToolInstallMode : InstallMode
     /// </summary>
     public void DirectUIOpenSetting()
     {
-        _cookingCharacter._cookingTool = toolPooling.pooledObject[ToolPooling.Instance.indexToChange];
+        _cookingCharacter._cookingTool = toolPooling.pooledObject[toolPooling.indexToChange];
         _cookingCharacter.isToolCollider = true;
         _cookingCharacter.isSpace = true;
         //_cookingCharacter._cookingTool.OpenUI(0.5f);
@@ -204,8 +204,8 @@ public class ToolInstallMode : InstallMode
 
     protected override void ReturnPooledObject()
     {
-        ToolPooling.Instance.ReturnObject(ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange],
-            ToolPooling.Instance.pooledObject[ToolPooling.Instance.indexToChange].toolID.ToString());
+        ToolPooling.Instance.ReturnObject(toolPooling.pooledObject[toolPooling.indexToChange],
+            ToolPooling.Instance.pooledObject[toolPooling.indexToChange].toolID.ToString());
         
     }
     public override void GoInstall()//UI만 꺼주기
@@ -217,10 +217,10 @@ public class ToolInstallMode : InstallMode
                 if (! isUsed[index])
                 {
                     isUsed[index] = true;
-                    ToolPooling.Instance.SelectedPositionIndex = index;
-                    GetAndPosition(index, ToolPooling.Instance.SelectedToolName);
-                    InstallData.Instance.PassIndexData(index, ToolPooling.Instance.SelectedToolName, InstallData.SortOfInstall.Tool);
-                    ToolPooling.Instance.pooledObject[index].index = index;
+                    toolPooling.SelectedPositionIndex = index;
+                    GetAndPosition(index, toolPooling.SelectedToolName);
+                    InstallData.Instance.PassIndexData(index, toolPooling.SelectedToolName, InstallData.SortOfInstall.Tool);
+                    toolPooling.pooledObject[index].index = index;
                     PositionCollider[index].SetActive(false);
                     PositionCanvas[index].SetActive(false);
                 }
@@ -230,7 +230,7 @@ public class ToolInstallMode : InstallMode
                 toolPositionUI[i].SetActive(false);
             }
 
-            ItemData.Instance.ChangeAmount(ToolPooling.Instance.selectedItemInfos.ID,
+            ItemData.Instance.ChangeAmount(toolPooling.selectedItemInfos.ID,
                 ToolPooling.Instance.selectedItemInfos.Amount - (selectedToolAmount - 1));//나은이 함수에서 한번 빼줘서
             toolItemInfosAmount = 0;
             selectedToolAmount = 0;

@@ -15,6 +15,7 @@ public class FurniturePooling : MultipleObjectPoolingNo
     }
     public FurnitureInstallMode furnitureInstallMode;
 
+    public List<GameObject> secondObjects = new List<GameObject>();
 
     private String selectedFurnitureName;
 
