@@ -13,18 +13,24 @@ public class MenuUI : MonoBehaviour
             _button.enabled = state;
         }
     }
+    private void ChangeSubMenuChangeisUI(bool state)
+    {
+        if(GameManager.Instance.CurrentSceneIndex.Equals(2))
+        {
+            UIManager.SubMenuChangeisUI(state);
+        }
+    }
     public void ClickMenu()
     {
         onMenu = !onMenu;
-        if (onMenu.Equals(true))
+        ChangeSubMenuChangeisUI(onMenu);
+        if (onMenu)
         {
-            UIManager.SubMenuChangeisUI(true);
             SubMenuAni.SetTrigger("Open");
             return;
         }
         else
         {
-            UIManager.SubMenuChangeisUI(false);
             SubMenuAni.SetTrigger("Close");
         }
     }

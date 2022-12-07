@@ -50,6 +50,7 @@ public class UIManager : Singletion<UIManager>
     private static Vector3 ScaleVector = new Vector3(1.3f, 1.3f, 1.3f);
     public static void UIScalePingPongAnimation(GameObject obj)
     {
+        obj.transform.localScale = DefaultVector;
         LeanTween.scale(obj, ScaleVector, 0.5f).setLoopPingPong();
     }
     public static void UIOpenScaleAnimation(GameObject obj)

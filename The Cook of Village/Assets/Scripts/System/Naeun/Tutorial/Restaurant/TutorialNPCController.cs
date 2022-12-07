@@ -5,12 +5,13 @@ using UnityEngine;
 public class TutorialNPCController : MonoBehaviour
 {
     public TutorialRestaurantController tutorialController;
-    public TutorialGuestMove GuestNPC;
+    public GuestNPC TutorialGuestNPC;
     public ChairUse Chair;
 
     public void GuestEnter()
     {
-        GuestNPC.gameObject.SetActive(true);
+        TutorialGuestNPC.gameObject.SetActive(true);
+        TutorialGuestNPC.ChangeState(GuestNPC.State.Walk);
     }
 
     private void Update()

@@ -6,6 +6,8 @@ public abstract class TutorialController : MonoBehaviour
 {
     protected GameManager gameManager;
     protected DialogueManager dialogueManager;
+    public GameObject InputManager;
+    public PauseUI pauseUI;
     private void Start()
     {
         gameManager = GameManager.Instance;
@@ -13,7 +15,18 @@ public abstract class TutorialController : MonoBehaviour
         if (gameManager.gameMode.Equals(GameManager.GameMode.Tutorial))
         {
             GameData.Instance.orbitSpeed = 0;
+            InputManager.SetActive(false);
             Init();
+        }
+    }
+    private void Update()
+    {
+        if(pauseUI != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                pauseUI.PauseUIState(!pauseUI.gameObject.activeSelf);
+            }
         }
     }
     public virtual void PlayerControl(bool state, string name = "") { }

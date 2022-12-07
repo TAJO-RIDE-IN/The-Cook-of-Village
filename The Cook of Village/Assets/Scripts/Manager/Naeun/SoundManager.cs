@@ -67,7 +67,8 @@ public class SoundManager : Singletion<SoundManager>
             if (audio != null && audio.gameObject.CompareTag("Effect3D"))
             {
                 audioSources[(int)SoundData.Type.Effect3D].audioSources.Add(audio.GetComponent<AudioSource>());
-                //_3DAudio.Add(audio.transform.parent.gameObject, audio.GetComponent<AudioSource>());
+                audio.mute = audioSources[(int)SoundData.Type.Effect].audioSources[0].mute;
+                audio.volume = audioSources[(int)SoundData.Type.Effect].audioSources[0].volume;
             }
         }
     }
