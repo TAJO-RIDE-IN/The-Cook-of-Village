@@ -269,6 +269,12 @@ public class GameData : DataManager<GameData>, IGameDataOb
             if (gameInfos.RainbowDrinking % 5 == 0)
             {
                 isExtension = true;
+                if (gameManaer.NextSceneIndex == 3)
+                {
+                    ChefInventory.Instance.ExtensionInventory();
+                    isExtension = false;
+                }
+                
             }
         }
     }
