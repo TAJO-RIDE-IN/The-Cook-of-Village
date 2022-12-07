@@ -79,20 +79,17 @@ public class CameraLayer : MonoBehaviour
     public void NoSecondFloor()
     {
         Debug.Log("1층으로 변경");
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        secondInstallPlace.layer = 7;
+        foreach(Transform child in secondInstallPlace.transform)
         {
-            secondInstallPlace.layer = 7;
-            foreach(Transform child in secondInstallPlace.transform)
-            {
-                child.gameObject.layer = 7;
-            }
-            secondInstallWall.layer = 7;
-            foreach(Transform child in secondInstallWall.transform)
-            {
-                child.gameObject.layer = 7;
-            }
-            _camera.cullingMask = ~(1 << LayerMask.NameToLayer("SecondFloor"));
+            child.gameObject.layer = 7;
         }
+        secondInstallWall.layer = 7;
+        foreach(Transform child in secondInstallWall.transform)
+        {
+            child.gameObject.layer = 7;
+        }
+        _camera.cullingMask = ~(1 << LayerMask.NameToLayer("SecondFloor"));
     }
 
     private void SecondFloorCamera()
