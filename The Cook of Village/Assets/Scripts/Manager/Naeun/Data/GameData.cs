@@ -223,6 +223,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
     {
         TimeOfDay = 480;
         ForciblySleep = false;
+        SaveDataTime(PlayerName);//자다 일어났을때 저장
         CheckEndingQualification();
         if (TimeOfDay < 1440 && TimeOfDay > 120)
         {
@@ -314,7 +315,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
     }
     public override void SaveDataTime(string PlayName)
     {
-        if(Instance.Equals(this)&& gameManaer.gameMode.Equals(GameManager.GameMode.Default) && !PlayerID.Equals("0"))
+        if(Instance.Equals(this)&& gameManaer.gameMode.Equals(GameManager.GameMode.Default))
         {
             if (!PlayName.Equals("Default"))
             {

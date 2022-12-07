@@ -11,6 +11,7 @@ public class TutorialGuestMove : GuestMove
     }
     protected override void NPCState(string destination_name)
     {
+        this.gameObject.SetActive(true);
         switch (destination_name)
         {
             case "Chair":
@@ -32,6 +33,7 @@ public class TutorialGuestMove : GuestMove
     }
     protected override void ChairUse() //사용하지 않은 의자의 위치을 랜덤으로 출력, 사용중인 의자 저장
     {
+        this.gameObject.SetActive(true);
         guest.chairUse = tutorialNPCController.Chair;
         Sit = guest.chairUse.SitPosition(guest.currentNPC);
     }

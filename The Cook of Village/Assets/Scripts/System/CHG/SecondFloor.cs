@@ -20,14 +20,11 @@ public class SecondFloor : MonoBehaviour
     {
         if (isGoUp)
         {
-            if (cameraLayer.IsSecondFloor)
-            {
-                return;
-            }
-            else
+            if (!cameraLayer.IsSecondFloor)
             {
                 cameraLayer.IsSecondFloor = true;
             }
+            
         }
         else//내려갈 때
         {
@@ -35,6 +32,7 @@ public class SecondFloor : MonoBehaviour
             {
                 cameraLayer.IsSecondFloor = false;
             }
+            
         }
     }
 }

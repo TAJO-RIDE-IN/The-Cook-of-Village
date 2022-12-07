@@ -5,13 +5,13 @@ using UnityEngine;
 public class TutorialNPCController : MonoBehaviour
 {
     public TutorialRestaurantController tutorialController;
-    public TutorialGuestMove GuestNPC;
-    public GameObject openUI;
+    public GuestNPC TutorialGuestNPC;
     public ChairUse Chair;
 
     public void GuestEnter()
     {
-        GuestNPC.gameObject.SetActive(true);
+        TutorialGuestNPC.gameObject.SetActive(true);
+        TutorialGuestNPC.ChangeState(GuestNPC.State.Walk);
     }
 
     private void Update()
@@ -19,7 +19,7 @@ public class TutorialNPCController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             SoundManager.Instance.Play(SoundManager.Instance._audioClips["OpenRestaurant"]);
-            openUI.LeanScale(Vector2.zero, 0.5f).setOnComplete(() => GuestEnter());
+            GuestEnter();
             tutorialController.NextDialogue();
         }
     }

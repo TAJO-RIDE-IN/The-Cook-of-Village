@@ -231,7 +231,12 @@ public class ThirdPersonGravity : MonoBehaviour, IObserver<GameData>
     {
         isCanWalk = false;
         isWalkSound = false;
+        if (_soundManager != null)
+        {
+            _soundManager.StopEffect3D(this.gameObject);
+        }
         animator.SetBool("isWalk",false);
+        animator.SetBool("isRun",false);
     }
     public void StartWalking()
     {

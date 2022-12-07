@@ -121,7 +121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 5376078364605590657}
         m_TargetAssemblyTypeName: CookingTool, Assembly-CSharp
         m_MethodName: DirectSetUp
         m_Mode: 1
@@ -1029,6 +1029,81 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &3206615363159429222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1697382831110488230}
+  - component: {fileID: 3846251451795306811}
+  - component: {fileID: 5258005274141471609}
+  m_Layer: 0
+  m_Name: ClickBlock (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1697382831110488230
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3206615363159429222}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2359187898866654814}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -8.3186035, y: -74}
+  m_SizeDelta: {x: 267.9554, y: 144.5174}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3846251451795306811
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3206615363159429222}
+  m_CullTransparentMesh: 1
+--- !u!114 &5258005274141471609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3206615363159429222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &3228419633735731916
 GameObject:
   m_ObjectHideFlags: 0
@@ -2090,6 +2165,7 @@ RectTransform:
   - {fileID: 2542685120209430162}
   - {fileID: 3121360995611050152}
   - {fileID: 8809832646423381449}
+  - {fileID: 1697382831110488230}
   m_Father: {fileID: 1605423178657178168}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2126,6 +2202,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 8414774462346078990}
   ClickBlock: {fileID: 6847374611948909826}
+  StaticClickBlock:
+  - {fileID: 3206615363159429222}
   Controller: {fileID: 0}
   RestaurantController: {fileID: 0}
   BlenderTool: {fileID: 5376078364605590657}
@@ -2893,7 +2971,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 5376078364605590657}
         m_TargetAssemblyTypeName: CookingTool, Assembly-CSharp
         m_MethodName: DeleteTool
         m_Mode: 1
@@ -3767,14 +3845,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
---- !u!224 &2542685120209430162 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2840779499073418502, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
-  m_PrefabInstance: {fileID: 298670522973721492}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1127831591394070014 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 829730615451147882, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
+  m_PrefabInstance: {fileID: 298670522973721492}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &2542685120209430162 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2840779499073418502, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
   m_PrefabInstance: {fileID: 298670522973721492}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &881919026384844206
@@ -3858,11 +3936,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2840779499073418502, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 183
+      value: 190
       objectReference: {fileID: 0}
     - target: {fileID: 2840779499073418502, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 316
+      value: 343
       objectReference: {fileID: 0}
     - target: {fileID: 2840779499073418502, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4136,14 +4214,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
---- !u!224 &7950978421484318707 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2840779499073418502, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
-  m_PrefabInstance: {fileID: 5277081149689420533}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4807661604946478239 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 829730615451147882, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
+  m_PrefabInstance: {fileID: 5277081149689420533}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &7950978421484318707 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2840779499073418502, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
   m_PrefabInstance: {fileID: 5277081149689420533}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7889743032937345568
@@ -4227,7 +4305,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2840779499073418502, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -148
+      value: -105
       objectReference: {fileID: 0}
     - target: {fileID: 2840779499073418502, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4247,13 +4325,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
---- !u!224 &5337195036376057638 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2840779499073418502, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
-  m_PrefabInstance: {fileID: 7889743032937345568}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7421427397836975178 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 829730615451147882, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
+  m_PrefabInstance: {fileID: 7889743032937345568}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &5337195036376057638 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2840779499073418502, guid: e9322d59a78263148ab6307d10cf86ae, type: 3}
   m_PrefabInstance: {fileID: 7889743032937345568}
   m_PrefabAsset: {fileID: 0}

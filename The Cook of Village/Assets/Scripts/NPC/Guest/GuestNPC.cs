@@ -79,7 +79,7 @@ public class GuestNPC : MonoBehaviour, IGuestOb
         {
             int model = Random.Range(0, Models.Length);
             CurrentModel = Models[model];
-            isMan = (model > 4);
+            isMan = (model > 3);
         }
         CurrentModel.SetActive(state);
         ModelsAni = CurrentModel.GetComponent<Animator>();
