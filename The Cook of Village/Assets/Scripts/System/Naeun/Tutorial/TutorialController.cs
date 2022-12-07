@@ -16,18 +16,25 @@ public abstract class TutorialController : MonoBehaviour
         {
             GameData.Instance.orbitSpeed = 0;
             InputManager.SetActive(false);
+            StartCoroutine(Esc());
             Init();
         }
     }
-    private void Update()
+
+    private IEnumerator Esc()
     {
-        if(pauseUI != null)
+        while(pauseUI != null)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 pauseUI.PauseUIState(!pauseUI.gameObject.activeSelf);
             }
+            yield return null;
         }
+    }
+    private void Update()
+    {
+
     }
     public virtual void PlayerControl(bool state, string name = "") { }
     public abstract void Init();

@@ -181,7 +181,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
         if (obj is GameData)
         {
             var GameData = obj;
-            if(obj.TimeOfDay >= 1320)
+            if(obj.TimeOfDay >= 1320 && gameManager.IsOpen)
             {
                 if(isOpenTime)
                 {
