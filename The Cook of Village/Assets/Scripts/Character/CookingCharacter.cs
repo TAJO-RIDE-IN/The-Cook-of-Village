@@ -262,6 +262,7 @@ public class CookingCharacter : MonoBehaviour
         if (other.CompareTag("Fridge"))
         {
             isFridgeCollider = true;
+            isToolCollider = false;
             return;
         }
         if (other.CompareTag("CookPosition"))

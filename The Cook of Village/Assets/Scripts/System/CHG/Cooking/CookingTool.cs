@@ -30,6 +30,7 @@ public class CookingTool : MonoBehaviour
     
     [HideInInspector]public bool isBeforeCooking = true;//요리를 시작하면 false가 되고, 요리가 끝나면 true가 된다.
     [HideInInspector]public bool isCooked;//요리가 완성되면 true가 되고, 요리가 담겨있지 않으면 false이다.
+    public bool isPlayer;
     public int index;
     
     ItemData item = ItemData.Instance;
@@ -55,10 +56,10 @@ public class CookingTool : MonoBehaviour
         toolPooling = ToolPooling.Instance;
         _animation = transform.GetComponent<Animation>();
         _burntCoroutine = BurntFood();
-        if (toolID != FoodTool.Type.Oven)
+        /*if (toolID != FoodTool.Type.Oven)
         {
             InventoryBig.SetActive(true);
-        }
+        }*/
         //InventoryBig.transform.localScale = Vector2.zero;
     }
 
@@ -276,5 +277,22 @@ public class CookingTool : MonoBehaviour
 
     }
 
+    private void OnCollisionStay(Collision other)
+    {
+        if(other.transform.CompareTag("Player"))
+        {
+            isPlayer = true;
+            Debug.Log("충돌중");
+        }
+    }
 
+    private void OnCollisionExit(Collision other)
+    {
+        if(other.transform.CompareTag("Player"))
+        {
+            isPlayer = false;
+            Debug.Log("플레이어나감");
+        }
+        
+    }
 }

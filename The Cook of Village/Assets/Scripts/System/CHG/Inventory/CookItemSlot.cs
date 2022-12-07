@@ -37,34 +37,36 @@ public class CookItemSlot : ItemSlot
 
     public void ReturnTrash()
     {
-        if ( _chefInventory._cookingCharacter.trash.trashEdibleItems[index]._itemType ==
-             ChefInventory.EdibleItem.ItemType.Ingredient)
+        if (isUsed)
         {
-            if ( _chefInventory.AddIngredient(ChefInventory.Instance._cookingCharacter.trash
-                .trashEdibleItems[index]._ingredientsInfos))
+            if ( _chefInventory._cookingCharacter.trash.trashEdibleItems[index]._itemType ==
+                 ChefInventory.EdibleItem.ItemType.Ingredient)
             {
-                isUsed = false;
-                ChangeSlotUI(itemSlotManager.emptyInven);
+                if ( _chefInventory.AddIngredient(ChefInventory.Instance._cookingCharacter.trash
+                    .trashEdibleItems[index]._ingredientsInfos))
+                {
+                    isUsed = false;
+                    ChangeSlotUI(itemSlotManager.emptyInven);
+                }
+                else
+                {
+                    _chefInventory.chefSlotManager.ShowWarning();
+                }
             }
             else
             {
-                _chefInventory.chefSlotManager.ShowWarning();
+                if ( _chefInventory.AddFood(ChefInventory.Instance._cookingCharacter.trash
+                    .trashEdibleItems[index]._foodInfos))
+                {
+                    isUsed = false;
+                    ChangeSlotUI(itemSlotManager.emptyInven);
+                }
+                else
+                {
+                    _chefInventory.chefSlotManager.ShowWarning();
+                }
             }
         }
-        else
-        {
-            if ( _chefInventory.AddFood(ChefInventory.Instance._cookingCharacter.trash
-                .trashEdibleItems[index]._foodInfos))
-            {
-                isUsed = false;
-                ChangeSlotUI(itemSlotManager.emptyInven);
-            }
-            else
-            {
-                _chefInventory.chefSlotManager.ShowWarning();
-            }
-        }
-        
     }
 
     public void ThrowTrash()
@@ -79,7 +81,21 @@ public class CookItemSlot : ItemSlot
         //Debug.Log("요리 호출");
         if (itemSlotManager.cookingTool.isCooked)
         {
+            //if(itemSlotManager.cookingTool.FoodInfos.ID)
             //Debug.Log("요리 완료");
+            if (itemSlotManager.cookingTool.FoodInfos.ID == 40)
+            {
+                if ( _chefInventory.AddIngredient(ItemData.Instance.ItemType[4].ItemInfos[0]))
+                {
+                    //itemSlotManager.cookingTool.toolBeforeCook
+                    //Debug.Log("요리 추가 완료");
+                    ChangeSlotUI(itemSlotManager.cookingTool.toolBeforeCook);
+                    //_soundManager.Play(_soundManager._audioClips["Plate"]);
+                    itemSlotManager.cookingTool.RemoveFood();
+                }
+
+                return;
+            }
             if ( _chefInventory.AddFood(itemSlotManager.cookingTool.FoodInfos))
             {
                 //itemSlotManager.cookingTool.toolBeforeCook

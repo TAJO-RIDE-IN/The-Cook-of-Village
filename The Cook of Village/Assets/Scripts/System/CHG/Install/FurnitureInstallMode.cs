@@ -129,6 +129,7 @@ public class FurnitureInstallMode : InstallMode
                     if (data != null)
                     {
                         data.pooledObjects.Remove(objectToDelete);
+                        WhenDeleteSecond(objectToDelete);
                         _furniturePooling.ReturnObject(objectToDelete, data.name);
                         _installData.DeleteVector3Data(objectToDelete.transform.position, FindSortOfInstall(data));
 
@@ -139,6 +140,17 @@ public class FurnitureInstallMode : InstallMode
             {
                 FinishDelete();
                 isActive = false;
+            }
+        }
+    }
+
+    private void WhenDeleteSecond(GameObject obj)
+    {
+        for (int i = 0; i < _furniturePooling.secondObjects.Count; i++)
+        {
+            if (_furniturePooling.secondObjects[i] == obj)
+            {
+                _furniturePooling.secondObjects.RemoveAt(i);
             }
         }
     }
@@ -377,11 +389,20 @@ public class FurnitureInstallMode : InstallMode
 
     private void InstallSetting(String name)
     {
+        if (cameraLayer.IsSecondFloor)
+        {
+            pendingObject.layer = 7;
+            _furniturePooling.secondObjects.Add(pendingObject);
+        }
+        else
+        {
+            pendingObject.layer = 10;
+        }
         _soundManager.Play(_soundManager._audioClips["Install Object"]);
         canvas.enabled = true;
         installLayer = 1 << 9;
         InstallImpossible();
-        pendingObject.layer = 10;
+        
         AddPooledObject(name, pendingObject);
         pendingObject = null;
     }

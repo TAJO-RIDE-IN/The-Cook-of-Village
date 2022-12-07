@@ -39,10 +39,7 @@ public class CameraLayer : MonoBehaviour
     public GameObject secondInstallWall;
     public CameraMovement cameraMovement;
 
-    void Start()
-    {
-        _camera = Camera.main;
-    }
+    
 
     void Update()
     {
@@ -63,6 +60,10 @@ public class CameraLayer : MonoBehaviour
     public void SecondFloor()
     {
         Debug.Log("2층으로 변경");
+        for (int i = 0; i < FurniturePooling.Instance.secondObjects.Count; i++)
+        {
+            FurniturePooling.Instance.secondObjects[i].layer = 10;
+        }
         secondInstallPlace.layer = 9;
         foreach(Transform child in secondInstallPlace.transform)
         {
@@ -79,6 +80,11 @@ public class CameraLayer : MonoBehaviour
     public void NoSecondFloor()
     {
         Debug.Log("1층으로 변경");
+        for (int i = 0; i < FurniturePooling.Instance.secondObjects.Count; i++)
+        {
+            FurniturePooling.Instance.secondObjects[i].layer = 7;
+        }
+
         secondInstallPlace.layer = 7;
         foreach(Transform child in secondInstallPlace.transform)
         {
