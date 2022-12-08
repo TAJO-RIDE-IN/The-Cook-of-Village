@@ -243,12 +243,7 @@ public class CookingCharacter : MonoBehaviour
             return;
         }
 
-        if (other.CompareTag("Guest"))
-        {
-            isGuestCollider = true;
-            _foodOrder = other.GetComponent<FoodOrder>();
-            return;
-        }
+
         if (other.CompareTag("Fridge"))
         {
             isFridgeCollider = true;
@@ -274,8 +269,12 @@ public class CookingCharacter : MonoBehaviour
                 other.GetComponent<CounterQueue>().PayCounter();
             }
         }
-
-
+        if (other.CompareTag("Guest"))
+        {
+            isGuestCollider = true;
+            _foodOrder = other.GetComponent<FoodOrder>();
+            return;
+        }
     }
     private void OnTriggerExit(Collider other)
     {

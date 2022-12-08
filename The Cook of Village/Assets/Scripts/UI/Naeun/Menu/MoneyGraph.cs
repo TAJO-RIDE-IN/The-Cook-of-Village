@@ -179,7 +179,7 @@ public class MoneyGraph : MonoBehaviour
             {
                 container = new Vector3(0, 0, 0);
                 int total = WeekProceeds[i] - WeekConsumption[i];
-                dotSpace = (total > space) ? dotSpace : -dotSpace;
+                dotSpace = (total > 0) ? dotSpace : -dotSpace;
                 YPosition = Math.Abs(total) * dotSpace;
             }
             DotContainer.localPosition = container;

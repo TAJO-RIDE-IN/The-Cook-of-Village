@@ -106,10 +106,12 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
                 break;
             case "Counter":
                 guest.ChangeState(GuestNPC.State.Idle);
+                CheckCounterLine();
                 StartCoroutine(ChangeWithDelay.CheckDelay(FoodData.Instance.PayWaitingTime, () => OutCounter())); //일정 시간 이후 나감
                 break;
             case "CounterLine":
                 guest.ChangeState(GuestNPC.State.Idle);
+                CheckCounterLine();
                 break;
         }
     }
@@ -149,7 +151,19 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
             yield return null;
         }
     }
-
+    /// <summary>
+    /// 제일 첫 번째 줄이 비었는지 확인 후 비었으면 라인 재배치
+    /// </summary>
+    private void CheckCounterLine()
+    {
+        if(counter.waitngQueue.GuestQueue.Peek().Equals(this.gameObject))
+        {
+            if(counter.CanPayNPC)
+            {
+                counter.waitngQueue.RelocateAllGuests();
+            }
+        }
+    }
     private void GoCounter() //Counter 줄서기
     {
         counter.GoGuest(this.gameObject);
