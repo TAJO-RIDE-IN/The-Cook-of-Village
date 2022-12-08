@@ -65,6 +65,21 @@ public class DisplayUI : MonoBehaviour, IObserver<GameData>
             count++;
         }
     }
+    private Coroutine Blinking;
+    private bool isblink = false;
+    public Color DefaultAlpha;
+    public Color FadeAlpha;
+    private IEnumerator BlinkingTime(float timeData)
+    {
+        Color color;
+        while (timeData > 60 && timeData < 120)
+        {
+            color = Color.Lerp(DefaultAlpha, FadeAlpha, Mathf.PingPong(Time.time, 1));
+            TimeText.color = color;
+            AmPmText.color = color;
+            yield return null;
+        }
+    }
     private void Start()
     {
         AddObserver(GameData.Instance);
@@ -84,7 +99,29 @@ public class DisplayUI : MonoBehaviour, IObserver<GameData>
             {
                 SaveUI.SetActive(true);
                 StartCoroutine(SaveDataUI());
-            }    
+            }
+            if(obj.TimeOfDay > 60 && obj.TimeOfDay < 120)
+            {
+                if(!isblink)
+                {
+                    isblink = true;
+                    if (Blinking != null)
+                    {
+                        StopCoroutine(Blinking);
+                    }
+                    Blinking = StartCoroutine(BlinkingTime(obj.TimeOfDay));
+                }
+            }
+            else
+            {
+                isblink = false;
+                TimeText.color = DefaultAlpha;
+                AmPmText.color = DefaultAlpha;
+                if (Blinking != null)
+                {
+                    StopCoroutine(Blinking);
+                }
+            }
             ChangeDisplay(GameData.TimeOfDay, GameData.Month, GameData.Date, GameData.Today);
         }
     }

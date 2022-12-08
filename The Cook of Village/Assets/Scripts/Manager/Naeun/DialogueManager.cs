@@ -21,7 +21,7 @@ public class DialogueContent
 [System.Serializable]
 public class DialogueData
 {
-    public enum ContentType { Tutorial, Ending };
+    public enum ContentType { Tutorial, Ending , Explanation };
     [SerializeField] public ContentType type;
     public DialogueContent[] dialogueContents;
 }
@@ -33,7 +33,7 @@ public interface IDialogue
 
 public class DialogueManager : Singletion<DialogueManager>
 {
-    [SerializeField] private DialogueData[] DialogueData;
+    public DialogueData[] DialogueData;
     [HideInInspector] public DialogueContent CurrentUseDialogue;
     [HideInInspector] public Queue<string> CurrentSentences = new Queue<string>();
     [HideInInspector] public string CurrentSentencesName;
