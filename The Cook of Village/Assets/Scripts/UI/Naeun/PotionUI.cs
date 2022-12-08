@@ -13,7 +13,8 @@ public class PotionUI : MonoBehaviour, IObserver<Potion>
     [SerializeField] private Image OrangePotionTime;
     [SerializeField] private GameObject GreenPotion;
     [SerializeField] private GameObject BrownPotion;
-    
+    private Potion potion;
+
     private void PotionTime(float Duration, float CurrentTime, Text text, Image image)
     {
         text.text = ((int)CurrentTime).ToString();
@@ -23,7 +24,9 @@ public class PotionUI : MonoBehaviour, IObserver<Potion>
     #region observer
     private void Start()
     {
-        AddObserver(Potion.Instance);
+        potion = Potion.Instance;
+        AddObserver(potion);
+        PotionChange();
     }
     private void OnDisable()
     {
@@ -40,18 +43,21 @@ public class PotionUI : MonoBehaviour, IObserver<Potion>
         if(o != null)  { o.RemoveObserver(this); }
     }
 
+    private void PotionChange()
+    {
+        PotionTime(potion.RedDuration, potion.RedTime, RedPotionText, RedPotionTime);
+        PotionTime(potion.OrangeDuration, potion.OrangeTime, OrangePotionText, OrangePotionTime);
+        RedPotion.SetActive(Potion.Red);
+        OrangePotion.SetActive(Potion.Orange);
+        GreenPotion.SetActive(Potion.Green);
+        BrownPotion.SetActive(Potion.Brown);
+    }
     public void Change(Potion obj)
     {
         if (obj is Potion)
         {
             var potion = obj;
-
-            PotionTime(potion.RedDuration, potion.RedTime, RedPotionText, RedPotionTime);
-            PotionTime(potion.OrangeDuration, potion.OrangeTime, OrangePotionText, OrangePotionTime);
-            RedPotion.SetActive(Potion.Red);
-            OrangePotion.SetActive(Potion.Orange);
-            GreenPotion.SetActive(Potion.Green);
-            BrownPotion.SetActive(Potion.Brown);
+            PotionChange();
         }
     }
     #endregion

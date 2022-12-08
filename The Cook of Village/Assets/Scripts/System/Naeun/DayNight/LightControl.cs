@@ -10,14 +10,17 @@ public class LightControl : MonoBehaviour, IObserver<GameData>
         LightIntensity = MinLight;
         AddObserver(GameData.Instance);
     }
+    public float lightStartTime = 1100;
     public float LightIntensity;
+    public float Light = 0.005f;
     public float MinLight;
     public float MaxLight;
     private bool isMoning = false;
     private bool isChange = false;
-    private void ChangeIntensity()
+    private void ChangeIntensity(float time)
     {
-        LightIntensity += 0.001f;
+        float lightTime = time - lightStartTime;
+        LightIntensity =  Light * lightTime;
         isChange = LightIntensity > MaxLight;
         ChangeLightBrightness();
     }
@@ -38,12 +41,12 @@ public class LightControl : MonoBehaviour, IObserver<GameData>
         if (obj is GameData)
         {
             var GameData = obj;
-            if(obj.TimeOfDay > 1100 && obj.TimeOfDay < 1400 && !isChange)
+            if(obj.TimeOfDay > lightStartTime && obj.TimeOfDay < 1400 && !isChange)
             {
                 isMoning = false;
-                ChangeIntensity();
+                ChangeIntensity(obj.TimeOfDay);
             }
-            if(obj.TimeOfDay > 480 && obj.TimeOfDay < 1000 && !isMoning)
+            if(obj.TimeOfDay > 480 && obj.TimeOfDay < lightStartTime && !isMoning)
             {
                 isMoning = true;
                 isChange = false;
