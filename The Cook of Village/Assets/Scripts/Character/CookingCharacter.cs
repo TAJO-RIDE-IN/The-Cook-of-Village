@@ -39,7 +39,7 @@ public class CookingCharacter : MonoBehaviour
     private GameManager _gameManager;
 
     //
-    [HideInInspector] public string objectName;
+    public string objectName;
 
 
     void Start()
@@ -80,9 +80,9 @@ public class CookingCharacter : MonoBehaviour
         }
     }
 
-    //isHand ì°?ê±°ì§“ ?ê? ?†ì´ ?¤í–‰?˜ì–´???˜ëŠ” ê²?: ?‰ì¥ê³? ?ëŸ¬ê°€ê¸? ?¬ë ¥ ë³´ê¸°
+    //isHand ì°?ê±°ì§“ ?ê? ?†ì´ ?¤í–‰?˜ì–´???˜ëŠ” ê²?: ?‰ì¥ê³? ?ëŸ¬ê°?ê¸? ?¬ë ¥ ë³´ê¸°
 
-    private void WhenKeyDown()//?ë˜ ?¬ë£Œ?£ëŠ” ?¨ìˆ˜?€?”ë° ?¤í˜?´ìŠ¤ë°”ëˆ„ë¥¼ë•Œ ?¬ë£Œë§??£ëŠ”ê²??„ë‹ˆê³??¤ì–‘?œê±¸ ?˜ëŠ”???¤í˜?´ìŠ¤ë°??„ë???ëª¨ë“  ?¨ìˆ˜ ?¤í–‰?˜ë„ë¡?ìµœì ?”ë? ?„í•´???´ë ‡ê²??˜ê¸°ë¡œí•¨
+    private void WhenKeyDown()//?ë˜ ?¬ë£Œ?£ëŠ” ?¨ìˆ˜???”ë° ?¤í˜?´ìŠ¤ë°”ëˆ„ë¥¼ë•Œ ?¬ë£Œë§??£ëŠ”ê²??„ë‹ˆê³??¤ì–‘?œê±¸ ?˜ëŠ”???¤í˜?´ìŠ¤ë°??„ë???ëª¨ë“  ?¨ìˆ˜ ?¤í–‰?˜ë„ë¡?ìµœì ?”ë? ?„í•´???´ë ‡ê²??˜ê¸°ë¡œí•¨
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -154,7 +154,7 @@ public class CookingCharacter : MonoBehaviour
                 if (objectName.Equals("Bed"))
                 {
                     GameData.Instance.SetTimeMorning();
-                    //Debug.Log("?„ì¹¨?¼ë¡œ ë³€ê²?);
+                    //Debug.Log("?„ì¹¨?¼ë¡œ ë³?ê²?);
                     return;
                 }
 
@@ -164,7 +164,7 @@ public class CookingCharacter : MonoBehaviour
                         .ItemInfos[0]))
                     {
                         return;
-                        //?ë°˜??ë°€ê°€ë£??ì„±
+                        //?ë°˜??ë°?ê°?ë£??ì„±
                     }
                 }
                 if (objectName.Equals("Sugar"))
@@ -173,7 +173,7 @@ public class CookingCharacter : MonoBehaviour
                         .ItemInfos[1]))
                     {
                         return;
-                        //?ë°˜??ë°€ê°€ë£??ì„±
+                        //?ë°˜??ë°?ê°?ë£??ì„±
                     }
                 }
                 if (objectName.Equals("Cabinet"))
@@ -286,6 +286,7 @@ public class CookingCharacter : MonoBehaviour
             }
             isFridgeCollider = false;
             isSpace = false;
+            return;
         }
 
         if (other.CompareTag("CookingTools"))
