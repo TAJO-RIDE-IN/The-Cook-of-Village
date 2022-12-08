@@ -43,7 +43,7 @@ public class CameraLayer : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.N))
         {
             if (!isSecondFloor)
             {

@@ -207,20 +207,8 @@ public class CookingCharacter : MonoBehaviour
 
                 if (objectName == "Calendar")
                 {
-                    calendarUI.CalendarUIState(!fridge.isUsing);
-                    isSpace = !isSpace;
-                    if (!isSpace) //?¨Îäî ?ÅÌô©
-                    {
-                        isSpace = true;
-                        calendarUI.CalendarUIState(true);
-                        return;
-                    }
-                    else
-                    {
-                        isSpace = false;
-                        calendarUI.CalendarUIState(false);
-                        return;
-                    }
+                    
+                    calendarUI.CalendarUIState(!calendarUI.gameObject.activeSelf);
                     
 
                 }

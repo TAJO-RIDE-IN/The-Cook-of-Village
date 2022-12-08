@@ -12,8 +12,8 @@ public class ToolPooling : MultipleObjectPooling<CookingTool>
     
 
     /// <summary>
-    /// 쓰는 이유: 다이렉트 체인지에서 사용. CookingTool의 DirectSetUp에서 바꿀 자리 위치 인덱스를 넘겨줄 수 있는데, 이걸 사용하는 함수인 Use는 나은이 스크립트에서 사용하기 때문이다.
-    /// 또한 cookingCharacter.cookingTool.index와 같은 값이다.
+    /// ?�는 ?�유: ?�이?�트 체인지?�서 ?�용. CookingTool??DirectSetUp?�서 바�? ?�리 ?�치 ?�덱?��? ?�겨�????�는?? ?�걸 ?�용?�는 ?�수??Use???��????�크립트?�서 ?�용?�기 ?�문?�다.
+    /// ?�한 cookingCharacter.cookingTool.index?� 같�? 값이??
     /// </summary>
     public int indexToChange;
     
@@ -46,7 +46,7 @@ public class ToolPooling : MultipleObjectPooling<CookingTool>
     }
 
     /// <summary>
-    /// 나은이가 저장한 아이템 데이터에서 값을 빼주고 더해주기 위함
+    /// ?��??��? ?�?�한 ?�이???�이?�에??값을 빼주�??�해주기 ?�함
     /// </summary>
     public int SelectedToolID;
 
@@ -75,10 +75,6 @@ public class ToolPooling : MultipleObjectPooling<CookingTool>
         
     }
 
-    private void Start()
-    {
-        
-    }
     
     public void FalseDirect()
     {

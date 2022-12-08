@@ -53,14 +53,14 @@ public class ToolInstallMode : InstallMode
     }
     
     /// <summary>
-    /// 설치할 위치의 인덱스 받아옴.
+    /// ?�치???�치???�덱??받아??
     /// </summary>
     /// <param name="x"></param>
-    public override void ReceivePositionIndex(int x)//UI 클릭에 할당
+    public override void ReceivePositionIndex(int x)//UI ?�릭???�당
     {
-        if (receivedPositionList.Count == 0)//원래 0이였을 때는 바로 return
+        if (receivedPositionList.Count == 0)//?�래 0?��????�는 바로 return
         {
-            if (toolItemInfosAmount > selectedToolAmount)//데이터에 있는 개수만큼만 UI 활성화
+            if (toolItemInfosAmount > selectedToolAmount)//?�이?�에 ?�는 개수만큼�?UI ?�성??
             {
                 selectedToolAmount++;
                 receivedPositionList.Add(x);
@@ -77,19 +77,19 @@ public class ToolInstallMode : InstallMode
         for (int i = 0; i < receivedPositionList.Count; i++)
         {
             
-            if (receivedPositionList[i] == x)//리스트에 새로 받은 값(x)과 같은 게 없다면 빼줘야 하므로 false
+            if (receivedPositionList[i] == x)//리스?�에 ?�로 받�? �?x)�?같�? �??�다�?빼줘???��?�?false
             {
                 isList = false;
                 break;
             }
-            else if(receivedPositionList[i] != x)//리스트에 새로 받은 값(x)과 같은 게 없다면 넣어도 되므로 true
+            else if(receivedPositionList[i] != x)//리스?�에 ?�로 받�? �?x)�?같�? �??�다�??�어???��?�?true
             {
                 isList = true;
             }
         }
         if (isList)
         {
-            if (toolItemInfosAmount > selectedToolAmount)// = 이라면 이미 개수만큼 다 선택한 것이므로
+            if (toolItemInfosAmount > selectedToolAmount)// = ?�라�??��? 개수만큼 ???�택??것이므�?
             {
                 selectedToolAmount++;
                 receivedPositionList.Add(x);
@@ -109,7 +109,7 @@ public class ToolInstallMode : InstallMode
         }
     }
 
-    public void DirectChange()//indexToChange를 여기서 바꾸면 깔끔할텐데
+    public void DirectChange()//indexToChange�??�기??바꾸�?깔끔?�텐??
     {
         isDirectChange = true;
         inventoryUI.InventoryState();
@@ -146,7 +146,7 @@ public class ToolInstallMode : InstallMode
         {
             if (itemInfos.Name == "Oven")
             {
-                //오븐은 특정 자리에만 설치할 수 있습니다! 출력
+                //?�븐?� ?�정 ?�리?�만 ?�치?????�습?�다! 출력
                 return;
             }
             
@@ -163,8 +163,8 @@ public class ToolInstallMode : InstallMode
         {
             if (itemInfos.Name == "Oven")
             {
-                //position index가 6일 때 오븐이 설치되어있지 않다면
-                //오븐은 특정 자리에만 설치할 수 있습니다! 출력
+                //position index가 6?????�븐???�치?�어?��? ?�다�?
+                //?�븐?� ?�정 ?�리?�만 ?�치?????�습?�다! 출력
                 return;
             }
             GetAndPosition(toolPooling.indexToChange, itemInfos.Name);
@@ -187,16 +187,17 @@ public class ToolInstallMode : InstallMode
     public void DirectUICloseSetting()
     {
         _cookingCharacter._cookPosition.isDirect = true;
+        _cookingCharacter._cookingTool = toolPooling.pooledObject[_cookingCharacter._cookPosition.index];
         _cookingCharacter._cookPosition.CloseUI(0f);
         _cookingCharacter.isCookPositionCollider = false;
     }
 
     /// <summary>
-    /// InventoryBig 켜지게 하고 isSpace도 true로 해줘서 스페이스바 누르면 바로 UI 꺼지도록
+    /// InventoryBig 켜�?�??�고 isSpace??true�??�줘???�페?�스�??�르�?바로 UI 꺼�??�록
     /// </summary>
     public void DirectUIOpenSetting()
     {
-        _cookingCharacter._cookingTool = toolPooling.pooledObject[toolPooling.indexToChange];
+       
         _cookingCharacter.isToolCollider = true;
         _cookingCharacter.isSpace = true;
         //_cookingCharacter._cookingTool.OpenUI(0.5f);
@@ -208,7 +209,7 @@ public class ToolInstallMode : InstallMode
             ToolPooling.Instance.pooledObject[toolPooling.indexToChange].toolID.ToString());
         
     }
-    public override void GoInstall()//UI만 꺼주기
+    public override void GoInstall()//UI�?꺼주�?
     {
         if (receivedPositionList.Count > 0)
         {
@@ -231,7 +232,7 @@ public class ToolInstallMode : InstallMode
             }
 
             ItemData.Instance.ChangeAmount(toolPooling.selectedItemInfos.ID,
-                ToolPooling.Instance.selectedItemInfos.Amount - (selectedToolAmount - 1));//나은이 함수에서 한번 빼줘서
+                ToolPooling.Instance.selectedItemInfos.Amount - (selectedToolAmount - 1));//?��????�수?�서 ?�번 빼줘??
             toolItemInfosAmount = 0;
             selectedToolAmount = 0;
             cancelInstallUI.SetActive(false);
@@ -244,7 +245,7 @@ public class ToolInstallMode : InstallMode
 
     
     /// <summary>
-    /// UI키고, 요리도구 UI 끄기, 사용한다에 넣을 것
+    /// UI?�고, ?�리?�구 UI ?�기, ?�용?�다???�을 �?
     /// </summary>
     protected override void StartInstall()
     {
@@ -267,7 +268,7 @@ public class ToolInstallMode : InstallMode
 
     
     /// <summary>
-    /// Direct가 아닐때만 취소할 수 있도록
+    /// Direct가 ?�닐?�만 취소?????�도�?
     /// </summary>
     public override void CancelInstall()
     {
@@ -277,7 +278,7 @@ public class ToolInstallMode : InstallMode
         }
         toolItemInfosAmount = 0;
         selectedToolAmount = 0;
-        ItemData.Instance.ItemInfos(ToolPooling.Instance.SelectedToolID).Amount++;//SlotInventory.UseItem 에서 -- 해주기 때문
+        ItemData.Instance.ItemInfos(ToolPooling.Instance.SelectedToolID).Amount++;//SlotInventory.UseItem ?�서 -- ?�주�??�문
         cancelInstallUI.SetActive(false);
         goInstallUI.SetActive(false);
         ReturnColor();
