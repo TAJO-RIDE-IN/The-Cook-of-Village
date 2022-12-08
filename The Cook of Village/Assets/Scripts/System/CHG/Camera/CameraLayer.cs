@@ -59,7 +59,7 @@ public class CameraLayer : MonoBehaviour
 
     public void SecondFloor()
     {
-        Debug.Log("2층으로 변경");
+        //Debug.Log("2층으�?변�?);
         for (int i = 0; i < FurniturePooling.Instance.secondObjects.Count; i++)
         {
             FurniturePooling.Instance.secondObjects[i].layer = 10;
@@ -74,15 +74,19 @@ public class CameraLayer : MonoBehaviour
         {
             child.gameObject.layer = 11;
         }
-        //2층 바닥 레이어 InstallPlace로 변경해주기, 위에 설치 가능한 것들 레이어 Install
+        //2�?바닥 ?�이??InstallPlace�?변경해주기, ?�에 ?�치 가?�한 것들 ?�이??Install
         _camera.cullingMask |= 1 << LayerMask.NameToLayer("SecondFloor");
     }
     public void NoSecondFloor()
     {
-        Debug.Log("1층으로 변경");
+        //Debug.Log("1층으�?변�?);
         for (int i = 0; i < FurniturePooling.Instance.secondObjects.Count; i++)
         {
             FurniturePooling.Instance.secondObjects[i].layer = 7;
+            foreach (Transform child in FurniturePooling.Instance.secondObjects[i].transform)
+            {
+                child.gameObject.layer = 7;
+            }
         }
 
         secondInstallPlace.layer = 7;

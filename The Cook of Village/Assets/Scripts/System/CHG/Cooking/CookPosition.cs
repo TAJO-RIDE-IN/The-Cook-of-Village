@@ -61,9 +61,8 @@ public class CookPosition : MonoBehaviour
         CookPositionUI.SetActive(true);
         UIManager.UIScalePunchAnimation(CookPositionUI);
         //CookPositionUI.LeanScale(Vector3.one, time).setEaseOutElastic();
-        if (index == 6)//오븐이면 깜빡이는것
+        if (index == 6)//?�븐?�면 깜빡?�는�?
         {
-            Debug.Log("오븐어쩌구");
             FadeInFadeOut();
         }
     }

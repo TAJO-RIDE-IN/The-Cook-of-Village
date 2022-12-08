@@ -78,17 +78,17 @@ public class CookItemSlot : ItemSlot
     public void FoodSlotClick()
     {
         
-        //Debug.Log("요리 호출");
+        //Debug.Log("?�리 ?�출");
         if (itemSlotManager.cookingTool.isCooked)
         {
             //if(itemSlotManager.cookingTool.FoodInfos.ID)
-            //Debug.Log("요리 완료");
+            //Debug.Log("?�리 ?�료");
             if (itemSlotManager.cookingTool.FoodInfos.ID == 40)
             {
                 if ( _chefInventory.AddIngredient(ItemData.Instance.ItemType[4].ItemInfos[0]))
                 {
                     //itemSlotManager.cookingTool.toolBeforeCook
-                    //Debug.Log("요리 추가 완료");
+                    //Debug.Log("?�리 추�? ?�료");
                     ChangeSlotUI(itemSlotManager.cookingTool.toolBeforeCook);
                     //_soundManager.Play(_soundManager._audioClips["Plate"]);
                     itemSlotManager.cookingTool.RemoveFood();
@@ -99,7 +99,7 @@ public class CookItemSlot : ItemSlot
             if ( _chefInventory.AddFood(itemSlotManager.cookingTool.FoodInfos))
             {
                 //itemSlotManager.cookingTool.toolBeforeCook
-                //Debug.Log("요리 추가 완료");
+                //Debug.Log("?�리 추�? ?�료");
                 ChangeSlotUI(itemSlotManager.cookingTool.toolBeforeCook);
                 _soundManager.Play(_soundManager._audioClips["Plate"]);
                 itemSlotManager.cookingTool.RemoveFood();
