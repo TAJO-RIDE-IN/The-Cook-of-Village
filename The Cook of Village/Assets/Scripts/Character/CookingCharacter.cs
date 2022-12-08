@@ -29,7 +29,7 @@ public class CookingCharacter : MonoBehaviour
     public bool isGuestCollider;
     public bool isFridgeCollider;
     public bool isCookPositionCollider;
-    private bool isObjectCollider;
+    public bool isObjectCollider;
     public bool isHand;
     public bool isSpace;
     public GameObject box;
@@ -80,13 +80,13 @@ public class CookingCharacter : MonoBehaviour
         }
     }
 
-    //isHand 참 거짓 상관 없이 실행되어야 하는 것 : 냉장고, 자러가기, 달력 보기
+    //isHand �?거짓 ?��? ?�이 ?�행?�어???�는 �?: ?�장�? ?�러가�? ?�력 보기
 
-    private void WhenKeyDown()//원래 재료넣는 함수였는데 스페이스바누를때 재료만 넣는게 아니고 다양한걸 하는데 스페이스바 누를때 모든 함수 실행하도록 최적화를 위해서 이렇게 하기로함
+    private void WhenKeyDown()//?�래 ?�료?�는 ?�수?�?�데 ?�페?�스바누를때 ?�료�??�는�??�니�??�양?�걸 ?�는???�페?�스�??��???모든 ?�수 ?�행?�도�?최적?��? ?�해???�렇�??�기로함
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (isToolCollider)//요리도구에 들어갔을때만,요리중이 아닐때만 재료넣는거 실행
+            if (isToolCollider)//?�리?�구???�어갔을?�만,?�리중이 ?�닐?�만 ?�료?�는�??�행
             {
                 if (isSpace)
                 {
@@ -112,7 +112,7 @@ public class CookingCharacter : MonoBehaviour
                     {
                         uiMovement.CloseUI();
                         isSpace = false;
-                        //UI 띄우기
+                        //UI ?�우�?
                         return;
                     }
                 }
@@ -122,7 +122,7 @@ public class CookingCharacter : MonoBehaviour
                     {
                         uiMovement.ShowUI();
                         isSpace = true;
-                        //UI 끄기
+                        //UI ?�기
                         return;
                     }
                 }
@@ -154,7 +154,7 @@ public class CookingCharacter : MonoBehaviour
                 if (objectName.Equals("Bed"))
                 {
                     GameData.Instance.SetTimeMorning();
-                    Debug.Log("아침으로 변경");
+                    //Debug.Log("?�침?�로 변�?);
                     return;
                 }
 
@@ -164,7 +164,7 @@ public class CookingCharacter : MonoBehaviour
                         .ItemInfos[0]))
                     {
                         return;
-                        //쟁반에 밀가루 생성
+                        //?�반??밀가�??�성
                     }
                 }
                 if (objectName.Equals("Sugar"))
@@ -173,7 +173,7 @@ public class CookingCharacter : MonoBehaviour
                         .ItemInfos[1]))
                     {
                         return;
-                        //쟁반에 밀가루 생성
+                        //?�반??밀가�??�성
                     }
                 }
                 if (objectName.Equals("Cabinet"))
@@ -191,7 +191,7 @@ public class CookingCharacter : MonoBehaviour
                 }
                 if (objectName.Equals("Trash"))
                 {
-                    if (!isSpace) //여는 상황
+                    if (!isSpace) //?�는 ?�황
                     {
                         isSpace = true;
                         TrashUI.SetActive(true);
@@ -207,7 +207,9 @@ public class CookingCharacter : MonoBehaviour
 
                 if (objectName == "Calendar")
                 {
-                    if (!isSpace) //여는 상황
+                    calendarUI.CalendarUIState(!fridge.isUsing);
+                    isSpace = !isSpace;
+                    if (!isSpace) //?�는 ?�황
                     {
                         isSpace = true;
                         calendarUI.CalendarUIState(true);
@@ -273,7 +275,7 @@ public class CookingCharacter : MonoBehaviour
         }
         isObjectCollider = true;
         objectName = other.gameObject.name;
-        //Debug.Log(other.gameObject.name + "에 진입");
+        //Debug.Log(other.gameObject.name + "??진입");
     }
     private void OnTriggerStay(Collider other)
     {

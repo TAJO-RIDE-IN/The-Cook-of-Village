@@ -39,7 +39,7 @@ public class ChefInventory : MonoBehaviour
 
     public FridgeUI fridgeUI;
     public ChefItemSlotManager chefSlotManager;
-    private int _availableInven = 3;//이 값이 바뀌면 인벤토리 잠금을 해제할거니깐 초기화도 게임데이터에서 하면 좋을듯
+    private int _availableInven = 3;//??값이 바뀌면 ?�벤?�리 ?�금???�제?�거?�깐 초기?�도 게임?�이?�에???�면 좋을??
     [HideInInspector]public CookingCharacter _cookingCharacter;
 
     public int AvailableInven
@@ -50,7 +50,7 @@ public class ChefInventory : MonoBehaviour
             _availableInven = value;
         }
     }
-    private int _maxInven = 6;//이 수에 따라서 UI 바뀌는건 나중에
+    private int _maxInven = 6;//???�에 ?�라??UI 바뀌는�??�중??
     public int MaxInven
     {
         get { return _maxInven;}
@@ -96,11 +96,11 @@ public class ChefInventory : MonoBehaviour
         
         if (GameData.Instance.isExtension)
         {
-            for (int i = 0; i < GameData.Instance.RainbowDrinking / 5; i++)//여러번 확장해야 할 때
+            for (int i = 0; i < GameData.Instance.RainbowDrinking / 5; i++)//?�러�??�장?�야 ????
             {
                 ExtensionInventory();
             }
-            Debug.Log("확장");
+            Debug.Log("?�장");
             GameData.Instance.isExtension = false;
         }
     }
@@ -119,10 +119,10 @@ public class ChefInventory : MonoBehaviour
     {
         for (int i = 0; i < AvailableInven; i++)
         {
-            //Debug.Log(i+"번째 슬롯 진입");
+            //Debug.Log(i+"번째 ?�롯 진입");
             if (isUsed[i] == false)
             {
-                //Debug.Log(i+"번째 슬롯이 비어있음");
+                //Debug.Log(i+"번째 ?�롯??비어?�음");
                 EdibleItems[i]._itemType = EdibleItem.ItemType.Ingredient;
                 EdibleItems[i]._ingredientsInfos = ingredient;
                 EdibleItems[i]._foodInfos = null;
@@ -141,13 +141,13 @@ public class ChefInventory : MonoBehaviour
         {
             if (isUsed[i] == false)
             {
-                //Debug.Log(i+"번째 슬롯이 비어있음");
+                //Debug.Log(i+"번째 ?�롯??비어?�음");
                 EdibleItems[i]._itemType = EdibleItem.ItemType.Food;
                 EdibleItems[i]._ingredientsInfos = null;
                 EdibleItems[i]._foodInfos = food;
                 chefSlotManager.AddFoodItem(food, i);
                 isUsed[i] = true;
-                if (!_cookingCharacter.isHand)//음식이 들어올 때마다 실행하지 않기 위해서
+                if (!_cookingCharacter.isHand)//?�식???�어???�마???�행?��? ?�기 ?�해??
                 {
                     _cookingCharacter.HoldDish(true);
                 }
@@ -179,11 +179,11 @@ public class ChefInventory : MonoBehaviour
     {
         if (isUsed[i])
         {
-            if (_cookingCharacter.isSpace)//셰프인벤토리에서 보내는 작업은 전부 스페이스바로 UI를 여는 것에서 시작하기 때문
+            if (_cookingCharacter.isSpace)//?�프?�벤?�리?�서 보내???�업?� ?��? ?�페?�스바로 UI�??�는 것에???�작?�기 ?�문
             {
                 if (EdibleItems[i]._itemType == EdibleItem.ItemType.Ingredient)
                 {
-                    if (_cookingCharacter.isToolCollider) //스페이스바를 냉장고안이나에서 누른건 아닌지 확인 => 스위치로 변경
+                    if (_cookingCharacter.isToolCollider) //?�페?�스바�? ?�장고안?�나?�서 ?�른�??�닌지 ?�인 => ?�위치로 변�?
                     {
                         if (EdibleItems[i]._ingredientsInfos.ID != 63)
                         {
@@ -217,14 +217,16 @@ public class ChefInventory : MonoBehaviour
                             return;
                         }
                     }
-
-                    if (_cookingCharacter.objectName == "Trash")
+                    if (_cookingCharacter.isObjectCollider)
                     {
-                        if (_cookingCharacter.trash.AddIngredient(EdibleItems[i]._ingredientsInfos))
+                        if (_cookingCharacter.objectName == "Trash")
                         {
-                            SoundManager.Instance.Play(SoundManager.Instance._audioClips["PanIn"]);
-                            ChangeInventoryEmpty(i);
-                            return;
+                            if (_cookingCharacter.trash.AddIngredient(EdibleItems[i]._ingredientsInfos))
+                            {
+                                SoundManager.Instance.Play(SoundManager.Instance._audioClips["PanIn"]);
+                                ChangeInventoryEmpty(i);
+                                return;
+                            }
                         }
                     }
                 }
@@ -233,15 +235,15 @@ public class ChefInventory : MonoBehaviour
                 {
                     if (_cookingCharacter.isGuestCollider)
                     {
-                        Debug.Log("음식 전달 완료");
-                        //게스트가 안받은 상태라면
+                        Debug.Log("?�식 ?�달 ?�료");
+                        //게스?��? ?�받?� ?�태?�면
                         if (_cookingCharacter._foodOrder.ReceiveFood(EdibleItems[i]._foodInfos.ID))
                         {
                             _cookingCharacter.uiMovement.foodOrderImage.sprite = ImageData.Instance.FindImageData(EdibleItems[i]._foodInfos.ImageID);
                             ChangeInventoryEmpty(i);
                             _cookingCharacter.uiMovement.CloseUI();
                             EdibleItems[i]._foodInfos = null;
-                            if (!IsFoodInHand())//인벤토리에 음식이 아예 없다면
+                            if (!IsFoodInHand())//?�벤?�리???�식???�예 ?�다�?
                             {
                                 _cookingCharacter.HoldDish(false);
                             }
@@ -264,7 +266,7 @@ public class ChefInventory : MonoBehaviour
             else
             {
                 
-                //요리 전달
+                //?�리 ?�달
             }
         }
         

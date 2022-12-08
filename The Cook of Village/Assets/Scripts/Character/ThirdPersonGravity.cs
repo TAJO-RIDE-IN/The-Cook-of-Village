@@ -99,7 +99,7 @@ public class ThirdPersonGravity : MonoBehaviour, IObserver<GameData>
 
         if (Input.GetKeyDown(KeyCode.F4))
         {
-            Debug.Log("재생");
+            Debug.Log("?�생");
             animator.SetBool("isSleep" ,true);
         }
     }
@@ -145,7 +145,7 @@ public class ThirdPersonGravity : MonoBehaviour, IObserver<GameData>
                 {
                     speed = OriginSpeed * 1.5f;
                     animator.SetBool("isRun",true);
-                    Pitch = 1.3f;
+                    Pitch = 1.8f;
                     isShift = true;
                     isShiftUp = false;
                 }

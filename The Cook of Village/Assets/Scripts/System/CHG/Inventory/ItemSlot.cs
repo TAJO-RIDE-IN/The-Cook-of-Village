@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ItemSlot : MonoBehaviour
 {
-    protected int index;//이건 상속 클래스에서 사용, Index 외부에서 사용
+    protected int index;//?�건 ?�속 ?�래?�에???�용, Index ?��??�서 ?�용
 
     public int Index
     {
@@ -16,7 +16,7 @@ public class ItemSlot : MonoBehaviour
             //EdibleItems.Add();
         }
     }
-    [HideInInspector] public UnityEngine.UI.Image slotUI;
+    public UnityEngine.UI.Image slotUI;
     [HideInInspector] public UnityEngine.UI.Image slotUI2;
 
     public virtual void SlotClick() { }

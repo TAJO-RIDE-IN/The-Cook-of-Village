@@ -8,8 +8,9 @@ using Object = System.Object;
 
 public class CookingTool : MonoBehaviour
 {
-    
+
     //public enum ToolID { Blender = 0, Pot = 1, FryPan = 2, Whipper = 3, Oven = 4}
+    public Gradient gradient;
     public FoodTool.Type toolID;
     public GameObject InventoryBig;
     public GameObject IngredientInven;
@@ -17,19 +18,20 @@ public class CookingTool : MonoBehaviour
     public Image[] Ing = new Image[3];
     public Image food;
     public Image foodBig;
-    public Image blackCircle;
-    public Image blackCircleBig;
+    public Image greenCircle;
+    public Image greenCircleBig;
+
     public GameObject circleUI;
     public GameObject circleUIBig;
     public Sprite toolBeforeCook;
     public CookItemSlotManager cookSlotManager;
     public float GreenPotionEffect = 1f;
     
-    public List<int> ingredientList = new List<int>();//이건 요리할 때만 사용, 인덱스가 필요한 ID는 CookItemSlot에 저장
-    public FoodInfos FoodInfos { get; set;}//foodInfos가 바뀌면 해줄 일,즉 UI코루틴 끝났을때 할 일 set에 적자
+    public List<int> ingredientList = new List<int>();//?�건 ?�리???�만 ?�용, ?�덱?��? ?�요??ID??CookItemSlot???�??
+    public FoodInfos FoodInfos { get; set;}//foodInfos가 바뀌면 ?�줄 ??�?UI코루???�났?�때 ????set???�자
     
-    [HideInInspector]public bool isBeforeCooking = true;//요리를 시작하면 false가 되고, 요리가 끝나면 true가 된다.
-    [HideInInspector]public bool isCooked;//요리가 완성되면 true가 되고, 요리가 담겨있지 않으면 false이다.
+    [HideInInspector]public bool isBeforeCooking = true;//?�리�??�작?�면 false가 ?�고, ?�리가 ?�나�?true가 ?�다.
+    [HideInInspector]public bool isCooked;//?�리가 ?�성?�면 true가 ?�고, ?�리가 ?�겨?��? ?�으�?false?�다.
     public bool isPlayer;
     public int index;
     
@@ -84,13 +86,13 @@ public class CookingTool : MonoBehaviour
         }
     }
 
-    public bool PutIngredient(int id, Sprite sprite) //이걸 현재 들고있는게 null이 아닐때만 실행시켜주면 되는데 혹시몰라서 한번 더 조건문 넣음
+    public bool PutIngredient(int id, Sprite sprite) //?�걸 ?�재 ?�고?�는�?null???�닐?�만 ?�행?�켜주면 ?�는???�시몰라???�번 ??조건�??�음
     {
         if (isBeforeCooking)
         {
             if (!isCooked)
             {
-                for (int i = 0; i < cookSlotManager.ChildSlotCount; i++) //일단 레시피에 들어가는 최대 재료 개수가 3개라고 했을 때
+                for (int i = 0; i < cookSlotManager.ChildSlotCount; i++) //?�단 ?�시?�에 ?�어가??최�? ?�료 개수가 3개라�??�을 ??
                 {
                     if (!cookSlotManager.itemslots[i].isUsed)
                     {
@@ -138,7 +140,7 @@ public class CookingTool : MonoBehaviour
                 }
                 else
                 {
-                    //재료를 넣으세요! UI 출력
+                    //?�료�??�으?�요! UI 출력
                 }
             }
             
@@ -148,8 +150,6 @@ public class CookingTool : MonoBehaviour
     public void RemoveFood()
     {
         currentValue = 0;
-        blackCircle.fillAmount = 0;
-        blackCircleBig.fillAmount = 0;
         isCooked = false;
         food.sprite = toolBeforeCook;
         StopCoroutine(_burntCoroutine);
@@ -192,7 +192,7 @@ public class CookingTool : MonoBehaviour
 
     }
     /// <summary>
-    /// 바로 요리도구를 없애고 설치하기 위한 설정
+    /// 바로 ?�리?�구�??�애�??�치?�기 ?�한 ?�정
     /// </summary>
     public void DirectSetUp()
     {
@@ -202,7 +202,7 @@ public class CookingTool : MonoBehaviour
     }
 
     /// <summary>
-    /// 풀링도 돌려주고, FoodData Amount와 ItemData Amount도 바꿔줌
+    /// ?�링도 ?�려주고, FoodData Amount?� ItemData Amount??바꿔�?
     /// </summary>
     public void DeleteTool() 
     {
@@ -234,13 +234,14 @@ public class CookingTool : MonoBehaviour
         ingredientList.Clear();
     }
     
-    IEnumerator CookingGauge() //LoadingBar.fillAmount이 1이 될때까지 점점 게이지를 추가해줌
+    IEnumerator CookingGauge() //LoadingBar.fillAmount??1???�때까�? ?�점 게이지�?추�??�줌
     {
-        while (blackCircle.fillAmount < 1)
+        greenCircle.fillAmount = 0;
+        while (greenCircle.fillAmount < 1)
         {
             currentValue += Time.deltaTime;
-            blackCircle.fillAmount = currentValue / FoodInfos.MakeTime * GreenPotionEffect;
-            blackCircleBig.fillAmount = currentValue / FoodInfos.MakeTime * GreenPotionEffect;
+            greenCircle.fillAmount = currentValue / FoodInfos.MakeTime * GreenPotionEffect;
+            greenCircleBig.fillAmount = currentValue / FoodInfos.MakeTime * GreenPotionEffect;
             circleUI.transform.Rotate(0, 0, 1);
             circleUIBig.transform.Rotate(0, 0, 1);
             yield return null;
@@ -261,13 +262,14 @@ public class CookingTool : MonoBehaviour
 
     IEnumerator BurntFood()
     {
-        Debug.Log("코루틴 시작함");
-        while (blackCircle.fillAmount > 0)
+        while (greenCircle.fillAmount > 0)
         {
             //Debug.Log(currentValue / FoodInfos.MakeTime * 1.25f);
             currentValue += Time.deltaTime;
-            blackCircle.fillAmount = 1 - (currentValue / (FoodInfos.BurntTime + 15f));
-            blackCircleBig.fillAmount = 1 - (currentValue / (FoodInfos.BurntTime + 15f));
+            greenCircle.fillAmount = 1 - (currentValue / (FoodInfos.BurntTime + 15f));
+            greenCircleBig.fillAmount = 1 - (currentValue / (FoodInfos.BurntTime + 15f));
+            greenCircle.color = gradient.Evaluate(1 - greenCircle.fillAmount);
+            greenCircleBig.color = gradient.Evaluate(1 - greenCircleBig.fillAmount);
             yield return null;
         }
         currentValue = 0;
@@ -282,7 +284,6 @@ public class CookingTool : MonoBehaviour
         if(other.transform.CompareTag("Player"))
         {
             isPlayer = true;
-            Debug.Log("충돌중");
         }
     }
 
@@ -291,7 +292,7 @@ public class CookingTool : MonoBehaviour
         if(other.transform.CompareTag("Player"))
         {
             isPlayer = false;
-            Debug.Log("플레이어나감");
+            Debug.Log("?�레?�어?�감");
         }
         
     }
