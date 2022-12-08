@@ -106,10 +106,12 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
             {
                 StopCoroutine(_callNPC);
             }
-        }
-        
+        }       
     }
+    public void ExitGuestNPC()
+    {
 
+    }
     private VillageGuest EnterNPC()
     {
         foreach (var npc in VillgeNPC)
@@ -178,7 +180,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
         if (obj is GameData)
         {
             var GameData = obj;
-            if(obj.TimeOfDay >= 1320)
+            if(obj.TimeOfDay >= 1320 || obj.TimeOfDay <= 120)
             {
                 if(gameManager.IsOpen)
                 {

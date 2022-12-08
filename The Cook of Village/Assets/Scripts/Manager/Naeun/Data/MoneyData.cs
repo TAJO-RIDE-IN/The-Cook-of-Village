@@ -41,45 +41,48 @@ public class MoneyData : DataManager<MoneyData>, IMoneyDataOb
         get { return gameData.gameInfos.playerInfos.Money; }
         set
         {
-            if(!BankData && !ResellData)
+            ChangeMoneyData(value);
+            if (TipCount >= 5)
             {
-                ChangeMoneyData(value);
-                if (TipCount >= 5)
-                {
-                    value += TipMoney;
-                    moneyInfos.TotalProceeds += TipMoney;
-                    moneyInfos.Proceeds[GameData.Instance.Day - 1].TipMoney += TipMoney;
-                }
+                value += TipMoney;
+                TipMoneyChange(TipMoney);
             }
             BankData = false;
-            ResellData = false;
             gameData.gameInfos.playerInfos.Money = value;
             NotifyObserver();
         }
     }
-    private bool ResellData = false;
-    public void ResellingItem(int money)
+    public enum ProceedDataType {Sales, Tip, Resell}
+    public void ChangeProceedsData(ProceedDataType type)
     {
-        ResellData = true;
-        Proceeds[GameData.Instance.Day - 1].ResellMoney += money;
+        if(type.Equals(ProceedDataType.Sales))
+        {
+            Proceeds[GameData.Instance.Day - 1].SalesProceeds += money;
+        }
+        else if(type.Equals(ProceedDataType.Resell))
+        {
+            Proceeds[GameData.Instance.Day - 1].SalesProceeds += money;
+        }
         TotalProceeds += money;
         Money += money;
+        
     }
-    public void ChangeMoneyData(int value)
+     public void TipMoneyChange(int money)
     {
-        if (Money < value)
-        {
-            int money = value - Money;
-            TotalProceeds += money;
-            Proceeds[GameData.Instance.Day - 1].SalesProceeds += (value - TipMoney);
-        }
-        else
+        Proceeds[GameData.Instance.Day - 1].TipMoney += money;
+        TotalProceeds += money;
+    }
+    
+    public void ChangeConsumptionData(int value)
+    {
+        if (Money > value)
         {
             int money = Money - value;
             TotalConsumption += money;
             Consumption[GameData.Instance.Day - 1] += money;
         }
     }
+    
     public List<Proceeds> Proceeds
     {
         get { return moneyInfos.Proceeds; }
