@@ -44,7 +44,22 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
     public Camera particleCamera;
 
     private bool isLocked;
+    private bool isShift;
+    private bool isShiftUp;
+    private float pitch = 1;
 
+    public float Pitch
+    {
+        get
+        {
+            return pitch;
+        }
+        set
+        {
+            pitch = value;
+            isWalkSound = false;
+        }
+    }
     public bool IsLocked
     {
         get
@@ -125,7 +140,7 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
                 controller.SimpleMove(moveDir.normalized * speed * Time.deltaTime);
                 if (!isWalkSound)
                 {
-                    soundManager.PlayEffect3D(soundManager._audioClips["CookWalk"], gameObject, true);
+                    soundManager.PlayEffect3D(soundManager._audioClips["CookWalk"], gameObject, true, Pitch);
                     isWalkSound = true;
                 }
 
@@ -139,6 +154,28 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
                 charAnimator.SetBool("isWalk", false);
                 soundManager.StopEffect3D(gameObject);
                 isWalkSound = false;
+            }
+        }
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if (!isShift)
+            {
+                speed = originSpeed * 1.4f;
+                charAnimator.SetBool("isRun", true);
+                Pitch = 1.8f;
+                isShift = true;
+                isShiftUp = false;
+            }
+        }
+        else
+        {
+            if (!isShiftUp)
+            {
+                Pitch = 1f;
+                speed = originSpeed;
+                charAnimator.SetBool("isRun", false);
+                isShift = false;
+                isShiftUp = true;
             }
         }
     }

@@ -149,6 +149,8 @@ public class CookingTool : MonoBehaviour
 
     public void RemoveFood()
     {
+        greenCircle.fillAmount = 0;
+        greenCircleBig.fillAmount = 0;
         currentValue = 0;
         isCooked = false;
         food.sprite = toolBeforeCook;
@@ -237,6 +239,7 @@ public class CookingTool : MonoBehaviour
     IEnumerator CookingGauge() //LoadingBar.fillAmount??1???†ÎïåÍπåÏ? ?êÏ†ê Í≤åÏù¥ÏßÄÎ•?Ï∂îÍ??¥Ï§å
     {
         greenCircle.fillAmount = 0;
+        greenCircleBig.fillAmount = 0;
         while (greenCircle.fillAmount < 1)
         {
             currentValue += Time.deltaTime;
