@@ -5,6 +5,10 @@ using UnityEngine;
 public class CapemanShopNPC : ShopNPC
 {
     public Transform[] SpawnPosition;
+    private void Awake()
+    {
+        SetPositon();
+    }
     public Transform CapemanPosition()
     {
         return SpawnPosition[Random.Range(0, SpawnPosition.Length)];
@@ -14,9 +18,13 @@ public class CapemanShopNPC : ShopNPC
         base.ShopState(state);
         if(!state)
         {
-            this.gameObject.transform.position = CapemanPosition().position;
-            this.gameObject.transform.rotation = CapemanPosition().rotation;
+            SetPositon();
         }
+    }
+    private void SetPositon()
+    {
+        this.gameObject.transform.position = CapemanPosition().position;
+        this.gameObject.transform.rotation = CapemanPosition().rotation;
     }
     
 }
