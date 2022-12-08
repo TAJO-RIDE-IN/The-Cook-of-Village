@@ -221,7 +221,6 @@ public class GameData : DataManager<GameData>, IGameDataOb
     }
     public void SetTimeMorning()
     {
-        TimeOfDay = 480;
         ForciblySleep = false;
         SaveDataTime(PlayerName);//자다 일어났을때 저장
         CheckEndingQualification();
@@ -229,6 +228,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
         {
             Day++;
         }
+        TimeOfDay = 480;
     }
     private void CheckEndingQualification()
     {
