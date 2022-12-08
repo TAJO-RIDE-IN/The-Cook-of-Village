@@ -20,7 +20,15 @@ public class CookItemSlot : ItemSlot
     // Start is called before the first frame update
     private void Awake()
     {
-        slotUI = transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();
+        
+        if(transform.childCount > 1)
+        {
+            slotUI = transform.GetChild(2).GetComponent<UnityEngine.UI.Image>();
+        }
+        else
+        {
+            slotUI = transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();
+        }
     }
 
     private void Start()
