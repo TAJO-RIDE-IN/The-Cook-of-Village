@@ -10,9 +10,16 @@ public class LoadingScene : MonoBehaviour
     private void Awake()
     {
         StartCoroutine(LoadSceneAsync(GameManager.Instance.NextSceneIndex));
-        TipText.text = Explanation.LoadingTip[Random.Range(0, Explanation.LoadingTip.Count-1)];
+        TipText.text = Tip();
     }
- 
+    
+    private string Tip()
+    {
+        string[] sentence = DialogueManager.Instance.DialogueData[(int)DialogueData.ContentType.Explanation].dialogueContents[0].Sentence;
+        int index = Random.Range(0, sentence.Length);
+        string text = sentence[index];
+        return text;
+    }
     private IEnumerator LoadSceneAsync(int sceneID)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);

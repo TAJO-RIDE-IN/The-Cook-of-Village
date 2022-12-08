@@ -84,16 +84,16 @@ public class ShopSelect : MonoBehaviour
     {
         if (CountSlider.value != 0)
         {
-            if (shopUI.Type.Equals(ShopUI.ShopType.Buy))
+            if (shopUI.Type.Equals(ShopUI.ShopType.Buy)) //아이템 구매
             {
                 NPCData.Instance.ChangeLikeability(NPC.npcInfos.work, "PlayerUse");
                 Infos.PurchasesCount += (int)CountSlider.value;
                 totalprice = totalprice * -1;
-                MoneyData.Instance.Money += totalprice;
+                MoneyData.Instance.Money += totalprice; //돈 - 해줌
             }
-            else
+            else //아이템 판매
             {
-                MoneyData.Instance.ResellingItem(totalprice);
+                MoneyData.Instance.ChangeProceedsData(MoneyData.ProceedDataType.Resell, totalprice);
             }
             NPC.CurrentState = ShopNPC.State.Sell;
             ItemData.Instance.ChangeAmount(Infos.ID, CurrentAmount());

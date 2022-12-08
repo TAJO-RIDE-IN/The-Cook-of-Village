@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public interface IMoneyDataOb
 {
@@ -36,50 +34,65 @@ public class MoneyData : DataManager<MoneyData>, IMoneyDataOb
     private bool BankData = false;
     public int TipMoney;
     public int TipCount;
+    /// <summary>
+    /// 돈을 얻었을 경우에는 ChangeProceedsData 사용하기
+    /// </summary>
     public int Money
     {
         get { return gameData.gameInfos.playerInfos.Money; }
         set
         {
-            if(!BankData && !ResellData)
+            if (!BankData)
             {
-                ChangeMoneyData(value);
+                ChangeConsumptionData(value);
                 if (TipCount >= 5)
                 {
                     value += TipMoney;
-                    moneyInfos.TotalProceeds += TipMoney;
-                    moneyInfos.Proceeds[GameData.Instance.Day - 1].TipMoney += TipMoney;
+                    TipMoneyChange(TipMoney);
                 }
             }
             BankData = false;
-            ResellData = false;
             gameData.gameInfos.playerInfos.Money = value;
             NotifyObserver();
         }
     }
-    private bool ResellData = false;
-    public void ResellingItem(int money)
+    public enum ProceedDataType { Sales, Tip, Resell }
+    /// <summary>
+    /// MoneyData의 Proceeds중 Sales와 Tip데이터를 변경해준다.
+    /// 데이터 변경후 Money의 값도 변경해준다.
+    /// </summary>
+    /// <param name="type">어떤 방법으로 돈을 얻는지 타입 입력</param>
+    /// <param name="money">얼마나 돈이 +되는지 입력</param>
+    public void ChangeProceedsData(ProceedDataType type, int money)
     {
-        ResellData = true;
-        Proceeds[GameData.Instance.Day - 1].ResellMoney += money;
+        if (type.Equals(ProceedDataType.Sales))
+        {
+            Proceeds[GameData.Instance.Day - 1].SalesProceeds += money;
+        }
+        else if (type.Equals(ProceedDataType.Resell))
+        {
+            Proceeds[GameData.Instance.Day - 1].ResellMoney += money;
+        }
         TotalProceeds += money;
         Money += money;
+
     }
-    public void ChangeMoneyData(int value)
+    public void TipMoneyChange(int money)
     {
-        if (Money < value)
-        {
-            int money = value - Money;
-            TotalProceeds += money;
-            Proceeds[GameData.Instance.Day - 1].SalesProceeds += (value - TipMoney);
-        }
-        else
+        Proceeds[GameData.Instance.Day - 1].TipMoney += money;
+        TotalProceeds += money;
+    }
+
+    public void ChangeConsumptionData(int value)
+    {
+        if (Money > value)
         {
             int money = Money - value;
             TotalConsumption += money;
             Consumption[GameData.Instance.Day - 1] += money;
         }
     }
+
     public List<Proceeds> Proceeds
     {
         get { return moneyInfos.Proceeds; }
@@ -139,7 +152,7 @@ public class MoneyData : DataManager<MoneyData>, IMoneyDataOb
     {
         if (GameData.Instance.Day % 3 == 0) //3일마다 이자변경
         {
-            float _interest = UnityEngine.Random.Range(percent, percent*2);
+            float _interest = UnityEngine.Random.Range(percent, percent * 2);
             BankInterest = (float)Math.Round(_interest, 3);
         }
         BankMoney = (int)(BankMoney * (1 + BankInterest));
@@ -149,7 +162,7 @@ public class MoneyData : DataManager<MoneyData>, IMoneyDataOb
     {
         moneyInfos.Proceeds.Add(new Proceeds());
         moneyInfos.Consumption.Add(0);
-}
+    }
 
     public override void SaveDataTime(string PlayName)
     {
@@ -170,9 +183,9 @@ public class MoneyData : DataManager<MoneyData>, IMoneyDataOb
     }
     public void NotifyObserver()
     {
-        foreach(var observer in _observers)
+        foreach (var observer in _observers)
         {
-            if(observer != null)
+            if (observer != null)
             {
                 observer.Change(this);
             }

@@ -6,7 +6,6 @@ using UnityEngine;
 public class WaitingLine
 {
     public Queue<GameObject> GuestQueue = new Queue<GameObject>();
-    private List<GameObject> LineGuest = new List<GameObject>();
     private List<Vector3> PositionList = new List<Vector3>();
 
     public bool CanPay = true;
@@ -39,7 +38,7 @@ public class WaitingLine
             RelocateAllGuests();
         }
     }
-    private void RelocateAllGuests() //NPC줄 재정렬
+    public void RelocateAllGuests() //NPC줄 재정렬
     {
         foreach(GameObject guest in GuestQueue)
         {

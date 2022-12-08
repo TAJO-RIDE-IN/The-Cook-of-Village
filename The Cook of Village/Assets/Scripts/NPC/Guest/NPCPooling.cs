@@ -106,10 +106,12 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
             {
                 StopCoroutine(_callNPC);
             }
-        }
-        
+        }       
     }
+    public void ExitGuestNPC()
+    {
 
+    }
     private VillageGuest EnterNPC()
     {
         foreach (var npc in VillgeNPC)
@@ -124,7 +126,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
 
     private IEnumerator CallNPC()
     {
-        while(gameManager.IsOpen)
+        while (gameManager.IsOpen)
         {
             AvailableChair();
             ChangeCallTime();
@@ -139,7 +141,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
                         village.gameObject.SetActive(true);
                         village.VisitRestaurant();
                         callVillageNPC = false;
-                        yield return null;
+                        yield return new WaitForSeconds(CallTime - 4);
                     }
                 }
                 GetObject();
@@ -155,7 +157,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
 
     private void ChangeCallTime()
     {
-        if (FirstNPC && gameData.GuestCount == 0)
+        if (FirstNPC && gameData.GuestCount.Equals(0))
         {
             CallTime = FirstCallTime;
             FirstNPC = false;
@@ -168,7 +170,15 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
             }
         }
     }
-
+    public void ExitAllGuest()
+    {
+        UseChair.Clear();
+        List<GuestNPC> AllGuest = this.gameObject.GetComponentsInChildren<GuestNPC>().ToList();
+        foreach(var guest in AllGuest)
+        {
+            guest.ChangeState(GuestNPC.State.GoOut);
+        }
+    }
     public void AddObserver(IGameDataOb o)
     {
         o.AddObserver(this);
@@ -178,7 +188,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
         if (obj is GameData)
         {
             var GameData = obj;
-            if(obj.TimeOfDay >= 1320)
+            if(obj.TimeOfDay >= 1320 || obj.TimeOfDay <= 120)
             {
                 if(gameManager.IsOpen)
                 {
@@ -189,6 +199,10 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
             else
             {
                 isOpenTime = true;
+            }
+            if(obj.TimeOfDay > 480 && obj.TimeOfDay < 481)
+            {
+                ExitAllGuest();
             }
             if(gameManager.IsOpen)
             {

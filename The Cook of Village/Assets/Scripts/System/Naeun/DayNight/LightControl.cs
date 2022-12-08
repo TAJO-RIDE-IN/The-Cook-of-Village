@@ -21,6 +21,7 @@ public class LightControl : MonoBehaviour, IObserver<GameData>
     {
         float lightTime = time - lightStartTime;
         LightIntensity =  Light * lightTime;
+        LightIntensity = LightIntensity > MaxLight ? MaxLight : LightIntensity;
         isChange = LightIntensity > MaxLight;
         ChangeLightBrightness();
     }
