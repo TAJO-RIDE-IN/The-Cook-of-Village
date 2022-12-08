@@ -63,7 +63,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
     {
         ObserverClear();
         moneyData.TipCount = 0;
-        if (runningCoroutine != null) { StopCoroutine(runningCoroutine); }//한 개의 코루틴만 실행
+        if (runningCoroutine != null) { StopCoroutine(runningCoroutine); }//??개의 코루?�만 ?�행
         if (GuestCount > 0)
         {
             ChangeFame(-3 * GuestCount);
@@ -97,7 +97,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
         }
     }
 
-    #region 변수
+    #region 변??
     public string RestaurantName
     {
         get { return gameInfos.playerInfos.RestaurantName; }
@@ -123,7 +123,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
             gameInfos.playerInfos.PlayerName = value;
         }
     }
-    public float TimeOfDay //24시간 => 1440분
+    public float TimeOfDay //24?�간 => 1440�?
     { 
         get { return gameInfos.TimeOfDay; } 
         set 
@@ -141,9 +141,9 @@ public class GameData : DataManager<GameData>, IGameDataOb
 
     [HideInInspector]public bool UseSave = true;
     /// <summary>
-    /// 데이터를 저장할 수 있는지 확인
+    /// ?�이?��? ?�?�할 ???�는지 ?�인
     /// </summary>
-    /// <returns>분이 0이고 저장을 안 한 상태일 때 true 리턴</returns>
+    /// <returns>분이 0?�고 ?�?�을 ?????�태????true 리턴</returns>
     private bool CanSaveData()
     {
         int hour6 = (int)TimeOfDay % 360;
@@ -185,7 +185,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
         Month = MonthData[1];
     }
 
-    public int[] MonthDateCalculation(int day) // 0 -> 일, 1 -> 월
+    public int[] MonthDateCalculation(int day) // 0 -> ?? 1 -> ??
     {
         int[] MonthDate = new int[2];
         int date = day;
@@ -194,7 +194,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
         {
             date -= 14;
         }
-        month = (month % 4) + 1; //1~4월
+        month = (month % 4) + 1; //1~4??
         MonthDate[0] = date;
         MonthDate[1] = month;
         return MonthDate;
@@ -222,7 +222,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
     public void SetTimeMorning()
     {
         ForciblySleep = false;
-        SaveDataTime(PlayerName);//자다 일어났을때 저장
+        SaveDataTime(PlayerName);//?�다 ?�어?�을???�??
         CheckEndingQualification();
         if (TimeOfDay < 1440 && TimeOfDay > 120)
         {
@@ -315,7 +315,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
     }
     #endregion
     #endregion
-    public void ResetData() //시작 화면으로 돌아왔을때 데이터 리셋
+    public void ResetData() //?�작 ?�면?�로 ?�아?�을???�이??리셋
     {
         LoadDataTime("Default");
     }
@@ -377,7 +377,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
     {
         Observers.Remove(o);
     }
-    public void NotifyObserver(List <IObserver<GameData>> observer) //observer에 값 전달
+    public void NotifyObserver(List <IObserver<GameData>> observer) //observer??�??�달
     {
         foreach(var _observer in observer)
         {
