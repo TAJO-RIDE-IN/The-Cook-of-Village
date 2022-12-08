@@ -90,7 +90,23 @@ public class CameraMovement : MonoBehaviour
                 }
                 
             }
-            if(!isLocked)
+            if (Input.GetKeyDown(KeyCode.LeftAlt))
+            {
+                if (!isLocked)//캐릭?�로 ?�동
+                {
+                    character.IsLocked = true;
+                    isLocked = true;
+                    return;
+                }
+                else//카메???��??�으�??�동
+                {
+
+                    character.IsLocked = false;
+                    isLocked = false;
+                    return;
+                }
+            }
+            if (!isLocked)
             {
                 if (Input.GetAxis("Mouse ScrollWheel") > 0)
                 {
@@ -111,7 +127,7 @@ public class CameraMovement : MonoBehaviour
                 {
                     preOuterDown = cameraPosition.transform.position.z;
                     distance = Input.GetAxis("Mouse ScrollWheel");
-                    //위로
+                    //?�로
                     if (cameraPosition.transform.position.y < 8)
                     {
                         cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
@@ -156,29 +172,14 @@ public class CameraMovement : MonoBehaviour
                 if (!isAngle)
                 {
                     upDirection = Quaternion.Euler(0, cinemachine.m_XAxis.Value - preAngle, 0) *
-                                  upDirection; //이게 upDirection을 이 회전각도에 따라서 바꿔주는것
+                                  upDirection; //?�게 upDirection?????�전각도???�라??바꿔주는�?
                     preAngle = cinemachine.m_XAxis.Value;
                     isAngle = true;
                     return;
                 }
                 cinemachine.m_XAxis.m_MaxSpeed = 0;
             }
-            if(Input.GetKeyDown(KeyCode.LeftAlt))
-            {
-                if (!isLocked)//캐릭터로 이동
-                {
-                    character.IsLocked = true;
-                    isLocked = true;
-                    return;
-                }
-                else//카메라 포지션으로 이동
-                {
-                    
-                    character.IsLocked = false;
-                    isLocked = false;
-                    return;
-                }
-            }
+            
             
         }
 
