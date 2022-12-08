@@ -129,6 +129,9 @@ public class GuestMove : MonoBehaviour, IObserver<GuestNPC>
                 StartCoroutine(WaitAnimation("Pay", 0.05f, () => Move(Door.position, "Door")));
                 NPCLook(counter.CounterObject.position);             
                 break;
+            case GuestNPC.State.GoOut:
+                this.gameObject.transform.position = Door.position;
+                break;
             default:
                 break;
         }

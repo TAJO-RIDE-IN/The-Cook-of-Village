@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,7 +63,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
     {
         ObserverClear();
         moneyData.TipCount = 0;
-        if (runningCoroutine != null) { StopCoroutine(runningCoroutine); }//??개의 코루?�만 ?�행
+        if (runningCoroutine != null) { StopCoroutine(runningCoroutine); } //시간 코루틴 멈추기
         if (GuestCount > 0)
         {
             ChangeFame(-3 * GuestCount);
@@ -97,7 +97,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
         }
     }
 
-    #region 변??
+    #region 변수
     public string RestaurantName
     {
         get { return gameInfos.playerInfos.RestaurantName; }
@@ -123,7 +123,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
             gameInfos.playerInfos.PlayerName = value;
         }
     }
-    public float TimeOfDay //24?�간 => 1440�?
+    public float TimeOfDay //24?쒓컙 => 1440遺?
     { 
         get { return gameInfos.TimeOfDay; } 
         set 
@@ -141,9 +141,9 @@ public class GameData : DataManager<GameData>, IGameDataOb
 
     [HideInInspector]public bool UseSave = true;
     /// <summary>
-    /// ?�이?��? ?�?�할 ???�는지 ?�인
+    /// 게임을 저장할 수 있는지 확인
     /// </summary>
-    /// <returns>분이 0?�고 ?�?�을 ?????�태????true 리턴</returns>
+    /// <returns>6시간마다 true 출력</returns>
     private bool CanSaveData()
     {
         int hour6 = (int)TimeOfDay % 360;
@@ -185,7 +185,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
         Month = MonthData[1];
     }
 
-    public int[] MonthDateCalculation(int day) // 0 -> ?? 1 -> ??
+    public int[] MonthDateCalculation(int day) // 0 -> 날짜 1 -> 월
     {
         int[] MonthDate = new int[2];
         int date = day;
@@ -194,7 +194,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
         {
             date -= 14;
         }
-        month = (month % 4) + 1; //1~4??
+        month = (month % 4) + 1; //1~4월
         MonthDate[0] = date;
         MonthDate[1] = month;
         return MonthDate;
@@ -222,9 +222,9 @@ public class GameData : DataManager<GameData>, IGameDataOb
     public void SetTimeMorning()
     {
         ForciblySleep = false;
-        SaveDataTime(PlayerName);//?�다 ?�어?�을???�??
+        SaveDataTime(PlayerName);//잠 잘때 데이터 저장
         CheckEndingQualification();
-        if (TimeOfDay < 1440 && TimeOfDay > 120)
+        if (TimeOfDay < 1440 && TimeOfDay > 480)
         {
             Day++;
         }
@@ -315,7 +315,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
     }
     #endregion
     #endregion
-    public void ResetData() //?�작 ?�면?�로 ?�아?�을???�이??리셋
+    public void ResetData() //게임 데이터 리셋
     {
         LoadDataTime("Default");
     }
@@ -377,7 +377,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
     {
         Observers.Remove(o);
     }
-    public void NotifyObserver(List <IObserver<GameData>> observer) //observer??�??�달
+    public void NotifyObserver(List <IObserver<GameData>> observer) //observer불러오기
     {
         foreach(var _observer in observer)
         {

@@ -212,7 +212,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         GameData.Instance.ChangeFame(+3);
         GameData.Instance.GuestCountData(1);
         MoneyData.Instance.TipCount++;
-        MoneyData.Instance.Money += (int)(PayMoney * multiple);
+        MoneyData.Instance.ChangeProceedsData(MoneyData.ProceedDataType.Sales, (int)(PayMoney * multiple));
         foodInfos = null;
         guest.ChangeState(GuestNPC.State.Pay);
     }
@@ -235,6 +235,14 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
                 StartCoroutine(ChangeWithDelay.CheckDelay(foodData.OrderTime, () => Order(FoodProbability.Get()))); //음식 확률에 따라 고르기
                 NPCUI.SetActive(true);
                 OrderFoodImage.sprite = guest.NPCImage.OrderWaitImage;
+            }
+            else if (guestNPC.CurrentState.Equals(GuestNPC.State.GoOut)) //UI 비활성화
+            {
+                NPCUI.SetActive(false);
+                if (currentOrderUI != null)
+                {
+                    currentOrderUI.EndOrder();
+                }
             }
         }
     }
