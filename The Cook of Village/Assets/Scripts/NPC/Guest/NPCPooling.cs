@@ -39,7 +39,7 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
         //일시정지 상태가 아닐 때, isOpen에 따라
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (Time.timeScale != 0.0f && isOpenTime)
+            if (isOpenTime)
             {
                 if (gameManager.IsOpen)
                 {
@@ -181,13 +181,13 @@ public class NPCPooling : ObjectPooling<GuestNPC>, IObserver<GameData>
         if (obj is GameData)
         {
             var GameData = obj;
-            if(obj.TimeOfDay >= 1320 && gameManager.IsOpen)
+            if(obj.TimeOfDay >= 1320)
             {
-                if(isOpenTime)
+                if(gameManager.IsOpen)
                 {
                     CloseRestaurant();
-                    isOpenTime = false;
                 }
+                isOpenTime = false;
             }
             else
             {

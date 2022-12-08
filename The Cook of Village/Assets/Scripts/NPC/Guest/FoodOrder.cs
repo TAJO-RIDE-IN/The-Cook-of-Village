@@ -70,7 +70,7 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
     private IEnumerator WaitingOrder() //주문 기다림
     {
         float Waitingtime = FoodWaitTime;
-        while(FoodWaitTime > 0)
+        while(FoodWaitTime >= 0)
         {
             FoodWaitTime -= Time.deltaTime;
             float ratio = FoodWaitTime / Waitingtime;
@@ -134,7 +134,9 @@ public class FoodOrder : MonoBehaviour, IObserver<GuestNPC>
         }
         else
         {
-            FoodWaitTime -= SaveWaitTime * 0.2f; //패널티 : 음식 기다리는 시간이 10퍼센트 줄음
+            float time = FoodWaitTime - SaveWaitTime * 0.2f;
+            time = (time > 0) ? time : 0;
+            FoodWaitTime = time; //패널티 : 음식 기다리는 시간이 10퍼센트 줄음
             guest.ChangeState(GuestNPC.State.ChaseUP);
             MoneyData.Instance.TipCount = 0;
         }
