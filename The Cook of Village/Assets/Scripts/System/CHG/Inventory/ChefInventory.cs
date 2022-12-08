@@ -39,7 +39,7 @@ public class ChefInventory : MonoBehaviour
 
     public FridgeUI fridgeUI;
     public ChefItemSlotManager chefSlotManager;
-    private int _availableInven = 3;//??Í∞íÏù¥ Î∞îÎÄåÎ©¥ ?∏Î≤§?†Î¶¨ ?†Í∏à???¥Ï†ú?†Í±∞?àÍπê Ï¥àÍ∏∞?îÎèÑ Í≤åÏûÑ?∞Ïù¥?∞Ïóê???òÎ©¥ Ï¢ãÏùÑ??
+    private int _availableInven = 3;//??Í∞íÏù¥ Î∞îÎ?åÎ©¥ ?∏Î≤§?†Î¶¨ ?†Í∏à???¥Ï†ú?†Í±∞?àÍπê Ï¥àÍ∏∞?îÎèÑ Í≤åÏûÑ?∞Ïù¥?∞Ïóê???òÎ©¥ Ï¢ãÏùÑ??
     [HideInInspector]public CookingCharacter _cookingCharacter;
 
     public int AvailableInven
@@ -50,7 +50,7 @@ public class ChefInventory : MonoBehaviour
             _availableInven = value;
         }
     }
-    private int _maxInven = 6;//???òÏóê ?∞Îùº??UI Î∞îÎÄåÎäîÍ±??òÏ§ë??
+    private int _maxInven = 6;//???òÏóê ?∞Îùº??UI Î∞îÎ?åÎäîÍ±??òÏ§ë??
     public int MaxInven
     {
         get { return _maxInven;}
@@ -179,11 +179,11 @@ public class ChefInventory : MonoBehaviour
     {
         if (isUsed[i])
         {
-            if (_cookingCharacter.isSpace)//?∞ÌîÑ?∏Î≤§?†Î¶¨?êÏÑú Î≥¥ÎÇ¥???ëÏóÖ?Ä ?ÑÎ? ?§Ìéò?¥Ïä§Î∞îÎ°ú UIÎ•??¨Îäî Í≤ÉÏóê???úÏûë?òÍ∏∞ ?åÎ¨∏
+            if (_cookingCharacter.isSpace)//?∞ÌîÑ?∏Î≤§?†Î¶¨?êÏÑú Î≥¥ÎÇ¥???ëÏóÖ?? ?ÑÎ? ?§Ìéò?¥Ïä§Î∞îÎ°ú UIÎ•??¨Îäî Í≤ÉÏóê???úÏûë?òÍ∏∞ ?åÎ¨∏
             {
                 if (EdibleItems[i]._itemType == EdibleItem.ItemType.Ingredient)
                 {
-                    if (_cookingCharacter.isToolCollider) //?§Ìéò?¥Ïä§Î∞îÎ? ?âÏû•Í≥†Ïïà?¥ÎÇò?êÏÑú ?ÑÎ•∏Í±??ÑÎãåÏßÄ ?ïÏù∏ => ?§ÏúÑÏπòÎ°ú Î≥ÄÍ≤?
+                    if (_cookingCharacter.isToolCollider) //?§Ìéò?¥Ïä§Î∞îÎ? ?âÏû•Í≥†Ïïà?¥ÎÇò?êÏÑú ?ÑÎ•∏Í±??ÑÎãåÏß? ?ïÏù∏ => ?§ÏúÑÏπòÎ°ú Î≥?Í≤?
                     {
                         if (EdibleItems[i]._ingredientsInfos.ID != 63)
                         {
@@ -236,7 +236,7 @@ public class ChefInventory : MonoBehaviour
                     if (_cookingCharacter.isGuestCollider)
                     {
                         Debug.Log("?åÏãù ?ÑÎã¨ ?ÑÎ£å");
-                        //Í≤åÏä§?∏Í? ?àÎ∞õ?Ä ?ÅÌÉú?ºÎ©¥
+                        //Í≤åÏä§?∏Í? ?àÎ∞õ?? ?ÅÌÉú?ºÎ©¥
                         if (_cookingCharacter._foodOrder.ReceiveFood(EdibleItems[i]._foodInfos.ID))
                         {
                             _cookingCharacter.uiMovement.foodOrderImage.sprite = ImageData.Instance.FindImageData(EdibleItems[i]._foodInfos.ImageID);
@@ -254,7 +254,10 @@ public class ChefInventory : MonoBehaviour
                     {
                         if (_cookingCharacter.trash.AddFood(EdibleItems[i]._foodInfos))
                         {
-                            _cookingCharacter.HoldDish(false);
+                            if (!IsFoodInHand())
+                            {
+                                _cookingCharacter.HoldDish(false);
+                            }
                             SoundManager.Instance.Play(SoundManager.Instance._audioClips["PanIn"]);
                             ChangeInventoryEmpty(i);
                             return;

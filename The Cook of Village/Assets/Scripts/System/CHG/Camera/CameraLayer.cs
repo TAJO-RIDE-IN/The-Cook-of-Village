@@ -23,14 +23,14 @@ public class CameraLayer : MonoBehaviour
             secondFloor.isSecond = value;
             if (value)
             {
-                cameraMovement.outerUp = 13;
-                cameraMovement.outerDown = -11;
+                //cameraMovement.outerUp = 13;
+                //cameraMovement.outerDown = -11;
                 SecondFloor();
             }
             else
             {
-                cameraMovement.outerUp = 9;
-                cameraMovement.outerDown = -9;
+                //cameraMovement.outerUp = 9;
+                //cameraMovement.outerDown = -9;
                 NoSecondFloor();
             }
         }
@@ -57,9 +57,10 @@ public class CameraLayer : MonoBehaviour
         }
     }
 
+    
+
     public void SecondFloor()
     {
-        //Debug.Log("2ì¸µìœ¼ë¡?ë³€ê²?);
         for (int i = 0; i < FurniturePooling.Instance.secondObjects.Count; i++)
         {
             FurniturePooling.Instance.secondObjects[i].layer = 10;
@@ -74,12 +75,10 @@ public class CameraLayer : MonoBehaviour
         {
             child.gameObject.layer = 11;
         }
-        //2ì¸?ë°”ë‹¥ ?ˆì´??InstallPlaceë¡?ë³€ê²½í•´ì£¼ê¸°, ?„ì— ?¤ì¹˜ ê°€?¥í•œ ê²ƒë“¤ ?ˆì´??Install
         _camera.cullingMask |= 1 << LayerMask.NameToLayer("SecondFloor");
     }
     public void NoSecondFloor()
     {
-        //Debug.Log("1ì¸µìœ¼ë¡?ë³€ê²?);
         for (int i = 0; i < FurniturePooling.Instance.secondObjects.Count; i++)
         {
             FurniturePooling.Instance.secondObjects[i].layer = 7;

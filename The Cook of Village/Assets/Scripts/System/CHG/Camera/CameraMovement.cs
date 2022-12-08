@@ -48,7 +48,10 @@ public class CameraMovement : MonoBehaviour
     private bool isAngle = true;
     private bool isLocked;
     private ThirdPersonMovement character;
-   
+    private bool isFirst;
+
+
+
     
     private void Start()
     {
@@ -60,9 +63,8 @@ public class CameraMovement : MonoBehaviour
         upDirection = Vector3.forward;
         _gameManager = GameManager.Instance;
         character = GameObject.FindWithTag("Player").GetComponent<ThirdPersonMovement>();
-
+        cinemachine.m_XAxis.Value += -36;
     }
-
     private void Update()
     {
         if (!_gameManager.IsUI)
@@ -115,7 +117,9 @@ public class CameraMovement : MonoBehaviour
                     distance = Input.GetAxis("Mouse ScrollWheel");
                     if (cameraPosition.transform.position.y > -2)
                     {
+                        float Origin = cameraPosition.transform.position.z;
                         cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
+                        outerDown -= (Origin - cameraPosition.transform.position.z) / 2f;
                         zoomValue += distance;
                         //outerDown += Mathf.Abs(distance);
                         //outerDown += Math.Abs(preOuterDown - cameraPosition.transform.position.z);
@@ -131,7 +135,10 @@ public class CameraMovement : MonoBehaviour
                     //?„ë¡œ
                     if (cameraPosition.transform.position.y < 8)
                     {
+                        float Origin = cameraPosition.transform.position.z;
+                        
                         cameraPosition.transform.Translate(flatCamera.transform.forward * distance * zoomSpeed * Time.deltaTime, Space.World);
+                        outerDown -= (Origin - cameraPosition.transform.position.z) / 2;
                         zoomValue += distance;
                         //outerDown -= Mathf.Abs(distance);
                         //outerDown -= Math.Abs(preOuterDown - cameraPosition.transform.position.z);
@@ -165,6 +172,7 @@ public class CameraMovement : MonoBehaviour
                 //cameraPosition.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
                 cinemachine.m_XAxis.Value += Input.GetAxis("Mouse X");
                 cameraPosition.transform.rotation = Quaternion.Euler(0, flatCamera.transform.eulerAngles.y, 0);
+                Debug.Log(flatCamera.transform.eulerAngles.y);
                 return;
                 //Debug.Log(flatCamera.transform.rotation.y);
             }
@@ -191,6 +199,11 @@ public class CameraMovement : MonoBehaviour
         {
             if (!character.IsLocked)
             {
+                if (!isFirst)
+                {
+                    isFirst = true;
+                    cameraPosition.transform.rotation = Quaternion.Euler(0, flatCamera.transform.eulerAngles.y, 0);
+                }
                 if (cameraPosition.transform.position.x >= outerLeft && cameraPosition.transform.position.x <= outerRight &&
                 cameraPosition.transform.position.z >= outerDown && cameraPosition.transform.position.z <= outerUp)
                 {

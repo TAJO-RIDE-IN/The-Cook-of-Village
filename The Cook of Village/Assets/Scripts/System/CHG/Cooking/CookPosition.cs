@@ -61,7 +61,7 @@ public class CookPosition : MonoBehaviour
         CookPositionUI.SetActive(true);
         UIManager.UIScalePunchAnimation(CookPositionUI);
         //CookPositionUI.LeanScale(Vector3.one, time).setEaseOutElastic();
-        if (index == 6)//?§Î∏ê?¥Î©¥ ÍπúÎπ°?¥ÎäîÍ≤?
+        if (index == 6)//??∫Ï??∏È ±Ù∫˝??¥¬??
         {
             FadeInFadeOut();
         }

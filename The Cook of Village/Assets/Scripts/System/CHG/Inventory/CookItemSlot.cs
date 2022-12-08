@@ -23,7 +23,7 @@ public class CookItemSlot : ItemSlot
         
         if(transform.childCount > 1)
         {
-            slotUI = transform.GetChild(2).GetComponent<UnityEngine.UI.Image>();
+            slotUI = transform.GetChild(3).GetComponent<UnityEngine.UI.Image>();
         }
         else
         {
@@ -86,17 +86,17 @@ public class CookItemSlot : ItemSlot
     public void FoodSlotClick()
     {
         
-        //Debug.Log("?”ë¦¬ ?¸ì¶œ");
+        //Debug.Log("??¸® ??Ãâ");
         if (itemSlotManager.cookingTool.isCooked)
         {
             //if(itemSlotManager.cookingTool.FoodInfos.ID)
-            //Debug.Log("?”ë¦¬ ?„ë£Œ");
+            //Debug.Log("??¸® ??·á");
             if (itemSlotManager.cookingTool.FoodInfos.ID == 40)
             {
                 if ( _chefInventory.AddIngredient(ItemData.Instance.ItemType[4].ItemInfos[0]))
                 {
                     //itemSlotManager.cookingTool.toolBeforeCook
-                    //Debug.Log("?”ë¦¬ ì¶”ê? ?„ë£Œ");
+                    //Debug.Log("??¸® Ãß?? ??·á");
                     ChangeSlotUI(itemSlotManager.cookingTool.toolBeforeCook);
                     //_soundManager.Play(_soundManager._audioClips["Plate"]);
                     itemSlotManager.cookingTool.RemoveFood();
@@ -107,7 +107,7 @@ public class CookItemSlot : ItemSlot
             if ( _chefInventory.AddFood(itemSlotManager.cookingTool.FoodInfos))
             {
                 //itemSlotManager.cookingTool.toolBeforeCook
-                //Debug.Log("?”ë¦¬ ì¶”ê? ?„ë£Œ");
+                //Debug.Log("??¸® Ãß?? ??·á");
                 ChangeSlotUI(itemSlotManager.cookingTool.toolBeforeCook);
                 _soundManager.Play(_soundManager._audioClips["Plate"]);
                 itemSlotManager.cookingTool.RemoveFood();

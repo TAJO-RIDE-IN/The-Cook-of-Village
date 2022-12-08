@@ -77,19 +77,19 @@ public class ToolInstallMode : InstallMode
         for (int i = 0; i < receivedPositionList.Count; i++)
         {
             
-            if (receivedPositionList[i] == x)//ë¦¬ìŠ¤?¸ì— ?ˆë¡œ ë°›ì? ê°?x)ê³?ê°™ì? ê²??†ë‹¤ë©?ë¹¼ì¤˜???˜ë?ë¡?false
+            if (receivedPositionList[i] == x)
             {
                 isList = false;
                 break;
             }
-            else if(receivedPositionList[i] != x)//ë¦¬ìŠ¤?¸ì— ?ˆë¡œ ë°›ì? ê°?x)ê³?ê°™ì? ê²??†ë‹¤ë©??£ì–´???˜ë?ë¡?true
+            else if(receivedPositionList[i] != x)
             {
                 isList = true;
             }
         }
         if (isList)
         {
-            if (toolItemInfosAmount > selectedToolAmount)// = ?´ë¼ë©??´ë? ê°œìˆ˜ë§Œí¼ ??? íƒ??ê²ƒì´ë¯€ë¡?
+            if (toolItemInfosAmount > selectedToolAmount)// = ?´ë¼ë©??´ë? ê°œìˆ˜ë§Œí¼ ??? íƒ??ê²ƒì´ë¯?ë¡?
             {
                 selectedToolAmount++;
                 receivedPositionList.Add(x);
@@ -146,7 +146,7 @@ public class ToolInstallMode : InstallMode
         {
             if (itemInfos.Name == "Oven")
             {
-                //?¤ë¸?€ ?¹ì • ?ë¦¬?ë§Œ ?¤ì¹˜?????ˆìŠµ?ˆë‹¤! ì¶œë ¥
+                //?¤ë¸?? ?¹ì • ?ë¦¬?ë§Œ ?¤ì¹˜?????ˆìŠµ?ˆë‹¤! ì¶œë ¥
                 return;
             }
             
@@ -163,8 +163,8 @@ public class ToolInstallMode : InstallMode
         {
             if (itemInfos.Name == "Oven")
             {
-                //position indexê°€ 6?????¤ë¸???¤ì¹˜?˜ì–´?ˆì? ?Šë‹¤ë©?
-                //?¤ë¸?€ ?¹ì • ?ë¦¬?ë§Œ ?¤ì¹˜?????ˆìŠµ?ˆë‹¤! ì¶œë ¥
+                //position indexê°? 6?????¤ë¸???¤ì¹˜?˜ì–´?ˆì? ?Šë‹¤ë©?
+                //?¤ë¸?? ?¹ì • ?ë¦¬?ë§Œ ?¤ì¹˜?????ˆìŠµ?ˆë‹¤! ì¶œë ¥
                 return;
             }
             GetAndPosition(toolPooling.indexToChange, itemInfos.Name);
@@ -268,7 +268,7 @@ public class ToolInstallMode : InstallMode
 
     
     /// <summary>
-    /// Directê°€ ?„ë‹?Œë§Œ ì·¨ì†Œ?????ˆë„ë¡?
+    /// Directê°? ?„ë‹?Œë§Œ ì·¨ì†Œ?????ˆë„ë¡?
     /// </summary>
     public override void CancelInstall()
     {
