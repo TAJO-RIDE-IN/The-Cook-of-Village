@@ -186,14 +186,10 @@ public class CameraMovement : MonoBehaviour
     }
     void LateUpdate()
     {
-        if (!character.IsLocked)
+        if (Input.GetMouseButton(1) && !Input.GetKey(KeyCode.LeftControl))
         {
-            if (Input.GetMouseButton(1) && !Input.GetKey(KeyCode.LeftControl))
+            if (!character.IsLocked)
             {
-                //Debug.Log(Vector3.forward);
-                //Debug.Log(upDirection);
-            
-                //new Vector3()
                 if (cameraPosition.transform.position.x >= outerLeft && cameraPosition.transform.position.x <= outerRight &&
                     cameraPosition.transform.position.z >= outerDown && cameraPosition.transform.position.z <= outerUp)
                 {
@@ -202,8 +198,13 @@ public class CameraMovement : MonoBehaviour
                     cameraPosition.transform.Translate(-Vector3.right * Input.GetAxis("Mouse X") * dragSpeed * Time.deltaTime,
                         Space.Self);
                 }
-            
+
                 CameraPosition();
+            }
+            else
+            {
+                isLocked = false;
+                character.IsLocked = false;
             }
         }
     }
