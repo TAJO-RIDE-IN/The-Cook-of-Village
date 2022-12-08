@@ -77,9 +77,12 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
         }
     }
     public abstract void UIState(bool state);
-    protected void ShopState(bool state)
+    protected virtual void ShopState(bool state)
     {
-        this.gameObject.SetActive(state);
+        if(!this.gameObject.activeSelf.Equals(state))
+        {
+            this.gameObject.SetActive(state);
+        }
     }
     public abstract void EnterShop();
 
@@ -98,17 +101,13 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
         {
             var GameData = obj;
             bool open;
-            if (npcInfos.work.Equals(NPCInfos.Work.ChocolateShop))//일주일에 한 번만 문 열기 때문에 쉬는 날을 여는 날로 함
+            open = (GameData.Today.Equals(npcInfos.Holiday)) ? false : true;
+            if (npcInfos.work.Equals(NPCInfos.Work.ChocolateShop))
             {
-                open = true;
-                if (!Potion.Brown) //갈색 포션 사용 시 초콜렛 상점 주인이 사라지는 것을 방지
+                if (Potion.Brown)
                 {
-                    open = (GameData.Today.Equals(npcInfos.Holiday)) ? true : false;
+                    open = true;
                 }
-            }
-            else
-            {
-                open = (GameData.Today.Equals(npcInfos.Holiday)) ? false : true;
             }
             isTimeOpen = open;
             ShopState(TodayShopOpen(obj.TimeOfDay, open));
