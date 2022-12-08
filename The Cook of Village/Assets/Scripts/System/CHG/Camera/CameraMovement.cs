@@ -36,6 +36,7 @@ public class CameraMovement : MonoBehaviour
     public CinemachineFreeLook cinemachine;
     private GameManager _gameManager;
     
+
     private Vector3 TargetPosition;
     private Vector3 upDirection;
     private float preAngle;
@@ -191,7 +192,7 @@ public class CameraMovement : MonoBehaviour
             if (!character.IsLocked)
             {
                 if (cameraPosition.transform.position.x >= outerLeft && cameraPosition.transform.position.x <= outerRight &&
-                    cameraPosition.transform.position.z >= outerDown && cameraPosition.transform.position.z <= outerUp)
+                cameraPosition.transform.position.z >= outerDown && cameraPosition.transform.position.z <= outerUp)
                 {
                     cameraPosition.transform.Translate(-cameraPosition.transform.forward * Input.GetAxis("Mouse Y") * dragSpeed * Time.deltaTime
                         , Space.World);
@@ -201,12 +202,14 @@ public class CameraMovement : MonoBehaviour
 
                 CameraPosition();
             }
-            else
+            if (character.IsLocked)
             {
                 isLocked = false;
-                character.IsLocked = false;
+                character.isLocked = false;
             }
+
         }
+        
     }
 
     private void CameraPosition()

@@ -26,7 +26,7 @@ public class SecondFloor : MonoBehaviour
             }
             
         }
-        else//내려갈 때
+        else//?�려�???
         {
             if (cameraLayer.IsSecondFloor)
             {

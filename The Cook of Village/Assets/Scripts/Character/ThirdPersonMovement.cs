@@ -43,7 +43,7 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
     public ParticleSystem particle;
     public Camera particleCamera;
 
-    private bool isLocked;
+    public bool isLocked;
     private bool isShift;
     private bool isShiftUp;
     private float pitch = 1;
