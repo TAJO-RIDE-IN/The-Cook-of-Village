@@ -28,6 +28,7 @@ public class EndingController : MonoBehaviour, IObserver<GameManager>
         gameData = GameData.Instance;
         dialogueManager = DialogueManager.Instance;
         soundManager = SoundManager.Instance;
+        PlayEnding = false;
         AddObserver(gameManager);
     }
     /// <summary>
@@ -60,8 +61,11 @@ public class EndingController : MonoBehaviour, IObserver<GameManager>
     }
     private void AddAction()
     {
-        DialogueAction.Add("EndingStart", () => StartAction());
-        DialogueAction.Add("Ending", () => EndingAction());
+        if(!DialogueAction.ContainsKey("EndingStart"))
+        {
+            DialogueAction.Add("EndingStart", () => StartAction());
+            DialogueAction.Add("Ending", () => EndingAction());
+        }
     }
     /// <summary>
     /// 문장에서 &(Action)이 있을 경우 실행
@@ -154,7 +158,7 @@ public class EndingController : MonoBehaviour, IObserver<GameManager>
     {
         if(obj is GameManager)
         {
-            if(obj.gameMode.Equals(GameManager.GameMode.Ending) || !PlayEnding || !gameData.Ending)
+            if(obj.gameMode.Equals(GameManager.GameMode.Ending) && !PlayEnding && !gameData.Ending)
             {
                 EndingStart();
             }
