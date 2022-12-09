@@ -167,10 +167,12 @@ public class ChefInventory : MonoBehaviour
             {
                 if (EdibleItems[i]._itemType == EdibleItem.ItemType.Food)
                 {
+                    Debug.Log("음식 있음");
                     return true;
                 }
             }
         }
+        Debug.Log("음식 없음");
         return false;
     }
 

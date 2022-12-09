@@ -48,7 +48,6 @@ public class CameraMovement : MonoBehaviour
     private bool isAngle = true;
     private bool isLocked;
     private ThirdPersonMovement character;
-    private bool isFirst;
 
 
 
@@ -63,7 +62,7 @@ public class CameraMovement : MonoBehaviour
         upDirection = Vector3.forward;
         _gameManager = GameManager.Instance;
         character = GameObject.FindWithTag("Player").GetComponent<ThirdPersonMovement>();
-        cinemachine.m_XAxis.Value += -36;
+        //cinemachine.m_XAxis.Value += -36;
     }
     private void Update()
     {
@@ -199,11 +198,11 @@ public class CameraMovement : MonoBehaviour
         {
             if (!character.IsLocked)
             {
-                if (!isFirst)
+                /*if (!isFirst)
                 {
                     isFirst = true;
                     cameraPosition.transform.rotation = Quaternion.Euler(0, flatCamera.transform.eulerAngles.y, 0);
-                }
+                }*/
                 if (cameraPosition.transform.position.x >= outerLeft && cameraPosition.transform.position.x <= outerRight &&
                 cameraPosition.transform.position.z >= outerDown && cameraPosition.transform.position.z <= outerUp)
                 {
