@@ -24,7 +24,6 @@ public class CapemanShopNPC : ShopNPC
         Transform Spawn = SpawnPosition[index];
         this.gameObject.transform.position = Spawn.position;
         this.gameObject.transform.rotation = Spawn.rotation;
-        Debug.Log(index+"제티 위치"+Spawn);
     }
     
 }
