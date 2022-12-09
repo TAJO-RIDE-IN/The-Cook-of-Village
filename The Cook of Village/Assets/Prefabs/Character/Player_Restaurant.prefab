@@ -49,13 +49,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f219efd5f2c68174c88484c493167071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraLayer: {fileID: 0}
   charAnimator: {fileID: 8689249436096407534}
   controller: {fileID: 466699733000371447}
   speed: 90
   originSpeed: 80
   cameraPosition: {fileID: 0}
+  cameraMovement: {fileID: 0}
   particle: {fileID: 0}
   particleCamera: {fileID: 0}
+  cookingCharacter: {fileID: 3637440575944271666}
+  DishObject: {fileID: 4716315733354121719}
   isLocked: 0
 --- !u!143 &466699733000371447
 CharacterController:
@@ -102,13 +106,16 @@ MonoBehaviour:
   - {fileID: -203655887218126122, guid: c79c490b836f04a4daf29bc350835906, type: 3}
   - {fileID: 7400000, guid: 5d6dad55e434ff5418d9bc3ea9b9d0f4, type: 2}
   uiMovement: {fileID: 0}
-  DishObject: {fileID: 0}
+  DishObject: {fileID: 4716315733354121719}
   isToolCollider: 0
   isGuestCollider: 0
   isFridgeCollider: 0
   isCookPositionCollider: 0
+  isObjectCollider: 0
   isHand: 0
   isSpace: 0
+  box: {fileID: 0}
+  text: {fileID: 0}
   objectName: 
 --- !u!81 &6993737094316481877
 AudioListener:
@@ -1062,3 +1069,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9339ac6ff226f7c419cfcb0c1dc74ed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeScene: {fileID: 0}

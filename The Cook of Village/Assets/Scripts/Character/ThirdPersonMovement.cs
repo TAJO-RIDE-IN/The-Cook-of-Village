@@ -43,6 +43,8 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
     public ParticleSystem particle;
     public Camera particleCamera;
 
+    public CookingCharacter cookingCharacter;
+    public GameObject DishObject;
     public bool isLocked;
     private bool isShift;
     private bool isShiftUp;
@@ -160,6 +162,11 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
         {
             if (!isShift)
             {
+                if (cookingCharacter.isHand)
+                {
+                    DishObject.SetActive(false);
+                }
+                
                 speed = originSpeed * 1.4f;
                 charAnimator.SetBool("isRun", true);
                 Pitch = 1.8f;
@@ -171,6 +178,10 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
         {
             if (!isShiftUp)
             {
+                if (cookingCharacter.isHand)
+                {
+                    DishObject.SetActive(true);
+                }
                 Pitch = 1f;
                 speed = originSpeed;
                 charAnimator.SetBool("isRun", false);
