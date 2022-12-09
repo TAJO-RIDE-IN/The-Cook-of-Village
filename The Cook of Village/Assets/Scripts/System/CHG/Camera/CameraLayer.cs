@@ -11,6 +11,9 @@ public class CameraLayer : MonoBehaviour
     private bool isSecondFloor = false;
     public TransIn transIn;
 
+    Transform[] allChildrenPlace;
+    Transform[] allChildrenWall;
+
     public bool IsSecondFloor
     {
         get
@@ -39,7 +42,11 @@ public class CameraLayer : MonoBehaviour
     public GameObject secondInstallWall;
     public CameraMovement cameraMovement;
 
-    
+    private void Start()
+    {
+        allChildrenPlace = secondInstallPlace.GetComponentsInChildren<Transform>();
+        allChildrenWall = secondInstallWall.GetComponentsInChildren<Transform>();
+    }
 
     void Update()
     {
@@ -66,12 +73,14 @@ public class CameraLayer : MonoBehaviour
             FurniturePooling.Instance.secondObjects[i].layer = 10;
         }
         secondInstallPlace.layer = 9;
-        foreach(Transform child in secondInstallPlace.transform)
+        
+        foreach(Transform child in allChildrenPlace)
         {
             child.gameObject.layer = 9;
         }
+        
         secondInstallWall.layer = 11;
-        foreach(Transform child in secondInstallWall.transform)
+        foreach (Transform child in allChildrenWall)
         {
             child.gameObject.layer = 11;
         }
@@ -89,12 +98,12 @@ public class CameraLayer : MonoBehaviour
         }
 
         secondInstallPlace.layer = 7;
-        foreach(Transform child in secondInstallPlace.transform)
+        foreach(Transform child in allChildrenPlace)
         {
             child.gameObject.layer = 7;
         }
         secondInstallWall.layer = 7;
-        foreach(Transform child in secondInstallWall.transform)
+        foreach(Transform child in allChildrenWall)
         {
             child.gameObject.layer = 7;
         }

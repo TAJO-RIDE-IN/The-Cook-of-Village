@@ -254,12 +254,14 @@ public class ChefInventory : MonoBehaviour
                     {
                         if (_cookingCharacter.trash.AddFood(EdibleItems[i]._foodInfos))
                         {
-                            if (!IsFoodInHand())
-                            {
-                                _cookingCharacter.HoldDish(false);
-                            }
+                           
                             SoundManager.Instance.Play(SoundManager.Instance._audioClips["PanIn"]);
                             ChangeInventoryEmpty(i);
+                            if (!IsFoodInHand())
+                            {
+                                Debug.Log("쓰레기통에 버림");
+                                _cookingCharacter.HoldDish(false);
+                            }
                             return;
                         }
                     }

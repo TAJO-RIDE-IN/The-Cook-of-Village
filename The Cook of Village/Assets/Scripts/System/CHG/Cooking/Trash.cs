@@ -12,10 +12,8 @@ public class Trash : MonoBehaviour
     {
         for (int i = 0; i < cookSlotManager.ChildSlotCount; i++)
         {
-            Debug.Log(i+"번째 슬롯 진입");
             if (cookSlotManager.itemslots[i].isUsed == false)
             {
-                Debug.Log(i+"번째 슬롯이 비어있음");
                 trashEdibleItems[i]._itemType = ChefInventory.EdibleItem.ItemType.Ingredient;
                 trashEdibleItems[i]._ingredientsInfos = ingredient;
                 trashEdibleItems[i]._foodInfos = null;
@@ -35,7 +33,7 @@ public class Trash : MonoBehaviour
         {
             if (cookSlotManager.itemslots[i].isUsed == false)
             {
-                //Debug.Log(i+"번째 슬롯이 비어있음");
+                //Debug.Log(i+"번째 ?�롯??비어?�음");
                 trashEdibleItems[i]._itemType = ChefInventory.EdibleItem.ItemType.Food;
                 trashEdibleItems[i]._ingredientsInfos = null;
                 trashEdibleItems[i]._foodInfos = food;
@@ -54,10 +52,10 @@ public class Trash : MonoBehaviour
     {
         BigInventory.SetActive(false);
     }
-    public bool PutTrash(int id, Sprite sprite) //이걸 현재 들고있는게 null이 아닐때만 실행시켜주면 되는데 혹시몰라서 한번 더 조건문 넣음
+    public bool PutTrash(int id, Sprite sprite) //?�걸 ?�재 ?�고?�는�?null???�닐?�만 ?�행?�켜주면 ?�는???�시몰라???�번 ??조건�??�음
     {
         
-        for (int i = 0; i < cookSlotManager.ChildSlotCount; i++) //일단 레시피에 들어가는 최대 재료 개수가 3개라고 했을 때
+        for (int i = 0; i < cookSlotManager.ChildSlotCount; i++) //?�단 ?�시?�에 ?�어가??최�? ?�료 개수가 3개라�??�을 ??
         {
             if (!cookSlotManager.itemslots[i].isUsed)
             {
