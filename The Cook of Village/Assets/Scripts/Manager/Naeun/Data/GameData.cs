@@ -123,7 +123,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
             gameInfos.playerInfos.PlayerName = value;
         }
     }
-    public float TimeOfDay //24?쒓컙 => 1440遺?
+    public float TimeOfDay //24시간 => 1440 분
     { 
         get { return gameInfos.TimeOfDay; } 
         set 
@@ -208,6 +208,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
         get { return forciblySleep; }
         set
         {
+            Debug.Log(value);
             forciblySleep = value;
             if(value)
             {
@@ -215,9 +216,17 @@ public class GameData : DataManager<GameData>, IGameDataOb
             }
         }
     }
+    private bool Morning = false;
     private void CheckForciblySleep()
     {
-        ForciblySleep = (TimeOfDay > 120 && TimeOfDay < 480 && !ForciblySleep);
+        if(!Morning)
+        {
+            if(TimeOfDay > 120 && TimeOfDay < 480)
+            {
+                Morning = true;
+                ForciblySleep = true;
+            }
+        }
     }
     public void SetTimeMorning()
     {
@@ -229,6 +238,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
             Day++;
         }
         TimeOfDay = 480;
+        Morning = false;
     }
     private void CheckEndingQualification()
     {

@@ -80,13 +80,13 @@ public class CookingCharacter : MonoBehaviour
         }
     }
 
-    //isHand ì°?ê±°ì§“ ?ê? ?†ì´ ?¤í–‰?˜ì–´???˜ëŠ” ê²?: ?‰ìž¥ê³? ?ëŸ¬ê°?ê¸? ?¬ë ¥ ë³´ê¸°
+    //isHand ï¿½?ê±°ì§“ ?ï¿½ï¿½? ?ï¿½ì´ ?ï¿½í–‰?ï¿½ì–´???ï¿½ëŠ” ï¿½?: ?ï¿½ìž¥ï¿½? ?ï¿½ëŸ¬ï¿½?ï¿½? ?ï¿½ë ¥ ë³´ê¸°
 
-    private void WhenKeyDown()//?ëž˜ ?¬ë£Œ?£ëŠ” ?¨ìˆ˜???”ë° ?¤íŽ˜?´ìŠ¤ë°”ëˆ„ë¥¼ë•Œ ?¬ë£Œë§??£ëŠ”ê²??„ë‹ˆê³??¤ì–‘?œê±¸ ?˜ëŠ”???¤íŽ˜?´ìŠ¤ë°??„ë???ëª¨ë“  ?¨ìˆ˜ ?¤í–‰?˜ë„ë¡?ìµœì ?”ë? ?„í•´???´ë ‡ê²??˜ê¸°ë¡œí•¨
+    private void WhenKeyDown()//?ï¿½ëž˜ ?ï¿½ë£Œ?ï¿½ëŠ” ?ï¿½ìˆ˜???ï¿½ë° ?ï¿½íŽ˜?ï¿½ìŠ¤ë°”ëˆ„ë¥¼ë•Œ ?ï¿½ë£Œï¿½??ï¿½ëŠ”ï¿½??ï¿½ë‹ˆï¿½??ï¿½ì–‘?ï¿½ê±¸ ?ï¿½ëŠ”???ï¿½íŽ˜?ï¿½ìŠ¤ï¿½??ï¿½ï¿½???ëª¨ë“  ?ï¿½ìˆ˜ ?ï¿½í–‰?ï¿½ë„ï¿½?ìµœì ?ï¿½ï¿½? ?ï¿½í•´???ï¿½ë ‡ï¿½??ï¿½ê¸°ë¡œí•¨
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (isToolCollider)//?”ë¦¬?„êµ¬???¤ì–´ê°”ì„?Œë§Œ,?”ë¦¬ì¤‘ì´ ?„ë‹?Œë§Œ ?¬ë£Œ?£ëŠ”ê±??¤í–‰
+            if (isToolCollider)//?ï¿½ë¦¬?ï¿½êµ¬???ï¿½ì–´ê°”ì„?ï¿½ë§Œ,?ï¿½ë¦¬ì¤‘ì´ ?ï¿½ë‹?ï¿½ë§Œ ?ï¿½ë£Œ?ï¿½ëŠ”ï¿½??ï¿½í–‰
             {
                 if (isSpace)
                 {
@@ -112,7 +112,7 @@ public class CookingCharacter : MonoBehaviour
                     {
                         uiMovement.CloseUI();
                         isSpace = false;
-                        //UI ?„ìš°ê¸?
+                        //UI ?ï¿½ìš°ï¿½?
                         return;
                     }
                 }
@@ -122,7 +122,7 @@ public class CookingCharacter : MonoBehaviour
                     {
                         uiMovement.ShowUI();
                         isSpace = true;
-                        //UI ?„ê¸°
+                        //UI ?ï¿½ê¸°
                         return;
                     }
                 }
@@ -154,7 +154,7 @@ public class CookingCharacter : MonoBehaviour
                 if (objectName.Equals("Bed"))
                 {
                     GameData.Instance.SetTimeMorning();
-                    //Debug.Log("?„ì¹¨?¼ë¡œ ë³?ê²?);
+                    //Debug.Log("?ï¿½ì¹¨?ï¿½ë¡œ ï¿½?ï¿½?);
                     return;
                 }
 
@@ -164,7 +164,7 @@ public class CookingCharacter : MonoBehaviour
                         .ItemInfos[0]))
                     {
                         return;
-                        //?ë°˜??ë°?ê°?ë£??ì„±
+                        //?ï¿½ë°˜??ï¿½?ï¿½?ï¿½??ï¿½ì„±
                     }
                 }
                 if (objectName.Equals("Sugar"))
@@ -173,7 +173,7 @@ public class CookingCharacter : MonoBehaviour
                         .ItemInfos[1]))
                     {
                         return;
-                        //?ë°˜??ë°?ê°?ë£??ì„±
+                        //?ï¿½ë°˜??ï¿½?ï¿½?ï¿½??ï¿½ì„±
                     }
                 }
                 if (objectName.Equals("Cabinet"))
@@ -191,7 +191,7 @@ public class CookingCharacter : MonoBehaviour
                 }
                 if (objectName.Equals("Trash"))
                 {
-                    if (!isSpace) //?¬ëŠ” ?í™©
+                    if (!isSpace) //?ï¿½ëŠ” ?ï¿½í™©
                     {
                         isSpace = true;
                         TrashUI.SetActive(true);
@@ -218,8 +218,6 @@ public class CookingCharacter : MonoBehaviour
                     if (_gameData.TimeOfDay > 1200 || _gameData.TimeOfDay < 120)
                     {
                         _thirdPersonMovement.StartSleepParticle(_gameData);
-                       
-                        _gameData.SetTimeMorning();
                     }
                     else
                     {
