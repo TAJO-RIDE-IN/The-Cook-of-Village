@@ -66,7 +66,7 @@ public class FurnitureInstallMode : InstallMode
         _gameManager = GameManager.Instance;
         _soundManager = SoundManager.Instance;
 
-        //책상, 의자, 가구 순으로 설치
+        //책상, ?�자, 가�??�으�??�치
     }
 
     public void InstallWhenStart()
@@ -86,7 +86,7 @@ public class FurnitureInstallMode : InstallMode
         {
             GetAndTransform(_installData.furnitureData.vecRotNames[i].vector,
                 _installData.furnitureData.vecRotNames[i].rotation,
-                _installData.furnitureData.vecRotNames[i].name);
+                _installData.furnitureData.vecRotNames[i].name, _installData.furnitureData.vecRotNames[i].isSecond);
         }
     }
     void Update()
@@ -103,7 +103,7 @@ public class FurnitureInstallMode : InstallMode
                 }
                 if (Input.GetMouseButtonDown(0))
                 {
-                    Debug.Log("실행");
+                    Debug.Log("?�행");
                     PlaceObject(currentObjectName);
                 }
             }
@@ -115,7 +115,7 @@ public class FurnitureInstallMode : InstallMode
             }
             if (Input.GetMouseButtonDown(0))
             {
-                //Debug.Log("실행");
+                //Debug.Log("?�행");
                 PlaceObject(currentObjectName);
             }
         }
@@ -240,7 +240,7 @@ public class FurnitureInstallMode : InstallMode
 
     private bool ChairNameCheck(String name)
     {
-        for (int i = 11; i < 13; i++)//의자만 특수한 UI 띄움
+        for (int i = 11; i < 13; i++)//?�자�??�수??UI ?��?
         {
             if (name == _furniturePooling.poolObjectData[i].name)
             {
@@ -251,7 +251,7 @@ public class FurnitureInstallMode : InstallMode
     }
     private bool NameCheckWall(String name)
     {
-        for (int i = 0; i < 2; i++)//의자만 특수한 UI 띄움
+        for (int i = 0; i < 2; i++)//?�자�??�수??UI ?��?
         {
             if (name == _furniturePooling.poolObjectData[i].name)
             {
@@ -262,7 +262,7 @@ public class FurnitureInstallMode : InstallMode
     }
     private void InstallPossible()
     {
-        for (int i = 2; i < 10; i++)//의자만 특수한 UI 띄움
+        for (int i = 2; i < 10; i++)//?�자�??�수??UI ?��?
         {
             for (int j = 0; j < _furniturePooling.poolObjectData[i].pooledObjects.Count; j++)
             {
@@ -272,7 +272,7 @@ public class FurnitureInstallMode : InstallMode
     }
     private void InstallImpossible()
     {
-        for (int i = 2; i < 10; i++)//의자만 특수한 UI 띄움
+        for (int i = 2; i < 10; i++)//?�자�??�수??UI ?��?
         {
             for (int j = 0; j < _furniturePooling.poolObjectData[i].pooledObjects.Count; j++)
             {
@@ -290,7 +290,7 @@ public class FurnitureInstallMode : InstallMode
         {
             if (tableChairs[j].chairCount < 4)
             {
-                secondDis = Vector3.Distance(pendingObject.transform.position, tableChairs[j].tablePos);//테이블과의 거리차이
+                secondDis = Vector3.Distance(pendingObject.transform.position, tableChairs[j].tablePos);//?�이블과??거리차이
                 //Debug.Log(secondDis);
                 if (secondDis < firstDis)
                 {
@@ -309,7 +309,7 @@ public class FurnitureInstallMode : InstallMode
         _itemInfos = infos;
         if (ChairNameCheck(infos.Name))
         {
-            for (int j = 0; j < tableChairs.Count; j++)//의자를 설치할 수 있는지 확인하는 과정
+            for (int j = 0; j < tableChairs.Count; j++)//?�자�??�치?????�는지 ?�인?�는 과정
             {
                 if (tableChairs[j].chairCount < 4)
                 {
@@ -348,9 +348,9 @@ public class FurnitureInstallMode : InstallMode
     }
 
 
-    public void PlaceObject(String name)//테이블과 의자 정보는 테이블의자 클래스에 저장, 그 외는 pooledObjects에 저장
+    public void PlaceObject(String name)//?�이블과 ?�자 ?�보???�이블의???�래?�에 ?�?? �??�는 pooledObjects???�??
     {
-        if (name == "WoodTable")//테이블이면 클래스 리스트 하나 추가
+        if (name == "WoodTable")//?�이블이�??�래??리스???�나 추�?
         {
             currentData = new TableChair();
             currentData.tablePos = pendingObject.transform.position;
@@ -421,7 +421,7 @@ public class FurnitureInstallMode : InstallMode
         noticeUI[i].SetActive(false);
     }
     
-    private void GetAndTransform(Vector3 vector3, Vector3 rotation, String name)
+    private void GetAndTransform(Vector3 vector3, Vector3 rotation, String name, bool isSec)
     {
         objectToInstall = _furniturePooling.GetObject(name);
         objectToInstall.transform.position = vector3;

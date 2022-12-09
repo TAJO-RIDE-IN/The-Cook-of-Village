@@ -41,12 +41,14 @@ public class VecRotName
     public Vector3 vector;
     public Vector3 rotation;
     public string name;
+    public bool isSecond;
 
-    public VecRotName(Vector3 trans, Vector3 rot ,string b)
+    public VecRotName(Vector3 trans, Vector3 rot ,string b, bool isSec = false)
     {
         vector = trans;
         rotation = rot;
         name = b;
+        isSecond = isSec;
     }
 }
 
@@ -63,9 +65,6 @@ public class PositionName
     }
 }
 
-/// <summary>
-/// 이건 나중에 할거(모든 데이터 하나로 합치는 것)
-/// </summary>
 [Serializable]
 public class InstallObjectData 
 {
