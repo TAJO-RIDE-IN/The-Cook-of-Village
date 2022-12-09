@@ -208,7 +208,7 @@ public class ThirdPersonGravity : MonoBehaviour, IObserver<GameData>
     }
     public void WhenGetOutStore()
     {
-        cinemachine.m_YAxis.m_MaxSpeed = 300;
+        cinemachine.m_YAxis.m_MaxSpeed = 2;
         cinemachine.m_XAxis.m_Wrap = true;
         cinemachine.m_XAxis.m_MinValue = -180;
         cinemachine.m_XAxis.m_MaxValue = 180;
@@ -224,7 +224,7 @@ public class ThirdPersonGravity : MonoBehaviour, IObserver<GameData>
         }
         public void MovingXYAxis()
         {
-            cinemachine.m_XAxis.m_MaxSpeed = 300;
+            cinemachine.m_XAxis.m_MaxSpeed = 150;
             cinemachine.m_YAxis.m_MaxSpeed = 2;
         }
     public void StopWalking()
