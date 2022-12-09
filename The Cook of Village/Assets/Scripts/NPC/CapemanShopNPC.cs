@@ -9,10 +9,7 @@ public class CapemanShopNPC : ShopNPC
     {
         SetPositon();
     }
-    public Transform CapemanPosition()
-    {
-        return SpawnPosition[Random.Range(0, SpawnPosition.Length)];
-    }
+
     protected override void ShopState(bool state)
     {
         base.ShopState(state);
@@ -23,8 +20,11 @@ public class CapemanShopNPC : ShopNPC
     }
     private void SetPositon()
     {
-        this.gameObject.transform.position = CapemanPosition().position;
-        this.gameObject.transform.rotation = CapemanPosition().rotation;
+        int index = Random.Range(0, SpawnPosition.Length);
+        Transform Spawn = SpawnPosition[index];
+        this.gameObject.transform.position = Spawn.position;
+        this.gameObject.transform.rotation = Spawn.rotation;
+        Debug.Log(index+"제티 위치"+Spawn);
     }
     
 }

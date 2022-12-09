@@ -6,15 +6,18 @@ public class CounterCheck : MonoBehaviour
 {
     public CounterQueue counter;
 
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerStay(Collider other)
     {
         if(counter.waitngQueue.GuestQueue.Count > 0)
         {
             if (other.CompareTag("Guest"))
             {
-                if (counter.waitngQueue.GuestQueue.Peek().Equals(other.gameObject))
+                if(other.GetComponent<GuestNPC>().CurrentState.Equals(GuestNPC.State.Idle))
                 {
-                    counter.CanPayNPC = other.gameObject;
+                    if (counter.waitngQueue.GuestQueue.Peek().Equals(other.gameObject))
+                    {
+                        counter.CanPayNPC = other.gameObject;
+                    }
                 }
             }
         }

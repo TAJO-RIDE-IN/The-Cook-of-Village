@@ -197,7 +197,6 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
     }
     public void StopWalking()
     {
-        Debug.Log("∞»¡§∑·");
         isCanWalk = false;
         isWalkSound = false;
         if (soundManager != null)
@@ -208,7 +207,6 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
     }
     public void StartWalking()
     {
-        Debug.Log("∞»±‚Ω√¿€");
         isCanWalk = true;
     }
 
