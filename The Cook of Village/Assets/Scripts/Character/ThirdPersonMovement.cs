@@ -39,7 +39,7 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
 
     public CameraLayer cameraLayer;
     public Animator charAnimator;
-    private Transform _camera;
+    public Transform _camera;
     public CharacterController controller;
     public float speed = 80f;
     public float originSpeed = 80f;
@@ -110,6 +110,8 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
 
     private void Start()
     {
+        AddObserver(GameData.Instance);
+        soundManager = SoundManager.Instance;
         //particleCamera.depth = 1;
         if (GameData.Instance.isPassOut)
         {
@@ -122,9 +124,7 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
             GameData.Instance.isPassOut = false;
 
         }
-        AddObserver(GameData.Instance);
-        soundManager = SoundManager.Instance;
-        _camera = Camera.main.transform;
+       
     }
 
     // Update is called once per frame
@@ -159,7 +159,11 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
             else
             {
                 charAnimator.SetBool("isWalk", false);
-                soundManager.StopEffect3D(gameObject);
+                if(soundManager != null)
+                {
+                    soundManager.StopEffect3D(gameObject);
+                }
+                
                 isWalkSound = false;
             }
         }
@@ -197,6 +201,7 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
     }
     public void StopWalking()
     {
+        Debug.Log("∞»¡§∑·");
         isCanWalk = false;
         isWalkSound = false;
         if (soundManager != null)
@@ -207,6 +212,7 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
     }
     public void StartWalking()
     {
+        Debug.Log("∞»±‚Ω√¿€");
         isCanWalk = true;
     }
 
