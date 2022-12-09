@@ -28,7 +28,7 @@ public class PlayerData : DataManager<PlayerData>
         return yymmdd + hhmmss;
     }
     /// <summary>
-    /// PlayerData Æú´õ ¾ÈÀÇ µ¥ÀÌÅÍ¸¦ Ã£°í ºÒ·¯¿Â´Ù.
+    /// PlayerData ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ Ã£ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Â´ï¿½.
     /// </summary>
     private void LoadPlayerData()
     {
@@ -36,10 +36,10 @@ public class PlayerData : DataManager<PlayerData>
         if (Directory.Exists(FilePath))
         {
             DirectoryInfo fileinfo = new DirectoryInfo(FilePath);
-            DirectoryInfo[] files = fileinfo.GetDirectories().OrderBy(p => p.LastWriteTime).ToArray(); //¼öÁ¤ÇÑ ³¯Â¥¼øÀ¸·Î Á¤·Ä
+            DirectoryInfo[] files = fileinfo.GetDirectories().OrderBy(p => p.LastWriteTime).ToArray(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             foreach(var file in fileinfo.GetDirectories())
             {
-                if(file.Name != "Default" && file.Name != "ÇÃ·¹ÀÌ¾î ÀÌ¸§_0")
+                if(file.Name != "Default" || file.Name != "_0")
                 {
                     GameInfos infos = new GameInfos();
                     LoadData(ref infos, "GameData", file.Name);
@@ -68,7 +68,7 @@ public class PlayerData : DataManager<PlayerData>
         gameData.PlayerName = info.PlayerName;
         gameData.LoadDataTime("Load");
     }
-    public override void SaveDataTime(string PlayName) //µ¥ÀÌÅÍ¸¦ ºÒ·¯¿À±â¸¸ ÇÔ.
+    public override void SaveDataTime(string PlayName) //ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½â¸¸ ï¿½ï¿½.
     {
     }
 }

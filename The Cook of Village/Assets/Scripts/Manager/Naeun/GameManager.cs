@@ -144,6 +144,7 @@ public class GameManager : Singletion<GameManager>, IGameManagerOb
         switch (index)
         {
             case 0: //시작
+                potionController.StartSceneInit();
                 CursorControl(true);
                 break;
             case 1: //로딩

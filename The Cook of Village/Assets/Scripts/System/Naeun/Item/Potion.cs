@@ -52,7 +52,10 @@ public class Potion : Singletion<Potion>, IPotionOb
         if (Red) { UseRedPotion(RedEffectNum); }
         NotifyObserver();
     }
-
+    public void StartSceneInit()
+    {
+        ResetPotion();
+    }
     public void VillageSceneInit()
     {
         VillagePlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonGravity>();

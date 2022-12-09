@@ -160,7 +160,6 @@ public class GameData : DataManager<GameData>, IGameDataOb
         set
         {
             gameInfos.playerInfos.Day = value;
-            Potion.Instance.ResetPotion();
             moneyData.ChangeBank(npcData.LikeabilityEffect(NPCInfos.Work.Bank));
             npcData.ResetData();
             itemData.ResetData();
@@ -238,6 +237,7 @@ public class GameData : DataManager<GameData>, IGameDataOb
             Day++;
         }
         TimeOfDay = 480;
+        Potion.Instance.ResetPotion();
         Morning = false;
     }
     private void CheckEndingQualification()
