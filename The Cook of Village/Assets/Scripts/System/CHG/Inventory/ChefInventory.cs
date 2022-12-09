@@ -259,6 +259,7 @@ public class ChefInventory : MonoBehaviour
                            
                             SoundManager.Instance.Play(SoundManager.Instance._audioClips["PanIn"]);
                             ChangeInventoryEmpty(i);
+                            EdibleItems[i]._foodInfos = null;
                             if (!IsFoodInHand())
                             {
                                 Debug.Log("쓰레기통에 버림");
