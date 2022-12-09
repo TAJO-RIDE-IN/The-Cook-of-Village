@@ -217,7 +217,8 @@ public class CookingCharacter : MonoBehaviour
                 {
                     if (_gameData.TimeOfDay > 1200 || _gameData.TimeOfDay < 120)
                     {
-                        StartCoroutine(_thirdPersonMovement.WaitParticle());
+                        _thirdPersonMovement.StartSleepParticle(_gameData);
+                       
                         _gameData.SetTimeMorning();
                     }
                     else

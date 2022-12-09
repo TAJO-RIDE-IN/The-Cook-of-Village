@@ -9,23 +9,28 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
     {
         if (obj is GameData)
         {
-            StartCoroutine(WaitParticle());
+            StartSleepParticle(obj);
             transform.position = new Vector3(-8, 2.238f, 8);
             cameraMovement.outerUp = 13;
             cameraMovement.outerDown = -11;
             cameraLayer.SecondFloor();
             cameraPosition.transform.position = transform.position;
             cameraLayer.transIn.Change();
-            obj.SetTimeMorning();
+            
         }
     }
-
-    public IEnumerator WaitParticle()
+    public void StartSleepParticle(GameData obj)
     {
+        StopWalking();
         particle.gameObject.SetActive(true);
         particle.Play();
-        yield return new WaitForSeconds(2);
+        StartCoroutine(ChangeWithDelay.CheckDelay(1.8f, () => WaitParticle(obj)));
+    }
+    public void WaitParticle(GameData gameData)
+    {
         particle.gameObject.SetActive(false);
+        gameData.SetTimeMorning();
+        StartWalking();
     }
     public void AddObserver(IGameDataOb o)
     {
@@ -192,6 +197,7 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
     }
     public void StopWalking()
     {
+        Debug.Log("∞»¡§∑·");
         isCanWalk = false;
         isWalkSound = false;
         if (soundManager != null)
@@ -202,6 +208,7 @@ public class ThirdPersonMovement : MonoBehaviour, IObserver<GameData>
     }
     public void StartWalking()
     {
+        Debug.Log("∞»±‚Ω√¿€");
         isCanWalk = true;
     }
 
