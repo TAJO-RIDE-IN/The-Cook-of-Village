@@ -42,7 +42,7 @@ public class CameraLayer : MonoBehaviour
     public GameObject secondInstallWall;
     public CameraMovement cameraMovement;
 
-    private void Start()
+    private void OnEnable()
     {
         allChildrenPlace = secondInstallPlace.GetComponentsInChildren<Transform>();
         allChildrenWall = secondInstallWall.GetComponentsInChildren<Transform>();
