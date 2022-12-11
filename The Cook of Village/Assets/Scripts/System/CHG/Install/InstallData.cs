@@ -26,12 +26,14 @@ public class ChairPositionName
     public Vector3 vector3;
     public string name;
     public int tableIndex;
+    public bool isSecond;
 
-    public ChairPositionName(Vector3 vt3, string b, int index)
+    public ChairPositionName(Vector3 vt3, string b, int index, bool isSec = false)
     {
         vector3 = vt3;
         name = b;
         tableIndex = index;
+        isSecond = isSec;
     }
 }
 
@@ -94,7 +96,7 @@ public class FurnitureData
 [Serializable]
 public class TableData
 {
-    public List<Vector3> vector = new List<Vector3>();
+    public List<VecRotName> vectorRotNames = new List<VecRotName>();
 }
 
 public class InstallData : DataManager<InstallData>
@@ -132,24 +134,25 @@ public class InstallData : DataManager<InstallData>
     }
 
 
-    public void PassVector3Data(SortOfInstall sortOfInstall, Vector3 vt3, string name = "", int tableNumber = 0)
+    public void PassVector3Data(SortOfInstall sortOfInstall, Vector3 vt3, string name = "", int tableNumber = 0, bool isSecond = false)
     {
         if (sortOfInstall == SortOfInstall.Chair)
         {
-            chairData.positionNames.Add(new ChairPositionName(vt3, name, tableNumber));
+            chairData.positionNames.Add(new ChairPositionName(vt3, name, tableNumber, isSecond));
         }
 
-        if (sortOfInstall == SortOfInstall.Table)
-        {
-            tableData.vector.Add(vt3);
-        }
+        
 
     }
-    public void PassVecRotData(SortOfInstall sortOfInstall, Vector3 trans, Vector3 rot, string name = "")
+    public void PassVecRotData(SortOfInstall sortOfInstall, Vector3 trans, Vector3 rot, string name = "", bool isSecond = false)
     {
         if (sortOfInstall == SortOfInstall.Furnitue)
         {
-            furnitureData.vecRotNames.Add(new VecRotName(trans, rot, name));
+            furnitureData.vecRotNames.Add(new VecRotName(trans, rot, name, isSecond));
+        }
+        if (sortOfInstall == SortOfInstall.Table)
+        {
+            tableData.vectorRotNames.Add(new VecRotName(trans, rot, name, isSecond));
         }
     }
 
@@ -181,11 +184,11 @@ public class InstallData : DataManager<InstallData>
             }
             case SortOfInstall.Table:
             {
-                for (int i = 0; i < tableData.vector.Count; i++)
+                for (int i = 0; i < tableData.vectorRotNames.Count; i++)
                 {
-                    if (tableData.vector[i] == deleteVector3)
+                    if (tableData.vectorRotNames[i].vector == deleteVector3)
                     {
-                        tableData.vector.RemoveAt(i);
+                        tableData.vectorRotNames.RemoveAt(i);
                     }
                 }
                 break;
