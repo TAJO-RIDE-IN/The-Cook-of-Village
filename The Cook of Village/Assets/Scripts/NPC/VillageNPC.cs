@@ -91,10 +91,7 @@ public abstract class VillageNPC : MonoBehaviour, IObserver<GameData>
     {
         o.AddObserver(this);
     }
-    public void RemoveObserver(IGameDataOb o)
-    {
-        o.RemoveObserver(this);
-    }
+
     public void Change(GameData obj)
     {
         if (obj is GameData)

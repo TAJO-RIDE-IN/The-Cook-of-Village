@@ -20,7 +20,7 @@ public class PlayerData : DataManager<PlayerData>
         gameData = GameData.Instance;
         gameData.ResetData(); 
     }
-    private string CreateID()
+    private string CreateID() //플레이어의 ID를 생성한다.
     {
         DateTime currentTime = DateTime.Now;
         string yymmdd = currentTime.ToString("yyyyMMdd");
@@ -28,18 +28,18 @@ public class PlayerData : DataManager<PlayerData>
         return yymmdd + hhmmss;
     }
     /// <summary>
-    /// PlayerData ���� ���� �����͸� ã�� �ҷ��´�.
+    /// PlayerData의 데이터를 불러온다.
     /// </summary>
-    private void LoadPlayerData()
+    private void LoadPlayerData() //이어하기에 나타낼 데이터를 불러온다.
     {
         playerInfos.Clear();
         if (Directory.Exists(FilePath))
         {
             DirectoryInfo fileinfo = new DirectoryInfo(FilePath);
-            DirectoryInfo[] files = fileinfo.GetDirectories().OrderBy(p => p.LastWriteTime).ToArray(); //������ ��¥������ ����
+            DirectoryInfo[] files = fileinfo.GetDirectories().OrderBy(p => p.LastWriteTime).ToArray();
             foreach(var file in fileinfo.GetDirectories())
             {
-                if(file.Name != "Default" || file.Name != "_0")
+                if(file.Name != "Default") //Default는 기본데이터이기 때문에 불어오지 않는다.
                 {
                     GameInfos infos = new GameInfos();
                     LoadData(ref infos, "GameData", file.Name);
@@ -48,27 +48,27 @@ public class PlayerData : DataManager<PlayerData>
             }
         }
     }
-    public void AddNewPlayer(PlayerInfos info)
+    public void AddNewPlayer(PlayerInfos info) //새로운 플레이어 데이터를 생성한다.
     {
         gameData.PlayerID = CreateID();
         gameData.PlayerName = info.PlayerName;
         gameData.RestaurantName = info.RestaurantName;
         gameData.SaveDataTime(gameData.PlayerName);
     }
-    public void DeleteData(PlayerInfos info)
+    public void DeleteData(PlayerInfos info) //컴퓨터에 저장된 플레이어 데이터를 삭제한다.
     {
         string PlayName = info.PlayerName + "_" + info.PlayerID;
         DirectoryInfo fileinfo = new DirectoryInfo(FilePath + "/" + PlayName);
         fileinfo.Delete(true);
         playerInfos.Remove(info);
     }
-    public void ContinuePlayer(PlayerInfos info)
+    public void ContinuePlayer(PlayerInfos info) //선택한 데이터로 바꾸어준다.
     {
         gameData.PlayerID = info.PlayerID;
         gameData.PlayerName = info.PlayerName;
         gameData.LoadDataTime("Load");
     }
-    public override void SaveDataTime(string PlayName) //�����͸� �ҷ����⸸ ��.
+    public override void SaveDataTime(string PlayName) //값을 저장하지 않는다.
     {
     }
 }
