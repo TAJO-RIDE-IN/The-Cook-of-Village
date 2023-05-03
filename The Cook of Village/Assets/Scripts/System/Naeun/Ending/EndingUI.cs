@@ -68,7 +68,7 @@ public class EndingUI : MonoBehaviour
     {
         (string, bool, bool, bool) Dialogue = dialogueManager.Dialogue();
         string[] newSentence = ModifySentence(Dialogue.Item1);
-        dialogueManager.TypingEffet(SentenceText, newSentence[0]);
+        dialogueManager.TypingEffect(SentenceText, newSentence[0]);
         NameCheck(newSentence[1]);
         Action(Dialogue.Item4);
         DialogueState(!Dialogue.Item3);

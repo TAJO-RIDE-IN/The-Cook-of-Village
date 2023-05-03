@@ -62,7 +62,7 @@ public class TutorialUI : MonoBehaviour, IDialogue
     public void DialogueText(int answer = 0)
     {
         (string, bool, bool, bool) Dialogue = dialogueManager.Dialogue(answer);
-        dialogueManager.TypingEffet(SentenceText, Dialogue.Item1);
+        dialogueManager.TypingEffect(SentenceText, Dialogue.Item1);
         ButtonState(Dialogue.Item2, Dialogue.Item4, !Dialogue.Item3);
         Action(Dialogue.Item4);
         DialogueState(!Dialogue.Item3);

@@ -141,7 +141,7 @@ public class DialogueManager : Singletion<DialogueManager>
     private string InsertText;
     private int InsertIndex;
     private int EndRichIndex;
-    public void TypingEffet(Text _text, string _sentence)
+    public void TypingEffect(Text _text, string _sentence)
     {
         isColorRich = false;
         if (TypingCorutine != null)
